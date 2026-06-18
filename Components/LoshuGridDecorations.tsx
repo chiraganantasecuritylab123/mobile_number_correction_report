@@ -112,7 +112,7 @@ export function PresentDot({ className }: { className?: string }) {
 export function MissingRing({ className }: { className?: string }) {
   return (
     <span
-      className={`inline-block h-2.5 w-2.5 rounded-full border border-dashed ${className ?? ""}`}
+      className={`inline-block h-2.5 w-2.5 rounded-full border-2 border-dashed ${className ?? ""}`}
       style={{ borderColor: "#c45c3e" }}
     />
   );

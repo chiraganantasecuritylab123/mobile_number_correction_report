@@ -1,12 +1,8 @@
 import { Smartphone } from "lucide-react";
-import { LotusIcon } from "./CoverPageDecorations";
-import {
-  PageFooterBar,
-  VisualNumerologyChart,
-} from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
 import { cinzel } from "@/app/fonts";
+import { CoverLotus } from "./CommunComponents";
 
 export type NumeroscopeProps = {
   birthDate?: string;
@@ -315,31 +311,31 @@ export default function Numeroscope({
   soulUrgeNumber = 7,
   personalityNumber = 6,
   coreVibration = 7,
-  footerSummary = "These core vibrations form the foundation of your numerological blueprint — guiding your personality, destiny, and energetic alignment.",
+  footerSummary = "These core vibrations form the foundation of your numerology blueprint. They reveal your natural strengths, purpose, and the path to your highest potential.",
   pageNumber = "02",
 }: NumeroscopeProps) {
   const firstLetters = firstName.split("");
   const lastLetters = lastName.split("");
 
   return (
-    <ReportPageShell padding="20px 40px 52px">
+    <ReportPageShell padding="20px 40px 52px" pageNumber='02'>
       <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/ganesha-logo.png"
           alt="Astro Aarambh"
           width={100}
           height={100}
-          className="mb-5"
+          className="mb-2"
           priority
         />
         <div className="flex items-center gap-2">
           <Pattern3 size={50} />
-          <p className="text-[16px] font-semibold tracking-[0.2em] " style={{ color: COLORS.brown }}>
+          <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
             ASTRO AARAMBH
           </p>
           <Pattern3 size={50} className="rotate-180" />
         </div>
-        <h1 className="mt-1 text-[40px] font-bold tracking-widest" style={{ color: COLORS.brown }}>
+        <h1 className="text-[40px] font-bold" style={{ color: COLORS.brown, lineHeight: "1.2" }}>
           NUMEROSCOPE
         </h1>
         <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
@@ -494,7 +490,7 @@ export default function Numeroscope({
         {/* Mobile Number Vibration */}
         <div>
           <NumeroscopeSectionHeader title="3. MOBILE NUMBER VIBRATION" />
-          <div className="px-3 py-3" style={CORE_CARD_STYLE}>
+          <div className="px-3 py-6" style={{...CORE_CARD_STYLE , marginTop: "28px"}}>
             <p
               className="text-[8px] font-bold tracking-wider"
               style={{ color: COLORS.gold, ...TEXT_UPPER }}
@@ -586,38 +582,55 @@ export default function Numeroscope({
         {/* Visual Numerology Chart */}
         <div>
           <NumeroscopeSectionHeader title="4. VISUAL NUMEROLOGY CHART (PYTHAGOREAN SYSTEM)" />
-          <div className="flex items-center justify-center px-2 py-2" style={CORE_CARD_STYLE}>
-            <VisualNumerologyChart
-              className="h-[200px] w-full max-w-[300px]"
-              coreValue={coreVibration}
-              nodes={chartNodes(
-                driverNumber,
-                conductorNumber,
-                soulUrgeNumber,
-                personalityNumber,
-                singleRootNumber,
-                mobileRootNumber,
-              )}
+          <div className=" relative flex items-center justify-center " style={CORE_CARD_STYLE}>
+            <Image
+              src="/assets/numeroscope/numeroscope-sec-4.png"
+              alt=""
+              width={230}
+              height={300}
+              className="cover"
+              aria-hidden
             />
+            <p className="absolute top-8 left-[50%] -translate-x-1/2 text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              5
+            </p>
+            <p className="absolute top-18 left-[28%]  text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              7
+            </p>
+            <p className="absolute top-19 right-[26%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              6
+            </p>
+            <p className="absolute top-30 left-[50%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              {coreVibration}
+            </p>
+            <p className="absolute bottom-17 left-[27%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              {coreVibration}
+            </p>
+            <p className="absolute bottom-17 right-[26%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              1
+            </p>
+            <p className="absolute bottom-3 left-[50%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
+              {coreVibration}
+            </p>
           </div>
         </div>
       </section>
 
       {/* Footer summary */}
       <footer className="relative z-10 mt-4 flex flex-col items-center px-4 pb-2">
-        <div className="flex items-center gap-2">
-          <LotusIcon className="h-5 w-8 opacity-55" />
+        <div className="flex items-center gap-2 border border-[#D68F34] rounded-xl p-3">
+          <CoverLotus size={40} />
           <p
-            className="max-w-[520px] text-center text-[8.5px] italic leading-relaxed"
-            style={{ color: COLORS.brown, opacity: 0.85 }}
+            className="max-w-[480px] text-center text-[10px] leading-relaxed"
+            style={{ color: COLORS.brown, opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
           >
             {footerSummary}
           </p>
-          <LotusIcon className="h-5 w-8 opacity-55" />
+          <CoverLotus size={40} />
         </div>
       </footer>
 
-      <PageFooterBar className="relative -mx-[30px] mt-3 h-9 w-[calc(100%+60px)]" pageNumber={pageNumber} />
+      {/* <PageFooterBar className="relative -mx-[30px] mt-3 h-9 w-[calc(100%+60px)]" pageNumber={pageNumber} /> */}
     </ReportPageShell>
   );
 }

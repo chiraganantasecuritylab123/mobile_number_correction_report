@@ -20,6 +20,9 @@ import {
 } from "./LoshuGridDecorations";
 import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
+import Image from "next/image";
+import { Pattern3 } from "./CommunComponents";
+import { nunitoSans } from "@/app/fonts";
 
 export type LoshuGridCell = {
   number: number;
@@ -187,14 +190,14 @@ function GoldBox({
   );
 }
 
+const LO_SHU_GRID_WIDTH = 382.375;
+const LO_SHU_GRID_HEIGHT = 291.455;
+
 function GridCellView({ cell }: { cell: LoshuGridCell }) {
   return (
-    <div
-      className="flex flex-col items-center justify-start px-1 py-2 text-center"
-      style={{ border: "1px solid rgba(184, 134, 11, 0.45)" }}
-    >
+    <div className="flex h-full min-h-[72px] w-full flex-col items-center justify-between text-center">
       <div
-        className="mb-1 flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold"
+        className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold"
         style={{
           border: cell.present ? "1.5px solid #d48e31" : "1.5px dashed #c45c3e",
           color: COLORS.brown,
@@ -206,7 +209,7 @@ function GridCellView({ cell }: { cell: LoshuGridCell }) {
       <p className="text-[6px] leading-tight" style={{ color: COLORS.brown, opacity: 0.8 }}>
         {cell.subNumbers.join(", ")}
       </p>
-      <p className="mt-0.5 text-[6px] italic" style={{ color: COLORS.gold }}>
+      <p className="text-[6px] italic" style={{ color: COLORS.gold }}>
         ({cell.label})
       </p>
     </div>
@@ -226,42 +229,83 @@ export default function LoshuGrid({
   pageNumber = "03",
 }: LoshuGridProps) {
   return (
-    <ReportPageShell padding="118px 28px 0">
+    <ReportPageShell padding="20px 28px 0">
+
       <header className="flex flex-col items-center text-center">
-        <p className="text-[8px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-          ASTRO AARAMBH
-        </p>
-        <h1 className="mt-1 text-[20px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
-          LO SHU GRID
+        <Image
+          src="/assets/ganesha-logo.png"
+          alt="Astro Aarambh"
+          width={100}
+          height={100}
+          className="mb-2"
+          priority
+        />
+        <div className="flex items-center gap-2">
+          <Pattern3 size={50} />
+          <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+            ASTRO AARAMBH
+          </p>
+          <Pattern3 size={50} className="rotate-180" />
+        </div>
+        <h1 className="text-[40px] font-bold" style={{ color: COLORS.brown, lineHeight: "1.2" }}>
+          PLANE DETAILS
         </h1>
-        <p className="mt-1 text-[9px] italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
-          Lo Shu Grid Analysis &amp; Planes of Expression
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
+          Lo Shu Grid Analysis & Planes of Expression
         </p>
       </header>
-
       {/* Section 1: Lo Shu Grid */}
-      <section className="mt-4">
+      <section className={`mt-4 ${nunitoSans.className}`}>
         <SectionDiamondTitle>1. LO SHU GRID (DATE OF BIRTH ONLY)</SectionDiamondTitle>
 
         <div className="mt-2 grid grid-cols-[1.1fr_1fr] gap-2">
-          <div>
-            <div className="grid grid-cols-3">
-              {gridCells.flat().map((cell) => (
-                <GridCellView key={cell.number} cell={cell} />
-              ))}
-            </div>
-            <div className="mt-2 flex items-center gap-4">
-              <div className="flex items-center gap-1.5">
-                <PresentDot />
-                <span className="text-[7px]" style={{ color: COLORS.brown }}>
-                  Present Numbers
-                </span>
+          <div className="relative">
+            <div
+              className="relative"
+              style={{ width: LO_SHU_GRID_WIDTH, height: LO_SHU_GRID_HEIGHT }}
+            >
+              <Image
+                src="/assets/loshu-grid/loshugrid-fram.png"
+                alt="Lo Shu Grid Frame"
+                fill
+                className="object-fill"
+                sizes={`${LO_SHU_GRID_WIDTH}px`}
+              />
+              <div
+                className="absolute inset-0 flex flex-col justify-between px-3 py-4"
+                style={{ width: LO_SHU_GRID_WIDTH, height: LO_SHU_GRID_HEIGHT }}
+              >
+                {gridCells.map((row) => (
+                  <div
+                    key={row.map((cell) => cell.number).join("-")}
+                    className="flex w-full justify-between"
+                  >
+                    {row.map((cell) => (
+                      <div
+                        key={cell.number}
+                        className="flex w-[30%] items-stretch justify-center"
+                      >
+                        <GridCellView cell={cell} />
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
-              <div className="flex items-center gap-1.5">
-                <MissingRing />
-                <span className="text-[7px]" style={{ color: COLORS.brown }}>
-                  Missing Numbers
-                </span>
+            </div>
+            <div className=" flex items-center gap-4 ">
+              <div className="mt-1 flex items-center gap-4 px-5 border-2 rounded-md p-1 border-[#F4E0C0] w-max-content mx-auto">
+                <div className="flex items-center gap-1.5">
+                  <PresentDot />
+                  <span className="text-[8px]" style={{ color: COLORS.brown }}>
+                    Present Numbers
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <MissingRing />
+                  <span className="text-[8px]" style={{ color: COLORS.brown }}>
+                    Missing Numbers
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -301,7 +345,7 @@ export default function LoshuGrid({
       </section>
 
       {/* Section 2: Planes of Expression */}
-      <section className="mt-4">
+      <section className={`mt-4 ${nunitoSans.className}`}>
         <SectionDiamondTitle>2. PLANES OF EXPRESSION (WILL PLANES)</SectionDiamondTitle>
 
         <GoldBox className="mt-2 overflow-hidden">
@@ -394,8 +438,6 @@ export default function LoshuGrid({
           <LotusIcon className="h-4 w-7 opacity-55" />
         </div>
       </footer>
-
-      <PageFooterBar className="relative -mx-7 mt-2 h-9 w-[calc(100%+56px)]" pageNumber={pageNumber} />
     </ReportPageShell>
   );
 }

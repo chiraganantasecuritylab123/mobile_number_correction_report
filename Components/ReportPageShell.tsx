@@ -20,6 +20,7 @@ type ReportPageShellProps = {
   height?: number;
   padding?: string;
   style?: CSSProperties;
+  pageNumber?: string;
 };
 
 export default function ReportPageShell({
@@ -28,6 +29,7 @@ export default function ReportPageShell({
   height = PAGE_HEIGHT,
   padding = "50px 40px 36px",
   style,
+  pageNumber = "01",
 }: ReportPageShellProps) {
   return (
     <article
@@ -49,6 +51,24 @@ export default function ReportPageShell({
       /> */}
       <div className="relative z-10 h-full overflow-hidden" style={{ padding }}>
         {children}
+
+        {/* <div className="absolute bottom-0 left-0 w-full">
+          <Image src="/assets/bottom-pattern.png" alt="Page Footer Bar" className="absolute bottom-0 left-0 w-full" width={1500} height={20} />
+          <p className="text-[20px] leading-relaxed"
+            style={{
+              color: REPORT_COLORS.brown,
+              opacity: 0.85,
+              fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif",
+              fontWeight: "bold",
+              position: "absolute",
+              bottom: "14px",
+              left: "calc(50% - 4px)",
+              transform: "translateX(-50%)",
+              zIndex: 10,
+            }}>
+            {pageNumber}
+          </p>
+        </div> */}
       </div>
     </article>
   );

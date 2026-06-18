@@ -1,4 +1,4 @@
-import { Cinzel, Geist, Geist_Mono } from "next/font/google";
+import { Cinzel, Geist, Geist_Mono, Nunito_Sans } from "next/font/google";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,4 +15,11 @@ export const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-cinzel",
+});
+
+export const nunitoSans = Nunito_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-nunito-sans",
 });

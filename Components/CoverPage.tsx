@@ -344,10 +344,9 @@ export default function CoverPage({
               <CoverLotus size={40} />
             </div>
           </div>
-
         </section>
 
-        <footer className="mt-auto flex flex-col items-center pt-2">
+        <footer className="mt-4 flex flex-col items-center ">
           <Image src='/assets/cover/pattern-2.png' alt="Client" width={200} height={100} className="mb-2" />
           <div className="flex items-center justify-center">
             <CoverLotus className="mr-4" size={60} />
@@ -361,8 +360,6 @@ export default function CoverPage({
             <CoverLotus className="ml-4" size={60} />
           </div>
         </footer>
-
-        {/* <CoverBottomBand className="relative -mx-10 mb-[-52px] mt-3 h-[52px] w-[calc(100%+80px)]" /> */}
       </div>
     </ReportPageShell>
   );
