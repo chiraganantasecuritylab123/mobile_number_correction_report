@@ -4,16 +4,20 @@ import {
   Circle,
   ClipboardList,
   Coins,
+  Moon,
   Smartphone,
   Sun,
   TrendingUp,
   Users,
   X,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 import { SectionDiamondTitle } from "./LoshuGridDecorations";
 import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
+import Image from "next/image";
+import { Pattern3 } from "./CommunComponents";
 
 export type SeriesPart = {
   partLabel: string;
@@ -82,6 +86,8 @@ const STATUS_COLORS = {
   neutral: "#d48e31",
   caution: "#a84432",
 };
+
+const FLOW_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
 
 const defaultSeriesParts: SeriesPart[] = [
   {
@@ -176,9 +182,11 @@ const defaultLifeAreas: LifeAreaEffect[] = [
 function GoldBox({
   children,
   className = "",
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
     <div
@@ -186,6 +194,7 @@ function GoldBox({
       style={{
         border: "1px solid #b8860b",
         backgroundColor: "rgba(253, 245, 230, 0.78)",
+        ...style,
       }}
     >
       {children}
@@ -215,9 +224,16 @@ function RootCircle({
 }: {
   value: number | string;
   variant: "lucky" | "neutral" | "caution";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 }) {
-  const dim = size === "lg" ? "h-10 w-10 text-base" : size === "md" ? "h-7 w-7 text-[10px]" : "h-5 w-5 text-[8px]";
+  const dim =
+    size === "xl"
+      ? "h-14 w-14 text-[22px]"
+      : size === "lg"
+        ? "h-10 w-10 text-base"
+        : size === "md"
+          ? "h-7 w-7 text-[10px]"
+          : "h-6 w-6 text-[10px]";
   const color = STATUS_COLORS[variant];
 
   return (
@@ -230,6 +246,37 @@ function RootCircle({
       }}
     >
       {value}
+    </div>
+  );
+}
+
+function SeriesPartCard({ part, index }: { part: SeriesPart; index: number }) {
+  const color = STATUS_COLORS[part.rootVariant];
+  const labelBg =
+    part.rootVariant === "lucky"
+      ? "rgba(45, 122, 79, 0.1)"
+      : part.rootVariant === "caution"
+        ? "rgba(168, 68, 50, 0.1)"
+        : "rgba(212, 142, 49, 0.12)";
+
+  return (
+    <div className="flex min-w-0 flex-1 flex-col items-center">
+      <span
+        className="rounded-md px-2 py-0.5 text-[9px] font-bold tracking-wide"
+        style={{ border: `1px solid ${color}`, color, backgroundColor: labelBg }}
+      >
+        Series Part {index + 1}
+      </span>
+      <p className="mt-1.5 text-[26px] font-bold leading-none" style={{ color }}>
+        {part.partLabel}
+      </p>
+      <p className="mt-1.5 text-[10px] font-semibold" style={{ color }}>
+        {part.calculation}
+      </p>
+      <div className="mt-2 flex items-center gap-1">
+        <span className="text-[9px] font-bold text-black">Series Root:</span>
+        <RootCircle value={part.seriesRoot} variant={part.rootVariant} size="sm" />
+      </div>
     </div>
   );
 }
@@ -294,28 +341,102 @@ function VibrationWaveform({ className }: { className?: string }) {
   );
 }
 
+function DigitConceptIcon({ label }: { label: string }) {
+  const iconSize = 18;
+  const accent = "#d48e31";
+
+  switch (label) {
+    case "Ketu":
+      return (
+        <Image
+          src="/assets/cover/ketu.png"
+          alt=""
+          width={iconSize}
+          height={iconSize}
+          className="object-contain"
+          aria-hidden
+        />
+      );
+    case "Void":
+      return <VibrationWaveform className="h-3.5 w-9" />;
+    case "Mars":
+      return <Zap size={iconSize} strokeWidth={2} style={{ color: accent }} fill={accent} />;
+    case "Sun":
+      return <Sun size={iconSize} strokeWidth={2} style={{ color: accent }} />;
+    case "Moon":
+      return (
+        <Image
+          src="/assets/cover/moon.png"
+          alt=""
+          width={iconSize}
+          height={iconSize}
+          className="object-contain"
+          aria-hidden
+        />
+      );
+    case "Jupiter":
+      return <TrendingUp size={iconSize} strokeWidth={2.5} style={{ color: accent }} />;
+    default:
+      return <Moon size={iconSize} strokeWidth={2} style={{ color: COLORS.brown }} />;
+  }
+}
+
 function DigitFlowItem({ item }: { item: DigitVibration }) {
+  const color = STATUS_COLORS[item.status];
+
   return (
-    <div className="flex flex-col items-center">
-      <div className="relative">
-        <div
-          className="flex h-5 w-5 items-center justify-center text-[9px] font-bold"
-          style={{
-            border: `1px solid ${STATUS_COLORS[item.status]}55`,
-            color: COLORS.brown,
-            backgroundColor: "rgba(255,255,255,0.45)",
-          }}
-        >
-          {item.digit}
-        </div>
-        <span className="absolute -right-1 -top-1">
-          <StatusIcon status={item.status} />
-        </span>
+    <div
+      className="flex w-[50px] shrink-0 flex-col items-center normal-case"
+      style={{ fontFamily: FLOW_SANS }}
+    >
+      <div
+        className="flex h-9 w-9 items-center justify-center rounded-full text-[15px] font-bold"
+        style={{
+          border: `1.5px solid ${color}`,
+          color,
+          backgroundColor: "rgba(255, 255, 255, 0.65)",
+        }}
+      >
+        {item.digit}
       </div>
-      <p className="mt-0.5 text-[4.5px] font-semibold" style={{ color: COLORS.gold }}>
-        {item.label}
-      </p>
-      <p className="text-[4px] opacity-70">({item.keyword})</p>
+      <p className="mt-1.5 text-[10px] font-semibold leading-tight text-black">{item.label}</p>
+      <p className="text-[9px] leading-tight text-black/75">({item.keyword})</p>
+      <div className="mt-1 flex h-5 items-center justify-center">
+        <DigitConceptIcon label={item.label} />
+      </div>
+    </div>
+  );
+}
+
+function DigitFlowLegend() {
+  const items: { status: "lucky" | "neutral" | "caution"; label: string }[] = [
+    { status: "lucky", label: "Lucky / Supportive" },
+    { status: "neutral", label: "Neutral" },
+    { status: "caution", label: "Caution / Challenging" },
+  ];
+
+  return (
+    <div
+      className="w-[60%] mx-auto mt-3 flex items-center justify-center gap-5 rounded-lg px-4 py-2 normal-case"
+      style={{ border: "1px solid #b8860b", fontFamily: FLOW_SANS }}
+    >
+      {items.map(({ status, label }) => (
+        <span key={status} className="flex items-center gap-1.5">
+          <span
+            className="flex h-4 w-4 items-center justify-center rounded-full"
+            style={{ backgroundColor: STATUS_COLORS[status] }}
+          >
+            {status === "lucky" ? (
+              <Check size={10} strokeWidth={3} color="#fff" />
+            ) : status === "caution" ? (
+              <X size={10} strokeWidth={3} color="#fff" />
+            ) : (
+              <Circle size={8} strokeWidth={2.5} color="#fff" fill="#fff" />
+            )}
+          </span>
+          <span className="text-[10px] font-medium text-black">{label}</span>
+        </span>
+      ))}
     </div>
   );
 }
@@ -336,66 +457,87 @@ export default function DeeperVibrationAnalysis({
   flowAnalysis = defaultFlowAnalysis,
   frequencyHeadline = "LEADERSHIP WITH SCATTERED ENERGY",
   frequencyDescription =
-    "This number carries strong leadership and intuition but is interrupted by voids and intensity spikes, creating an inconsistent vibrational pattern that needs conscious balancing.",
+  "This number carries strong leadership and intuition but is interrupted by voids and intensity spikes, creating an inconsistent vibrational pattern that needs conscious balancing.",
   lifeAreas = defaultLifeAreas,
   summary =
-    "This mobile number has a powerful spiritual start with double Ketu (7), leadership from Sun (1), and wisdom from Jupiter (3) — but interruptions from zeros and Mars (9) create scattered energy. Focus, patience, and discipline will unlock its full potential.",
+  "This mobile number has a powerful spiritual start with double Ketu (7), leadership from Sun (1), and wisdom from Jupiter (3) — but interruptions from zeros and Mars (9) create scattered energy. Focus, patience, and discipline will unlock its full potential.",
   pageNumber = "08",
 }: DeeperVibrationAnalysisProps) {
   return (
-    <ReportPageShell padding="118px 22px 0">
+    <ReportPageShell padding="20px 40px 52px">
+
       <header className="flex flex-col items-center text-center">
-        <p className="text-[8px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-          ASTRO AARAMBH
-        </p>
-        <h1 className="mt-1 text-[16px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
+        <Image
+          src='/assets/ganesha-logo.png'
+          alt="Astro Aarambh"
+          width={100}
+          height={100}
+          className="mb-2"
+          priority
+        />
+        <div className="flex items-center gap-2">
+          <Pattern3 size={100} />
+          <p className="text-md font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+            ASTRO AARAMBH
+          </p>
+          <Pattern3 size={100} className="rotate-180" />
+        </div>
+        <h1 className="mt-1 text-[35px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           DEEPER{" "}
           <span style={{ color: "#d48e31" }}>VIBRATIONAL</span>{" "}
           ANALYSIS
         </h1>
-        <p className="mt-1 text-[8px] italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
           Series Energy &amp; Hidden Frequency
         </p>
       </header>
 
+
       {/* Top info bar */}
       <section className="relative z-10 mt-2">
-        <GoldBox className="grid grid-cols-[1fr_1.5fr_auto] items-center gap-2 px-2.5 py-2">
+        <GoldBox className="grid grid-cols-2 items-center gap-2 px-2.5 py-2">
           <div className="flex items-center gap-1.5">
-            <Smartphone size={14} style={{ color: COLORS.gold }} />
+            <div className="flex items-center justify-center p-3 rounded-full border-[2px]" style={{ borderColor: COLORS.goldLight }}>
+              <Smartphone size={50} style={{ color: COLORS.gold }} />
+            </div>
             <div>
-              <p className="text-[5.5px] font-bold tracking-wider" style={{ color: COLORS.gold }}>
+              <p className="text-[13px] font-bold tracking-wider" style={{ color: COLORS.red }}>
                 CURRENT MOBILE NUMBER
               </p>
-              <p className="text-[9px] font-bold">{mobileNumber}</p>
+              <p className="text-[28px] font-bold text-black">{mobileNumber}</p>
             </div>
           </div>
-          <div className="flex items-start gap-1.5 border-l pl-2" style={{ borderColor: "rgba(184,134,11,0.35)" }}>
-            <ClipboardList size={12} style={{ color: COLORS.gold, marginTop: 1 }} />
-            <div className="flex gap-3">
-              <div>
-                <p className="text-[5px] font-bold" style={{ color: COLORS.gold }}>COMPOUND TOTAL</p>
-                <p className="text-xs font-bold">{compoundTotal}</p>
+          <div className="flex flex-row items-center gap-3">
+
+            <div className="flex items-center gap-1.5 border-l pl-2" style={{ borderColor: "rgba(184,134,11,0.35)" }}>
+              <ClipboardList size={90} style={{ color: COLORS.red, marginTop: 1 }} />
+              <div className="flex flex-col gap-3">
+                <div>
+                  <p className="text-[9px] font-bold" style={{ color: COLORS.black }}>COMPOUND TOTAL</p>
+                  <p className="text-md font-bold" style={{ color: COLORS.red }}>{compoundTotal}</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-bold" style={{ color: COLORS.black }}>SINGLE ROOT / DRIVER TOTAL</p>
+                  <p className="text-md font-bold" style={{ color: COLORS.red }}>{intermediateTotal} → {rootNumber}</p>
+                </div>
+                <div className="flex flex-row gap-2 items-center">
+                  <p className="text-[9px] font-bold" style={{ color: COLORS.black }}>ROOT NUMBER</p>
+                  <RootCircle value={rootNumber} variant="caution" size="md" />
+                </div>
               </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-1">
+              <Sun size={65} style={{ color: COLORS.red }} />
               <div>
-                <p className="text-[5px] font-bold" style={{ color: COLORS.gold }}>SINGLE ROOT / DRIVER TOTAL</p>
-                <p className="text-[8px] font-bold">{intermediateTotal} → {rootNumber}</p>
-              </div>
-              <div>
-                <p className="text-[5px] font-bold" style={{ color: COLORS.gold }}>ROOT NUMBER</p>
-                <RootCircle value={rootNumber} variant="neutral" size="sm" />
+                <p className="text-[9px] font-bold" style={{ color: COLORS.black }}>RULING PLANET</p>
+                <p className="text-[10px] font-semibold" style={{ color: COLORS.red }}>
+                  {rulingPlanetSymbol} {rulingPlanet}
+                </p>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-1">
-            <Sun size={16} style={{ color: "#d48e31" }} />
-            <div>
-              <p className="text-[5px] font-bold" style={{ color: COLORS.gold }}>RULING PLANET</p>
-              <p className="text-[6.5px] font-semibold" style={{ color: "#d48e31" }}>
-                {rulingPlanetSymbol} {rulingPlanet}
-              </p>
-            </div>
-          </div>
+
         </GoldBox>
       </section>
 
@@ -405,36 +547,36 @@ export default function DeeperVibrationAnalysis({
           <SectionBadge index="1" />
           <SectionDiamondTitle>SERIES PATTERN &amp; SERIES ROOT</SectionDiamondTitle>
         </div>
-        <GoldBox className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2 p-2">
-          {seriesParts.map((part) => (
-            <div
-              key={part.partLabel}
-              className="rounded px-2 py-1.5 text-center"
-              style={{ border: "1px solid rgba(184, 134, 11, 0.3)" }}
-            >
-              <p className="text-[6px] font-bold" style={{ color: COLORS.gold }}>
-                Part ({part.partLabel})
+        <div className="flex flex-row items-stretch gap-2 w-full">
+
+          <GoldBox className="flex items-stretch gap-2 w-[75%]">
+            {seriesParts.map((part, index) => (
+              <div key={part.partLabel} className="flex flex-1 items-center">
+                {index > 0 ? (
+                  <span className="mx-1 shrink-0 text-[28px] font-bold leading-none text-black">-</span>
+                ) : null}
+                <SeriesPartCard part={part} index={index} />
+              </div>
+            ))}
+          </GoldBox>
+          <GoldBox className="flex items-stretch w-[25%] gap-2 p-2 justify-center">
+            <div className="text-center flex flex-col items-center justify-center">
+              <p className="text-[10px] font-bold tracking-wide" style={{ color: COLORS.red }}>
+                OVERALL SERIES ROOT
               </p>
-              <p className="mt-0.5 text-[5.5px]">{part.calculation}</p>
-              <div className="mt-1 flex items-center justify-center gap-1">
-                <span className="text-[5px] font-bold">Series Root:</span>
-                <RootCircle value={part.seriesRoot} variant={part.rootVariant} size="sm" />
+              <div className="my-2">
+                <RootCircle value={overallSeriesRoot.sum} variant="neutral" size="xl" />
+              </div>
+              <p className="text-[10px] font-semibold text-black">{overallSeriesRoot.calculation}</p>
+              <div className="mt-2 flex items-center gap-1">
+                <span className="text-[9px] font-bold text-black">Final Root:</span>
+                <RootCircle value={overallSeriesRoot.finalRoot} variant="neutral" size="sm" />
               </div>
             </div>
-          ))}
-          <div
-            className="flex flex-col items-center justify-center rounded px-3 py-1.5"
-            style={{ border: "1px solid rgba(184, 134, 11, 0.45)", backgroundColor: "rgba(212,142,49,0.06)" }}
-          >
-            <p className="text-[5.5px] font-bold" style={{ color: COLORS.gold }}>OVERALL SERIES ROOT</p>
-            <RootCircle value={overallSeriesRoot.sum} variant="neutral" size="lg" />
-            <p className="mt-0.5 text-[5px]">{overallSeriesRoot.calculation}</p>
-            <div className="mt-1 flex items-center gap-1">
-              <span className="text-[5px] font-bold">Final Root:</span>
-              <RootCircle value={overallSeriesRoot.finalRoot} variant="neutral" size="sm" />
-            </div>
-          </div>
-        </GoldBox>
+
+          </GoldBox>
+        </div>
+
       </section>
 
       {/* Section 2: Digit flow */}
@@ -443,26 +585,18 @@ export default function DeeperVibrationAnalysis({
           <SectionBadge index="2" />
           <SectionDiamondTitle>DIGIT-BY-DIGIT VIBRATION FLOW</SectionDiamondTitle>
         </div>
-        <GoldBox className="px-2 py-2">
-          <div className="flex flex-wrap items-center justify-center gap-0.5">
-            {digitVibrations.map((item, index) => (
-              <span key={index} className="flex items-center">
-                <DigitFlowItem item={item} />
-                {index < digitVibrations.length - 1 && (
-                  <span className="mx-0.5 text-[7px] opacity-40">→</span>
-                )}
-              </span>
-            ))}
-          </div>
-          <div className="mt-1.5 flex items-center justify-center gap-3">
-            {(["lucky", "neutral", "caution"] as const).map((s) => (
-              <span key={s} className="flex items-center gap-0.5 text-[4.5px]">
-                <StatusIcon status={s} />
-                {s === "lucky" ? "Lucky / Supportive" : s === "neutral" ? "Neutral" : "Caution / Challenging"}
-              </span>
-            ))}
-          </div>
-        </GoldBox>
+        {/* <GoldBox className="px-3 py-3" style={{ backgroundColor: "#fffbf0", fontFamily: FLOW_SANS }}> */}
+        <div className="flex items-start justify-center px-1 py-2">
+          {digitVibrations.map((item, index) => (
+            <div key={index} className="flex items-start">
+              <DigitFlowItem item={item} />
+              {index < digitVibrations.length - 1 ? (
+                <span className="mx-0.5 mt-2.5 shrink-0 text-[13px] font-normal text-black">→</span>
+              ) : null}
+            </div>
+          ))}
+        </div>
+        <DigitFlowLegend />
       </section>
 
       {/* Sections 3, 4, 5 */}
@@ -589,10 +723,10 @@ export default function DeeperVibrationAnalysis({
         </div>
       </footer>
 
-      <PageFooterBar
+      {/* <PageFooterBar
         className="relative -mx-[22px] mt-1.5 h-9 w-[calc(100%+44px)]"
         pageNumber={pageNumber}
-      />
-    </ReportPageShell>
+      /> */}
+    </ReportPageShell >
   );
 }

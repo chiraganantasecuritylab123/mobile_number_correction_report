@@ -10,6 +10,7 @@ import FooterSummaryBanner from "./FooterSummaryBanner";
 import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
+import { Pattern3 } from "./CommunComponents";
 
 export type CoreNumberAnalysis = {
   sectionIndex: string;
@@ -125,19 +126,6 @@ function CoreNumberTitle({ title }: { title: string }) {
         <span className="text-black">{normalizedTitle}</span>
       )}
     </p>
-  );
-}
-
-function Pattern3({ className, size = 28 }: { className?: string; size?: number }) {
-  return (
-    <Image
-      src="/assets/cover/image-arrow.png"
-      alt=""
-      width={size}
-      height={Math.round(size * 0.58)}
-      className={`object-contain opacity-80 ${className ?? ""}`}
-      aria-hidden
-    />
   );
 }
 
@@ -383,12 +371,12 @@ export default function AnalysisOfCoreNumbers({
         />
         <div className="flex items-center gap-2">
           <Pattern3 size={100} />
-          <p className="text-md font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+          <p className="text-md font-semibold" style={{ color: COLORS.brown }}>
             ASTRO AARAMBH
           </p>
           <Pattern3 size={100} className="rotate-180" />
         </div>
-        <h1 className="text-4xl font-bold tracking-wide" style={{ color: COLORS.brown }}>
+        <h1 className="text-[40px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
           ANALYSIS OF <span className="" style={{ color: COLORS.gold }}>CORE NUMBERS</span>
         </h1>
         <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
