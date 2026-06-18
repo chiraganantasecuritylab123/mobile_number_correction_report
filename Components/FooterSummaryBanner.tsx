@@ -1,3 +1,4 @@
+import { CoverLotus } from "./CommunComponents";
 import { LotusIcon } from "./CoverPageDecorations";
 
 export type FooterSummaryBannerProps = {
@@ -35,7 +36,7 @@ export default function FooterSummaryBanner({
         boxShadow: "0 1px 3px rgba(93, 46, 23, 0.06)",
       }}
     >
-      <LotusIcon className="h-7 w-12 shrink-0 opacity-80" />
+      <CoverLotus size={40} />
       <p
         className="flex-1 text-center text-xs italic leading-relaxed"
         style={{
@@ -50,7 +51,7 @@ export default function FooterSummaryBanner({
           </span>
         ))}
       </p>
-      <LotusIcon className="h-7 w-12 shrink-0 opacity-80" />
+      <CoverLotus size={40} />
     </div>
   );
 }

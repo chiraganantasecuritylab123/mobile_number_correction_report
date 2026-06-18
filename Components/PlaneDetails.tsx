@@ -16,13 +16,17 @@ import {
 import { LoShuSquare, LotusIcon } from "./CoverPageDecorations";
 import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
+import FooterSummaryBanner from "./FooterSummaryBanner";
+import Image from "next/image";
+import { Pattern3 } from "./CommunComponents";
+import { cinzel, nunitoSans } from "@/app/fonts";
 
 export type AvailableNumberRow = {
   number: number;
   subNumbers: string[];
   label: string;
-  categoryIcon: LucideIcon;
-  lifeImpactIcon: LucideIcon;
+  categoryIcon: string;
+  lifeImpactIcon: string;
   lifeImpact: string;
 };
 
@@ -30,9 +34,9 @@ export type MissingNumberRow = {
   number: number;
   subNumbers: string[];
   label: string;
-  categoryIcon: LucideIcon;
+  categoryIcon: string;
   lifeImpactItems: string[];
-  keyLessonIcon: LucideIcon;
+  keyLessonIcon: string;
   keyLesson: string;
 };
 
@@ -45,13 +49,36 @@ export type PlaneDetailsProps = {
 
 const COLORS = REPORT_COLORS;
 
+const AVAILABLE_SECTION = {
+  border: "#D8AC71",
+  background: "#FDF8EE",
+  headerBg: "rgba(250, 236, 218, 0.9)",
+  accent: "#C5A059",
+  burgundy: "#5D1A1A",
+  rowDivider: "#D4B483",
+  text: "#3C2A21",
+} as const;
+
+const MISSING_SECTION = {
+  border: "#C9785E",
+  background: "#FFF5F2",
+  headerBg: "#FAE6C1",
+  accent: "#A84432",
+  burgundy: "#5D1A1A",
+  rowDivider: "#E8B4A8",
+  text: "#3C2A21",
+  dashed: "#C45C3E",
+} as const;
+
+const TEXT_UPPER = { textTransform: "uppercase" } as const;
+
 const defaultAvailableNumbers: AvailableNumberRow[] = [
   {
     number: 1,
     subNumbers: ["01", "10", "19", "28"],
     label: "Leadership",
-    categoryIcon: UserRound,
-    lifeImpactIcon: Crown,
+    categoryIcon: '/assets/plane-details/life-impact-1.png',
+    lifeImpactIcon: '/assets/plane-details/life-impact-2.png',
     lifeImpact:
       "Strong leadership qualities, independent thinking and the ability to take initiative. You naturally guide others and create your own path.",
   },
@@ -59,8 +86,8 @@ const defaultAvailableNumbers: AvailableNumberRow[] = [
     number: 4,
     subNumbers: ["14", "23"],
     label: "Wealth",
-    categoryIcon: TrendingUp,
-    lifeImpactIcon: TrendingUp,
+    categoryIcon: '/assets/plane-details/life-impact-3.png',
+    lifeImpactIcon: '/assets/plane-details/life-impact-4.png',
     lifeImpact:
       "Potential to build wealth and material stability. Practical, organized and focused on creating lasting financial security.",
   },
@@ -68,8 +95,8 @@ const defaultAvailableNumbers: AvailableNumberRow[] = [
     number: 5,
     subNumbers: ["05", "14", "23"],
     label: "Balance",
-    categoryIcon: Flower2,
-    lifeImpactIcon: Flower2,
+    categoryIcon: '/assets/plane-details/life-impact-5.png',
+    lifeImpactIcon: '/assets/plane-details/life-impact-6.png',
     lifeImpact:
       "Adaptable and versatile nature. You maintain balance across different areas of life and adjust smoothly to change.",
   },
@@ -77,8 +104,8 @@ const defaultAvailableNumbers: AvailableNumberRow[] = [
     number: 7,
     subNumbers: ["07", "16", "25"],
     label: "Intuition",
-    categoryIcon: Lightbulb,
-    lifeImpactIcon: Lightbulb,
+    categoryIcon: '/assets/plane-details/life-impact-7.png',
+    lifeImpactIcon: '/assets/plane-details/life-impact-8.png',
     lifeImpact:
       "Strong intuition and inner wisdom. You possess deep insight and the ability to see beyond the surface.",
   },
@@ -86,8 +113,8 @@ const defaultAvailableNumbers: AvailableNumberRow[] = [
     number: 8,
     subNumbers: ["08", "17", "26"],
     label: "Power",
-    categoryIcon: Shield,
-    lifeImpactIcon: Shield,
+    categoryIcon: '/assets/plane-details/life-impact-9.png',
+    lifeImpactIcon: '/assets/plane-details/life-impact-10.png',
     lifeImpact:
       "Strong willpower, courage and stamina. You have the energy and determination to achieve significant results.",
   },
@@ -95,8 +122,8 @@ const defaultAvailableNumbers: AvailableNumberRow[] = [
     number: 9,
     subNumbers: ["09", "18", "27"],
     label: "Wisdom",
-    categoryIcon: BookOpen,
-    lifeImpactIcon: BookOpen,
+    categoryIcon: '/assets/plane-details/life-impact-11.png',
+    lifeImpactIcon: '/assets/plane-details/life-impact-12.png',
     lifeImpact:
       "Deep thinker with a broad perspective. You carry wisdom, compassion and a humanitarian outlook on life.",
   },
@@ -107,71 +134,65 @@ const defaultMissingNumbers: MissingNumberRow[] = [
     number: 2,
     subNumbers: ["02", "11", "20", "29"],
     label: "Relationships",
-    categoryIcon: Heart,
+    categoryIcon: '/assets/plane-details/key-lesson-1.png',
     lifeImpactItems: [
       "Emotional imbalance",
       "Difficulty in partnerships",
       "Mood fluctuations",
     ],
-    keyLessonIcon: Heart,
+    keyLessonIcon: '/assets/plane-details/key-lesson-1.png',
     keyLesson: "Build healthy relationships and trust others.",
   },
   {
     number: 3,
     subNumbers: ["03", "12", "21", "30"],
     label: "Creativity",
-    categoryIcon: MessageCircle,
+    categoryIcon: '/assets/plane-details/key-lesson-2.png',
     lifeImpactItems: [
       "Lack of self-expression",
       "Communication blocks",
       "Overthinking",
     ],
-    keyLessonIcon: MessageCircle,
+    keyLessonIcon: '/assets/plane-details/key-lesson-4.png',
     keyLesson: "Express yourself freely and embrace creativity.",
   },
   {
     number: 6,
     subNumbers: ["06", "15", "24"],
     label: "Responsibility",
-    categoryIcon: Users,
+    categoryIcon: '/assets/plane-details/key-lesson-3.png',
     lifeImpactItems: [
       "Responsibility issues",
       "Challenges in family harmony",
       "Difficulty in commitments",
     ],
-    keyLessonIcon: Users,
+    keyLessonIcon: '/assets/plane-details/key-lesson-3.png',
     keyLesson: "Develop responsibility and create harmony.",
   },
 ];
 
-function SectionHeader({
-  variant,
-  title,
-}: {
-  variant: "available" | "missing";
-  title: string;
-}) {
-  const isAvailable = variant === "available";
-
+function AvailableSectionHeader({ title }: { title: string }) {
   return (
     <div
-      className="flex items-center gap-2 rounded-t-md px-3 py-1.5"
+      className={`${cinzel.className} relative flex items-center justify-center gap-2 rounded-full px-5 py-1.5`}
       style={{
-        backgroundColor: isAvailable ? COLORS.gold : "#a84432",
+        border: `1.5px solid ${AVAILABLE_SECTION.accent}`,
+        backgroundColor: '#FAE6C1',
+        minWidth: 380,
       }}
     >
-      <div
-        className="flex h-4 w-4 items-center justify-center rounded-full"
-        style={{
-          backgroundColor: isAvailable ? COLORS.cream : "rgba(255,255,255,0.15)",
-          color: isAvailable ? COLORS.gold : COLORS.cream,
-        }}
-      >
-        {isAvailable ? <Check size={10} strokeWidth={3} /> : <X size={10} strokeWidth={3} />}
+      <div className="relative flex h-5 w-5 shrink-0 items-center justify-center">
+        <Shield size={18} fill={'#AD6B0A'} stroke={'#AD6B0A'} />
+        <Check
+          size={8}
+          strokeWidth={3}
+          className="absolute"
+          style={{ color: "#fff" }}
+        />
       </div>
       <p
-        className="text-[7.5px] font-bold tracking-[0.1em]"
-        style={{ color: COLORS.cream }}
+        className="text-[10px] font-bold tracking-[0.1em]"
+        style={{ color: AVAILABLE_SECTION.burgundy, ...TEXT_UPPER }}
       >
         {title}
       </p>
@@ -179,20 +200,58 @@ function SectionHeader({
   );
 }
 
-function NumberBadge({
-  value,
-  present,
-}: {
-  value: number;
-  present: boolean;
-}) {
+function MissingSectionHeader({ title }: { title: string }) {
   return (
     <div
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-base font-bold"
+      className={`${cinzel.className} relative flex items-center justify-center gap-2 rounded-full px-5 py-1.5`}
       style={{
-        border: present ? "2px solid #d48e31" : "2px dashed #c45c3e",
-        backgroundColor: present ? "rgba(212, 142, 49, 0.15)" : "transparent",
-        color: COLORS.brown,
+        border: `1.5px solid ${MISSING_SECTION.accent}`,
+        backgroundColor: '#FBE0D1',
+        minWidth: 380,
+      }}
+    >
+      <span
+        className="text-[7px] leading-none"
+        style={{ color: MISSING_SECTION.accent }}
+        aria-hidden
+      >
+        ✦
+      </span>
+      <div className="relative flex h-5 w-5 shrink-0 items-center justify-center">
+        <Shield size={18} fill={MISSING_SECTION.accent} stroke={MISSING_SECTION.accent} />
+        <div
+          className="absolute flex h-3 w-3 items-center justify-center rounded-full"
+          style={{ backgroundColor: MISSING_SECTION.accent }}
+        >
+          <X size={7} strokeWidth={3} style={{ color: "#fff" }} />
+        </div>
+      </div>
+      <p
+        className="text-[10px] font-bold tracking-[0.1em]"
+        style={{ color: MISSING_SECTION.burgundy, ...TEXT_UPPER }}
+      >
+        {title}
+      </p>
+      <span
+        className="text-[7px] leading-none"
+        style={{ color: MISSING_SECTION.accent }}
+        aria-hidden
+      >
+        ✦
+      </span>
+    </div>
+  );
+}
+
+function AvailableNumberBadge({ value }: { value: number }) {
+  return (
+    <div
+      className={`${cinzel.className} flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[20px] font-bold leading-none`}
+      style={{
+        border: `2px solid ${AVAILABLE_SECTION.accent}`,
+        color: AVAILABLE_SECTION.text,
+        background:
+          "linear-gradient(180deg, rgba(255, 248, 235, 0.95) 0%, rgba(245, 225, 190, 0.55) 100%)",
       }}
     >
       {value}
@@ -200,53 +259,83 @@ function NumberBadge({
   );
 }
 
-function RowDivider() {
+function AvailableRowDivider() {
   return (
-    <div
-      className="mx-2 w-px self-stretch"
-      style={{ backgroundColor: "rgba(184, 134, 11, 0.35)" }}
-    />
+    <div className="relative mx-2.5 flex w-3 shrink-0 self-stretch items-center justify-center">
+      <div
+        className="h-full w-px border-l border-dashed"
+        style={{ borderColor: AVAILABLE_SECTION.rowDivider }}
+      />
+      <span
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[5px] leading-none"
+        style={{ color: AVAILABLE_SECTION.accent }}
+      >
+        ◆
+      </span>
+    </div>
   );
 }
 
-function AvailableRow({ row }: { row: AvailableNumberRow }) {
-  const CategoryIcon = row.categoryIcon;
-  const ImpactIcon = row.lifeImpactIcon;
-
+function AvailableRow({
+  row,
+  isLast = false,
+}: {
+  row: AvailableNumberRow;
+  isLast?: boolean;
+}) {
   return (
     <div
-      className="flex items-center px-2.5 py-2"
-      style={{ borderBottom: "1px solid rgba(184, 134, 11, 0.2)" }}
+      className={`${nunitoSans.className} flex items-center px-3 py-2.5`}
+      style={{
+        borderBottom: isLast ? "none" : `1px solid ${AVAILABLE_SECTION.rowDivider}`,
+      }}
     >
-      <NumberBadge value={row.number} present />
+      <AvailableNumberBadge value={row.number} />
 
-      <div className="ml-2.5 min-w-[108px]">
-        <p className="text-[7px] font-medium" style={{ color: COLORS.brown }}>
-          {row.subNumbers.join(", ")}
-        </p>
-        <div className="mt-0.5 flex items-center gap-1">
-          <p className="text-[6.5px] italic" style={{ color: COLORS.gold }}>
+      <div className="ml-3 flex min-w-[118px] items-center justify-between gap-2">
+        <div>
+          <p
+            className="text-[12px] font-semibold leading-tight"
+            style={{ color: AVAILABLE_SECTION.text }}
+          >
+            {row.subNumbers.join(", ")}
+          </p>
+          <p
+            className={`${cinzel.className} mt-0.5 text-[9px] font-bold leading-tight`}
+            style={{ color: AVAILABLE_SECTION.text }}
+          >
             ({row.label})
           </p>
-          <CategoryIcon size={10} strokeWidth={1.75} style={{ color: COLORS.gold }} />
         </div>
+        <Image
+          src={row.categoryIcon}
+          alt={row.label}
+          width={36}
+          height={36}
+          className="shrink-0 object-contain"
+        />
       </div>
 
-      <RowDivider />
+      <AvailableRowDivider />
 
-      <div className="flex flex-1 items-start gap-2">
-        <ImpactIcon
-          size={22}
-          strokeWidth={1.5}
-          style={{ color: COLORS.gold, flexShrink: 0, marginTop: 2 }}
+      <div className="flex min-w-0 flex-1 items-center gap-2.5">
+        <Image
+          src={row.lifeImpactIcon}
+          alt={`${row.label} life impact`}
+          width={36}
+          height={36}
+          className="shrink-0 object-contain"
         />
-        <div>
-          <p className="text-[6.5px] font-bold" style={{ color: COLORS.brown }}>
+        <div className="min-w-0">
+          <p
+            className={`text-[10px] font-bold leading-tight`}
+            style={{ color: AVAILABLE_SECTION.burgundy }}
+          >
             Life Impact:
           </p>
           <p
-            className="mt-0.5 text-[6px] leading-snug"
-            style={{ color: COLORS.brown, opacity: 0.88 }}
+            className="mt-0.5 text-[9px] leading-snug"
+            style={{ color: AVAILABLE_SECTION.text, opacity: 0.9 }}
           >
             {row.lifeImpact}
           </p>
@@ -256,71 +345,121 @@ function AvailableRow({ row }: { row: AvailableNumberRow }) {
   );
 }
 
-function MissingRow({ row }: { row: MissingNumberRow }) {
+function MissingNumberBadge({ value }: { value: number }) {
+  return (
+    <div
+      className={`${cinzel.className} flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[20px] font-bold leading-none`}
+      style={{
+        border: `2px dashed ${MISSING_SECTION.dashed}`,
+        color: MISSING_SECTION.burgundy,
+        backgroundColor: "transparent",
+      }}
+    >
+      {value}
+    </div>
+  );
+}
+
+function MissingRowDivider() {
+  return (
+    <div className="relative mx-2 flex w-3 shrink-0 self-stretch items-center justify-center">
+      <div
+        className="h-full w-px border-l border-dashed"
+        style={{ borderColor: MISSING_SECTION.rowDivider }}
+      />
+      <span
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[5px] leading-none"
+        style={{ color: MISSING_SECTION.accent }}
+      >
+        ◆
+      </span>
+    </div>
+  );
+}
+
+function MissingRow({
+  row,
+  isLast = false,
+}: {
+  row: MissingNumberRow;
+  isLast?: boolean;
+}) {
   const CategoryIcon = row.categoryIcon;
   const LessonIcon = row.keyLessonIcon;
 
   return (
     <div
-      className="flex items-stretch px-2.5 py-2"
-      style={{ borderBottom: "1px solid rgba(196, 92, 62, 0.2)" }}
+      className={`${nunitoSans.className} flex items-center px-3 py-2.5`}
+      style={{
+        borderBottom: isLast ? "none" : `1px solid ${MISSING_SECTION.rowDivider}`,
+      }}
     >
-      <div className="flex items-center">
-        <NumberBadge value={row.number} present={false} />
+      <div className="flex min-w-[148px] items-center">
+        <MissingNumberBadge value={row.number} />
 
-        <div className="ml-2.5 min-w-[100px]">
-          <p className="text-[7px] font-medium" style={{ color: COLORS.brown }}>
-            {row.subNumbers.join(", ")}
-          </p>
-          <div className="mt-0.5 flex items-center gap-1">
-            <p className="text-[6.5px] italic" style={{ color: "#a84432" }}>
+        <div className="ml-3 flex min-w-0 flex-1 items-center justify-between gap-2">
+          <div>
+            <p
+              className="text-[12px] font-semibold leading-tight"
+              style={{ color: MISSING_SECTION.text }}
+            >
+              {row.subNumbers.join(", ")}
+            </p>
+            <p
+              className={`${cinzel.className} mt-0.5 text-[9px] font-bold leading-tight`}
+              style={{ color: MISSING_SECTION.text }}
+            >
               ({row.label})
             </p>
-            <CategoryIcon size={10} strokeWidth={1.75} style={{ color: "#a84432" }} />
           </div>
+          <Image src={row.categoryIcon} alt={row.label} width={42} height={42} className="shrink-0" />
         </div>
       </div>
 
-      <RowDivider />
+      <MissingRowDivider />
 
-      <div className="flex flex-1 flex-col justify-center px-1">
-        <p className="text-[6.5px] font-bold" style={{ color: COLORS.brown }}>
+      <div className="flex min-w-0 flex-1 flex-col justify-center px-1">
+        <p
+          className={`text-[10px] font-bold leading-tight`}
+          style={{ color: MISSING_SECTION.burgundy }}
+        >
           Life Impact:
         </p>
         <ul className="mt-0.5 flex flex-col gap-0.5">
           {row.lifeImpactItems.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-1 text-[5.5px] leading-snug"
-              style={{ color: COLORS.brown, opacity: 0.88 }}
+              className="flex items-start gap-1.5 text-[9px] leading-snug"
+              style={{ color: MISSING_SECTION.text, opacity: 0.9 }}
             >
-              <span style={{ color: "#a84432" }}>•</span>
+              <span
+                className="mt-[3px] inline-block h-1 w-1 shrink-0 rounded-full"
+                style={{ backgroundColor: MISSING_SECTION.accent }}
+              />
               {item}
             </li>
           ))}
         </ul>
       </div>
 
-      <RowDivider />
+      <MissingRowDivider />
 
-      <div
-        className="flex w-[118px] flex-col items-center justify-center rounded px-1.5 py-1.5 text-center"
-        style={{
-          border: "1px solid rgba(196, 92, 62, 0.35)",
-          backgroundColor: "rgba(255, 248, 245, 0.8)",
-        }}
-      >
-        <p className="text-[6px] font-bold" style={{ color: COLORS.brown }}>
-          Key Lesson:
-        </p>
-        <LessonIcon
-          size={18}
-          strokeWidth={1.5}
-          style={{ color: "#a84432", margin: "3px 0" }}
-        />
-        <p className="text-[5.5px] leading-snug" style={{ color: COLORS.brown, opacity: 0.9 }}>
-          {row.keyLesson}
-        </p>
+      <div className="flex w-[148px] shrink-0 items-center gap-2">
+        <Image src={row.keyLessonIcon} alt={row.label} width={52} height={52} className="shrink-0" />
+        <div className="min-w-0">
+          <p
+            className={`text-[10px] font-bold leading-tight`}
+            style={{ color: MISSING_SECTION.burgundy }}
+          >
+            Key Lesson:
+          </p>
+          <p
+            className="mt-0.5 text-[9px] leading-snug"
+            style={{ color: MISSING_SECTION.text, opacity: 0.9 }}
+          >
+            {row.keyLesson}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -333,87 +472,80 @@ export default function PlaneDetails({
   pageNumber = "04",
 }: PlaneDetailsProps) {
   return (
-    <ReportPageShell padding="118px 28px 0">
+    <ReportPageShell padding="20px 28px 0">
       <header className="flex flex-col items-center text-center">
-        <p className="text-[8px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-          ASTRO AARAMBH
-        </p>
-        <h1 className="mt-1 text-[20px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
-          PLANE DETAILS
+        <Image
+          src="/assets/ganesha-logo.png"
+          alt="Astro Aarambh"
+          width={100}
+          height={100}
+          className="mb-2"
+          priority
+        />
+        <div className="flex items-center gap-2">
+          <Pattern3 size={50} />
+          <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+            ASTRO AARAMBH
+          </p>
+          <Pattern3 size={50} className="rotate-180" />
+        </div>
+        <h1 className="text-[40px] font-bold" style={{ color: COLORS.brown, lineHeight: "1.2" }}>
+          PLANE <span style={{ color: '#B5700D' }}>DETAILS</span>
         </h1>
-        <p className="mt-1 text-[9px] italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           Available &amp; Missing Numbers Analysis
         </p>
       </header>
 
-      <section className="relative z-10 mt-3">
+      <section className={`relative z-10 mt-7 ${nunitoSans.className}`}>
         <div
-          className="overflow-hidden rounded-md"
+          className="relative rounded-lg pt-5 max-w-[600px] mx-auto"
           style={{
-            border: "1px solid #b8860b",
-            backgroundColor: "rgba(253, 245, 230, 0.82)",
+            border: `1.5px solid ${AVAILABLE_SECTION.border}`,
+            backgroundColor: 'transparent',
           }}
         >
-          <SectionHeader
-            variant="available"
-            title="AVAILABLE NUMBERS – YOUR STRENGTHS"
-          />
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
+            <AvailableSectionHeader title="AVAILABLE NUMBERS – YOUR STRENGTHS" />
+          </div>
           <div>
             {availableNumbers.map((row, index) => (
-              <div
+              <AvailableRow
                 key={row.number}
-                style={{
-                  borderBottom:
-                    index < availableNumbers.length - 1
-                      ? undefined
-                      : "none",
-                }}
-              >
-                <AvailableRow row={row} />
-              </div>
+                row={row}
+                isLast={index === availableNumbers.length - 1}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 mt-3">
+      <section className={`relative z-10 mt-10 mb-5 ${nunitoSans.className}`}>
         <div
-          className="overflow-hidden rounded-md"
+          className="relative mx-auto max-w-[600px] rounded-lg pt-5"
           style={{
-            border: "1px solid rgba(196, 92, 62, 0.55)",
-            backgroundColor: "rgba(255, 242, 238, 0.82)",
+            border: `1.5px solid ${MISSING_SECTION.border}`,
+            backgroundColor: '#FDF2E6',
           }}
         >
-          <SectionHeader
-            variant="missing"
-            title="MISSING NUMBERS – AREAS FOR GROWTH"
-          />
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
+            <MissingSectionHeader title="MISSING NUMBERS – AREAS FOR GROWTH" />
+          </div>
           <div>
-            {missingNumbers.map((row) => (
-              <MissingRow key={row.number} row={row} />
+            {missingNumbers.map((row, index) => (
+              <MissingRow
+                key={row.number}
+                row={row}
+                isLast={index === missingNumbers.length - 1}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <footer className="relative z-10 mt-3 flex flex-col items-center pb-1">
-        <LoShuSquare className="pointer-events-none absolute -left-1 bottom-0 h-14 w-14 opacity-70" />
-        <div className="flex items-center gap-2 px-8">
-          <LotusIcon className="h-4 w-7 opacity-55" />
-          <p
-            className="max-w-[480px] text-center text-[7px] italic leading-relaxed"
-            style={{ color: COLORS.brown, opacity: 0.85 }}
-          >
-            {footerSummary}
-          </p>
-          <LotusIcon className="h-4 w-7 opacity-55" />
-        </div>
+      <footer className="relative z-10 mt-2 flex justify-center px-2 pb-1">
+        <FooterSummaryBanner summary={footerSummary} />
       </footer>
-
-      <PageFooterBar
-        className="relative -mx-7 mt-2 h-9 w-[calc(100%+56px)]"
-        pageNumber={pageNumber}
-      />
     </ReportPageShell>
   );
 }

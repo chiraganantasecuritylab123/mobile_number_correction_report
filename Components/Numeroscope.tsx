@@ -3,6 +3,7 @@ import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
 import { cinzel } from "@/app/fonts";
 import { CoverLotus } from "./CommunComponents";
+import FooterSummaryBanner from "./FooterSummaryBanner";
 
 export type NumeroscopeProps = {
   birthDate?: string;
@@ -490,7 +491,7 @@ export default function Numeroscope({
         {/* Mobile Number Vibration */}
         <div>
           <NumeroscopeSectionHeader title="3. MOBILE NUMBER VIBRATION" />
-          <div className="px-3 py-6" style={{...CORE_CARD_STYLE , marginTop: "28px"}}>
+          <div className="px-3 py-6" style={{ ...CORE_CARD_STYLE, marginTop: "28px" }}>
             <p
               className="text-[8px] font-bold tracking-wider"
               style={{ color: COLORS.gold, ...TEXT_UPPER }}
@@ -616,21 +617,9 @@ export default function Numeroscope({
         </div>
       </section>
 
-      {/* Footer summary */}
-      <footer className="relative z-10 mt-4 flex flex-col items-center px-4 pb-2">
-        <div className="flex items-center gap-2 border border-[#D68F34] rounded-xl p-3">
-          <CoverLotus size={40} />
-          <p
-            className="max-w-[480px] text-center text-[10px] leading-relaxed"
-            style={{ color: COLORS.brown, opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
-          >
-            {footerSummary}
-          </p>
-          <CoverLotus size={40} />
-        </div>
+      <footer className="relative z-10 mt-2 flex justify-center px-2 pb-1">
+        <FooterSummaryBanner summary={footerSummary} />
       </footer>
-
-      {/* <PageFooterBar className="relative -mx-[30px] mt-3 h-9 w-[calc(100%+60px)]" pageNumber={pageNumber} /> */}
     </ReportPageShell>
   );
 }

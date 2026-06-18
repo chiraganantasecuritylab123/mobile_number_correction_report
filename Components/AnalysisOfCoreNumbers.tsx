@@ -408,11 +408,6 @@ export default function AnalysisOfCoreNumbers({
       <footer className="relative z-10 mt-2 flex justify-center px-2 pb-1">
         <FooterSummaryBanner summary={footerSummary} />
       </footer>
-
-      {/* <PageFooterBar
-        className="relative -mx-6 mt-2 h-9 w-[calc(100%+48px)]"
-        pageNumber={pageNumber}
-      /> */}
     </ReportPageShell>
   );
 }
