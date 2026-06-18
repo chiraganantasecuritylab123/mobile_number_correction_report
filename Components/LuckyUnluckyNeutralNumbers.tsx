@@ -22,6 +22,7 @@ import { LoShuSquare, LotusIcon } from "./CoverPageDecorations";
 import { SectionDiamondTitle } from "./LoshuGridDecorations";
 import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
+import Image from "next/image";
 
 export type NumberProfileRow = {
   category: string;
@@ -203,6 +204,19 @@ const defaultDonts = [
   "Don't repeat unlucky numbers in important documents",
 ];
 
+function Pattern3({ className, size = 28 }: { className?: string; size?: number }) {
+  return (
+    <Image
+      src="/assets/cover/image-arrow.png"
+      alt=""
+      width={size}
+      height={Math.round(size * 0.58)}
+      className={`object-contain opacity-80 ${className ?? ""}`}
+      aria-hidden
+    />
+  );
+}
+
 function GoldBox({
   children,
   className = "",
@@ -226,11 +240,11 @@ function GoldBox({
 function SectionBadge({ index }: { index: string }) {
   return (
     <span
-      className="inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[6px] font-bold"
+      className="inline-flex h-4 min-w-4 items-center justify-center rounded-md px-1 text-[10px] font-bold"
       style={{
         backgroundColor: COLORS.brown,
         color: COLORS.cream,
-        border: "1px solid #d48e31",
+        // border: "1px solid #d48e31",
       }}
     >
       {index}
@@ -345,7 +359,7 @@ function LuckyAnalysisColumn({
     <GoldBox className="h-full p-2">
       <div className="mb-1.5 flex items-center gap-1">
         <SectionBadge index="6.2" />
-        <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
+        <p className="text-[10px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
           DETAILED LUCKY NUMBERS ANALYSIS
         </p>
       </div>
@@ -394,7 +408,7 @@ function UnluckyColumn({
     <GoldBox className="h-full p-2">
       <div className="mb-1.5 flex items-center gap-1">
         <SectionBadge index="6.3" />
-        <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
+        <p className="text-[10px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
           UNLUCKY &amp; CAUTION NUMBERS
         </p>
       </div>
@@ -434,7 +448,7 @@ function QuickTipsColumn({ dos, donts }: { dos: string[]; donts: string[] }) {
     <GoldBox className="h-full p-2">
       <div className="mb-1.5 flex items-center gap-1">
         <SectionBadge index="6.5" />
-        <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
+        <p className="text-[10px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
           QUICK USAGE TIPS
         </p>
       </div>
@@ -536,13 +550,27 @@ export default function LuckyUnluckyNeutralNumbers({
   pageNumber = "06",
 }: LuckyUnluckyNeutralNumbersProps) {
   return (
-    <ReportPageShell padding="118px 24px 0">
+    <ReportPageShell padding="20px 40px 52px">
       <header className="flex flex-col items-center text-center">
-        <p className="text-[8px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-          ASTRO AARAMBH
-        </p>
-        <h1 className="mt-1 text-[16px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
-          LUCKY, UNLUCKY &amp; NEUTRAL NUMBERS
+        <Image
+          src='/assets/ganesha-logo.png'
+          alt="Astro Aarambh"
+          width={100}
+          height={100}
+          className="mb-5"
+          priority
+        />
+        <div className="flex items-center gap-2">
+          <Pattern3 size={100} />
+          <p className="text-md font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+            ASTRO AARAMBH
+          </p>
+          <Pattern3 size={100} className="rotate-180" />
+        </div>
+        <h1 className="mt-1 text-2xl font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
+          <span className="font-bold" style={{ color: COLORS.green }}>LUCKY </span>, 
+          <span className="font-bold" style={{ color: COLORS.red }}>UNLUCKY </span> &amp; 
+          <span className="font-bold" style={{ color: COLORS.gold }}> NEUTRAL  NUMBERS </span>
         </h1>
         <p className="mt-1 text-[8.5px] italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
           Your Personal Number Vibrations Guide

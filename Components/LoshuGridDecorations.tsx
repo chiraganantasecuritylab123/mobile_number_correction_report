@@ -14,14 +14,14 @@ export function SectionDiamondTitle({
 }) {
   return (
     <div className={`flex items-center gap-2 ${className ?? ""}`}>
-      <span style={{ color: "#b8860b", fontSize: 8 }}>◆</span>
+      {/* <span style={{ color: "#b8860b", fontSize: 8 }}>◆</span> */}
       <h3
-        className="text-[8.5px] font-bold tracking-[0.1em]"
+        className="text-[11px] font-bold tracking-[0.1em]"
         style={{ color: "#5d2e17" }}
       >
         {children}
       </h3>
-      <span style={{ color: "#b8860b", fontSize: 8 }}>◆</span>
+      {/* <span style={{ color: "#b8860b", fontSize: 8 }}>◆</span> */}
     </div>
   );
 }
