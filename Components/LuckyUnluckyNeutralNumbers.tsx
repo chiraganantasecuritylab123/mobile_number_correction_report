@@ -247,7 +247,7 @@ function SectionTitleRow({ index, title }: { index: string; title: string }) {
   return (
     <div className="mb-1.5 flex items-center gap-1">
       <SectionBadge index={index} />
-      <p className="text-[10px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
+      <p className="text-[12px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
         {title}
       </p>
     </div>
@@ -482,9 +482,9 @@ function UnluckyColumn({
       <ThemedBox
         borderColor={UNLUCKY_RED}
         backgroundColor="rgba(253, 236, 234, 0.75)"
-        className="flex flex-col gap-5 p-2"
+        className="flex-1 p-2"
       >
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 mb-2">
           <AlertTriangle size={20} strokeWidth={2} style={{ color: UNLUCKY_RED }} />
           <p className="text-[12px] font-bold" style={{ color: UNLUCKY_RED }}>
             UNLUCKY NUMBERS
@@ -630,11 +630,11 @@ export default function LuckyUnluckyNeutralNumbers({
           priority
         />
         <div className="flex items-center gap-2">
-          <Pattern3 size={100} />
+          <Pattern3 size={50} />
           <p className="text-md font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
             ASTRO AARAMBH
           </p>
-          <Pattern3 size={100} className="rotate-180" />
+          <Pattern3 size={50} className="rotate-180" />
         </div>
         <h1 className="mt-1 text-3xl font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           <span className="font-bold" style={{ color: COLORS.green }}>LUCKY </span>,
@@ -646,7 +646,7 @@ export default function LuckyUnluckyNeutralNumbers({
         </p>
       </header>
 
-      <section className="relative z-10 mt-3">
+      <section className="relative z-10 mt-3 font-nunito-sans">
         <div className="mb-1 flex items-center gap-1.5">
           <SectionBadge index="6.1" />
           <SectionDiamondTitle>YOUR PERSONAL NUMBER PROFILE</SectionDiamondTitle>
@@ -654,13 +654,13 @@ export default function LuckyUnluckyNeutralNumbers({
         <ProfileTable rows={profileRows} />
       </section>
 
-      <section className="relative z-10 mt-2 grid grid-cols-[1.15fr_1fr_0.9fr] gap-1.5">
+      <section className="relative z-10 mt-2 grid grid-cols-[1.15fr_1fr_0.9fr] gap-1.5 font-nunito-sans">
         <LuckyAnalysisColumn primaryLucky={primaryLucky} secondaryLucky={secondaryLucky} />
         <UnluckyColumn unluckyNumbers={unluckyNumbers} neutralNote={neutralNote} />
         <QuickTipsColumn dos={dos} donts={donts} />
       </section>
 
-      <section className="relative z-10 mt-2">
+      <section className="relative z-10 mt-2 font-nunito-sans">
         <div className="mb-1 flex items-center gap-1.5">
           <SectionBadge index="6.4" />
           <p className="text-[11px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
