@@ -4,6 +4,8 @@ import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
 import AnalysisOfCoreNumbers from "@/Components/AnalysisOfCoreNumbers";
 import CoverPage from "@/Components/CoverPage";
 import CompatibilityAnalysis from "@/Components/CompatibilityAnalysis";
+import ConjunctionAndPairAnalysis from "@/Components/ConjunctionAndPairAnalysis";
+import MobileNumberCorrectionTips from "@/Components/MobileNumberCorrectionTips";
 import DeeperVibrationAnalysis from "@/Components/DeeperVibrationAnalysis";
 import LoshuGrid from "@/Components/LoshuGrid";
 import LuckyUnluckyNeutralNumbers from "@/Components/LuckyUnluckyNeutralNumbers";
@@ -28,6 +30,8 @@ export default function Home() {
       <NumberActivationGuide /> {/* 11 */}
       <CompatibilityAnalysis /> {/* 12 */}
       <OverAllVardict /> {/* 13 */}
+      <MobileNumberCorrectionTips /> {/* 14 */}
+      <ConjunctionAndPairAnalysis /> {/* 9 */}
     </div>
   );
 }
