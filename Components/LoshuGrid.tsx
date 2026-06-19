@@ -22,7 +22,6 @@ import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
 import { CoverLotus, Pattern3 } from "./CommunComponents";
-import { nunitoSans } from "@/app/fonts";
 import FooterSummaryBanner from "./FooterSummaryBanner";
 
 export type LoshuGridCell = {
@@ -294,7 +293,7 @@ export default function LoshuGrid({
         </p>
       </header>
       {/* Section 1: Lo Shu Grid */}
-      <section className={`mt-4 ${nunitoSans.className}`}>
+      <section className="mt-4 font-nunito-sans">
         <SectionDiamondTitle>1. LO SHU GRID (DATE OF BIRTH ONLY)</SectionDiamondTitle>
         <div className="mt-2 grid grid-cols-[1.1fr_1fr] gap-2">
           <div className="relative">
@@ -388,7 +387,7 @@ export default function LoshuGrid({
       </section>
 
       {/* Section 2: Planes of Expression */}
-      <section className={`mt-4 ${nunitoSans.className}`}>
+      <section className="mt-4 font-nunito-sans">
         <SectionDiamondTitle>2. PLANES OF EXPRESSION (WILL PLANES)</SectionDiamondTitle>
 
         <div className="mt-2" style={PLANE_TABLE_STYLE}>

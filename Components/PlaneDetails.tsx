@@ -19,8 +19,6 @@ import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import FooterSummaryBanner from "./FooterSummaryBanner";
 import Image from "next/image";
 import { Pattern3 } from "./CommunComponents";
-import { cinzel, nunitoSans } from "@/app/fonts";
-
 export type AvailableNumberRow = {
   number: number;
   subNumbers: string[];
@@ -174,7 +172,7 @@ const defaultMissingNumbers: MissingNumberRow[] = [
 function AvailableSectionHeader({ title }: { title: string }) {
   return (
     <div
-      className={`${cinzel.className} relative flex items-center justify-center gap-2 rounded-full px-5 py-1.5`}
+      className={`font-cinzel relative flex items-center justify-center gap-2 rounded-full px-5 py-1.5`}
       style={{
         border: `1.5px solid ${AVAILABLE_SECTION.accent}`,
         backgroundColor: '#FAE6C1',
@@ -203,7 +201,7 @@ function AvailableSectionHeader({ title }: { title: string }) {
 function MissingSectionHeader({ title }: { title: string }) {
   return (
     <div
-      className={`${cinzel.className} relative flex items-center justify-center gap-2 rounded-full px-5 py-1.5`}
+      className={`font-cinzel relative flex items-center justify-center gap-2 rounded-full px-5 py-1.5`}
       style={{
         border: `1.5px solid ${MISSING_SECTION.accent}`,
         backgroundColor: '#FBE0D1',
@@ -246,7 +244,7 @@ function MissingSectionHeader({ title }: { title: string }) {
 function AvailableNumberBadge({ value }: { value: number }) {
   return (
     <div
-      className={`${cinzel.className} flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[20px] font-bold leading-none`}
+      className={`font-cinzel flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[20px] font-bold leading-none`}
       style={{
         border: `2px solid ${AVAILABLE_SECTION.accent}`,
         color: AVAILABLE_SECTION.text,
@@ -285,7 +283,7 @@ function AvailableRow({
 }) {
   return (
     <div
-      className={`${nunitoSans.className} flex items-center px-3 py-2.5`}
+      className={`font-nunito-sans flex items-center px-3 py-2.5`}
       style={{
         borderBottom: isLast ? "none" : `1px solid ${AVAILABLE_SECTION.rowDivider}`,
       }}
@@ -301,7 +299,7 @@ function AvailableRow({
             {row.subNumbers.join(", ")}
           </p>
           <p
-            className={`${cinzel.className} mt-0.5 text-[9px] font-bold leading-tight`}
+            className={`font-cinzel mt-0.5 text-[9px] font-bold leading-tight`}
             style={{ color: AVAILABLE_SECTION.text }}
           >
             ({row.label})
@@ -348,7 +346,7 @@ function AvailableRow({
 function MissingNumberBadge({ value }: { value: number }) {
   return (
     <div
-      className={`${cinzel.className} flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[20px] font-bold leading-none`}
+      className={`font-cinzel flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[20px] font-bold leading-none`}
       style={{
         border: `2px dashed ${MISSING_SECTION.dashed}`,
         color: MISSING_SECTION.burgundy,
@@ -389,7 +387,7 @@ function MissingRow({
 
   return (
     <div
-      className={`${nunitoSans.className} flex items-center px-3 py-2.5`}
+      className={`font-nunito-sans flex items-center px-3 py-2.5`}
       style={{
         borderBottom: isLast ? "none" : `1px solid ${MISSING_SECTION.rowDivider}`,
       }}
@@ -406,7 +404,7 @@ function MissingRow({
               {row.subNumbers.join(", ")}
             </p>
             <p
-              className={`${cinzel.className} mt-0.5 text-[9px] font-bold leading-tight`}
+              className={`font-cinzel mt-0.5 text-[9px] font-bold leading-tight`}
               style={{ color: MISSING_SECTION.text }}
             >
               ({row.label})
@@ -497,7 +495,7 @@ export default function PlaneDetails({
         </p>
       </header>
 
-      <section className={`relative z-10 mt-7 ${nunitoSans.className}`}>
+      <section className={`relative z-10 mt-7 font-nunito-sans`}>
         <div
           className="relative rounded-lg pt-5 max-w-[600px] mx-auto"
           style={{
@@ -520,7 +518,7 @@ export default function PlaneDetails({
         </div>
       </section>
 
-      <section className={`relative z-10 mt-10 mb-5 ${nunitoSans.className}`}>
+      <section className={`relative z-10 mt-10 mb-5 font-nunito-sans`}>
         <div
           className="relative mx-auto max-w-[600px] rounded-lg pt-5"
           style={{

@@ -19,12 +19,22 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-cinzel);
+  --font-nunito: var(--font-nunito-sans), "Segoe UI", sans-serif;
+  --font-report-serif: var(--font-cinzel), Georgia, "Times New Roman", serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-nunito-sans {
+  font-family: var(--font-nunito);
+}
+
+.font-cinzel {
+  font-family: var(--font-report-serif);
 }
 
 .cover-parchment {

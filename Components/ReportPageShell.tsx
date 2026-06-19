@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
-import { cinzel } from "@/app/fonts";
 
 /** A4 at 96 DPI — 210mm × 297mm */
 export const PAGE_WIDTH = 794;
@@ -36,7 +35,7 @@ export default function ReportPageShell({
 }: ReportPageShellProps) {
   return (
     <article
-      className={`relative mx-auto overflow-hidden shadow-xl bg-[url('/assets/cover-bg.png')] bg-cover bg-center bg-no-repeat ${cinzel.className}`}
+      className="relative mx-auto overflow-hidden shadow-xl bg-[url('/assets/cover-bg.png')] bg-cover bg-center bg-no-repeat font-cinzel"
       style={{
         width,
         height,

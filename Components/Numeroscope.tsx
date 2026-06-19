@@ -1,7 +1,6 @@
 import { Smartphone } from "lucide-react";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
-import { cinzel } from "@/app/fonts";
 import { CoverLotus } from "./CommunComponents";
 import FooterSummaryBanner from "./FooterSummaryBanner";
 
@@ -345,7 +344,7 @@ export default function Numeroscope({
       </header>
 
       {/* Section 1: Core Birth Numbers */}
-      <section className={`relative z-10 mt-4 ${cinzel.className}`}>
+      <section className="relative z-10 mt-4 font-cinzel">
         <CoreBirthSectionHeader />
         <div className="grid grid-cols-4 gap-2.5">
           <CoreBirthCard className="items-center px-3 py-3 text-center">
@@ -411,7 +410,7 @@ export default function Numeroscope({
       </section>
 
       {/* Section 2: Full Name Vibration Analysis */}
-      <section className={`relative z-10 mt-4 ${cinzel.className}`}>
+      <section className="relative z-10 mt-4 font-cinzel">
         <NumeroscopeSectionHeader title="2. FULL NAME VIBRATION ANALYSIS (PYTHAGOREAN SYSTEM)" />
         <div className="px-4 py-4" style={CORE_CARD_STYLE}>
           <p
@@ -487,7 +486,7 @@ export default function Numeroscope({
       </section>
 
       {/* Sections 3 & 4: Bottom row */}
-      <section className={`relative z-10 mt-4 grid grid-cols-2 gap-3 ${cinzel.className}`}>
+      <section className="relative z-10 mt-4 grid grid-cols-2 gap-3 font-cinzel">
         {/* Mobile Number Vibration */}
         <div>
           <NumeroscopeSectionHeader title="3. MOBILE NUMBER VIBRATION" />

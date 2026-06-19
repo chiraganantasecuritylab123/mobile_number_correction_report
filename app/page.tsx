@@ -6,6 +6,7 @@ import LuckyUnluckyNeutralNumbers from "@/Components/LuckyUnluckyNeutralNumbers"
 import MobileNumberTotalAnalysis from "@/Components/MobileNumberTotalAnalysis";
 import Numeroscope from "@/Components/Numeroscope";
 import PlaneDetails from "@/Components/PlaneDetails";
+import OverAllVardict from "@/Components/OverAllVardict";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <LuckyUnluckyNeutralNumbers /> {/* 6 */}
       <MobileNumberTotalAnalysis /> {/* 7 */}
       <DeeperVibrationAnalysis /> {/* 8 */}
+      <OverAllVardict /> {/* 13 */}
     </div>
   );
 }

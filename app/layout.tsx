@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cinzel, geistMono, geistSans } from "./fonts";
+import { cinzel, geistMono, geistSans, nunitoSans } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,9 +15,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} ${nunitoSans.variable} h-full antialiased`}
     >
-      <body className={`${cinzel.className} min-h-full flex flex-col`}>{children}</body>
+      <body className="font-cinzel min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

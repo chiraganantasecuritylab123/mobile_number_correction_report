@@ -11,7 +11,6 @@ import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
 import { Pattern3 } from "./CommunComponents";
-
 export type CoreNumberAnalysis = {
   sectionIndex: string;
   title: string;
@@ -84,7 +83,7 @@ function InfoCard({
           style={{ color: palette.headerText, flexShrink: 0 }}
         />
         <p
-          className="text-[7.5px] font-bold tracking-wide"
+          className="text-[10px] font-bold tracking-wide"
           style={{ color: palette.headerText }}
         >
           {title}
@@ -135,7 +134,7 @@ const defaultCoreNumbers: CoreNumberAnalysis[] = [
     title: "GOOD & BAD ABOUT DRIVER NUMBER (PSYCHIC NUMBER)",
     number: 5,
     planetName: "Mercury",
-    planetSymbol: "☿",
+    planetSymbol: "/assets/cover/page-5-image.png",
     planetImage: "/assets/cover/mercury.png",
     element: "Earth Element",
     positiveTraits: [
@@ -165,7 +164,7 @@ const defaultCoreNumbers: CoreNumberAnalysis[] = [
     title: "GOOD & BAD ABOUT CONDUCTOR NUMBER (DESTINY NUMBER)",
     number: 7,
     planetName: "Ketu",
-    planetSymbol: "☊",
+    planetSymbol: "/assets/cover/page-5-image-1.png",
     planetImage: "/assets/cover/ketu.png",
     element: "Water Element",
     positiveTraits: [
@@ -195,7 +194,7 @@ const defaultCoreNumbers: CoreNumberAnalysis[] = [
     title: "GOOD & BAD ABOUT KUA NUMBER",
     number: 2,
     planetName: "Moon",
-    planetSymbol: "☽",
+    planetSymbol: "/assets/cover/page-5-image-2.png",
     planetImage: "/assets/cover/moon.png",
     element: "Earth Element",
     positiveTraits: [
@@ -242,9 +241,9 @@ function PlanetGraphic({
         </p>
         <p className="text-[8px] font-bold">{element}</p>
       </div>
-      <div className="flex flex-col items-center text-[30px]">
-        {symbol}
-      </div>
+      {/* <div className="flex flex-col items-center text-[30px]"> */}
+        <Image src={symbol} alt={name} width={60} height={60} className="object-contain" />
+      {/* </div> */}
     </>
   );
 }
@@ -265,14 +264,14 @@ function TraitSection({
 
   return (
     <InfoCard theme={theme} icon={Icon} title={title}>
-      <ul className="flex flex-col gap-0.5">
+      <ul className="flex flex-col gap-0.5 min-h-[100px]">
         {items.map((item) => (
           <li
             key={item}
-            className="flex items-start gap-1 text-[9px] font-bold leading-snug text-black"
+            className="flex items-start gap-1 text-[10px] font-bold  text-black"
           >
             <span
-              className="mt-[3px] h-[3px] w-[3px] shrink-0 rounded-full"
+              className="mt-[3px] h-[3px] w-[3px] shrink-0 rounded-full lin"
               style={{ backgroundColor: bulletColor }}
             />
             {item}
@@ -287,7 +286,7 @@ function CoreNumberColumn({ data }: { data: CoreNumberAnalysis }) {
   return (
     <div className="relative flex flex-col pt-3">
       <div
-        className="absolute left-1/2 top-0 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full text-[10px] font-bold"
+        className="absolute left-1/2 top-0 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full text-[11px] font-bold"
         style={{
           backgroundColor: COLORS.brown,
           color: COLORS.cream,
@@ -338,13 +337,13 @@ function CoreNumberColumn({ data }: { data: CoreNumberAnalysis }) {
         />
 
         <InfoCard theme="gold" icon={Lightbulb} title="KEY ADVICE">
-          <p className="text-center text-[9px] font-bold leading-snug text-black">
+          <p className="text-center text-[10px] font-bold leading-snug text-black">
             {data.keyAdvice}
           </p>
         </InfoCard>
 
         <InfoCard theme="gold" icon={Sparkles} title="POWER STATEMENT">
-          <p className="text-center text-[9px] font-bold italic leading-snug text-[#a84432]">
+          <p className="text-center text-[10px] font-bold italic leading-snug text-[#a84432]">
             &ldquo;{data.powerStatement}&rdquo;
           </p>
         </InfoCard>
@@ -370,11 +369,11 @@ export default function AnalysisOfCoreNumbers({
           priority
         />
         <div className="flex items-center gap-2">
-          <Pattern3 size={100} />
+          <Pattern3 size={50} />
           <p className="text-md font-semibold" style={{ color: COLORS.brown }}>
             ASTRO AARAMBH
           </p>
-          <Pattern3 size={100} className="rotate-180" />
+          <Pattern3 size={50} className="rotate-180" />
         </div>
         <h1 className="text-[40px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
           ANALYSIS OF <span className="" style={{ color: COLORS.gold }}>CORE NUMBERS</span>
@@ -387,7 +386,7 @@ export default function AnalysisOfCoreNumbers({
         {/* </div> */}
       </header>
 
-      <section className="relative z-10 mt-3 grid grid-cols-3 gap-2">
+      <section className="relative z-10 mt-3 grid grid-cols-3 gap-2 font-nunito-sans">
         {coreNumbers.map((data) => (
           <CoreNumberColumn key={data.sectionIndex} data={data} />
         ))}
