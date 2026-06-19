@@ -13,6 +13,8 @@ import MobileNumberTotalAnalysis from "@/Components/MobileNumberTotalAnalysis";
 import Numeroscope from "@/Components/Numeroscope";
 import PlaneDetails from "@/Components/PlaneDetails";
 import OverAllVardict from "@/Components/OverAllVardict";
+import FAQPage from "@/Components/FAQPage";
+import DisclaimerAndAdvicePage from "@/Components/DisclaimerAndAdvicePage";
 
 export default function Home() {
   return (
@@ -32,6 +34,9 @@ export default function Home() {
       <OverAllVardict /> {/* 13 */}
       <MobileNumberCorrectionTips /> {/* 14 */}
       <ConjunctionAndPairAnalysis /> {/* 9 */}
+      <OverAllVardict /> {/*   13 */}
+      <FAQPage /> {/* 16 */}  
+      <DisclaimerAndAdvicePage /> {/* 17 */}
     </div>
   );
 }
