@@ -468,11 +468,11 @@ export default function ConjunctionAndPairAnalysis({
           priority
         />
         <div className="flex items-center gap-2">
-          <Pattern3 size={100} />
-          <p className="text-md font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+          <Pattern3 size={50} />
+          <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
             ASTRO AARAMBH
           </p>
-          <Pattern3 size={100} className="rotate-180" />
+          <Pattern3 size={50} className="rotate-180" />
         </div>
         <h1 className="mt-1 text-[35px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           CONJUNCTION{" "}

@@ -1,6 +1,7 @@
 import AnalysisOfCoreNumbers from "@/Components/AnalysisOfCoreNumbers";
 import CoverPage from "@/Components/CoverPage";
 import ConjunctionAndPairAnalysis from "@/Components/ConjunctionAndPairAnalysis";
+import MobileNumberCorrectionTips from "@/Components/MobileNumberCorrectionTips";
 import DeeperVibrationAnalysis from "@/Components/DeeperVibrationAnalysis";
 import LoshuGrid from "@/Components/LoshuGrid";
 import LuckyUnluckyNeutralNumbers from "@/Components/LuckyUnluckyNeutralNumbers";
@@ -20,6 +21,7 @@ export default function Home() {
       <MobileNumberTotalAnalysis /> {/* 7 */}
       <DeeperVibrationAnalysis /> {/* 8 */}
       <ConjunctionAndPairAnalysis /> {/* 9 */}
+      <MobileNumberCorrectionTips /> {/* 14 */}
     </div>
   );
 }
