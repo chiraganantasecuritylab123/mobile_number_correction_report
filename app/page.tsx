@@ -1,3 +1,6 @@
+import NumberActivationGuide from "@/Components/NumberActivationGuide";
+import MissingNumbersAnalysis from "@/Components/MissingNumbersAnalysis";
+import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
 import AnalysisOfCoreNumbers from "@/Components/AnalysisOfCoreNumbers";
 import CoverPage from "@/Components/CoverPage";
 import CompatibilityAnalysis from "@/Components/CompatibilityAnalysis";
@@ -20,6 +23,9 @@ export default function Home() {
       <LuckyUnluckyNeutralNumbers /> {/* 6 */}
       <MobileNumberTotalAnalysis /> {/* 7 */}
       <DeeperVibrationAnalysis /> {/* 8 */}
+      <RepetitiveNumberAnalysis /> {/* 9 */}
+      <MissingNumbersAnalysis /> {/* 10 */}
+      <NumberActivationGuide /> {/* 11 */}
       <CompatibilityAnalysis /> {/* 12 */}
       <OverAllVardict /> {/* 13 */}
     </div>
