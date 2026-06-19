@@ -386,7 +386,7 @@ export default function AnalysisOfCoreNumbers({
         {/* </div> */}
       </header>
 
-      <section className="relative z-10 mt-3 grid grid-cols-3 gap-2 font-nunito-sans">
+      <section className="relative z-10 mt-[-1px] grid grid-cols-3 gap-2 font-nunito-sans">
         {coreNumbers.map((data) => (
           <CoreNumberColumn key={data.sectionIndex} data={data} />
         ))}

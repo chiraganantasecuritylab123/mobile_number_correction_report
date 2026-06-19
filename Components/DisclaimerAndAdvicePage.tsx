@@ -267,7 +267,8 @@ function DisclaimerSection({ points }: { points: DisclaimerPoint[] }) {
           alt=""
           width={150}
           height={200}
-          className="h-full w-full object-contain object-right-bottom"
+          className="h-full w-auto max-w-full object-contain object-right-bottom"
+          style={{ width: "auto", height: "100%" }}
           aria-hidden
         />
       </div>
@@ -437,13 +438,15 @@ export default function DisclaimerAndAdvicePage({
           </p>
           <Pattern3 size={50} className="rotate-180" />
         </div>
-        <h1 className="text-[40px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
+        <h1 className="text-[40px] mt-[-8px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           Important Disclaimer <br />
           <span style={{ color: COLORS.red }}>&amp; Final Advice</span>
         </h1>
       </header>
 
+<div className="mt-[-8px]">
       <DisclaimerSection points={disclaimerPoints} />
+      </div>
 
       <div className="mt-1">
         <FinalAdviceHeader />
@@ -453,8 +456,9 @@ export default function DisclaimerAndAdvicePage({
           ))}
         </div>
       </div>
-
+        <div className="mt-[-8px]">
       <ClosingBanner closing={closing} />
+      </div>
     </ReportPageShell>
   );
 }

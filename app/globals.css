@@ -37,6 +37,14 @@ body {
   font-family: var(--font-report-serif);
 }
 
+body[data-pdf-capturing="true"] {
+  cursor: progress;
+}
+
+body[data-pdf-capturing="true"] [data-pdf-capture-host] {
+  visibility: visible;
+}
+
 .cover-parchment {
   background-color: #fdf5e6;
   background-image:

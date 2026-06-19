@@ -1,3 +1,4 @@
+import ReportHomeClient from "@/Components/ReportHomeClient";
 import NumberActivationGuide from "@/Components/NumberActivationGuide";
 import MissingNumbersAnalysis from "@/Components/MissingNumbersAnalysis";
 import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
@@ -18,7 +19,7 @@ import DisclaimerAndAdvicePage from "@/Components/DisclaimerAndAdvicePage";
 
 export default function Home() {
   return (
-    <div className="flex min-h-full flex-col items-center gap-10 bg-[#d4cfc7] p-8">
+    <ReportHomeClient>
       <CoverPage /> {/* 1 */}
       <Numeroscope /> {/* 2 */}
       <LoshuGrid /> {/* 3 */}
@@ -27,16 +28,15 @@ export default function Home() {
       <LuckyUnluckyNeutralNumbers /> {/* 6 */}
       <MobileNumberTotalAnalysis /> {/* 7 */}
       <DeeperVibrationAnalysis /> {/* 8 */}
-      <RepetitiveNumberAnalysis /> {/* 9 */}
-      <MissingNumbersAnalysis /> {/* 10 */}
-      <NumberActivationGuide /> {/* 11 */}
+      <ConjunctionAndPairAnalysis /> {/* 9 */}
+      <RepetitiveNumberAnalysis /> {/* 10 */}
+      <MissingNumbersAnalysis /> {/* 11 */}
       <CompatibilityAnalysis /> {/* 12 */}
       <OverAllVardict /> {/* 13 */}
       <MobileNumberCorrectionTips /> {/* 14 */}
-      <ConjunctionAndPairAnalysis /> {/* 9 */}
-      <OverAllVardict /> {/*   13 */}
-      <FAQPage /> {/* 16 */}  
+      <NumberActivationGuide /> {/* 15 */}
+      <FAQPage /> {/* 16 */}
       <DisclaimerAndAdvicePage /> {/* 17 */}
-    </div>
+    </ReportHomeClient>
   );
 }

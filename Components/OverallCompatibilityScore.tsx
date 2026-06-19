@@ -15,13 +15,12 @@ export type CompatibilityScoreResult = {
   needleAngle: number;
 };
 
-const NAVY = "#213247";
+const NAVY = "#1d3557";
 const GOLD = "#B08D57";
 const ORANGE = "#E8872A";
 const RED = "#C44536";
-const YELLOW = "#E8B923";
 const GREEN = "#3D8B4E";
-const RING_BORDER = "#D8AC71";
+const RING_BORDER = "rgba(184, 134, 11, 0.23)";
 
 function clampValue(value: number) {
   return Math.max(0, Math.min(100, Math.round(value)));
@@ -37,13 +36,12 @@ function getStarRating(value: number): number {
   return 5;
 }
 
-/** Maps 0–100 to level, stars, alignment, colors, and radial needle rotation. */
+/** Maps 0–100 to level, stars, alignment, colors, and needle rotation. */
 export function getCompatibilityScoreResult(value: number): CompatibilityScoreResult {
   const clamped = clampValue(value);
-  // Needle defaults pointing up; rotate clockwise: 0% → left (-90°), 100% → right (+90°)
   const needleAngle = -90 + (clamped / 100) * 180;
 
-  if (clamped <= 40) {
+  if (clamped <= 45) {
     return {
       value: clamped,
       level: "low",
@@ -51,13 +49,13 @@ export function getCompatibilityScoreResult(value: number): CompatibilityScoreRe
       alignment: "POOR ALIGNMENT",
       starRating: getStarRating(clamped),
       levelColor: RED,
-      starColor: RED,
+      starColor: "#E8B923",
       percentageColor: GOLD,
       needleAngle,
     };
   }
 
-  if (clamped <= 70) {
+  if (clamped <= 75) {
     return {
       value: clamped,
       level: "medium",
@@ -65,7 +63,7 @@ export function getCompatibilityScoreResult(value: number): CompatibilityScoreRe
       alignment: "MODERATE ALIGNMENT",
       starRating: getStarRating(clamped),
       levelColor: ORANGE,
-      starColor: ORANGE,
+      starColor: "#E8B923",
       percentageColor: GOLD,
       needleAngle,
     };
@@ -78,89 +76,16 @@ export function getCompatibilityScoreResult(value: number): CompatibilityScoreRe
     alignment: "EXCELLENT ALIGNMENT",
     starRating: getStarRating(clamped),
     levelColor: GREEN,
-    starColor: GREEN,
+    starColor: "#E8B923",
     percentageColor: GOLD,
     needleAngle,
   };
 }
 
-function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
-  const rad = (angleDeg * Math.PI) / 180;
-  return {
-    x: cx + r * Math.cos(rad),
-    y: cy - r * Math.sin(rad),
-  };
-}
-
-function describeArc(
-  cx: number,
-  cy: number,
-  r: number,
-  startAngle: number,
-  endAngle: number,
-) {
-  const start = polarToCartesian(cx, cy, r, startAngle);
-  const end = polarToCartesian(cx, cy, r, endAngle);
-  const largeArc = Math.abs(endAngle - startAngle) > 180 ? 1 : 0;
-  const sweep = endAngle < startAngle ? 0 : 1;
-  return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} ${sweep} ${end.x} ${end.y}`;
-}
-
-function GaugeArc({
-  cx,
-  cy,
-  r,
-  strokeWidth,
-}: {
-  cx: number;
-  cy: number;
-  r: number;
-  strokeWidth: number;
-}) {
-  const gap = 2.5;
-  const segments = [
-    { start: 180 - gap, end: 135 + gap, color: RED },
-    { start: 135 - gap, end: 90 + gap, color: ORANGE },
-    { start: 90 - gap, end: 45 + gap, color: YELLOW },
-    { start: 45 - gap, end: 0 + gap, color: GREEN },
-  ];
-
-  return (
-    <>
-      {segments.map((seg, i) => (
-        <path
-          key={i}
-          d={describeArc(cx, cy, r, seg.start, seg.end)}
-          stroke={seg.color}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          fill="none"
-        />
-      ))}
-      {[135, 90, 45].map((angleDeg) => {
-        const inner = polarToCartesian(cx, cy, r - strokeWidth / 2 - 0.5, angleDeg);
-        const outer = polarToCartesian(cx, cy, r + strokeWidth / 2 + 0.5, angleDeg);
-        return (
-          <line
-            key={angleDeg}
-            x1={inner.x}
-            y1={inner.y}
-            x2={outer.x}
-            y2={outer.y}
-            stroke="#ffffff"
-            strokeWidth="1.5"
-          />
-        );
-      })}
-    </>
-  );
-}
-
 function TopDiamond() {
   return (
-    <g aria-hidden>
-      <line x1="88" y1="12" x2="112" y2="12" stroke={RING_BORDER} strokeWidth="0.9" />
-      <path d="M 100 9.5 L 101.8 12 L 100 14.5 L 98.2 12 Z" fill={ORANGE} />
+    <g aria-hidden transform="translate(100, 15)">
+      <path d="M 0,-3.5 L 3.5,0 L 0,3.5 L -3.5,0 Z" fill="#b8860b" opacity="0.85" />
     </g>
   );
 }
@@ -175,16 +100,17 @@ function ScoreStars({
   size?: number;
 }) {
   return (
-    <div className="flex items-center justify-center" style={{ gap: size * 0.08 }}>
-      {Array.from({ length: 5 }).map((_, i) => {
-        const filled = rating >= i + 1;
-        const half = !filled && rating >= i + 0.5;
+    <div className="flex items-center justify-center" style={{ gap: size * 0.12 }}>
+      {Array.from({ length: 5 }).map((_, index) => {
+        const filled = rating >= index + 1;
+        const half = !filled && rating >= index + 0.5;
+
         return (
           <span
-            key={i}
+            key={index}
             style={{
               fontSize: size,
-              color: filled || half ? color : color,
+              color,
               opacity: filled || half ? 1 : 0.22,
               lineHeight: 1,
             }}
@@ -208,118 +134,111 @@ export default function OverallCompatibilityScore({
   value,
   className = "",
   title = "OVERALL COMPATIBILITY SCORE",
-  size = 168,
+  size = 260,
 }: OverallCompatibilityScoreProps) {
   const result = getCompatibilityScoreResult(value);
+  const gradientId = useId().replace(/:/g, "");
   const titleArcId = useId().replace(/:/g, "");
 
-  const pivotX = 100;
-  const pivotY = 106;
-  const arcR = 54;
-  const strokeWidth = 12;
-  const needleLen = arcR - 6;
-  const titleArcY = 80;
+  // Gauge geometry
+  const cx = 150, cy = 170, arcR = 115;
+  const needleLength = 90;
+  // needle: -90 at 0%, +90 at 100%
+  const needleAngle = -90 + (result.value / 100) * 180;
+
+  const scale = size / 300;
 
   return (
     <div
       className={`relative mx-auto ${className}`}
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size * (260 / 300) }}
       role="img"
       aria-label={`Overall compatibility score ${result.value} percent, ${result.levelLabel}, ${result.alignment}`}
     >
-      <svg viewBox="0 0 200 200" fill="none" className="h-full w-full" aria-hidden>
-        {/* Outer ring — white fill, light orange border */}
-        <circle cx={100} cy={100} r={94} stroke={RING_BORDER} strokeWidth="1.5" fill="#ffffff" />
+      <svg
+        viewBox="0 0 300 260"
+        fill="none"
+        className="h-full w-full"
+        style={{marginTop:'-30px'}}
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stopColor="#dc2626" />
+            <stop offset="28%"  stopColor="#f97316" />
+            <stop offset="52%"  stopColor="#f59e0b" />
+            <stop offset="75%"  stopColor="#84cc16" />
+            <stop offset="100%" stopColor="#16a34a" />
+          </linearGradient>
+          {/* <path
+            id={titleArcId}
+            d={`M 10,150 A 130,130 0 0,1 260,170`}
+            fill="none"
+          /> */}
+        </defs>
 
-        <TopDiamond />
+        {/* Outer ring */}
+        <circle cx={cx} cy={cy} r="130" stroke="#f97316" strokeWidth="1.5" opacity="0.5" fill="white" />
+
+        {/* Thick gradient arc */}
+        <path
+          d={`M 35,170 A ${arcR},${arcR} 0 0,1 265,170`}
+          fill="none"
+          stroke={`url(#${gradientId})`}
+          strokeWidth="22"
+          strokeLinecap="round"
+        />
+
+        {/* Top diamond */}
+        <path d="M 150,38 L 154,42 L 150,46 L 146,42 Z" fill="#f97316" opacity="0.9" />
 
         {/* Curved title */}
-        <defs>
-          <path id={titleArcId} d={`M 36 ${titleArcY} A 64 64 0 0 1 164 ${titleArcY}`} fill="none" />
-        </defs>
-        <text
-          fill={NAVY}
-          fontSize="7"
-          fontWeight="700"
-          letterSpacing="0.5"
-          fontFamily="var(--font-geist-sans), 'Segoe UI', sans-serif"
-        >
-          <textPath href={`#${titleArcId}`} startOffset="50%" textAnchor="middle" dy="-3">
+        <text fontSize="13" fontWeight="700" letterSpacing="2" fill="#1d3557"
+              fontFamily="'Segoe UI',Arial,sans-serif">
+          <textPath href={`#${titleArcId}`} startOffset="50%" textAnchor="middle">
             {title}
           </textPath>
         </text>
 
-        {/* Semicircular 4-segment gauge */}
-        <GaugeArc cx={pivotX} cy={pivotY} r={arcR} strokeWidth={strokeWidth} />
-
-        {/* Radial needle from center hub — 0% left (red), 100% right (green) */}
-        <g transform={`rotate(${result.needleAngle} ${pivotX} ${pivotY})`}>
-          <path
-            d={`M ${pivotX - 1.5} ${pivotY} L ${pivotX - 0.5} ${pivotY - needleLen + 4} L ${pivotX + 0.5} ${pivotY - needleLen + 4} L ${pivotX + 1.5} ${pivotY} Z`}
-            fill={NAVY}
-          />
-          <circle cx={pivotX} cy={pivotY} r="5" fill={NAVY} />
-          <circle cx={pivotX} cy={pivotY} r="1.8" fill="#ffffff" />
+        {/* Needle */}
+        <g transform={`translate(${cx},${cy})`}>
+          <g transform={`rotate(${needleAngle})`}>
+            <line x1="0" y1="0" x2="0" y2={-needleLength}
+                  stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+            <circle cx="0" cy="0" r="6" fill="#1e293b" />
+          </g>
         </g>
-      </svg>
 
-      {/* 62 + small % */}
-      <div
-        className="pointer-events-none absolute left-0 right-0 flex items-start justify-center"
-        style={{ top: size * 0.38 }}
-      >
-        <span
-          className={`${cinzel.className} font-bold leading-none`}
-          style={{ color: result.percentageColor, fontSize: size * 0.2 }}
-        >
+        {/* Score number */}
+        <text x="150" y="240" textAnchor="middle" fontSize="62" fontWeight="900"
+              fill="#B08D57" fontFamily="Georgia,serif" letterSpacing="-2">
           {result.value}
-        </span>
-        <span
-          className={`${cinzel.className} font-bold leading-none`}
-          style={{
-            color: result.percentageColor,
-            fontSize: size * 0.085,
-            marginLeft: 2,
-            marginTop: size * 0.016,
-          }}
-        >
-          %
-        </span>
-      </div>
+        </text>
+        <text x="190" y="230" textAnchor="start" fontSize="30" fontWeight="900"
+              fill="#B08D57" fontFamily="Georgia,serif">%</text>
 
-      {/* MEDIUM / HIGH / LOW */}
-      <p
-        className="pointer-events-none absolute left-0 right-0 text-center font-bold tracking-[0.12em]"
-        style={{
-          top: size * 0.545,
-          color: result.levelColor,
-          fontSize: size * 0.052,
-          fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif",
-        }}
-      >
-        {result.levelLabel}
-      </p>
+        {/* Level label */}
+        <text x="150" y="260" textAnchor="middle" fontSize="20" fontWeight="900"
+              fill={result.levelColor} fontFamily="'Segoe UI',Arial,sans-serif" letterSpacing="2">
+          {result.levelLabel}
+        </text>
 
-      {/* Star rating */}
-      <div
-        className="pointer-events-none absolute left-0 right-0 flex justify-center"
-        style={{ top: size * 0.615 }}
-      >
-        <ScoreStars rating={result.starRating} color={result.starColor} size={size * 0.052} />
-      </div>
+        {/* Stars */}
+        {Array.from({ length: 5 }).map((_, i) => {
+          const filled = result.starRating >= i + 1;
+          return (
+            <text key={i} x={78 + i * 26} y="280" fontSize="22"
+                  fill="#E8B923" opacity={filled ? 1 : 0.28}
+                  fontFamily="Arial">★</text>
+          );
+        })}
 
-      {/* MODERATE ALIGNMENT */}
-      <p
-        className="pointer-events-none absolute left-0 right-0 text-center font-bold tracking-[0.06em]"
-        style={{
-          bottom: size * 0.11,
-          color: NAVY,
-          fontSize: size * 0.034,
-          fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif",
-        }}
-      >
-        {result.alignment}
-      </p>
+        {/* Alignment label */}
+        <text x="150" y="300" textAnchor="middle" fontSize="12" fontWeight="800"
+              fill="#1d3557" fontFamily="'Segoe UI',Arial,sans-serif" letterSpacing="2">
+          {result.alignment}
+        </text>
+      </svg>
     </div>
   );
 }
