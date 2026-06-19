@@ -132,7 +132,7 @@ function SummaryCard({
         </p>
 
         <p
-          className="mt-1 text-[8px] font-normal normal-case leading-snug"
+          className="mt-1 text-[10px] font-normal normal-case leading-snug"
           style={{ color: "#2D3748", fontFamily: SANS }}
         >
           {description}
@@ -249,47 +249,6 @@ function SectionHeader({ index, title }: { index: string; title: string }) {
   );
 }
 
-function KeyInsightFooter({
-  keyInsight,
-  tip,
-}: {
-  keyInsight: string;
-  tip: string;
-}) {
-  return (
-    <>
-      <SectionHeader index="4" title="KEY INSIGHT" />
-      <GoldBox className="px-3 py-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <ReportIcon src={CONJUNCTION_ICONS.keyInsightStar} size={12} />
-          <p
-            className="min-w-0 flex-1 text-center text-[8.5px] font-normal leading-[1.6]"
-            style={{ color: "#4A3F35", fontFamily: SANS }}
-          >
-            {keyInsight}
-          </p>
-          <ReportIcon src={CONJUNCTION_ICONS.keyInsightStar} size={10} />
-        </div>
-      </GoldBox>
-      <GoldBox className="mt-1 px-3 py-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <ReportIcon src={CONJUNCTION_ICONS.keyInsightStar} size={10} />
-          <p
-            className="min-w-0 flex-1 text-center text-[7.5px] font-normal normal-case leading-snug"
-            style={{ color: COLORS.brown, fontFamily: SANS }}
-          >
-            <span className="font-bold" style={{ color: COLORS.gold }}>
-              TIP:{" "}
-            </span>
-            {tip}
-          </p>
-          <ReportIcon src={CONJUNCTION_ICONS.keyInsightStar} size={10} />
-        </div>
-      </GoldBox>
-    </>
-  );
-}
-
 function GoldBox({
   children,
   className = "",
@@ -399,21 +358,21 @@ function PairAnalysisCard({ data }: { data: PairAnalysis }) {
         </p>
         <div className="mt-1 flex items-center justify-center gap-1">
           <PairCardTitleIcon data={data} accent={accent} />
-          <span className="text-[8.5px] font-semibold leading-tight" style={{ color: BODY_TEXT }}>
+          <span className="text-[9px] font-semibold leading-tight" style={{ color: BODY_TEXT }}>
             {data.title}
           </span>
         </div>
       </div>
       <div className="mx-2 border-t" style={{ borderColor: theme.border }} />
       <div className="px-2 py-1.5 text-center">
-        <p className="text-[7px] font-bold uppercase tracking-[0.08em]" style={{ color: accent }}>IMPACT</p>
+        <p className="text-[9px] font-bold uppercase tracking-[0.08em]" style={{ color: accent }}>IMPACT</p>
         <p className="mt-0.5 text-[9px] font-bold leading-tight" style={{ color: impactColor }}>{data.impactLabel}</p>
       </div>
       <div className="mx-2 border-t" style={{ borderColor: theme.border }} />
       <div className="px-2 py-1.5 text-center">
-        <p className="text-[7px] font-bold uppercase tracking-[0.08em]" style={{ color: accent }}>MEANING</p>
+        <p className="text-[9px] font-bold uppercase tracking-[0.08em]" style={{ color: accent }}>MEANING</p>
         <p
-          className="mt-0.5 text-[7.5px] font-normal normal-case leading-snug"
+          className="mt-0.5 text-[10px] font-normal normal-case leading-snug"
           style={{ color: BODY_TEXT, fontFamily: SANS }}
         >
           {data.meaning}
@@ -421,10 +380,10 @@ function PairAnalysisCard({ data }: { data: PairAnalysis }) {
       </div>
       <div className="mx-2 border-t" style={{ borderColor: theme.border }} />
       <div className="flex flex-1 flex-col items-center px-2 pb-2 pt-1.5 text-center">
-        <p className="text-[7px] font-bold uppercase tracking-[0.08em]" style={{ color: accent }}>LIFE AREAS AFFECTED</p>
+        <p className="text-[9px] font-bold uppercase tracking-[0.08em]" style={{ color: accent }}>LIFE AREAS AFFECTED</p>
         <ul className="mt-1 inline-block text-left">
           {data.lifeAreas.map((area) => (
-            <li key={area} className="flex items-start gap-1 text-[7.5px] leading-snug" style={{ color: BODY_TEXT }}>
+            <li key={area} className="flex items-start gap-1 text-[10px] leading-snug" style={{ color: BODY_TEXT }}>
               <span className="mt-[1px] shrink-0" style={{ color: COLORS.black }}>•</span>
               <span>{area}</span>
             </li>
@@ -441,7 +400,7 @@ export default function ConjunctionAndPairAnalysis({
   pairAnalyses = defaultPairAnalyses,
   summary = defaultSummary,
   keyInsight =
-    "Your number shows very strong communication and leadership energy (77, 01, 12) but also carries repetition of 44 and double 00 which create delays and stress. Balancing patience, focus and positive action will unlock the full power of this number.",
+  "Your number shows very strong communication and leadership energy (77, 01, 12) but also carries repetition of 44 and double 00 which create delays and stress. Balancing patience, focus and positive action will unlock the full power of this number.",
   tip = "Understanding these pairs helps you make better decisions, reduce delays and align your actions with the right time and energy.",
 }: ConjunctionAndPairAnalysisProps) {
   const displayNumber = formatDisplayMobileNumber(mobileNumber);
@@ -455,130 +414,126 @@ export default function ConjunctionAndPairAnalysis({
   return (
     <ReportPageShell padding="20px 40px 28px">
       <div className="flex h-full w-full max-w-full flex-col">
-      <SunIcon className="pointer-events-none absolute left-3 top-3 z-20 h-11 w-11 opacity-75" />
-      <MoonIcon className="pointer-events-none absolute right-3 top-3 z-20 h-11 w-11 opacity-75" />
+        <SunIcon className="pointer-events-none absolute left-3 top-3 z-20 h-11 w-11 opacity-75" />
+        <MoonIcon className="pointer-events-none absolute right-3 top-3 z-20 h-11 w-11 opacity-75" />
 
-      <header className="relative z-10 flex flex-col items-center text-center">
-        <Image
-          src="/assets/ganesha-logo.png"
-          alt="Astro Aarambh"
-          width={100}
-          height={100}
-          className="mb-2"
-          priority
-        />
-        <div className="flex items-center gap-2">
-          <Pattern3 size={50} />
-          <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-            ASTRO AARAMBH
-          </p>
-          <Pattern3 size={50} className="rotate-180" />
-        </div>
-        <h1 className="mt-1 text-[35px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
-          CONJUNCTION{" "}
-          <span style={{ color: "#d48e31" }}>&amp; PAIR</span>{" "}
-          ANALYSIS
-        </h1>
-        <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
-          Power of Adjacent Digits
-        </p>
-      </header>
-
-      <section className="relative z-10 mt-2">
-        <GoldBox className="grid grid-cols-[1.1fr_auto_1fr] items-center gap-3 px-4 py-3">
-          <div className="flex items-center gap-3">
-            <div
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
-              style={{ border: "1px solid rgba(184, 134, 11, 0.6)" }}
-            >
-              <Smartphone size={22} strokeWidth={1.5} style={{ color: COLORS.gold }} />
-            </div>
-            <div>
-              <p className="mb-0.5 text-[10px] font-extrabold tracking-wider" style={{ color: COLORS.gold }}>
-                CURRENT MOBILE NUMBER
-              </p>
-              <p className="text-[22px] font-bold leading-none tracking-wide font-serif" style={{ color: COLORS.brown }}>
-                {displayNumber}
-              </p>
-            </div>
-          </div>
-
-          <div className="h-14 w-px shrink-0" style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }} />
-
-          <div className="flex min-w-0 items-center gap-2.5 pl-1">
-            <ReportIcon src={CONJUNCTION_ICONS.adjacencyAtom} size={32} />
-            <p
-              className="min-w-0 flex-1 text-center text-[9px] font-normal normal-case leading-[1.65]"
-              style={{ color: "#5C4D3C", fontFamily: SANS }}
-            >
-              {ADJACENCY_TEXT}
+        <header className="relative z-10 flex flex-col items-center text-center">
+          <Image
+            src="/assets/ganesha-logo.png"
+            alt="Astro Aarambh"
+            width={100}
+            height={100}
+            className="mb-2"
+            priority
+          />
+          <div className="flex items-center gap-2">
+            <Pattern3 size={50} />
+            <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+              ASTRO AARAMBH
             </p>
+            <Pattern3 size={50} className="rotate-180" />
           </div>
-        </GoldBox>
-      </section>
+          <h1 className="mt-1 text-[35px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
+            CONJUNCTION{" "}
+            <span style={{ color: "#d48e31" }}>&amp; PAIR</span>{" "}
+            ANALYSIS
+          </h1>
+          <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
+            Power of Adjacent Digits
+          </p>
+        </header>
 
-      <section className="relative z-10 mt-1 min-w-0">
-        <SectionHeader index="1" title="ADJACENT PAIR MAPPING" />
-        <GoldBox className="select-none px-3 py-1.5">
-          <div className="flex min-w-0 items-start">
-            <span
-              className="mr-3 mt-1.5 shrink-0 text-[15px] font-bold leading-none"
-              style={{ color: "#111111", fontFamily: SANS }}
-            >
-              +
-            </span>
-            <div className="flex min-w-0 flex-1 items-start justify-between gap-0.5">
-              {mappingPairs.map((pairData, index) => {
-                const badge = BADGE_STYLES[pairData.status];
-                return (
-                  <div
-                    key={`mapping-col-${index}`}
-                    className="flex min-w-0 flex-1 flex-col items-center"
-                    style={{ gap: COLUMN_VERTICAL_GAP }}
-                  >
-                    <MappingDigitCircle digit={mappingDigits[index] ?? ""} />
-                    <PairConnector color={badge.text} />
-                    <MappingPairBox label={pairData.pair} color={badge.text} bg={badge.bg} />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </GoldBox>
-      </section>
-
-      <section className="relative z-10 mt-1 min-w-0">
-        <SectionHeader index="2" title="DETAILED PAIR ANALYSIS" />
-        <div className="grid grid-cols-6 gap-1">
-          {topRow.map((pair, index) => (
-            <PairAnalysisCard key={`${pair.pair}-${index}`} data={pair} />
-          ))}
-        </div>
-        <div className="mt-0.5 grid grid-cols-6 gap-1">
-          <div className="col-span-6 flex justify-center gap-1">
-            {bottomRow.map((pair, index) => (
-              <div key={`${pair.pair}-${index + 6}`} className="min-w-0 flex-[0_0_calc((100%-25px)/6)]">
-                <PairAnalysisCard data={pair} />
+        <section className="relative z-10 mt-2">
+          <GoldBox className="grid grid-cols-[1.1fr_auto_1fr] items-center gap-3 px-4 py-3">
+            <div className="flex items-center gap-3">
+              <div
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+                style={{ border: "1px solid rgba(184, 134, 11, 0.6)" }}
+              >
+                <Smartphone size={22} strokeWidth={1.5} style={{ color: COLORS.gold }} />
               </div>
+              <div>
+                <p className="mb-0.5 text-[10px] font-extrabold tracking-wider" style={{ color: COLORS.gold }}>
+                  CURRENT MOBILE NUMBER
+                </p>
+                <p className="text-[22px] font-bold leading-none tracking-wide font-serif" style={{ color: COLORS.brown }}>
+                  {displayNumber}
+                </p>
+              </div>
+            </div>
+
+            <div className="h-14 w-px shrink-0" style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }} />
+
+            <div className="flex min-w-0 items-center gap-2.5 pl-1">
+              <ReportIcon src={CONJUNCTION_ICONS.adjacencyAtom} size={32} />
+              <p
+                className="min-w-0 flex-1 text-center text-[9px] font-normal normal-case leading-[1.65]"
+                style={{ color: "#5C4D3C", fontFamily: SANS }}
+              >
+                {ADJACENCY_TEXT}
+              </p>
+            </div>
+          </GoldBox>
+        </section>
+
+        <section className="relative z-10 mt-1 min-w-0">
+          <SectionHeader index="1" title="ADJACENT PAIR MAPPING" />
+          <GoldBox className="select-none px-3 py-1.5">
+            <div className="flex min-w-0 items-start">
+              <span
+                className="mr-3 mt-1.5 shrink-0 text-[15px] font-bold leading-none"
+                style={{ color: "#111111", fontFamily: SANS }}
+              >
+                +
+              </span>
+              <div className="flex min-w-0 flex-1 items-start justify-between gap-0.5">
+                {mappingPairs.map((pairData, index) => {
+                  const badge = BADGE_STYLES[pairData.status];
+                  return (
+                    <div
+                      key={`mapping-col-${index}`}
+                      className="flex min-w-0 flex-1 flex-col items-center"
+                      style={{ gap: COLUMN_VERTICAL_GAP }}
+                    >
+                      <MappingDigitCircle digit={mappingDigits[index] ?? ""} />
+                      <PairConnector color={badge.text} />
+                      <MappingPairBox label={pairData.pair} color={badge.text} bg={badge.bg} />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </GoldBox>
+        </section>
+
+        <section className="relative z-10 mt-1 min-w-0">
+          <SectionHeader index="2" title="DETAILED PAIR ANALYSIS" />
+          <div className="grid grid-cols-6 gap-1">
+            {topRow.map((pair, index) => (
+              <PairAnalysisCard key={`${pair.pair}-${index}`} data={pair} />
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 mt-1 min-w-0">
-        <SectionHeader index="3" title="OVERALL CONJUNCTION SUMMARY" />
-        <GoldBox className="p-2">
-          <div className="flex min-w-0 items-stretch gap-2">
-            <SummaryCard status="lucky" title="STRONG POSITIVE PAIRS" pairs={summary.positivePairs} description={summary.positiveDescription} />
-            <SummaryCard status="neutral" title="MIXED / NEUTRAL PAIRS" pairs={summary.mixedPairs} description={summary.mixedDescription} />
-            <SummaryCard status="caution" title="CHALLENGING PAIRS" pairs={summary.challengingPairs} description={summary.challengingDescription} />
+          <div className="mt-2 grid grid-cols-6 gap-1">
+            <div className="col-span-6 flex justify-center gap-1">
+              {bottomRow.map((pair, index) => (
+                <div key={`${pair.pair}-${index + 6}`} className="min-w-0 flex-[0_0_calc((100%-25px)/6)]">
+                  <PairAnalysisCard data={pair} />
+                </div>
+              ))}
+            </div>
           </div>
-        </GoldBox>
-      </section>
+        </section>
 
-      <section className="relative z-10 mt-1 min-w-0">
-        <KeyInsightFooter keyInsight={keyInsight} tip={tip} />
-      </section>
+        <section className="relative z-10 mt-1 min-w-0">
+          <SectionHeader index="3" title="OVERALL CONJUNCTION SUMMARY" />
+          <GoldBox className="p-2">
+            <div className="flex min-w-0 items-stretch gap-2">
+              <SummaryCard status="lucky" title="STRONG POSITIVE PAIRS" pairs={summary.positivePairs} description={summary.positiveDescription} />
+              <SummaryCard status="neutral" title="MIXED / NEUTRAL PAIRS" pairs={summary.mixedPairs} description={summary.mixedDescription} />
+              <SummaryCard status="caution" title="CHALLENGING PAIRS" pairs={summary.challengingPairs} description={summary.challengingDescription} />
+            </div>
+          </GoldBox>
+        </section>
       </div>
     </ReportPageShell>
   );

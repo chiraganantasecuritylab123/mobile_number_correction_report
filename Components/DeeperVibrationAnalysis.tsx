@@ -151,7 +151,6 @@ const defaultFlowAnalysis: FlowAnalysisItem[] = [
   { text: "Middle 9 brings high energy but also pressure & impatience", status: "neutral" },
   { text: "Ending with 1-2-3 gives leadership, emotion & growth balance", status: "positive" },
   { text: "Zeros (0) in between create gaps & scatter energy", status: "negative" },
-  { text: "Flow is not fully smooth - energy gets interrupted", status: "negative" },
 ];
 
 const defaultLifeAreas: LifeAreaEffect[] = [
@@ -546,14 +545,14 @@ export default function DeeperVibrationAnalysis({
           <span style={{ color: "#d48e31" }}>VIBRATIONAL</span>{" "}
           ANALYSIS
         </h1>
-        <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           Series Energy &amp; Hidden Frequency
         </p>
       </header>
 
 
       {/* Top info bar */}
-      <section className="relative z-10 mt-1 font-nunito-sans">
+      <section className="relative z-10 mt-3 font-nunito-sans">
         <GoldBox className="grid grid-cols-2 items-center gap-2 px-2 py-1">
           <div className="flex items-center gap-1.5">
             <div className="flex items-center justify-center p-3 rounded-full border-[2px]" style={{ borderColor: COLORS.goldLight }}>
@@ -691,7 +690,7 @@ export default function DeeperVibrationAnalysis({
           </p>
           <ul className="mt-1 flex flex-col gap-1.5">
             {flowAnalysis.map((item) => (
-              <li key={item.text} className="flex items-start gap-1.5 text-[8px] text-black">
+              <li key={item.text} className="flex items-start gap-1.5 text-[10px] text-black">
                 <FlowAnalysisBulletIcon status={item.status} />
                 {item.text}
               </li>

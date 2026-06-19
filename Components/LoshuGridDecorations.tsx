@@ -101,7 +101,7 @@ export function AvailabilityRing({
         y="22"
         textAnchor="middle"
         fill="#3c2f2f"
-        fontSize="8"
+        fontSize="9"
         fontFamily="'Nunito Sans', sans-serif"
         fontWeight="700"
       >

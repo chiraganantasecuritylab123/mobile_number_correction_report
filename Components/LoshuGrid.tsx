@@ -202,9 +202,9 @@ function GoldBox({
 const LO_SHU_GRID_WIDTH = 382;
 const LO_SHU_GRID_HEIGHT = 280;
 const LO_SHU_GRID_INSET = {
-  top: 20,
+  top: 15,
   right: 14,
-  bottom: 20,
+  bottom: 10,
   left: 14,
 } as const;
 
@@ -212,7 +212,7 @@ function GridCellView({ cell }: { cell: LoshuGridCell }) {
   return (
     <div className="flex max-w-full flex-col items-center justify-center  text-center">
       <div
-        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-[18px] font-bold leading-none"
+        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-[18px] font-bold leading-none mb-1"
         style={{
           border: cell.present ? "1.5px solid #d48e31" : "1.5px dashed #c45c3e",
           color: COLORS.brown,
@@ -222,13 +222,13 @@ function GridCellView({ cell }: { cell: LoshuGridCell }) {
         {cell.number}
       </div>
       <p
-        className="max-w-[108px] text-center text-[8.5px] leading-[1.15]"
+        className="max-w-[108px] text-center text-[9px] mb-1 leading-[1.15]"
         style={{ color: COLORS.brown, opacity: 0.8 }}
       >
         {cell.subNumbers.join(", ")}
       </p>
       <p
-        className="text-center text-[9px] italic leading-none"
+        className="text-center text-[10px] italic leading-none"
         style={{ color: COLORS.gold }}
       >
         ({cell.label})
@@ -255,7 +255,7 @@ function planeGridClass(layout: "2x3" | "3x3" = "3x3") {
 }
 
 function PlaneIcon({ icon: Icon }: { icon: LucideIcon }) {
-  return <Icon size={14} strokeWidth={1.75} style={{ color: PLANE_ACCENT, flexShrink: 0 }} />;
+  return <Icon size={18} strokeWidth={1.75} style={{ color: PLANE_ACCENT, flexShrink: 0 }} />;
 }
 
 export default function LoshuGrid({
@@ -293,7 +293,7 @@ export default function LoshuGrid({
         </p>
       </header>
       {/* Section 1: Lo Shu Grid */}
-      <section className="mt-4 font-nunito-sans">
+      <section className="mt-2 font-nunito-sans">
         <SectionDiamondTitle>1. LO SHU GRID (DATE OF BIRTH ONLY)</SectionDiamondTitle>
         <div className="mt-2 grid grid-cols-[1.1fr_1fr] gap-2">
           <div className="relative">
@@ -387,7 +387,7 @@ export default function LoshuGrid({
       </section>
 
       {/* Section 2: Planes of Expression */}
-      <section className="mt-4 font-nunito-sans">
+      <section className="mt-2 font-nunito-sans">
         <SectionDiamondTitle>2. PLANES OF EXPRESSION (WILL PLANES)</SectionDiamondTitle>
 
         <div className="mt-2" style={PLANE_TABLE_STYLE}>
@@ -438,13 +438,13 @@ export default function LoshuGrid({
                       <PlaneIcon icon={plane.icon} />
                       <div>
                         <p
-                          className="text-[9px] font-bold leading-tight"
+                          className="text-[10px] font-bold leading-tight"
                           style={{ color: PLANE_ACCENT }}
                         >
                           {index + 1}. {plane.name}
                         </p>
                         <p
-                          className="mt-0.5 text-[9px] leading-snug"
+                          className="mt-0.5 text-[10px] leading-snug"
                           style={{ color: PLANE_TEXT, opacity: 0.75 }}
                         >
                           ({plane.subtitle})
@@ -461,22 +461,22 @@ export default function LoshuGrid({
                       />
                     </div>
                   </td>
-                  <td className="px-2 py-1 align-middle text-center text-[9px] font-semibold"
+                  <td className="px-2 py-1 align-middle text-center text-[10px] font-semibold"
                     style={{ color: PLANE_TEXT }}
                   >
                     {plane.numbers}
                   </td>
-                  <td className="px-2 py-1 align-middle text-center text-[9px] font-medium"
+                  <td className="px-2 py-1 align-middle text-center text-[10px] font-medium"
                     style={{ color: PLANE_TEXT }}
                   >
                     {plane.presentCount} of {plane.totalCount}
                   </td>
                   <td className="px-2 py-1 align-middle">
                     <div className="flex justify-center">
-                      <AvailabilityRing percentage={plane.percentage} className="h-9 w-9" />
+                      <AvailabilityRing percentage={plane.percentage} className="h-10 w-10" />
                     </div>
                   </td>
-                  <td className="px-2 py-1 align-top text-[9px] leading-snug"
+                  <td className="px-2 py-1 align-top text-[10px] leading-snug"
                     style={{ color: PLANE_TEXT, opacity: 0.9 }}
                   >
                     {plane.represents}

@@ -128,6 +128,7 @@ export type OverallCompatibilityScoreProps = {
   className?: string;
   title?: string;
   size?: number;
+  style?: React.CSSProperties;
 };
 
 export default function OverallCompatibilityScore({
@@ -135,6 +136,7 @@ export default function OverallCompatibilityScore({
   className = "",
   title = "OVERALL COMPATIBILITY SCORE",
   size = 260,
+  style,
 }: OverallCompatibilityScoreProps) {
   const result = getCompatibilityScoreResult(value);
   const gradientId = useId().replace(/:/g, "");
@@ -151,7 +153,7 @@ export default function OverallCompatibilityScore({
   return (
     <div
       className={`relative mx-auto ${className}`}
-      style={{ width: size, height: size * (260 / 300) }}
+      style={{ width: size, height: size * (260 / 300) , ...style }}
       role="img"
       aria-label={`Overall compatibility score ${result.value} percent, ${result.levelLabel}, ${result.alignment}`}
     >
@@ -159,7 +161,7 @@ export default function OverallCompatibilityScore({
         viewBox="0 0 300 260"
         fill="none"
         className="h-full w-full"
-        style={{marginTop:'-30px'}}
+        // style={{marginTop:'-30px'}}
         aria-hidden
       >
         <defs>
@@ -210,11 +212,11 @@ export default function OverallCompatibilityScore({
         </g>
 
         {/* Score number */}
-        <text x="150" y="240" textAnchor="middle" fontSize="62" fontWeight="900"
+        <text x="150" y="230" textAnchor="middle" fontSize="50" fontWeight="900"
               fill="#B08D57" fontFamily="Georgia,serif" letterSpacing="-2">
           {result.value}
         </text>
-        <text x="190" y="230" textAnchor="start" fontSize="30" fontWeight="900"
+        <text x="190" y="230" textAnchor="start" fontSize="25" fontWeight="900"
               fill="#B08D57" fontFamily="Georgia,serif">%</text>
 
         {/* Level label */}

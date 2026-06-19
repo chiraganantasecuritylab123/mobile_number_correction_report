@@ -110,7 +110,7 @@ function CoreNumberTitle({ title }: { title: string }) {
     : normalizedTitle;
 
   return (
-    <p className="text-center text-xs font-bold leading-tight tracking-wide">
+    <p className="text-center text-xs font-bold leading-tight tracking-wide min-h-[45px]">
       {hasPrefix ? (
         <>
           <span className="text-black">{TITLE_PREFIX}</span> <br />
@@ -142,9 +142,6 @@ const defaultCoreNumbers: CoreNumberAnalysis[] = [
       "Excellent communication skills and persuasive ability",
       "Loves freedom, travel, and new experiences",
       "Curious mind with strong analytical thinking",
-      "Multi-talented and versatile in career",
-      "Witty, charming, and socially magnetic",
-      "Progressive thinker who embraces change",
     ],
     challenges: [
       "Can be restless and impatient",
@@ -212,8 +209,6 @@ const defaultCoreNumbers: CoreNumberAnalysis[] = [
       'Difficulty saying "No" and setting boundaries',
       "Can get easily hurt or affected by criticism",
       "Indecisiveness in important matters",
-      "Risk of being taken advantage of",
-      "Mood swings influenced by surroundings",
     ],
     keyAdvice: "Develop healthy boundaries while using your nurturing energy wisely.",
     powerStatement:
@@ -242,7 +237,7 @@ function PlanetGraphic({
         <p className="text-[8px] font-bold">{element}</p>
       </div>
       {/* <div className="flex flex-col items-center text-[30px]"> */}
-        <Image src={symbol} alt={name} width={60} height={60} className="object-contain" />
+      <Image src={symbol} alt={name} width={60} height={60} className="object-contain" />
       {/* </div> */}
     </>
   );
@@ -264,7 +259,7 @@ function TraitSection({
 
   return (
     <InfoCard theme={theme} icon={Icon} title={title}>
-      <ul className="flex flex-col gap-0.5 min-h-[100px]">
+      <ul className="flex flex-col gap-0.5 min-h-[150px]">
         {items.map((item) => (
           <li
             key={item}
@@ -378,21 +373,18 @@ export default function AnalysisOfCoreNumbers({
         <h1 className="text-[40px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
           ANALYSIS OF <span className="" style={{ color: COLORS.gold }}>CORE NUMBERS</span>
         </h1>
-        <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           Understanding Your Innate Energies
         </p>
-        {/* <div className="flex justify-center">  */}
-          {/* <Image src="/assets/cover/page-5-arrow.png" alt="" width={150} height={150} className="object-contain" /> */}
-        {/* </div> */}
       </header>
 
-      <section className="relative z-10 mt-[-1px] grid grid-cols-3 gap-2 font-nunito-sans">
+      <section className="relative z-10 mt-3 grid grid-cols-3 gap-2 font-nunito-sans">
         {coreNumbers.map((data) => (
           <CoreNumberColumn key={data.sectionIndex} data={data} />
         ))}
       </section>
 
-      <footer className="relative z-10 mt-2 flex justify-center px-2 pb-1">
+      <footer className="relative z-10 mt-4 flex justify-center px-2 pb-1">
         <FooterSummaryBanner summary={footerSummary} />
       </footer>
     </ReportPageShell>

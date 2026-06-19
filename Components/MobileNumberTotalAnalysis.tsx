@@ -19,6 +19,7 @@ import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
 import { CoverLotus } from "./CommunComponents";
+import OverallCompatibilityScore from "./OverallCompatibilityScore";
 
 function Pattern3({ className, size = 28 }: { className?: string; size?: number }) {
   return (
@@ -166,7 +167,7 @@ function GoldBox({
 function DigitBox({ digit }: { digit: string }) {
   return (
     <div
-      className="flex h-8 w-8 items-center justify-center rounded-md text-[13px] font-bold font-serif"
+      className="flex h-8 w-8 items-center justify-center rounded-md text-[16px] font-bold font-serif"
       style={{
         border: "1.5px solid rgba(184, 134, 11, 0.55)",
         color: COLORS.brown,
@@ -174,6 +175,63 @@ function DigitBox({ digit }: { digit: string }) {
       }}
     >
       {digit}
+    </div>
+  );
+}
+
+function getDigitGapTickX(digitCount: number, afterDigitIndex: number) {
+  const plusShare = 0.2;
+  const digitShare = 1 - plusShare;
+  const digitUnit = digitShare / digitCount;
+  const plusUnit = digitCount > 1 ? plusShare / (digitCount - 1) : 0;
+  const normalized =
+    (afterDigitIndex + 1) * digitUnit + afterDigitIndex * plusUnit + plusUnit / 2;
+  return 2 + normalized * 96;
+}
+
+function DigitRowBracket({ digitCount }: { digitCount: number }) {
+  const stroke = "rgba(92, 64, 51, 0.45)";
+  const baselineY = 10;
+  const leftX = 2;
+  const rightX = 98;
+  const centerX = 50;
+  const splitTickX = getDigitGapTickX(digitCount, Math.min(7, digitCount - 2));
+
+  return (
+    <div className="relative mx-auto mt-1 h-6 w-full">
+      <svg className="h-full w-full" viewBox="0 0 100 22" fill="none" preserveAspectRatio="none" aria-hidden>
+        {/* Main horizontal line */}
+        <line x1={leftX} y1={baselineY} x2={rightX} y2={baselineY} stroke={stroke} strokeWidth="1" />
+
+        {/* Left bracket tick */}
+        <line x1={leftX} y1={baselineY} x2={leftX} y2={2} stroke={stroke} strokeWidth="1" strokeLinecap="round" />
+
+        {/* Right bracket tick */}
+        <line x1={rightX} y1={baselineY} x2={rightX} y2={2} stroke={stroke} strokeWidth="1" strokeLinecap="round" />
+
+        {/* Split tick between 8th and 9th digits */}
+        {digitCount >= 9 && (
+          <line
+            x1={splitTickX}
+            y1={baselineY}
+            x2={splitTickX}
+            y2={5}
+            stroke={stroke}
+            strokeWidth="1"
+            strokeLinecap="round"
+          />
+        )}
+
+        {/* Center downward arrow */}
+        <line x1={centerX} y1={baselineY} x2={centerX} y2={19} stroke={stroke} strokeWidth="1" />
+        <path
+          d={`M ${centerX - 2},16 L ${centerX},20 L ${centerX + 2},16`}
+          stroke={stroke}
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
     </div>
   );
 }
@@ -186,10 +244,6 @@ function CompatibilityGauge({
   className?: string;
 }) {
   const needleAngle = -180 + (percentage / 100) * 180;
-
-  // Semicircle with radius 32, centered at (60, 56)
-  // Semicircle starts at (28, 56) and ends at (92, 56)
-  // Circumference = pi * r = 3.14159 * 32 = 100.5
   const r = 32;
   const c = 100.5;
   const lowLen = c * 0.40;  // 40.2
@@ -339,7 +393,7 @@ function QualitiesColumn({
         >
           <Icon size={9} strokeWidth={3} color="#ffffff" />
         </div>
-        <p className="text-[7.5px] font-bold tracking-wide uppercase font-serif leading-tight" style={{ color: accent }}>
+        <p className="text-[9px] font-bold tracking-wide uppercase font-serif leading-tight" style={{ color: accent }}>
           {title}
         </p>
       </div>
@@ -348,10 +402,10 @@ function QualitiesColumn({
           <li
             key={item}
             className="flex items-start gap-1.5 text-[8.5px] leading-snug"
-            style={{ color: COLORS.brown }}
+            style={{ color: COLORS.darkBlue }}
           >
             <span className="mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: accent }} />
-            <span>{item}</span>
+            <span style={{ color: COLORS.darkBlue }} className="text-[11px] font-nunito-sans">{item}</span>
           </li>
         ))}
       </ul>
@@ -428,7 +482,7 @@ function CoreInteractionCard({ data }: { data: CoreNumberInteraction }) {
       </div>
 
       <div className="mt-2 flex items-center gap-2">
-        <p className="flex-1 text-[8.5px] leading-snug text-left font-sans" style={{ color: "#5c4033", opacity: 0.95 }}>
+        <p className="flex-1 text-[10px] leading-snug text-left font-sans" style={{ color: COLORS.darkBlue, opacity: 0.95 }}>
           {data.description}
         </p>
         <div
@@ -467,290 +521,274 @@ export default function MobileNumberTotalAnalysis({
   return (
     <ReportPageShell padding="20px 40px 0">
       <div className="flex min-h-full flex-col">
-      <header className="flex flex-col items-center text-center">
-        <Image
-          src="/assets/ganesha-logo.png"
-          alt="Astro Aarambh"
-          width={100}
-          height={100}
-          className="mb-2"
-          priority
-        />
-        <div className="flex items-center gap-2">
-          <Pattern3 size={50} />
-          <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-            ASTRO AARAMBH
+        <header className="flex flex-col items-center text-center">
+          <Image
+            src="/assets/ganesha-logo.png"
+            alt="Astro Aarambh"
+            width={100}
+            height={100}
+            className="mb-2"
+            priority
+          />
+          <div className="flex items-center gap-2">
+            <Pattern3 size={50} />
+            <p className="text-[16px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+              ASTRO AARAMBH
+            </p>
+            <Pattern3 size={50} className="rotate-180" />
+          </div>
+          <h1 className="text-[36px] font-bold" style={{ color: COLORS.brown, lineHeight: "1.2" }}>
+            MOBILE NUMBER TOTAL ANALYSIS
+          </h1>
+          <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
+            Primary Vibration &amp; Root Energy
           </p>
-          <Pattern3 size={50} className="rotate-180" />
-        </div>
-        <h1 className="text-[36px] font-bold" style={{ color: COLORS.brown, lineHeight: "1.2" }}>
-          MOBILE NUMBER TOTAL ANALYSIS
-        </h1>
-        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
-          Primary Vibration &amp; Root Energy
-        </p>
-      </header>
+        </header>
 
-      {/* Current number summary */}
-      <section className="relative z-10 mt-3">
-        <GoldBox className="grid grid-cols-[1.1fr_auto_1fr] items-center gap-3 px-4 py-3">
-          <div className="flex items-center gap-3">
+        {/* Current number summary */}
+        <section className="relative z-10 mt-3">
+          <GoldBox className="grid grid-cols-[1.1fr_auto_1fr] items-center gap-3 px-4 py-3">
+            <div className="flex items-center gap-3">
+              <div
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+                style={{ border: "1px solid rgba(184, 134, 11, 0.6)" }}
+              >
+                <Smartphone size={28} strokeWidth={1.5} style={{ color: COLORS.gold }} />
+              </div>
+              <div>
+                <p className="mb-0.5 text-[11px] font-extrabold tracking-wider" style={{ color: COLORS.brown }}>
+                  CURRENT MOBILE NUMBER
+                </p>
+                <p className="text-[24px] font-bold font-serif leading-none tracking-wide" style={{ color: COLORS.black }}>
+                  {mobileNumber}
+                </p>
+              </div>
+            </div>
+
+            <div className="h-14 w-px" style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }} />
+
+            <div className="flex items-center justify-between gap-2 pl-1">
+              <ClipboardList size={28} strokeWidth={1.2} className="shrink-0" style={{ color: COLORS.gold }} />
+              <div className="flex flex-1 flex-col gap-1.5">
+                <div>
+                  <p className="text-[8px] font-bold tracking-wide text-neutral-500">COMPOUND TOTAL</p>
+                  <p className="text-[16px] font-bold font-serif leading-none" style={{ color: COLORS.brown }}>
+                    {compoundTotal}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[8px] font-bold tracking-wide text-neutral-500">SINGLE ROOT / DRIVER TOTAL</p>
+                  <p className="text-[16px] font-bold font-serif leading-none" style={{ color: COLORS.brown }}>
+                    {intermediateTotal} &rarr; {rootNumber}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[8px] font-bold tracking-wide text-neutral-500">RULING PLANET OF TOTAL</p>
+                  <p className="text-[11px] font-bold" style={{ color: "#d48e31" }}>
+                    {rulingPlanet}
+                  </p>
+                </div>
+              </div>
+              <Sun size={32} strokeWidth={1.2} className="ml-auto shrink-0" style={{ color: "#d48e31" }} />
+            </div>
+          </GoldBox>
+        </section>
+
+        {/* Number breakdown */}
+        <section className="relative z-10 mt-2">
+          {/* Header Section */}
+          <div className="mb-2 flex items-center justify-center gap-2">
+            <OrnamentalDivider className="h-[12px] w-[80px]" />
+            <h3 className="text-[13px] font-bold tracking-wide" style={{ color: "#5d2e17" }}>
+              NUMBER BREAKDOWN
+            </h3>
+            <OrnamentalDivider className="h-[12px] w-[80px] -scale-x-100" />
+          </div>
+
+          {/* Unified Main Card Container */}
+          <GoldBox className="flex w-full flex-col items-center px-4 pt-3 pb-3">
+
+            {/* 1. DIGITS ROW — full width, evenly spaced */}
             <div
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
-              style={{ border: "1px solid rgba(184, 134, 11, 0.6)" }}
+              className="grid w-full items-center"
+              style={{
+                gridTemplateColumns: digits
+                  .map((_, i) => (i < digits.length - 1 ? "1fr auto" : "1fr"))
+                  .join(" "),
+              }}
             >
-              <Smartphone size={22} strokeWidth={1.5} style={{ color: COLORS.gold }} />
-            </div>
-            <div>
-              <p className="mb-0.5 text-[10px] font-extrabold tracking-wider" style={{ color: COLORS.gold }}>
-                CURRENT MOBILE NUMBER
-              </p>
-              <p className="text-[22px] font-bold font-serif leading-none tracking-wide" style={{ color: COLORS.brown }}>
-                {mobileNumber}
-              </p>
-            </div>
-          </div>
-
-          <div className="h-14 w-px" style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }} />
-
-          <div className="flex items-center justify-between gap-2 pl-1">
-            <ClipboardList size={28} strokeWidth={1.2} className="shrink-0" style={{ color: COLORS.gold }} />
-            <div className="flex flex-1 flex-col gap-1.5">
-              <div>
-                <p className="text-[8px] font-bold tracking-wide text-neutral-500">COMPOUND TOTAL</p>
-                <p className="text-[16px] font-bold font-serif leading-none" style={{ color: COLORS.brown }}>
-                  {compoundTotal}
-                </p>
-              </div>
-              <div>
-                <p className="text-[8px] font-bold tracking-wide text-neutral-500">SINGLE ROOT / DRIVER TOTAL</p>
-                <p className="text-[16px] font-bold font-serif leading-none" style={{ color: COLORS.brown }}>
-                  {intermediateTotal} &rarr; {rootNumber}
-                </p>
-              </div>
-              <div>
-                <p className="text-[8px] font-bold tracking-wide text-neutral-500">RULING PLANET OF TOTAL</p>
-                <p className="text-[11px] font-bold" style={{ color: "#d48e31" }}>
-                  {rulingPlanet}
-                </p>
-              </div>
-            </div>
-            <Sun size={32} strokeWidth={1.2} className="ml-auto shrink-0" style={{ color: "#d48e31" }} />
-          </div>
-        </GoldBox>
-      </section>
-
-      {/* Number breakdown */}
-      <section className="relative z-10 mt-2">
-        {/* Header Section */}
-        <div className="mb-2 flex items-center justify-center gap-2">
-          <OrnamentalDivider className="h-[12px] w-[80px]" />
-          <h3 className="text-[13px] font-bold tracking-wide" style={{ color: "#5d2e17" }}>
-            NUMBER BREAKDOWN
-          </h3>
-          <OrnamentalDivider className="h-[12px] w-[80px] -scale-x-100" />
-        </div>
-
-        {/* Unified Main Card Container */}
-        <GoldBox className="flex w-full flex-col items-center px-4 pt-3 pb-3">
-
-          {/* 1. DIGITS ROW — full width, evenly spaced */}
-          <div
-            className="grid w-full items-center"
-            style={{
-              gridTemplateColumns: digits
-                .map((_, i) => (i < digits.length - 1 ? "1fr auto" : "1fr"))
-                .join(" "),
-            }}
-          >
-            {digits.map((digit, index) => (
-              <span key={index} className="contents">
-                <span className="flex justify-center">
-                  <DigitBox digit={digit} />
-                </span>
-                {index < digits.length - 1 && (
-                  <span
-                    className="select-none px-0.5 text-[13px] font-bold font-serif"
-                    style={{ color: "rgba(93, 46, 23, 0.45)" }}
-                  >
-                    +
+              {digits.map((digit, index) => (
+                <span key={index} className="contents">
+                  <span className="flex justify-center">
+                    <DigitBox digit={digit} />
                   </span>
-                )}
-              </span>
-            ))}
-          </div>
-
-          {/* 2. BRACKET CONNECTOR UNDER DIGITS */}
-          <div className="relative mx-auto mt-0.5 h-5 w-[90%] max-w-[680px]">
-            <svg className="h-full w-full" viewBox="0 0 100 22" fill="none" preserveAspectRatio="none">
-              <path
-                d="M 2,2 L 2,10 L 98,10 L 98,2"
-                stroke="rgba(92, 64, 51, 0.4)"
-                strokeWidth="1"
-                strokeLinecap="round"
-              />
-              <path d="M 50,10 L 50,20" stroke="rgba(92, 64, 51, 0.4)" strokeWidth="1" />
-              <path
-                d="M 48,16 L 50,20 L 52,16"
-                stroke="rgba(92, 64, 51, 0.4)"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          {/* 3. CALCULATION RESULTS ROW */}
-          <div className="mx-auto grid w-full grid-cols-[1fr_auto_1fr_auto_1fr] items-center justify-items-center">
-            <div className="flex w-full items-center justify-end gap-2">
-              <span className="select-none text-[22px] font-bold font-serif text-neutral-800/75">=</span>
-              <span className="text-[36px] font-bold font-serif leading-none" style={{ color: COLORS.brown }}>
-                {compoundTotal}
-              </span>
+                  {index < digits.length - 1 && (
+                    <span
+                      className="select-none px-0.5 text-[16px] font-bold"
+                      style={{ color: COLORS.darkBlue }}
+                    >
+                      +
+                    </span>
+                  )}
+                </span>
+              ))}
             </div>
 
-            <span className="select-none px-0.5 text-[22px] font-bold font-serif text-neutral-800/75">=</span>
+            {/* 2. BRACKET CONNECTOR UNDER DIGITS */}
+            <DigitRowBracket digitCount={digits.length} />
 
-            <span className="text-[36px] font-bold font-serif leading-none" style={{ color: "#d48e31" }}>
-              {intermediateTotal}
-            </span>
-
-            <span className="select-none px-0.5 text-[22px] font-bold font-serif text-neutral-800/75">=</span>
-
-            <div className="flex w-full items-center justify-start">
-              <div
-                className="flex h-11 w-11 items-center justify-center rounded-full text-[28px] font-bold font-serif"
-                style={{
-                  border: "2.5px solid #e19d45",
-                  backgroundColor: "rgba(253, 245, 230, 0.6)",
-                  color: COLORS.brown,
-                }}
-              >
-                {rootNumber}
-              </div>
-            </div>
-          </div>
-
-          {/* 4. THREE-COLUMN ROOT BREAKDOWN */}
-          <div className="mt-2 grid w-full grid-cols-[1.35fr_1fr_1.35fr] items-start gap-3">
-
-            {/* Left: Positive Qualities */}
-            <div
-              className="flex flex-col justify-start rounded-[20px] border px-3 py-2.5"
-              style={{
-                borderColor: "rgba(184, 134, 11, 0.35)",
-                backgroundColor: "rgba(253, 245, 230, 0.55)",
-              }}
-            >
-              <QualitiesColumn
-                variant="positive"
-                title={`POSITIVE QUALITIES OF ROOT ${rootNumber}`}
-                items={positiveQualities}
-              />
-            </div>
-
-            {/* Center: Root Number Hero */}
-            <div className="flex flex-col items-center justify-start px-0.5 text-center">
-              <p className="text-[10px] font-black tracking-widest font-serif leading-tight" style={{ color: "#a03d15" }}>
-                ROOT NUMBER
-              </p>
-              <p className="text-[8px] font-bold tracking-wider text-amber-900/75">
-                (PRIMARY VIBRATION)
-              </p>
-
-              <div
-                className="mt-1.5 flex h-[76px] w-[76px] items-center justify-center rounded-full text-[46px] font-bold font-serif"
-                style={{
-                  border: "3px solid #e19d45",
-                  backgroundColor: "rgba(253, 245, 230, 0.5)",
-                  color: COLORS.brown,
-                }}
-              >
-                {rootNumber}
+            {/* 3. CALCULATION RESULTS ROW */}
+            <div className="mx-auto grid w-full grid-cols-[1fr_auto_1fr_auto_1fr] items-center justify-items-center">
+              <div className="flex w-full items-center justify-end gap-2">
+                <span className="select-none text-[22px] font-bold font-serif text-neutral-800/75">=</span>
+                <span className="text-[36px] font-bold font-serif leading-none" style={{ color: COLORS.brown }}>
+                  {compoundTotal}
+                </span>
               </div>
 
-              <p className="mt-1 text-[15px] font-extrabold font-serif tracking-wide leading-tight" style={{ color: "#d48e31" }}>
-                {energyName}
-              </p>
-              <p className="mt-0.5 max-w-[160px] text-[9px] font-bold uppercase leading-snug tracking-wide text-neutral-700">
-                {keywords}
-              </p>
-            </div>
+              <span className="select-none px-0.5 text-[22px] font-bold font-serif text-neutral-800/75">=</span>
 
-            {/* Right: Negative Qualities */}
-            <div
-              className="flex flex-col justify-start rounded-[20px] border px-3 py-2.5"
-              style={{
-                borderColor: "rgba(184, 134, 11, 0.35)",
-                backgroundColor: "rgba(253, 245, 230, 0.55)",
-              }}
-            >
-              <QualitiesColumn
-                variant="negative"
-                title={`NEGATIVE QUALITIES OF ROOT ${rootNumber}`}
-                items={negativeQualities}
-              />
-            </div>
+              <span className="text-[36px] font-bold font-serif leading-none" style={{ color: "#d48e31" }}>
+                {intermediateTotal}
+              </span>
 
-          </div>
-        </GoldBox>
-      </section>
+              <span className="select-none px-0.5 text-[22px] font-bold font-serif text-neutral-800/75">=</span>
 
-      {/* Core number interactions */}
-      <section className="relative z-10 mt-2">
-        <div className="mb-2 flex items-center justify-center gap-2">
-          <ScrollOrnament className="h-[12px] w-[50px]" />
-          <h3 className="text-center text-[12px] font-bold tracking-widest uppercase font-serif" style={{ color: "#5d2e17" }}>
-            HOW THIS TOTAL INTERACTS WITH YOUR{" "}CORE NUMBERS
-          </h3>
-          <ScrollOrnament className="h-[12px] w-[50px] -scale-x-100" />
-        </div>
-        <GoldBox className="flex items-stretch gap-0 p-3">
-          {coreInteractions.map((item, index) => (
-            <div key={item.label} className="flex flex-1 items-stretch">
-              <CoreInteractionCard data={item} />
-              {index < coreInteractions.length - 1 && (
+              <div className="flex w-full items-center justify-start">
                 <div
-                  className="mx-2 w-px shrink-0 self-stretch opacity-20"
-                  style={{ backgroundColor: "#5c4033" }}
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-[28px] font-bold font-serif"
+                  style={{
+                    border: "2.5px solid #e19d45",
+                    backgroundColor: "rgba(253, 245, 230, 0.6)",
+                    color: COLORS.brown,
+                  }}
+                >
+                  {rootNumber}
+                </div>
+              </div>
+            </div>
+
+            {/* 4. THREE-COLUMN ROOT BREAKDOWN */}
+            <div className="mt-2 grid w-full grid-cols-[1.35fr_1fr_1.35fr] items-start gap-3">
+
+              {/* Left: Positive Qualities */}
+              <div
+                className="flex flex-col justify-start rounded-[20px] border px-3 py-2.5"
+                style={{
+                  borderColor: "rgba(184, 134, 11, 0.35)",
+                  backgroundColor: "rgba(253, 245, 230, 0.55)",
+                }}
+              >
+                <QualitiesColumn
+                  variant="positive"
+                  title={`POSITIVE QUALITIES OF ROOT ${rootNumber}`}
+                  items={positiveQualities}
                 />
-              )}
-            </div>
-          ))}
-        </GoldBox>
-      </section>
+              </div>
 
-      {/* Compatibility score */}
-      <section className="relative z-10 mt-2">
-        <div className="mb-2 flex items-center justify-center gap-2">
-          <ScrollOrnament className="h-[12px] w-[50px]" />
-          <h3 className="text-center text-[12px] font-bold tracking-widest uppercase font-serif" style={{ color: "#5d2e17" }}>
-            OVERALL COMPATIBILITY SCORE
-          </h3>
-          <ScrollOrnament className="h-[12px] w-[50px] -scale-x-100" />
-        </div>
-        <GoldBox className="grid grid-cols-2 gap-0 p-3">
-          <div
-            className="flex items-center justify-center border-r pr-3"
-            style={{ borderColor: "rgba(92, 64, 51, 0.2)" }}
-          >
-            <CompatibilityGauge percentage={compatibilityScore} className="h-16 w-full max-w-[130px]" />
-          </div>
-          <div className="flex items-center justify-center gap-3 pl-3">
-            <CompatibilityProgressRing percentage={compatibilityScore} size={52} />
-            <div className="flex flex-1 flex-col text-left">
-              <p className="text-[11px] font-extrabold tracking-wider font-serif uppercase" style={{ color: "#d48e31" }}>
-                {compatibilityLevel}
-              </p>
-              <p className="mt-0.5 text-[9px] leading-snug font-sans" style={{ color: "#5c4033", opacity: 0.95 }}>
-                {compatibilityDescription}
-              </p>
-            </div>
-          </div>
-        </GoldBox>
-      </section>
+              {/* Center: Root Number Hero */}
+              <div className="flex flex-col items-center justify-start px-0.5 text-center">
+                <p className="text-[10px] font-black tracking-widest font-serif leading-tight" style={{ color: "#a03d15" }}>
+                  ROOT NUMBER
+                </p>
+                <p className="text-[10px] font-bold tracking-wider text-amber-900/75">
+                  (PRIMARY VIBRATION)
+                </p>
 
-      {/* <footer className="relative z-10 mt-2 flex flex-col items-center pb-1">
+                <div
+                  className="mt-1.5 flex h-[76px] w-[76px] items-center justify-center rounded-full text-[46px] font-bold font-serif"
+                  style={{
+                    border: "3px solid #e19d45",
+                    backgroundColor: "rgba(253, 245, 230, 0.5)",
+                    color: COLORS.brown,
+                  }}
+                >
+                  {rootNumber}
+                </div>
+
+                <p className="mt-1 text-[15px] font-extrabold font-serif tracking-wide leading-tight font-nunito-sans" style={{ color: "#d48e31" }}>
+                  {energyName}
+                </p>
+                <p className="mt-0.5 max-w-[160px] text-[10px] font-bold font-nunito-sans leading-snug tracking-wide text-neutral-700">
+                  {keywords}
+                </p>
+              </div>
+
+              {/* Right: Negative Qualities */}
+              <div
+                className="flex flex-col justify-start rounded-[20px] border px-3 py-2.5"
+                style={{
+                  borderColor: "rgba(184, 134, 11, 0.35)",
+                  backgroundColor: "rgba(253, 245, 230, 0.55)",
+                }}
+              >
+                <QualitiesColumn
+                  variant="negative"
+                  title={`NEGATIVE QUALITIES OF ROOT ${rootNumber}`}
+                  items={negativeQualities}
+                />
+              </div>
+
+            </div>
+          </GoldBox>
+        </section>
+
+        {/* Core number interactions */}
+        <section className="relative z-10 mt-2">
+          <div className="mb-2 flex items-center justify-center gap-2">
+            <ScrollOrnament className="h-[12px] w-[50px]" />
+            <h3 className="text-center text-[12px] font-bold tracking-widest uppercase font-serif" style={{ color: "#5d2e17" }}>
+              HOW THIS TOTAL INTERACTS WITH YOUR{" "}CORE NUMBERS
+            </h3>
+            <ScrollOrnament className="h-[12px] w-[50px] -scale-x-100" />
+          </div>
+          <GoldBox className="flex items-stretch gap-0 p-3">
+            {coreInteractions.map((item, index) => (
+              <div key={item.label} className="flex flex-1 items-stretch">
+                <CoreInteractionCard data={item} />
+                {index < coreInteractions.length - 1 && (
+                  <div
+                    className="mx-2 w-px shrink-0 self-stretch opacity-20"
+                    style={{ backgroundColor: "#5c4033" }}
+                  />
+                )}
+              </div>
+            ))}
+          </GoldBox>
+        </section>
+
+        {/* Compatibility score */}
+        <section className="relative z-10 mt-2">
+          <div className="mb-2 flex items-center justify-center gap-2">
+            <ScrollOrnament className="h-[12px] w-[50px]" />
+            <h3 className="text-center text-[12px] font-bold tracking-widest uppercase font-serif" style={{ color: "#5d2e17" }}>
+              OVERALL COMPATIBILITY SCORE
+            </h3>
+            <ScrollOrnament className="h-[12px] w-[50px] -scale-x-100" />
+          </div>
+          <GoldBox className="grid grid-cols-2 gap-0 p-3">
+            <OverallCompatibilityScore value={50} size={80} style={{ marginTop: '-10px' }} />
+            {/* <div
+              className="flex items-center justify-center border-r pr-3"
+              style={{ borderColor: "rgba(92, 64, 51, 0.2)" }}
+            >
+              <CompatibilityGauge percentage={compatibilityScore} className="h-16 w-full max-w-[130px]" />
+            </div> */}
+            <div className="flex items-center justify-center gap-3 pl-3">
+              <CompatibilityProgressRing percentage={compatibilityScore} size={52} />
+              <div className="flex flex-1 flex-col text-left">
+                <p className="text-[11px] font-extrabold tracking-wider font-serif uppercase" style={{ color: "#d48e31" }}>
+                  {compatibilityLevel}
+                </p>
+                <p className="mt-0.5 text-[10px] leading-snug font-sans" style={{ color: COLORS.darkBlue, opacity: 0.95 }}>
+                  {compatibilityDescription}
+                </p>
+              </div>
+            </div>
+          </GoldBox>
+        </section>
+
+        {/* <footer className="relative z-10 mt-2 flex flex-col items-center pb-1">
         <LoShuSquare className="pointer-events-none absolute -left-1 bottom-0 h-12 w-12 opacity-70" />
         <ConstellationWheel className="pointer-events-none absolute -right-1 bottom-0 h-12 w-12 opacity-55" />
         <div
@@ -772,24 +810,24 @@ export default function MobileNumberTotalAnalysis({
       </footer> */}
 
 
-      {/* Footer summary */}
-     
-      {/* Footer summary */}
-      <footer className="relative z-10 mt-4 flex flex-col items-center px-4 pb-2">
-        <div className="flex items-center gap-2 border border-[#D68F34] rounded-xl p-3">
-          <CoverLotus size={40} />
-          <p
-            className="max-w-[480px] text-center text-[10px] leading-relaxed"
-            style={{ color: COLORS.brown, opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
-          >
-            {tip}
-          </p>
-          <CoverLotus size={40} />
-        </div>
-      </footer>
+        {/* Footer summary */}
+
+        {/* Footer summary */}
+        <footer className="relative z-10 mt-4 flex flex-col items-center px-4 pb-2">
+          <div className="flex items-center gap-2 border border-[#D68F34] rounded-xl p-3">
+            <CoverLotus size={40} />
+            <p
+              className="max-w-[480px] text-center text-[10px] leading-relaxed"
+              style={{ color: COLORS.brown, opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
+            >
+              {tip}
+            </p>
+            <CoverLotus size={40} />
+          </div>
+        </footer>
 
 
-      {/* <PageFooterBar
+        {/* <PageFooterBar
         className="relative -mx-[40px] mt-2 h-9 w-[calc(100%+80px)] shrink-0"
         pageNumber={pageNumber}
       /> */}
