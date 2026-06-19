@@ -1,3 +1,5 @@
+import MissingNumbersAnalysis from "@/Components/MissingNumbersAnalysis";
+import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
 import AnalysisOfCoreNumbers from "@/Components/AnalysisOfCoreNumbers";
 import CoverPage from "@/Components/CoverPage";
 import DeeperVibrationAnalysis from "@/Components/DeeperVibrationAnalysis";
@@ -18,6 +20,8 @@ export default function Home() {
       <LuckyUnluckyNeutralNumbers /> {/* 6 */}
       <MobileNumberTotalAnalysis /> {/* 7 */}
       <DeeperVibrationAnalysis /> {/* 8 */}
+      <RepetitiveNumberAnalysis /> {/* 9 */}
+      <MissingNumbersAnalysis /> {/* 10 */}
     </div>
   );
 }
