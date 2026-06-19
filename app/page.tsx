@@ -27,14 +27,13 @@ export default function Home() {
       <LuckyUnluckyNeutralNumbers /> {/* 6 */}
       <MobileNumberTotalAnalysis /> {/* 7 */}
       <DeeperVibrationAnalysis /> {/* 8 */}
-      <RepetitiveNumberAnalysis /> {/* 9 */}
-      <MissingNumbersAnalysis /> {/* 10 */}
-      <NumberActivationGuide /> {/* 11 */}
+      <ConjunctionAndPairAnalysis /> {/* 9 */}
+      <RepetitiveNumberAnalysis /> {/* 10 */}
+      <MissingNumbersAnalysis /> {/* 11 */}
       <CompatibilityAnalysis /> {/* 12 */}
       <OverAllVardict /> {/* 13 */}
       <MobileNumberCorrectionTips /> {/* 14 */}
-      <ConjunctionAndPairAnalysis /> {/* 9 */}
-      <OverAllVardict /> {/*   13 */}
+      <NumberActivationGuide /> {/* 15 */}
       <FAQPage /> {/* 16 */}  
       <DisclaimerAndAdvicePage /> {/* 17 */}
     </div>
