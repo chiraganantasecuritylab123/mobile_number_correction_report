@@ -1,3 +1,4 @@
+import NumberActivationGuide from "@/Components/NumberActivationGuide";
 import MissingNumbersAnalysis from "@/Components/MissingNumbersAnalysis";
 import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
 import AnalysisOfCoreNumbers from "@/Components/AnalysisOfCoreNumbers";
@@ -22,6 +23,7 @@ export default function Home() {
       <DeeperVibrationAnalysis /> {/* 8 */}
       <RepetitiveNumberAnalysis /> {/* 9 */}
       <MissingNumbersAnalysis /> {/* 10 */}
+      <NumberActivationGuide /> {/* 11 */}
     </div>
   );
 }

@@ -1,14 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import { 
-  Target, 
   Smartphone, 
   AlertTriangle, 
   Heart, 
   Coins, 
   BrainCircuit, 
   Flower2, 
-  UserCheck,
   CheckCircle2,
   Info,
   Lightbulb,
@@ -26,6 +24,9 @@ const CARD_INNER_BORDER = "rgba(184, 134, 11, 0.15)";
 const CARD_INNER_BG = "rgba(255, 255, 255, 0.55)";
 const BADGE_BORDER = "rgba(251, 146, 60, 0.35)";
 const BADGE_BG = "rgba(253, 245, 230, 0.65)";
+const MISSING_TARGET_IMAGE = "/assets/missing-number/target.png";
+const MISSING_ENERGY_BALANCE_IMAGE =
+  "/assets/missing-number/balance.png";
 
 export type MissingNumbersAnalysisProps = {
   mobileNumber?: string;
@@ -225,8 +226,15 @@ export default function MissingNumbersAnalysis({
               <div className="h-14 w-px bg-orange-400/30" />
 
               <div className="flex items-center gap-4 pl-1">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-orange-500/30 bg-white shadow-sm">
-                  <Target size={22} strokeWidth={1.5} className="text-[#e65100]" />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-orange-500/30 bg-white p-1.5 shadow-sm">
+                  <Image
+                    src={MISSING_TARGET_IMAGE}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="h-8 w-8 object-contain"
+                    aria-hidden
+                  />
                 </div>
                 <p className="text-[11px] leading-relaxed font-sans text-neutral-700 text-left">
                   Missing numbers indicate the energies that are <strong className="text-slate-900">not active</strong> in your number. These gaps may create challenges or slow progress in certain areas of life. Let&apos;s identify what is missing and how it impacts you.
@@ -391,10 +399,15 @@ export default function MissingNumbersAnalysis({
           {/* Section 3: 3. HOW TO BALANCE MISSING ENERGIES */}
           <section className="mt-[-4px] relative z-10 shrink-0">
             <ReportCard className="flex items-center gap-5 px-6 py-2.5">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-orange-500/40 bg-orange-50/70 p-1">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-600 text-white shadow-sm">
-                  <UserCheck size={18} strokeWidth={2} />
-                </div>
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-orange-500/40 bg-white p-0.5 shadow-sm">
+                <Image
+                  src={MISSING_ENERGY_BALANCE_IMAGE}
+                  alt=""
+                  width={46}
+                  height={46}
+                  className="h-full w-full object-contain"
+                  aria-hidden
+                />
               </div>
 
               <div className="flex flex-col text-left">
