@@ -14,6 +14,7 @@ export const REPORT_COLORS = {
   goldLight: "#d4af37",
   green: "#2d7a4f",
   red: "#a84432",
+  black: "#000000",
 };
 
 type ReportPageShellProps = {
