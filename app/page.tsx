@@ -15,6 +15,7 @@ import PlaneDetails from "@/Components/PlaneDetails";
 import OverAllVardict from "@/Components/OverAllVardict";
 import FAQPage from "@/Components/FAQPage";
 import DisclaimerAndAdvicePage from "@/Components/DisclaimerAndAdvicePage";
+import DirectionAlignmentAnalysis from "@/Components/SignatureAnalysisReport/DirectionAlignmentAnalysis";
 
 export default function Home() {
   return (
@@ -34,8 +35,12 @@ export default function Home() {
       <OverAllVardict /> {/* 13 */}
       <MobileNumberCorrectionTips /> {/* 14 */}
       <NumberActivationGuide /> {/* 15 */}
-      <FAQPage /> {/* 16 */}  
+      <FAQPage /> {/* 16 */}
       <DisclaimerAndAdvicePage /> {/* 17 */}
+
+
+      {/* signature analysis report pages */}
+      <DirectionAlignmentAnalysis />
     </div>
   );
 }
