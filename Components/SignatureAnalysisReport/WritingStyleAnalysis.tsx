@@ -339,14 +339,14 @@ export default function WritingStyleAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[27px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[32px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
         <p
-          className="mt-0.5 max-w-[520px] text-[15px]"
-          style={{ color: COLORS.brown, opacity: 0.85, fontFamily: BODY_SANS }}
+          className="mt-0.5 max-w-[520px] text-[17px]"
+          style={{ color: COLORS.black, opacity: 0.85, fontFamily: BODY_SANS }}
         >
           {subtitle}
         </p>

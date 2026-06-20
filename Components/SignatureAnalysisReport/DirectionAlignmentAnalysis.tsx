@@ -396,8 +396,8 @@ export default function DirectionAlignmentAnalysis({
           {title}
         </h1>
         <p
-          className="mt-0.5 max-w-[520px] text-[15px]"
-          style={{ color: COLORS.brown, opacity: 0.85, fontFamily: BODY_SANS }}
+          className="mt-0.5 max-w-[520px] text-[17px] font-nunito-sans"
+          style={{ color: COLORS.black, opacity: 0.85 }}
         >
           {subtitle}
         </p>
