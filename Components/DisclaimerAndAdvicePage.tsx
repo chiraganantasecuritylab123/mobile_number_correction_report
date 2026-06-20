@@ -199,9 +199,9 @@ function GoldDiamondDivider() {
   );
 }
 
-function DisclaimerHeader() {
+function DisclaimerHeader({ style }: { style: React.CSSProperties }) {
   return (
-    <div className="relative mx-auto mb-1 flex w-full max-w-[500px] items-center justify-center">
+    <div className="relative mx-auto mb-1 flex w-full max-w-[500px] items-center justify-center" style={style}>
       <Image
         src="/assets/cover/disclimer-bg.png"
         alt=""
@@ -221,15 +221,15 @@ function DisclaimerRow({ point }: { point: DisclaimerPoint }) {
   const Icon = point.icon;
 
   return (
-    <div className="flex items-start gap-3 px-1 py-1.5">
+    <div className="flex items-start gap-3 px-1 py-1">
       <div
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
         style={{
           border: "1px solid rgba(184, 134, 11, 0.45)",
           backgroundColor: "rgba(253, 245, 230, 0.85)",
         }}
       >
-        <Icon size={30} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+        <Icon size={28} strokeWidth={1.8} style={{ color: COLORS.gold }} />
       </div>
       <p
         className="min-w-0 flex-1 pt-1.5 text-[13px] leading-relaxed font-nunito-sans"
@@ -244,13 +244,13 @@ function DisclaimerRow({ point }: { point: DisclaimerPoint }) {
 function DisclaimerSection({ points }: { points: DisclaimerPoint[] }) {
   return (
     <div
-      className="relative overflow-hidden rounded-lg px-2 py-1"
+      className="relative rounded-lg px-2 py-1 pt-6 top-[30px]"
       style={{
         border: GOLD_BORDER,
         backgroundColor: "rgba(255, 251, 245, 0.40)",
       }}
     >
-      <DisclaimerHeader />
+      <DisclaimerHeader style={{ position: "absolute", top: "-30px", left: "50%", transform: "translateX(-50%)" }} />
 
       <div className="relative z-10 pr-[130px]">
         {points.map((point, index) => (
@@ -325,7 +325,7 @@ function AdviceCard({ card }: { card: AdviceCardData }) {
           <Icon size={20} strokeWidth={1.8} style={{ color: card.accent }} />
         </div>
         <p
-          className="text-[10px] font-bold leading-tight tracking-wide"
+          className="text-[11px] font-bold leading-tight tracking-wide"
           style={{ color: card.accent }}
         >
           {card.title}
@@ -335,12 +335,12 @@ function AdviceCard({ card }: { card: AdviceCardData }) {
         {card.items.map((item) => (
           <li key={item} className="flex items-start gap-1.5">
             <span
-              className="mt-0.5 shrink-0 text-[10px] font-bold leading-none"
+              className="mt-0.5 shrink-0 text-[11px] font-bold leading-none"
               style={{ color: card.accent }}
             >
               ✓
             </span>
-            <span className="text-[8px] leading-snug" style={{ color: COLORS.brown }}>
+            <span className="text-[9px] leading-snug" style={{ color: COLORS.brown }}>
               {item}
             </span>
           </li>
@@ -444,11 +444,11 @@ export default function DisclaimerAndAdvicePage({
         </h1>
       </header>
 
-<div className="mt-[-8px]">
-      <DisclaimerSection points={disclaimerPoints} />
+      <div className="mt-[-8px]">
+        <DisclaimerSection points={disclaimerPoints} />
       </div>
 
-      <div className="mt-1">
+      <div className="mt-10">
         <FinalAdviceHeader />
         <div className="grid grid-cols-3 gap-2">
           {adviceCards.map((card) => (
@@ -456,8 +456,8 @@ export default function DisclaimerAndAdvicePage({
           ))}
         </div>
       </div>
-        <div className="mt-[-8px]">
-      <ClosingBanner closing={closing} />
+      <div className="mt-[-8px]">
+        <ClosingBanner closing={closing} />
       </div>
     </ReportPageShell>
   );

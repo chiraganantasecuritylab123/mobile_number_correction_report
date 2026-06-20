@@ -17,15 +17,15 @@ import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 export type RuleLine =
   | string
   | {
-      text: string;
-      color?: string;
-      bold?: boolean;
-      size?: "normal" | "large";
-    }
+    text: string;
+    color?: string;
+    bold?: boolean;
+    size?: "normal" | "large";
+  }
   | {
-      parts: Array<{ text: string; color?: string; bold?: boolean }>;
-      size?: "normal" | "large";
-    };
+    parts: Array<{ text: string; color?: string; bold?: boolean }>;
+    size?: "normal" | "large";
+  };
 
 export type GeneralRule = {
   icon?: LucideIcon;
@@ -257,9 +257,8 @@ function RecommendationBoxHeader({
 }) {
   return (
     <p
-      className={`mb-1.5 text-[9px] font-extrabold leading-tight ${
-        align === "center" ? "text-center" : "text-left"
-      }`}
+      className={`mb-1.5 text-[9px] font-extrabold leading-tight ${align === "center" ? "text-center" : "text-left"
+        }`}
       style={{ color: RECOMMENDATION_TITLE_COLOR, fontFamily: SANS }}
     >
       {index}. {title}
@@ -297,9 +296,8 @@ function NumeroscopeSectionHeader({
   return (
     <div className={`relative flex w-full items-center justify-center ${compact ? "mb-1" : "mb-3"}`}>
       <div
-        className={`relative flex w-full items-center justify-center rounded-2xl px-10 ${
-          compact ? "py-1.5" : "py-2"
-        }`}
+        className={`relative flex w-full items-center justify-center rounded-2xl px-10 ${compact ? "py-1.5" : "py-2"
+          }`}
         style={{
           border: "1px solid #D8AC71",
           backgroundColor: "rgba(250, 236, 218, 0.65)",
@@ -384,9 +382,8 @@ function MobileIconCircle({ size = "md" }: { size?: "md" | "lg" }) {
   const isLarge = size === "lg";
   return (
     <div
-      className={`flex items-center justify-center rounded-full ${
-        isLarge ? "h-[28px] w-[28px]" : "h-[22px] w-[22px]"
-      }`}
+      className={`flex items-center justify-center rounded-full ${isLarge ? "h-[28px] w-[28px]" : "h-[22px] w-[22px]"
+        }`}
       style={{ border: "1.5px solid #d48e31", backgroundColor: "rgba(255, 255, 255, 0.45)" }}
     >
       <Smartphone
@@ -669,9 +666,8 @@ function PositionSuggestionBox({
         {suggestions.map((item, itemIndex) => (
           <li
             key={item.label}
-            className={`grid grid-cols-[8px_64px_1fr] items-start gap-x-1.5 py-[5px] ${
-              itemIndex < suggestions.length - 1 ? "border-b" : ""
-            }`}
+            className={`grid grid-cols-[8px_64px_1fr] items-start gap-x-1.5 py-[5px] ${itemIndex < suggestions.length - 1 ? "border-b" : ""
+              }`}
             style={{ borderColor: POSITION_ROW_BORDER }}
           >
             <span
@@ -680,7 +676,7 @@ function PositionSuggestionBox({
             />
             <PositionSuggestionLabel item={item} />
             <p
-              className="text-[8.5px] font-normal leading-[1.35]"
+              className="text-[9px] font-normal leading-[1.35]"
               style={{ color: RECOMMENDATION_BODY_COLOR, fontFamily: SANS }}
             >
               {highlightNumbers(item.detail)}
@@ -729,7 +725,7 @@ function ActivationDatesBox({
             style={{ color: ACTIVATION_TEXT_COLOR }}
           />
           <p
-            className="min-w-0 flex-1 text-[8.5px] font-normal leading-[1.4]"
+            className="min-w-0 flex-1 text-[10px] font-normal leading-[1.4]"
             style={{ color: ACTIVATION_TEXT_COLOR, fontFamily: SANS }}
           >
             {highlightNumbers(note, ACTIVATION_TEXT_COLOR)}
@@ -737,7 +733,7 @@ function ActivationDatesBox({
         </div>
 
         <p
-          className="mt-1 text-[8.5px] font-normal leading-[1.4]"
+          className="mt-1 text-[10px] font-normal leading-[1.4]"
           style={{
             color: ACTIVATION_TEXT_COLOR,
             fontFamily: SANS,
@@ -911,7 +907,10 @@ export default function MobileNumberCorrectionTips({
           <h1 className="text-[35px] font-bold leading-tight tracking-wide" style={{ color: "#d35400" }}>
             CORRECTION TIPS
           </h1>
-          <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+          <p
+            className="text-[13px]"
+            style={{ color: "#213247", opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
+          >
             Personalised Guidance Based on Your Core Numbers
           </p>
         </header>
