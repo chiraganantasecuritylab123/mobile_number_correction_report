@@ -361,40 +361,40 @@ function LifeAreaCardView({ area }: { area: LifeAreaCard }) {
 
   return (
     <div
-      className="flex min-w-0 flex-1 flex-col rounded-md px-1.5 py-2"
+      className="flex min-w-0 flex-1 flex-col rounded-md px-2 py-2.5"
       style={{
         border: `1px solid ${GOLD_BORDER}`,
         backgroundColor: CARD_BG,
       }}
     >
-      <div className="mx-auto flex h-10 w-10 items-center justify-center">
+      <div className="mx-auto flex h-11 w-11 items-center justify-center">
         <Image
           src={area.iconImage}
           alt=""
-          width={36}
-          height={36}
+          width={40}
+          height={40}
           className="object-contain"
           aria-hidden
         />
       </div>
       <p
-        className={`${cinzel.className} mt-1 text-center text-[6.5px] font-bold leading-tight`}
+        className={`${cinzel.className} mt-1 text-center text-[9.5px] font-bold leading-tight`}
         style={{ color: COLORS.brown, ...TEXT_UPPER }}
       >
         {area.title}
       </p>
       <p
-        className="mt-1 text-center text-[6px] font-bold"
+        className="mt-1 text-center text-[8px] font-bold"
         style={{ color, ...TEXT_UPPER }}
       >
         Rating: {area.ratingLabel}
       </p>
       <div className="mt-0.5 flex justify-center">
-        <StarRating rating={area.starRating} color={starColor} />
+        <StarRating rating={area.starRating} color={starColor} size="md" />
       </div>
-      <ProgressBar value={area.progress} color={color} className="mx-auto mt-1.5 w-[90%]" height="h-[4px]" />
+      <ProgressBar value={area.progress} color={color} className="mx-auto mt-1.5 w-[90%]" height="h-[5px]" />
       <p
-        className="mt-1.5 text-center text-[5.5px] leading-snug"
+        className="mt-1.5 text-center text-[8.5px] leading-snug"
         style={{ color: COLORS.brown, opacity: 0.9, fontFamily: BODY_SANS }}
       >
         {area.description}
@@ -438,7 +438,7 @@ export default function CompatibilityAnalysis({
   mobileNumber = "+44 7700 900123",
   mobileRootTotal = "10 → 1",
   rulingPlanet = "Sun (1)",
-  overallScore = 100,
+  overallScore = 62,
   quickStats = defaultQuickStats,
   breakdownRows = defaultBreakdownRows,
   lifeAreas = defaultLifeAreas,
@@ -548,7 +548,7 @@ export default function CompatibilityAnalysis({
 
           {/* Center — overall score gauge */}
           <div
-            className="flex items-center justify-center rounded-md py-1"
+            className="flex h-full min-h-[190px] w-full flex-col items-center justify-center rounded-md py-1"
             style={{
               border: `1.5px solid ${GOLD_BORDER}`,
               backgroundColor: CARD_BG,
@@ -656,7 +656,7 @@ export default function CompatibilityAnalysis({
         </div>
       </section>
 
-      <footer className="relative z-10 mt-3 flex items-center justify-center gap-2 pb-2">
+      {/* <footer className="relative z-10 mt-3 flex items-center justify-center gap-2 pb-2">
         <span className="text-[10px]" style={{ color: SECTION_ORANGE }}>
           ★
         </span>
@@ -666,7 +666,7 @@ export default function CompatibilityAnalysis({
         <span className="text-[10px]" style={{ color: SECTION_ORANGE }}>
           ★
         </span>
-      </footer>
+      </footer> */}
     </ReportPageShell>
   );
 }

@@ -180,16 +180,16 @@ function AvailableSectionHeader({ title }: { title: string }) {
       }}
     >
       <div className="relative flex h-5 w-5 shrink-0 items-center justify-center">
-        <Shield size={18} fill={'#AD6B0A'} stroke={'#AD6B0A'} />
+        <Shield size={20} fill={'#AD6B0A'} stroke={'#AD6B0A'} />
         <Check
-          size={8}
+          size={10}
           strokeWidth={3}
           className="absolute"
           style={{ color: "#fff" }}
         />
       </div>
       <p
-        className="text-[10px] font-bold tracking-[0.1em]"
+        className="text-[11px] font-bold tracking-[0.1em]"
         style={{ color: AVAILABLE_SECTION.burgundy, ...TEXT_UPPER }}
       >
         {title}
@@ -208,35 +208,22 @@ function MissingSectionHeader({ title }: { title: string }) {
         minWidth: 380,
       }}
     >
-      <span
-        className="text-[7px] leading-none"
-        style={{ color: MISSING_SECTION.accent }}
-        aria-hidden
-      >
-        ✦
-      </span>
+      
       <div className="relative flex h-5 w-5 shrink-0 items-center justify-center">
-        <Shield size={18} fill={MISSING_SECTION.accent} stroke={MISSING_SECTION.accent} />
+        <Shield size={20} fill={MISSING_SECTION.accent} stroke={MISSING_SECTION.accent} />
         <div
           className="absolute flex h-3 w-3 items-center justify-center rounded-full"
           style={{ backgroundColor: MISSING_SECTION.accent }}
         >
-          <X size={7} strokeWidth={3} style={{ color: "#fff" }} />
+          <X size={9} strokeWidth={3} style={{ color: "#fff" }} />
         </div>
       </div>
       <p
-        className="text-[10px] font-bold tracking-[0.1em]"
+        className="text-[11px] font-bold tracking-[0.1em]"
         style={{ color: MISSING_SECTION.burgundy, ...TEXT_UPPER }}
       >
         {title}
       </p>
-      <span
-        className="text-[7px] leading-none"
-        style={{ color: MISSING_SECTION.accent }}
-        aria-hidden
-      >
-        ✦
-      </span>
     </div>
   );
 }
@@ -299,7 +286,7 @@ function AvailableRow({
             {row.subNumbers.join(", ")}
           </p>
           <p
-            className={`font-cinzel mt-0.5 text-[9px] font-bold leading-tight`}
+            className={`font-cinzel mt-0.5 text-[10px] font-bold leading-tight`}
             style={{ color: AVAILABLE_SECTION.text }}
           >
             ({row.label})
@@ -326,13 +313,13 @@ function AvailableRow({
         />
         <div className="min-w-0">
           <p
-            className={`text-[10px] font-bold leading-tight`}
+            className={`text-[12px] font-bold leading-tight`}
             style={{ color: AVAILABLE_SECTION.burgundy }}
           >
             Life Impact:
           </p>
           <p
-            className="mt-0.5 text-[9px] leading-snug"
+            className="mt-0.5 text-[11px] leading-snug"
             style={{ color: AVAILABLE_SECTION.text, opacity: 0.9 }}
           >
             {row.lifeImpact}
@@ -382,9 +369,6 @@ function MissingRow({
   row: MissingNumberRow;
   isLast?: boolean;
 }) {
-  const CategoryIcon = row.categoryIcon;
-  const LessonIcon = row.keyLessonIcon;
-
   return (
     <div
       className={`font-nunito-sans flex items-center px-3 py-2.5`}
@@ -392,7 +376,7 @@ function MissingRow({
         borderBottom: isLast ? "none" : `1px solid ${MISSING_SECTION.rowDivider}`,
       }}
     >
-      <div className="flex min-w-[148px] items-center">
+      <div className="flex min-w-[200px] items-center">
         <MissingNumberBadge value={row.number} />
 
         <div className="ml-3 flex min-w-0 flex-1 items-center justify-between gap-2">
@@ -404,7 +388,7 @@ function MissingRow({
               {row.subNumbers.join(", ")}
             </p>
             <p
-              className={`font-cinzel mt-0.5 text-[9px] font-bold leading-tight`}
+              className={`font-cinzel mt-0.5 text-[10px] font-bold leading-tight`}
               style={{ color: MISSING_SECTION.text }}
             >
               ({row.label})
@@ -418,7 +402,7 @@ function MissingRow({
 
       <div className="flex min-w-0 flex-1 flex-col justify-center px-1">
         <p
-          className={`text-[10px] font-bold leading-tight`}
+          className={`text-[12px] font-bold leading-tight`}
           style={{ color: MISSING_SECTION.burgundy }}
         >
           Life Impact:
@@ -427,7 +411,7 @@ function MissingRow({
           {row.lifeImpactItems.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-1.5 text-[9px] leading-snug"
+              className="flex items-start gap-1.5 text-[11px] leading-snug"
               style={{ color: MISSING_SECTION.text, opacity: 0.9 }}
             >
               <span
@@ -446,13 +430,13 @@ function MissingRow({
         <Image src={row.keyLessonIcon} alt={row.label} width={52} height={52} className="shrink-0" />
         <div className="min-w-0">
           <p
-            className={`text-[10px] font-bold leading-tight`}
+            className={`text-[12px] font-bold leading-tight`}
             style={{ color: MISSING_SECTION.burgundy }}
           >
             Key Lesson:
           </p>
           <p
-            className="mt-0.5 text-[9px] leading-snug"
+            className="mt-0.5 text-[11px] leading-snug"
             style={{ color: MISSING_SECTION.text, opacity: 0.9 }}
           >
             {row.keyLesson}

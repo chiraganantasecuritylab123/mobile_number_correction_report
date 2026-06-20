@@ -215,10 +215,10 @@ export default function CoverPage({
         </header>
 
         <div className="flex items-center justify-center relative">
-          <CoverLotus size={70} className="absolute top-[50%] left-12 transform -translate-x-1/2 -translate-y-1/2" />
-          <CoverLotus size={70} className="absolute top-[50%] -right-5 transform -translate-x-1/2 -translate-y-1/2" />
+          <CoverLotus size={70} className="absolute top-[50%] left-6 transform -translate-x-1/2 -translate-y-1/2" />
+          <CoverLotus size={70} className="absolute top-[50%] -right-11 transform -translate-x-1/2 -translate-y-1/2" />
           <div className="relative">
-            <Image src='/assets/cover/border.png' alt="Client" width={500} height={100} />
+            <Image src='/assets/cover/border.png' alt="Client" width={600} height={100} />
             <div className="flex flex-col absolute top-5 left-0"
               style={{
                 position: "absolute",
@@ -231,12 +231,12 @@ export default function CoverPage({
               {clientFields.map((field, index) => (
                 <div
                   key={field.label}
-                  className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-4 py-[7px] min-w-[400px]"
+                  className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-6 py-[11px] min-w-[450px]"
                 >
                   <div className="flex items-center gap-2">
-                    <CoverIcon src={field.iconSrc} size={14} />
+                    <CoverIcon src={field.iconSrc} size={16} />
                     <span
-                      className="text-[9px] font-semibold tracking-[0.12em]"
+                      className="text-[10px] font-semibold tracking-[0.12em]"
                       style={{ color: COLORS.gold }}
                     >
                       {field.label}
@@ -246,7 +246,7 @@ export default function CoverPage({
                   <div className="w-px self-stretch" />
 
                   <div className="flex min-h-[18px] items-end">
-                    <span className="text-[11px] font-medium" style={{ color: COLORS.brown }}>
+                    <span className="text-[12px] font-medium" style={{ color: COLORS.brown }}>
                       {field.value}
                     </span>
                   </div>
@@ -318,13 +318,13 @@ export default function CoverPage({
                     <CoverIcon src={item.iconSrc} size={40} />
                   </div>
                   <p
-                    className="mt-1.5 text-[9px] font-bold tracking-[0.08em]"
+                    className="mt-1.5 text-[10px] font-bold tracking-[0.08em]"
                     style={{ color: COLORS.gold }}
                   >
                     {item.title}
                   </p>
                   <p
-                    className="mt-1 text-[9px] leading-snug"
+                    className="mt-1 text-[11px] leading-snug"
                     style={{ color: '#0B0706', opacity: 0.8 }}
                   >
                     {item.description}
@@ -333,9 +333,9 @@ export default function CoverPage({
               ))}
             </div>
 
-            <div className="mt-3 flex items-center justify-center gap-2">
+            <div className="mt-2 flex items-center justify-center gap-2">
               <CoverLotus size={40} />
-              <p className="max-w-[380px] text-center italic text-[10px]  "
+              <p className="max-w-[380px] text-center italic text-[11px]  "
                 style={{ color: '#0B0706', opacity: 0.8, textTransform: 'capitalize', fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif", }}
               >
                 A properly aligned mobile number attracts opportunities, stronger communication,

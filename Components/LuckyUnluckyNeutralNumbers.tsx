@@ -254,14 +254,14 @@ function SectionTitleRow({ index, title }: { index: string; title: string }) {
   );
 }
 
-  function DashedDivider({ variant }: { variant: "green" | "red" }) {
-    return (
-      <div
-        className="my-1.5 w-full"
-        style={{ borderTop: variant === "green" ? DASHED_GREEN : DASHED_RED }}
-      />
-    );
-  }
+function DashedDivider({ variant }: { variant: "green" | "red" }) {
+  return (
+    <div
+      className="my-1.5 w-full"
+      style={{ borderTop: variant === "green" ? DASHED_GREEN : DASHED_RED }}
+    />
+  );
+}
 
 function GoldBox({
   children,
@@ -457,7 +457,7 @@ function LuckyAnalysisColumn({
             {secondaryLucky.map((item) => (
               <li key={item.number} className="flex items-start gap-1.5">
                 <NumberCircle value={item.number} variant="secondary" />
-                <p className="text-[9px] leading-snug text-black">{item.description}</p>
+                <p className="text-[10px] leading-snug text-black">{item.description}</p>
               </li>
             ))}
           </ul>
@@ -496,7 +496,7 @@ function UnluckyColumn({
               {index > 0 ? <DashedDivider variant="red" /> : null}
               <div className="flex flex-row items-start gap-2 py-0.5">
                 <NumberCircle value={item.numbers} variant="unlucky" />
-                <p className="text-[9px] leading-snug text-black">{item.description}</p>
+                <p className="text-[10px] leading-snug text-black">{item.description}</p>
               </div>
             </li>
           ))}
@@ -641,7 +641,7 @@ export default function LuckyUnluckyNeutralNumbers({
           <span className="font-bold" style={{ color: COLORS.red }}>UNLUCKY </span> &amp;
           <span className="font-bold" style={{ color: COLORS.gold }}> NEUTRAL  NUMBERS </span>
         </h1>
-        <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           Your Personal Number Vibrations Guide
         </p>
       </header>

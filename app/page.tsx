@@ -1,3 +1,4 @@
+import ReportHomeClient from "@/Components/ReportHomeClient";
 import NumberActivationGuide from "@/Components/NumberActivationGuide";
 import MissingNumbersAnalysis from "@/Components/MissingNumbersAnalysis";
 import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
@@ -19,7 +20,7 @@ import DirectionAlignmentAnalysis from "@/Components/SignatureAnalysisReport/Dir
 
 export default function Home() {
   return (
-    <div className="flex min-h-full flex-col items-center gap-10 bg-[#d4cfc7] p-8">
+    <ReportHomeClient>
       <CoverPage /> {/* 1 */}
       <Numeroscope /> {/* 2 */}
       <LoshuGrid /> {/* 3 */}
@@ -37,10 +38,6 @@ export default function Home() {
       <NumberActivationGuide /> {/* 15 */}
       <FAQPage /> {/* 16 */}
       <DisclaimerAndAdvicePage /> {/* 17 */}
-
-
-      {/* signature analysis report pages */}
-      <DirectionAlignmentAnalysis />
-    </div>
+    </ReportHomeClient>
   );
 }

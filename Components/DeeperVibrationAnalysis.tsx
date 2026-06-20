@@ -14,7 +14,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { SectionDiamondTitle } from "./LoshuGridDecorations";
-import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
 import { Pattern3 } from "./CommunComponents";
@@ -152,7 +151,6 @@ const defaultFlowAnalysis: FlowAnalysisItem[] = [
   { text: "Middle 9 brings high energy but also pressure & impatience", status: "neutral" },
   { text: "Ending with 1-2-3 gives leadership, emotion & growth balance", status: "positive" },
   { text: "Zeros (0) in between create gaps & scatter energy", status: "negative" },
-  { text: "Flow is not fully smooth - energy gets interrupted", status: "negative" },
 ];
 
 const defaultLifeAreas: LifeAreaEffect[] = [
@@ -520,7 +518,11 @@ export default function DeeperVibrationAnalysis({
   pageNumber = "08",
 }: DeeperVibrationAnalysisProps) {
   return (
-    <ReportPageShell padding="20px 40px 52px">
+    <ReportPageShell
+      padding="14px 36px 36px"
+      pageNumber={pageNumber}
+      pageLabel="deeper-vibration-analysis"
+    >
 
       <header className="flex flex-col items-center text-center">
         <Image
@@ -528,7 +530,7 @@ export default function DeeperVibrationAnalysis({
           alt="Astro Aarambh"
           width={100}
           height={100}
-          className="mb-2"
+          className="mb-1 h-auto w-[88px]"
           priority
         />
         <div className="flex items-center gap-2">
@@ -538,19 +540,19 @@ export default function DeeperVibrationAnalysis({
           </p>
           <Pattern3 size={50} className="rotate-180" />
         </div>
-        <h1 className="mt-1 text-[32px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
+        <h1 className="mt-0.5 text-[28px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           DEEPER{" "}
           <span style={{ color: "#d48e31" }}>VIBRATIONAL</span>{" "}
           ANALYSIS
         </h1>
-        <p className="mt-1 text-sm italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           Series Energy &amp; Hidden Frequency
         </p>
       </header>
 
 
       {/* Top info bar */}
-      <section className="relative z-10 mt-1 font-nunito-sans">
+      <section className="relative z-10 mt-3 font-nunito-sans">
         <GoldBox className="grid grid-cols-2 items-center gap-2 px-2 py-1">
           <div className="flex items-center gap-1.5">
             <div className="flex items-center justify-center p-3 rounded-full border-[2px]" style={{ borderColor: COLORS.goldLight }}>
@@ -598,13 +600,13 @@ export default function DeeperVibrationAnalysis({
       </section>
 
       {/* Section 1: Series Pattern */}
-      <section className="relative z-10 mt-2 font-nunito-sans">
-        <div className="mb-1 flex items-center gap-1">
+      <section className="relative z-10 mt-1.5 font-nunito-sans">
+        <div className="mb-0.5 flex items-center gap-1">
           <SectionDiamondTitle>1. SERIES PATTERN &amp; SERIES ROOT</SectionDiamondTitle>
         </div>
-        <div className="flex flex-row items-center justify-center gap-2 w-full">
+        <div className="flex w-full flex-row items-center justify-center gap-2">
 
-          <GoldBox className="flex items-center justify-center gap-15 py-3.5 w-[75%]">
+          <GoldBox className="flex w-[75%] items-center justify-center gap-15 py-2">
             {seriesParts.map((part, index) => (
               <div key={part.partLabel} className="flex flex justify-center items-center">
                 {index > 0 ? (
@@ -635,8 +637,8 @@ export default function DeeperVibrationAnalysis({
       </section>
 
       {/* Section 2: Digit flow */}
-      <section className="relative z-10 mt-2 font-nunito-sans">
-        <div className="mb-1 flex items-center gap-1">
+      <section className="relative z-10 mt-1.5 font-nunito-sans">
+        <div className="mb-0.5 flex items-center gap-1">
           <SectionDiamondTitle>2. DIGIT-BY-DIGIT VIBRATION FLOW</SectionDiamondTitle>
         </div>
         <div className="flex items-start justify-center px-1 py-1">
@@ -653,7 +655,7 @@ export default function DeeperVibrationAnalysis({
       </section>
 
       {/* Sections 3, 4, 5 */}
-      <section className="relative z-10 mt-2 grid grid-cols-3 gap-2 font-nunito-sans">
+      <section className="relative z-10 mt-1.5 grid grid-cols-3 gap-1.5 font-nunito-sans">
         <GoldBox className="p-2" >
           <SectionDiamondTitle>3. RULING PLANETS OF MAJOR DIGITS</SectionDiamondTitle>
           <ul className="mt-2 flex flex-col gap-2">
@@ -688,7 +690,7 @@ export default function DeeperVibrationAnalysis({
           </p>
           <ul className="mt-1 flex flex-col gap-1.5">
             {flowAnalysis.map((item) => (
-              <li key={item.text} className="flex items-start gap-1.5 text-[8px] text-black">
+              <li key={item.text} className="flex items-start gap-1.5 text-[10px] text-black">
                 <FlowAnalysisBulletIcon status={item.status} />
                 {item.text}
               </li>
@@ -714,20 +716,27 @@ export default function DeeperVibrationAnalysis({
             VIBRATION LEVEL
           </p>
           {/* <GradientVibrationWaveform className="mt-2 h-8 w-full" /> */}
-          <Image src="/assets/cover/page-8-image-5.png" alt="Vibration Waveform" width={200} height={70} className="h-[70px]" />
+          <Image
+            src="/assets/cover/page-8-image-5.png"
+            alt="Vibration Waveform"
+            width={200}
+            height={70}
+            className="mx-auto mt-1 h-[58px] w-auto max-w-full object-contain"
+            style={{ width: "auto", height: "58px" }}
+          />
         </GoldBox>
       </section>
 
       {/* Section 6: Life areas */}
-      <section className="relative z-10 mt-2 font-nunito-sans">
-        <div className="mb-1 flex items-center gap-1">
+      <section className="relative z-10 mt-1.5 font-nunito-sans">
+        <div className="mb-0.5 flex items-center gap-1">
           <SectionDiamondTitle>6. LONG-TERM EFFECT ON LIFE AREAS</SectionDiamondTitle>
         </div>
-        <div className="grid grid-cols-3 gap-1.5">
+        <div className="grid grid-cols-3 gap-1">
           {lifeAreas.map((area) => {
             const Icon = area.icon;
             return (
-              <GoldBox key={area.title} className="p-2">
+              <GoldBox key={area.title} className="p-1.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <Image src={area.icon} alt={area.title} width={30} height={30} />
@@ -759,23 +768,10 @@ export default function DeeperVibrationAnalysis({
         </div>
       </section>
 
-      <footer className="relative z-10 mt-2 flex flex-col items-center pb-1 font-nunito-sans">
-        <div
-          className="flex items-center gap-2 rounded-md px-3 py-1.5"
-          style={{
-            border: "1px solid rgba(184, 134, 11, 0.45)",
-            backgroundColor: "rgba(212, 142, 49, 0.08)",
-          }}
-        >
-          <span className="text-[25px]" style={{ color: "#d48e31" }}>★</span>
-          <p className="max-w-[540px] text-center text-[10px] leading-relaxed" style={{ color: COLORS.brown }}>
-            <span className="font-bold" style={{ color: COLORS.gold }}>SUMMARY: </span>
-            {summary}
-          </p>
-          <span className="text-[25px]" style={{ color: "#d48e31" }}>★</span>
-        </div>
+      <footer className="relative z-10 mt-1.5 flex justify-center px-2 pb-0 font-nunito-sans">
+        <FooterSummaryBanner summary={summary} className="max-w-[680px] py-1.5" />
       </footer>
 
-    </ReportPageShell >
+    </ReportPageShell>
   );
 }
