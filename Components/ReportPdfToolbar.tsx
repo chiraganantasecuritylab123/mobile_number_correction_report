@@ -5,7 +5,13 @@ import { useCallback, useEffect, useState } from "react";
 
 type PdfPreviewModule = typeof import("react-pdf");
 
-export default function ReportPdfToolbar() {
+export default function ReportPdfToolbar({
+  reportTitle = "Mobile Number Correction Report",
+  reportDescription = "Export uses pdfkit-next with automatic overflow page breaks",
+}: {
+  reportTitle?: string;
+  reportDescription?: string;
+}) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -107,12 +113,8 @@ export default function ReportPdfToolbar() {
       >
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-[#5d2e17]">
-              Mobile Number Correction Report
-            </p>
-            <p className="text-xs text-[#5d2e17]/70">
-              Export uses pdfkit-next with automatic overflow page breaks
-            </p>
+            <p className="text-sm font-semibold text-[#5d2e17]">{reportTitle}</p>
+            <p className="text-xs text-[#5d2e17]/70">{reportDescription}</p>
           </div>
 
           <div className="flex items-center gap-2">

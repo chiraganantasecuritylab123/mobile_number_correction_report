@@ -31,7 +31,6 @@ export default function SignatureReportPageShell({
   height = PAGE_HEIGHT,
   padding = "50px 40px 36px",
   style,
-  pageNumber = "01",
 }: ReportPageShellProps) {
   return (
     <article

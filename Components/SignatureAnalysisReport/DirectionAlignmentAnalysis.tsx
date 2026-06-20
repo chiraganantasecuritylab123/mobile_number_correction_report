@@ -2,6 +2,10 @@ import {
   ArrowUp,
   Circle,
   Crosshair,
+  LineDotRightHorizontal,
+  Minus,
+  MoveDownRight,
+  MoveUpRight,
   Scale,
   Shield,
   Star,
@@ -9,7 +13,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
-import type { ReactNode } from "react";
 import { CoverLotus } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
@@ -110,57 +113,74 @@ const defaultCards: DirectionAnalysisCard[] = [
   },
 ];
 
-function DirectionGraphicIcon({ graphic }: { graphic: DirectionGraphic }) {
-  const stroke = COLORS.brown;
+function DashedBaseline() {
+  return (
+    <div
+      className="h-px w-[100%] border-t border-dashed"
+      style={{ borderColor: COLORS.brown, opacity: 0.65 }}
+    />
+  );
+}
 
-  const graphics: Record<DirectionGraphic, ReactNode> = {
-    upwardSlope: (
-      <svg viewBox="0 0 80 36" className="h-9 w-full" aria-hidden>
-        <line x1="8" y1="28" x2="72" y2="8" stroke={stroke} strokeWidth="2" />
-        <polygon points="72,8 64,10 68,16" fill={stroke} />
-      </svg>
-    ),
-    downwardSlope: (
-      <svg viewBox="0 0 80 36" className="h-9 w-full" aria-hidden>
-        <line x1="8" y1="8" x2="72" y2="28" stroke={stroke} strokeWidth="2" />
-        <polygon points="72,28 64,26 68,20" fill={stroke} />
-      </svg>
-    ),
-    straightAlignment: (
-      <svg viewBox="0 0 80 36" className="h-9 w-full" aria-hidden>
-        <line x1="8" y1="18" x2="72" y2="18" stroke={stroke} strokeWidth="2" />
-      </svg>
-    ),
-    baselineStability: (
-      <svg viewBox="0 0 80 36" className="h-9 w-full" aria-hidden>
-        <line x1="8" y1="14" x2="72" y2="14" stroke={stroke} strokeWidth="2" />
-        <line
-          x1="8"
-          y1="24"
-          x2="72"
-          y2="24"
-          stroke={stroke}
-          strokeWidth="1"
-          strokeDasharray="3 3"
-          opacity="0.65"
-        />
-      </svg>
-    ),
-    beginningPoint: (
-      <svg viewBox="0 0 80 36" className="h-9 w-full" aria-hidden>
-        <line x1="8" y1="16" x2="72" y2="16" stroke={stroke} strokeWidth="2" />
-        <circle cx="10" cy="22" r="4" fill={stroke} />
-      </svg>
-    ),
-    endingPoint: (
-      <svg viewBox="0 0 80 36" className="h-9 w-full" aria-hidden>
-        <line x1="8" y1="20" x2="72" y2="20" stroke={stroke} strokeWidth="2" />
-        <circle cx="70" cy="12" r="5" fill={stroke} />
-      </svg>
-    ),
+function CardGraphic({ graphic }: { graphic: DirectionGraphic }) {
+  const iconProps = {
+    size: 60,
+    width: 100,
+    height: 50,
+    strokeWidth: 1,
+    style: { color: COLORS.brown },
   };
 
-  return graphics[graphic];
+  switch (graphic) {
+    case "upwardSlope":
+      return (
+        <div className="flex flex-col items-center">
+          <MoveUpRight {...iconProps} aria-hidden className="rotate-21" />
+          <DashedBaseline />
+        </div>
+      );
+    case "downwardSlope":
+      return (
+        <div className="flex flex-col items-center">
+          <MoveDownRight {...iconProps} aria-hidden className="rotate-335" />
+          <DashedBaseline />
+        </div>
+      );
+    case "straightAlignment":
+      return (
+        <div className="flex flex-col items-center">
+          <Minus {...iconProps} className="w-40" aria-hidden />
+          <DashedBaseline />
+        </div>
+      );
+    case "baselineStability":
+      return (
+        <div className="flex flex-col items-center">
+          <Minus {...iconProps} className="w-35" aria-hidden />
+          <DashedBaseline />
+        </div>
+      );
+    case "beginningPoint":
+      return (
+        <div className="flex flex-col items-center">
+          <LineDotRightHorizontal
+            {...iconProps}
+            className="w-35 scale-x-[-1]"
+            aria-hidden
+          />
+          <DashedBaseline />
+        </div>
+      );
+    case "endingPoint":
+      return (
+        <div className="flex flex-col items-center">
+          <LineDotRightHorizontal {...iconProps} className="w-35" aria-hidden />
+          <DashedBaseline />
+        </div>
+      );
+    default:
+      return null;
+  }
 }
 
 function AnalysisCard({
@@ -175,72 +195,117 @@ function AnalysisCard({
   return (
     <div
       className="relative flex min-h-[200px] flex-col items-center text-center
-      bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat"
-      // style={{
-      //   backgroundImage: "url('/assets/signatureReport/cardBackground.png')",
-      //   height: "300px",
-      //   width: "220px",
-      //   backgroundSize: "100% 100%",
-      //   backgroundPosition: "center",
-      // }}
+      bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat h-[300px] w-[230px]"
     >
-      <span
-        className="absolute left-1/2 top-[5px] flex h-7 w-6 -translate-x-1/2 items-center justify-center text-[11px] font-bold"
-        style={{ color: COLORS.cream }}
-      >
-        {index}
-      </span>
+      <div className="flex flex-col items-center justify-center gap-2 h-full w-full p-4">
 
-      <div className="mb-1 w-full px-1">
-        <DirectionGraphicIcon graphic={card.graphic} />
+        <span
+          className="absolute left-1/2 top-[5px] flex h-7 w-6 -translate-x-1/2 items-center justify-center text-[11px] font-bold"
+          style={{ color: COLORS.cream }}
+        >
+          {index}
+        </span>
+
+        <div className="mb-1 flex h-[45px] items-end justify-center">
+          <CardGraphic graphic={card.graphic} />
+        </div>
+
+        <p
+          className="p-1 text-[15px] font-bold leading-tight tracking-[0.08em]"
+          style={{ color: COLORS.brown }}
+        >
+          {card.title}
+        </p>
+
+        <div
+          className="mb-1.5 flex items-center gap-1 rounded-full px-2 py-0.5"
+          style={{
+            backgroundColor: COLORS.cream,
+            border: `1px solid ${COLORS.gold}`,
+          }}
+        >
+          <span
+            className="flex h-3.5 w-3.5 items-center justify-center rounded-full"
+            style={{ backgroundColor: COLORS.gold }}
+          >
+            <StatusIcon size={7} strokeWidth={2} style={{ color: COLORS.cream }} />
+          </span>
+          <span
+            className="text-[12px] font-semibold tracking-wide"
+            style={{ color: COLORS.brown, fontFamily: BODY_SANS }}
+          >
+            {card.statusLabel}
+          </span>
+        </div>
+
+        <p
+          className="text-[12px] leading-snug px-2"
+          style={{ color: COLORS.black, opacity: 0.82, fontFamily: BODY_SANS }}
+        >
+          {card.description}
+        </p>
       </div>
 
-      <p
-        className="text-[16px] p-1 font-bold leading-tight tracking-[0.08em]"
-        style={{ color: COLORS.brown }}
-      >
-        {card.title}
-      </p>
+    </div>
+  );
+}
 
-      <div
-        className="my-1.5 h-px w-8"
+function OverallInsightDivider() {
+  return (
+    <div className="mt-1 flex w-full max-w-[320px] items-center justify-center gap-2">
+      <span
+        className="h-px flex-1"
         style={{ backgroundColor: COLORS.gold, opacity: 0.55 }}
       />
+      <span className="text-[11px] leading-none" style={{ color: COLORS.gold }}>
+        ✦
+      </span>
+      <span
+        className="h-px flex-1"
+        style={{ backgroundColor: COLORS.gold, opacity: 0.55 }}
+      />
+    </div>
+  );
+}
 
+function OverallDirectionInsightSection({ insight }: { insight: string }) {
+  return (
+    <section className="relative z-10 mt-1 flex justify-center">
       <div
-        className="mb-1.5 flex items-center gap-1 rounded-full px-2 py-0.5"
+        className="flex w-full min-h-[100px] items-center bg-no-repeat px-6 py-4"
         style={{
-          backgroundColor: COLORS.cream,
-          border: `1px solid ${COLORS.gold}`,
+          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
         }}
       >
-        <span
-          className="flex h-3.5 w-3.5 items-center justify-center rounded-full"
-          style={{ backgroundColor: COLORS.gold }}
-        >
-          <StatusIcon size={7} strokeWidth={2} style={{ color: COLORS.cream }} />
-        </span>
-        <span
-          className="text-[12px] font-semibold tracking-wide"
-          style={{ color: COLORS.brown, fontFamily: BODY_SANS }}
-        >
-          {card.statusLabel}
-        </span>
-      </div>
+        <CoverLotus size={80} className="shrink-0" />
 
-      <p
-        className="text-[14px] leading-snug px-2"
-        style={{ color: COLORS.black, opacity: 0.82, fontFamily: BODY_SANS }}
-      >
-        {card.description}
-      </p>
-    </div>
+        <div className="flex min-w-0 flex-1 flex-col items-center px-5">
+          <p
+            className="text-[14px] font-bold tracking-[0.12em]"
+            style={{ color: COLORS.brown }}
+          >
+            OVERALL DIRECTION INSIGHT
+          </p>
+          <OverallInsightDivider />
+          <p
+            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
+            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+          >
+            {insight}
+          </p>
+        </div>
+
+        <CoverLotus size={80} className="shrink-0" />
+      </div>
+    </section>
   );
 }
 
 function HeaderDivider() {
   return (
-    <div className="mt-2 flex w-full items-center justify-center gap-2">
+    <div className="mt-1 flex w-full items-center justify-center gap-2">
       <span className="h-px flex-1 max-w-[120px]" style={{ backgroundColor: COLORS.gold, opacity: 0.45 }} />
       <span className="text-[10px]" style={{ color: COLORS.gold }}>
         ✦
@@ -250,21 +315,58 @@ function HeaderDivider() {
   );
 }
 
-function ConstellationGraphic() {
+function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
   return (
-    <svg viewBox="0 0 60 40" className="h-10 w-14 shrink-0 opacity-70" aria-hidden>
-      <circle cx="8" cy="10" r="1.5" fill={COLORS.goldLight} />
-      <circle cx="22" cy="6" r="1.5" fill={COLORS.goldLight} />
-      <circle cx="38" cy="14" r="1.5" fill={COLORS.goldLight} />
-      <circle cx="52" cy="8" r="1.5" fill={COLORS.goldLight} />
-      <circle cx="16" cy="28" r="1.5" fill={COLORS.goldLight} />
-      <circle cx="44" cy="32" r="1.5" fill={COLORS.goldLight} />
-      <line x1="8" y1="10" x2="22" y2="6" stroke={COLORS.goldLight} strokeWidth="0.6" />
-      <line x1="22" y1="6" x2="38" y2="14" stroke={COLORS.goldLight} strokeWidth="0.6" />
-      <line x1="38" y1="14" x2="52" y2="8" stroke={COLORS.goldLight} strokeWidth="0.6" />
-      <line x1="8" y1="10" x2="16" y2="28" stroke={COLORS.goldLight} strokeWidth="0.6" />
-      <line x1="38" y1="14" x2="44" y2="32" stroke={COLORS.goldLight} strokeWidth="0.6" />
-    </svg>
+    <footer className="relative z-10 mt-1">
+      <div
+        className="flex min-h-[108px] w-full items-center gap-4 bg-no-repeat px-6 py-4"
+        style={{
+          backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full"
+          style={{
+            border: `1.5px solid ${COLORS.goldLight}`,
+            backgroundColor: "transparent",
+          }}
+        >
+          <User size={24} strokeWidth={1.25} style={{ color: COLORS.goldLight }} />
+          <Star
+            size={11}
+            fill={COLORS.goldLight}
+            stroke={COLORS.goldLight}
+            className="absolute right-2 bottom-2"
+          />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <p
+            className="text-[12px] font-bold tracking-[0.1em]"
+            style={{ color: COLORS.goldLight }}
+          >
+            EXPERT GRAPHOLOGY INSIGHT
+          </p>
+          <p
+            className="mt-1.5 text-[10px] leading-relaxed"
+            style={{ color: COLORS.cream, fontFamily: BODY_SANS, opacity: 0.95 }}
+          >
+            {insight}
+          </p>
+        </div>
+
+        <Image
+          src="/assets/signatureReport/starBg.png"
+          alt=""
+          width={118}
+          height={72}
+          className="shrink-0 object-contain mix-blend-screen"
+          aria-hidden
+        />
+      </div>
+    </footer>
   );
 }
 
@@ -288,13 +390,13 @@ export default function DirectionAlignmentAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[22px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[27px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
         <p
-          className="mt-0.5 max-w-[520px] text-[11px] italic"
+          className="mt-0.5 max-w-[520px] text-[15px]"
           style={{ color: COLORS.brown, opacity: 0.85, fontFamily: BODY_SANS }}
         >
           {subtitle}
@@ -302,90 +404,15 @@ export default function DirectionAlignmentAnalysis({
         <HeaderDivider />
       </header>
 
-      <section className="relative z-10 mt-3 grid grid-cols-3 gap-2.5">
+      <section className="relative z-10 mt-1 grid grid-cols-3">
         {cards.map((card, index) => (
           <AnalysisCard key={`${card.title}-${index}`} index={index + 1} card={card} />
         ))}
       </section>
 
-      <section className="relative z-10 mt-3">
-        <div
-          className="rounded-md px-4 py-2.5"
-          style={{
-            border: `1px solid ${COLORS.brown}`,
-            backgroundColor: COLORS.cream,
-          }}
-        >
-          <div className="mb-1.5 flex items-center justify-center gap-2">
-            <CoverLotus size={28} />
-            <p
-              className="text-[11px] font-bold tracking-[0.1em]"
-              style={{ color: COLORS.brown }}
-            >
-              OVERALL DIRECTION INSIGHT
-            </p>
-            <CoverLotus size={28} />
-          </div>
-          <p
-            className="mx-auto max-w-[640px] text-center text-[8.5px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.85, fontFamily: BODY_SANS }}
-          >
-            {overallDirectionInsight}
-          </p>
-        </div>
-      </section>
+      <OverallDirectionInsightSection insight={overallDirectionInsight} />
 
-      <footer className="relative z-10 mt-3">
-        <div
-          className="flex items-center gap-3 rounded-md px-4 py-3"
-          style={{ backgroundColor: COLORS.brown }}
-        >
-          <div
-            className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
-            style={{
-              backgroundColor: COLORS.gold,
-              border: `2px solid ${COLORS.goldLight}`,
-            }}
-          >
-            <User size={20} strokeWidth={1.5} style={{ color: COLORS.cream }} />
-            <Star
-              size={10}
-              fill={COLORS.cream}
-              stroke={COLORS.cream}
-              className="absolute right-1.5 bottom-1.5"
-            />
-          </div>
-
-          <div className="min-w-0 flex-1">
-            <p
-              className="text-[10px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.goldLight }}
-            >
-              EXPERT GRAPHOLOGY INSIGHT
-            </p>
-            <p
-              className="mt-1 text-[8px] leading-relaxed"
-              style={{ color: COLORS.cream, fontFamily: BODY_SANS, opacity: 0.95 }}
-            >
-              {expertGraphologyInsight}
-            </p>
-          </div>
-
-          <ConstellationGraphic />
-        </div>
-
-        <div className="mt-2 flex justify-center gap-1">
-          {[0, 1, 2].map((sparkle) => (
-            <span
-              key={sparkle}
-              className="text-[10px]"
-              style={{ color: COLORS.gold, opacity: 0.85 }}
-            >
-              ✦
-            </span>
-          ))}
-        </div>
-      </footer>
+      <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
     </SignatureReportPageShell>
   );
 }

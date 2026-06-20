@@ -12,10 +12,21 @@ const ReportPdfToolbar = dynamic(() => import("@/Components/ReportPdfToolbar"), 
   ),
 });
 
-export default function ReportHomeClient({ children }: { children: ReactNode }) {
+export default function ReportHomeClient({
+  children,
+  reportTitle = "Mobile Number Correction Report",
+  reportDescription = "Export uses pdfkit-next with automatic overflow page breaks",
+}: {
+  children: ReactNode;
+  reportTitle?: string;
+  reportDescription?: string;
+}) {
   return (
     <>
-      <ReportPdfToolbar />
+      <ReportPdfToolbar
+        reportTitle={reportTitle}
+        reportDescription={reportDescription}
+      />
       <div className="flex min-h-full flex-col items-center gap-10 bg-[#d4cfc7] p-8 pt-6">
         {children}
       </div>

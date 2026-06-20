@@ -1,43 +1,36 @@
-import ReportHomeClient from "@/Components/ReportHomeClient";
-import NumberActivationGuide from "@/Components/NumberActivationGuide";
-import MissingNumbersAnalysis from "@/Components/MissingNumbersAnalysis";
-import RepetitiveNumberAnalysis from "@/Components/RepetitiveNumberAnalysis";
-import AnalysisOfCoreNumbers from "@/Components/AnalysisOfCoreNumbers";
-import CoverPage from "@/Components/CoverPage";
-import CompatibilityAnalysis from "@/Components/CompatibilityAnalysis";
-import ConjunctionAndPairAnalysis from "@/Components/ConjunctionAndPairAnalysis";
-import MobileNumberCorrectionTips from "@/Components/MobileNumberCorrectionTips";
-import DeeperVibrationAnalysis from "@/Components/DeeperVibrationAnalysis";
-import LoshuGrid from "@/Components/LoshuGrid";
-import LuckyUnluckyNeutralNumbers from "@/Components/LuckyUnluckyNeutralNumbers";
-import MobileNumberTotalAnalysis from "@/Components/MobileNumberTotalAnalysis";
-import Numeroscope from "@/Components/Numeroscope";
-import PlaneDetails from "@/Components/PlaneDetails";
-import OverAllVardict from "@/Components/OverAllVardict";
-import FAQPage from "@/Components/FAQPage";
-import DisclaimerAndAdvicePage from "@/Components/DisclaimerAndAdvicePage";
-import DirectionAlignmentAnalysis from "@/Components/SignatureAnalysisReport/DirectionAlignmentAnalysis";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <ReportHomeClient>
-      <CoverPage /> {/* 1 */}
-      <Numeroscope /> {/* 2 */}
-      <LoshuGrid /> {/* 3 */}
-      <PlaneDetails /> {/* 4 */}
-      <AnalysisOfCoreNumbers /> {/* 5 */}
-      <LuckyUnluckyNeutralNumbers /> {/* 6 */}
-      <MobileNumberTotalAnalysis /> {/* 7 */}
-      <DeeperVibrationAnalysis /> {/* 8 */}
-      <ConjunctionAndPairAnalysis /> {/* 9 */}
-      <RepetitiveNumberAnalysis /> {/* 10 */}
-      <MissingNumbersAnalysis /> {/* 11 */}
-      <CompatibilityAnalysis /> {/* 12 */}
-      <OverAllVardict /> {/* 13 */}
-      <MobileNumberCorrectionTips /> {/* 14 */}
-      <NumberActivationGuide /> {/* 15 */}
-      <FAQPage /> {/* 16 */}
-      <DisclaimerAndAdvicePage /> {/* 17 */}
-    </ReportHomeClient>
+    <main className="flex min-h-full flex-col items-center justify-center gap-8 p-8">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold tracking-wide text-[#5d2e17]">
+          Astro Aarambh Reports
+        </h1>
+        <p className="mt-2 text-sm text-[#5d2e17]/75">
+          Choose a report type to preview and export
+        </p>
+      </div>
+
+      <div className="grid w-full max-w-4xl gap-4 sm:grid-cols-2">
+        <Link
+          href="/mobile-report"
+          className="rounded-lg border border-[#b8860b]/40 bg-[#fdf5e6] p-6 shadow-md transition hover:border-[#b8860b] hover:shadow-lg"
+        >
+          <h2 className="text-lg font-bold text-[#5d2e17]">
+            Mobile Number Correction Report
+          </h2>
+        </Link>
+
+        <Link
+          href="/signature-report"
+          className="rounded-lg border border-[#b8860b]/40 bg-[#fdf5e6] p-6 shadow-md transition hover:border-[#b8860b] hover:shadow-lg"
+        >
+          <h2 className="text-lg font-bold text-[#5d2e17]">
+            Signature Analysis Report
+          </h2>
+        </Link>
+      </div>
+    </main>
   );
 }
