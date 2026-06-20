@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   Ban,
+  Briefcase,
   Building2,
   Calendar,
   Car,
@@ -10,7 +11,7 @@ import {
   Handshake,
   Home,
   Scale,
-  Shield,
+  ShieldCheck,
   Smartphone,
   Sparkles,
   Star,
@@ -22,12 +23,16 @@ import { LoShuSquare, LotusIcon } from "./CoverPageDecorations";
 import { SectionDiamondTitle } from "./LoshuGridDecorations";
 import { PageFooterBar } from "./NumeroscopeDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
+import Image from "next/image";
+import { Pattern3 } from "./CommunComponents";
+import FooterSummaryBanner from "./FooterSummaryBanner";
 
 export type NumberProfileRow = {
   category: string;
   categoryIcon: LucideIcon;
   variant: "lucky" | "veryLucky" | "supporting" | "neutral" | "unlucky";
   numbers: string;
+  numbersSubtext?: string;
   influence: string;
   influenceIcon: LucideIcon;
   description: string;
@@ -72,12 +77,22 @@ export type LuckyUnluckyNeutralNumbersProps = {
 const COLORS = REPORT_COLORS;
 
 const VARIANT_COLORS = {
-  lucky: { accent: "#2d7a4f", bg: "rgba(45, 122, 79, 0.08)" },
-  veryLucky: { accent: "#2d7a4f", bg: "rgba(45, 122, 79, 0.12)" },
-  supporting: { accent: "#2d7a4f", bg: "rgba(45, 122, 79, 0.06)" },
-  neutral: { accent: "#7a7a7a", bg: "rgba(120, 120, 120, 0.08)" },
-  unlucky: { accent: "#a84432", bg: "rgba(168, 68, 50, 0.08)" },
+  lucky: { accent: "#2d7a4f", bg: "rgba(253, 245, 230, 0.55)" },
+  veryLucky: { accent: "#2d7a4f", bg: "rgba(253, 245, 230, 0.55)" },
+  supporting: { accent: "#2d7a4f", bg: "rgba(253, 245, 230, 0.55)" },
+  neutral: { accent: "#1f2937", bg: "rgba(253, 245, 230, 0.55)" },
+  unlucky: { accent: "#a84432", bg: "rgba(253, 236, 234, 0.75)" },
 };
+
+const TABLE_BORDER = "1px solid rgba(184, 134, 11, 0.35)";
+const TABLE_HEADER_BG = "rgba(212, 163, 115, 0.38)";
+const TABLE_CELL =
+  "border border-[rgba(184,134,11,0.35)] px-1.5 py-1 align-middle text-[10px] leading-snug";
+
+const LUCKY_GREEN = "#2d7a4f";
+const UNLUCKY_RED = "#a84432";
+const DASHED_GREEN = "1px dashed rgba(45, 122, 79, 0.45)";
+const DASHED_RED = "1px dashed rgba(168, 68, 50, 0.45)";
 
 const defaultProfileRows: NumberProfileRow[] = [
   {
@@ -86,7 +101,7 @@ const defaultProfileRows: NumberProfileRow[] = [
     variant: "lucky",
     numbers: "5, 7, 2, 1, 6",
     influence: "Strong positive support",
-    influenceIcon: Shield,
+    influenceIcon: ShieldCheck,
     description: "Numbers that attract good fortune, growth, opportunities and harmony.",
   },
   {
@@ -120,7 +135,8 @@ const defaultProfileRows: NumberProfileRow[] = [
     category: "Unlucky Numbers",
     categoryIcon: AlertTriangle,
     variant: "unlucky",
-    numbers: "4, 8 (especially repeated)",
+    numbers: "4, 8",
+    numbersSubtext: "(especially repeated)",
     influence: "Create obstacles & delays",
     influenceIcon: Ban,
     description: "Can create challenges, delays, blockages and unnecessary struggles.",
@@ -172,7 +188,7 @@ const defaultDailyUseRows: DailyUseRow[] = [
   },
   {
     area: "Office / Shop Number",
-    icon: Building2,
+    icon: Briefcase,
     recommendedNumbers: "1, 5, 7, 9",
     action: "Good for business growth.",
   },
@@ -203,6 +219,50 @@ const defaultDonts = [
   "Don't repeat unlucky numbers in important documents",
 ];
 
+function ThemedBox({
+  children,
+  className = "",
+  borderColor,
+  backgroundColor = "rgba(253, 245, 230, 0.78)",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  borderColor: string;
+  backgroundColor?: string;
+}) {
+  return (
+    <div
+      className={`rounded-md ${className}`}
+      style={{
+        border: `1px solid ${borderColor}`,
+        backgroundColor,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function SectionTitleRow({ index, title }: { index: string; title: string }) {
+  return (
+    <div className="mb-1.5 flex items-center gap-1">
+      <SectionBadge index={index} />
+      <p className="text-[12px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
+        {title}
+      </p>
+    </div>
+  );
+}
+
+function DashedDivider({ variant }: { variant: "green" | "red" }) {
+  return (
+    <div
+      className="my-1.5 w-full"
+      style={{ borderTop: variant === "green" ? DASHED_GREEN : DASHED_RED }}
+    />
+  );
+}
+
 function GoldBox({
   children,
   className = "",
@@ -226,11 +286,11 @@ function GoldBox({
 function SectionBadge({ index }: { index: string }) {
   return (
     <span
-      className="inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[6px] font-bold"
+      className="inline-flex h-4 min-w-4 items-center justify-center rounded-md px-1 text-[10px] font-bold"
       style={{
         backgroundColor: COLORS.brown,
         color: COLORS.cream,
-        border: "1px solid #d48e31",
+        // border: "1px solid #d48e31",
       }}
     >
       {index}
@@ -243,18 +303,42 @@ function NumberCircle({
   variant,
 }: {
   value: string | number;
-  variant: "lucky" | "unlucky" | "neutral";
+  variant: "primary" | "secondary" | "unlucky";
 }) {
-  const styles = {
-    lucky: { border: "1.5px solid #2d7a4f", backgroundColor: "rgba(45, 122, 79, 0.12)", color: "#2d7a4f" },
-    unlucky: { border: "1.5px solid #a84432", backgroundColor: "rgba(168, 68, 50, 0.1)", color: "#a84432" },
-    neutral: { border: "1.5px solid #888", backgroundColor: "rgba(120, 120, 120, 0.08)", color: "#666" },
-  }[variant];
+  const valueStr = String(value);
+  const isWide = valueStr.length > 1;
+
+  if (variant === "primary") {
+    return (
+      <div
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[15px] font-bold"
+        style={{
+          border: `2px solid ${LUCKY_GREEN}`,
+          color: LUCKY_GREEN,
+          backgroundColor: "rgba(255, 255, 255, 0.55)",
+        }}
+      >
+        {value}
+      </div>
+    );
+  }
+
+  if (variant === "secondary") {
+    return (
+      <div
+        className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[7px] font-bold text-white"
+        style={{ backgroundColor: LUCKY_GREEN }}
+      >
+        {value}
+      </div>
+    );
+  }
 
   return (
     <div
-      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[8px] font-bold"
-      style={styles}
+      className={`flex shrink-0 items-center justify-center rounded-full font-bold text-white ${isWide ? "h-8 min-w-7 px-1 text-[12px]" : "h-8 w-8 text-[12px]"
+        }`}
+      style={{ backgroundColor: UNLUCKY_RED }}
     >
       {value}
     </div>
@@ -263,15 +347,15 @@ function NumberCircle({
 
 function ProfileTable({ rows }: { rows: NumberProfileRow[] }) {
   return (
-    <GoldBox className="overflow-hidden">
-      <table className="w-full border-collapse text-left">
+    <GoldBox className="overflow-hidden rounded-md">
+      <table className="w-full border-collapse" style={{ border: TABLE_BORDER }}>
         <thead>
-          <tr style={{ borderBottom: "1px solid rgba(184, 134, 11, 0.4)" }}>
-            {["Category", "Numbers", "Ruling Influence", "Description"].map((heading) => (
+          <tr style={{ backgroundColor: TABLE_HEADER_BG }}>
+            {["CATEGORY", "NUMBERS", "RULING INFLUENCE", "DESCRIPTION"].map((heading) => (
               <th
                 key={heading}
-                className="px-1.5 py-1 text-[6px] font-bold tracking-wider"
-                style={{ color: COLORS.gold }}
+                className={`${TABLE_CELL} text-center font-bold tracking-wider`}
+                style={{ color: COLORS.brown }}
               >
                 {heading}
               </th>
@@ -279,52 +363,45 @@ function ProfileTable({ rows }: { rows: NumberProfileRow[] }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => {
+          {rows.map((row) => {
             const CategoryIcon = row.categoryIcon;
             const InfluenceIcon = row.influenceIcon;
             const variant = VARIANT_COLORS[row.variant];
 
             return (
-              <tr
-                key={row.category}
-                style={{
-                  borderBottom:
-                    index < rows.length - 1 ? "1px solid rgba(184, 134, 11, 0.18)" : "none",
-                  backgroundColor: variant.bg,
-                }}
-              >
-                <td className="px-1.5 py-1 align-top">
-                  <div className="flex items-center gap-1">
-                    <CategoryIcon size={10} strokeWidth={2} style={{ color: variant.accent }} />
-                    <span className="text-[6px] font-bold" style={{ color: COLORS.brown }}>
+              <tr key={row.category} style={{ backgroundColor: variant.bg }}>
+                <td className={`${TABLE_CELL} text-center`}>
+                  <div className="flex items-center justify-start gap-1">
+                    <CategoryIcon size={12} strokeWidth={2} style={{ color: variant.accent }} />
+                    <span className="font-bold" style={{ color: variant.accent }}>
                       {row.category}
                     </span>
                   </div>
                 </td>
-                <td
-                  className="px-1.5 py-1 align-middle text-[6px] font-semibold"
-                  style={{ color: variant.accent }}
-                >
-                  {row.numbers}
+                <td className={`${TABLE_CELL} text-center`}>
+                  <p className="font-bold" style={{ color: variant.accent }}>
+                    {row.numbers}
+                  </p>
+                  {row.numbersSubtext ? (
+                    <p
+                      className="mt-0.5 text-[8px] italic font-semibold"
+                      style={{ color: variant.accent }}
+                    >
+                      {row.numbersSubtext}
+                    </p>
+                  ) : null}
                 </td>
-                <td className="px-1.5 py-1 align-top">
-                  <div className="flex items-start gap-1">
+                <td className={`${TABLE_CELL} text-left`}>
+                  <div className="flex items-center gap-1">
                     <InfluenceIcon
-                      size={9}
+                      size={11}
                       strokeWidth={2}
-                      style={{ color: variant.accent, flexShrink: 0, marginTop: 1 }}
+                      style={{ color: variant.accent, flexShrink: 0 }}
                     />
-                    <span className="text-[5.5px] leading-snug" style={{ color: COLORS.brown }}>
-                      {row.influence}
-                    </span>
+                    <span className="font-semibold text-black">{row.influence}</span>
                   </div>
                 </td>
-                <td
-                  className="px-1.5 py-1 align-top text-[5.5px] leading-snug"
-                  style={{ color: COLORS.brown, opacity: 0.88 }}
-                >
-                  {row.description}
-                </td>
+                <td className={`${TABLE_CELL} text-left text-black`}>{row.description}</td>
               </tr>
             );
           })}
@@ -342,44 +419,52 @@ function LuckyAnalysisColumn({
   secondaryLucky: SecondaryLuckyNumber[];
 }) {
   return (
-    <GoldBox className="h-full p-2">
-      <div className="mb-1.5 flex items-center gap-1">
-        <SectionBadge index="6.2" />
-        <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
-          DETAILED LUCKY NUMBERS ANALYSIS
-        </p>
-      </div>
+    <div className="flex h-full flex-col">
+      <SectionTitleRow index="6.2" title="DETAILED LUCKY NUMBERS ANALYSIS" />
 
-      <p className="text-[5.5px] font-bold" style={{ color: "#2d7a4f" }}>
-        PRIMARY LUCKY NUMBERS (MOST POWERFUL)
-      </p>
-      <ul className="mt-1 flex flex-col gap-1">
-        {primaryLucky.map((item) => (
-          <li key={item.number} className="flex items-start gap-1.5">
-            <NumberCircle value={item.number} variant="lucky" />
-            <p className="text-[5px] leading-snug" style={{ color: COLORS.brown }}>
-              <span className="font-semibold">{item.label}</span>
-              {" → "}
-              {item.description}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <ThemedBox borderColor={LUCKY_GREEN} className="flex-1 p-2 mb-2">
+        <div className="flex items-center gap-1">
+          <Star size={25} strokeWidth={2} style={{ color: LUCKY_GREEN }} />
+          <p className="text-[11px] font-bold" style={{ color: LUCKY_GREEN }}>
+            PRIMARY LUCKY NUMBERS (MOST POWERFUL)
+          </p>
+        </div>
+        <ul className="mt-1">
+          {primaryLucky.map((item, index) => (
+            <li key={item.number}>
+              {index > 0 ? <DashedDivider variant="green" /> : null}
+              <div className="flex items-start gap-1.5 py-0.5">
+                <NumberCircle value={item.number} variant="primary" />
+                <p className="text-[10px] leading-snug text-black">
+                  <span className="font-bold">{item.label}</span>
+                  {" → "}
+                  {item.description}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </ThemedBox>
 
-      <p className="mt-2 text-[5.5px] font-bold" style={{ color: "#2d7a4f" }}>
-        SECONDARY LUCKY NUMBERS
-      </p>
-      <ul className="mt-1 flex flex-col gap-1">
-        {secondaryLucky.map((item) => (
-          <li key={item.number} className="flex items-start gap-1.5">
-            <NumberCircle value={item.number} variant="lucky" />
-            <p className="text-[5px] leading-snug" style={{ color: COLORS.brown }}>
-              {item.description}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </GoldBox>
+      <ThemedBox borderColor={LUCKY_GREEN} className="flex-1 p-2">
+        <div className="flex flex-col items-center gap-1">
+
+          <p className="mt-1 text-[11px] font-bold" style={{ color: LUCKY_GREEN }}>
+            SECONDARY LUCKY NUMBERS
+          </p>
+
+          <ul className="flex flex-col gap-1">
+            {secondaryLucky.map((item) => (
+              <li key={item.number} className="flex items-start gap-1.5">
+                <NumberCircle value={item.number} variant="secondary" />
+                <p className="text-[10px] leading-snug text-black">{item.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </ThemedBox>
+    </div>
   );
 }
 
@@ -391,92 +476,103 @@ function UnluckyColumn({
   neutralNote: string;
 }) {
   return (
-    <GoldBox className="h-full p-2">
-      <div className="mb-1.5 flex items-center gap-1">
-        <SectionBadge index="6.3" />
-        <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
-          UNLUCKY &amp; CAUTION NUMBERS
-        </p>
-      </div>
+    <div className="flex h-full flex-col">
+      <SectionTitleRow index="6.3" title="UNLUCKY & CAUTION NUMBERS" />
 
-      <div className="flex items-center gap-1">
-        <AlertTriangle size={10} strokeWidth={2} style={{ color: "#a84432" }} />
-        <p className="text-[5.5px] font-bold" style={{ color: "#a84432" }}>
-          UNLUCKY NUMBERS
-        </p>
-      </div>
-      <ul className="mt-1 flex flex-col gap-1">
-        {unluckyNumbers.map((item) => (
-          <li key={item.numbers} className="flex items-start gap-1.5">
-            <NumberCircle value={item.numbers} variant="unlucky" />
-            <p className="text-[5px] leading-snug" style={{ color: COLORS.brown }}>
-              {item.description}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <ThemedBox
+        borderColor={UNLUCKY_RED}
+        backgroundColor="rgba(253, 236, 234, 0.75)"
+        className="flex-1 p-2"
+      >
+        <div className="flex items-center gap-1 mb-2">
+          <AlertTriangle size={20} strokeWidth={2} style={{ color: UNLUCKY_RED }} />
+          <p className="text-[12px] font-bold" style={{ color: UNLUCKY_RED }}>
+            UNLUCKY NUMBERS
+          </p>
+        </div>
+        <ul className="">
+          {unluckyNumbers.map((item, index) => (
+            <li key={item.numbers}>
+              {index > 0 ? <DashedDivider variant="red" /> : null}
+              <div className="flex flex-row items-start gap-2 py-0.5">
+                <NumberCircle value={item.numbers} variant="unlucky" />
+                <p className="text-[10px] leading-snug text-black">{item.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      <div className="mt-2 flex items-center gap-1">
-        <Scale size={10} strokeWidth={2} style={{ color: "#888" }} />
-        <p className="text-[5.5px] font-bold" style={{ color: "#666" }}>
-          NEUTRAL NUMBERS
-        </p>
-      </div>
-      <p className="mt-1 text-[5px] leading-snug" style={{ color: COLORS.brown, opacity: 0.88 }}>
-        {neutralNote}
-      </p>
-    </GoldBox>
+      </ThemedBox>
+      <ThemedBox
+        borderColor="rgba(120, 120, 120, 0.45)"
+        backgroundColor="rgba(253, 245, 230, 0.65)"
+        className="mt-2 p-2"
+      >
+        <div className="flex items-center gap-1">
+          <Scale size={20} strokeWidth={2} style={{ color: "#1f2937" }} />
+          <p className="text-[12px] font-bold" style={{ color: "#1f2937" }}>
+            NEUTRAL NUMBERS
+          </p>
+        </div>
+        <p className="mt-1 text-[10px] leading-snug text-center p-1 text-black">{neutralNote}</p>
+      </ThemedBox>
+    </div>
   );
 }
 
 function QuickTipsColumn({ dos, donts }: { dos: string[]; donts: string[] }) {
   return (
-    <GoldBox className="h-full p-2">
-      <div className="mb-1.5 flex items-center gap-1">
-        <SectionBadge index="6.5" />
-        <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
-          QUICK USAGE TIPS
-        </p>
-      </div>
+    <div className="flex h-full flex-col justify-between">
+      <SectionTitleRow index="6.5" title="QUICK USAGE TIPS" />
 
-      <p className="text-[5.5px] font-bold" style={{ color: "#2d7a4f" }}>
-        DO&apos;S
-      </p>
-      <ul className="mt-0.5 flex flex-col gap-0.5">
-        {dos.map((item) => (
-          <li key={item} className="flex items-start gap-1 text-[5px] leading-snug">
-            <Check size={8} strokeWidth={3} style={{ color: "#2d7a4f", flexShrink: 0, marginTop: 1 }} />
-            <span style={{ color: COLORS.brown }}>{item}</span>
-          </li>
-        ))}
-      </ul>
+      <ThemedBox borderColor={LUCKY_GREEN} className="mb-1.5 p-2">
+        <div className="flex items-center gap-1">
+          <Check size={11} strokeWidth={3} style={{ color: LUCKY_GREEN }} />
+          <p className="text-[12px] font-bold" style={{ color: LUCKY_GREEN }}>
+            DO&apos;S
+          </p>
+        </div>
+        <ul className="mt-1 flex flex-col gap-0.5">
+          {dos.map((item) => (
+            <li key={item} className="flex items-start gap-1 text-[10px] leading-snug">
+              <Check size={9} strokeWidth={3} style={{ color: LUCKY_GREEN, flexShrink: 0, marginTop: 1 }} />
+              <span className="text-black">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </ThemedBox>
 
-      <p className="mt-2 text-[5.5px] font-bold" style={{ color: "#a84432" }}>
-        DON&apos;TS
-      </p>
-      <ul className="mt-0.5 flex flex-col gap-0.5">
-        {donts.map((item) => (
-          <li key={item} className="flex items-start gap-1 text-[5px] leading-snug">
-            <X size={8} strokeWidth={3} style={{ color: "#a84432", flexShrink: 0, marginTop: 1 }} />
-            <span style={{ color: COLORS.brown }}>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </GoldBox>
+      <ThemedBox borderColor={UNLUCKY_RED} backgroundColor="rgba(253, 236, 234, 0.45)" className="p-2">
+        <div className="flex items-center gap-1">
+          <X size={11} strokeWidth={3} style={{ color: UNLUCKY_RED }} />
+          <p className="text-[12px] font-bold" style={{ color: UNLUCKY_RED }}>
+            DON&apos;TS
+          </p>
+        </div>
+        <ul className="mt-1 flex flex-col gap-0.5">
+          {donts.map((item) => (
+            <li key={item} className="flex items-start gap-1 text-[10px] leading-snug">
+              <X size={9} strokeWidth={3} style={{ color: UNLUCKY_RED, flexShrink: 0, marginTop: 1 }} />
+              <span className="text-black">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </ThemedBox>
+    </div>
   );
 }
 
 function DailyUseTable({ rows }: { rows: DailyUseRow[] }) {
   return (
-    <GoldBox className="overflow-hidden">
-      <table className="w-full border-collapse text-left">
+    <GoldBox className="overflow-hidden rounded-md">
+      <table className="w-full border-collapse" style={{ border: TABLE_BORDER }}>
         <thead>
-          <tr style={{ borderBottom: "1px solid rgba(184, 134, 11, 0.4)" }}>
-            {["Area of Life", "Recommended Numbers", "What to Do"].map((heading) => (
+          <tr style={{ backgroundColor: TABLE_HEADER_BG }}>
+            {["AREA OF LIFE", "RECOMMENDED NUMBERS", "WHAT TO DO"].map((heading) => (
               <th
                 key={heading}
-                className="px-1.5 py-1 text-[6px] font-bold tracking-wider"
-                style={{ color: COLORS.gold }}
+                className={`${TABLE_CELL} text-center font-bold tracking-wider`}
+                style={{ color: COLORS.brown }}
               >
                 {heading}
               </th>
@@ -486,34 +582,21 @@ function DailyUseTable({ rows }: { rows: DailyUseRow[] }) {
         <tbody>
           {rows.map((row, index) => {
             const Icon = row.icon;
+            const rowBg =
+              index % 2 === 0 ? "rgba(255, 255, 255, 0.55)" : "rgba(253, 245, 230, 0.65)";
+
             return (
-              <tr
-                key={row.area}
-                style={{
-                  borderBottom:
-                    index < rows.length - 1 ? "1px solid rgba(184, 134, 11, 0.18)" : "none",
-                }}
-              >
-                <td className="px-1.5 py-1 align-middle">
+              <tr key={row.area} style={{ backgroundColor: rowBg }}>
+                <td className={`${TABLE_CELL} text-left`}>
                   <div className="flex items-center gap-1">
-                    <Icon size={10} strokeWidth={1.75} style={{ color: COLORS.gold }} />
-                    <span className="text-[5.5px] font-semibold" style={{ color: COLORS.brown }}>
-                      {row.area}
-                    </span>
+                    <Icon size={11} strokeWidth={1.75} style={{ color: COLORS.gold }} />
+                    <span className="font-semibold text-black">{row.area}</span>
                   </div>
                 </td>
-                <td
-                  className="px-1.5 py-1 align-middle text-[5.5px] font-medium"
-                  style={{ color: "#2d7a4f" }}
-                >
+                <td className={`${TABLE_CELL} text-center font-bold`} style={{ color: LUCKY_GREEN }}>
                   {row.recommendedNumbers}
                 </td>
-                <td
-                  className="px-1.5 py-1 align-middle text-[5.5px] leading-snug"
-                  style={{ color: COLORS.brown, opacity: 0.88 }}
-                >
-                  {row.action}
-                </td>
+                <td className={`${TABLE_CELL} text-left text-black`}>{row.action}</td>
               </tr>
             );
           })}
@@ -536,20 +619,34 @@ export default function LuckyUnluckyNeutralNumbers({
   pageNumber = "06",
 }: LuckyUnluckyNeutralNumbersProps) {
   return (
-    <ReportPageShell padding="118px 24px 0">
+    <ReportPageShell padding="20px 40px 52px">
       <header className="flex flex-col items-center text-center">
-        <p className="text-[8px] font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
-          ASTRO AARAMBH
-        </p>
-        <h1 className="mt-1 text-[16px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
-          LUCKY, UNLUCKY &amp; NEUTRAL NUMBERS
+        <Image
+          src='/assets/ganesha-logo.png'
+          alt="Astro Aarambh"
+          width={100}
+          height={100}
+          className="mb-2"
+          priority
+        />
+        <div className="flex items-center gap-2">
+          <Pattern3 size={50} />
+          <p className="text-md font-semibold tracking-[0.2em]" style={{ color: COLORS.brown }}>
+            ASTRO AARAMBH
+          </p>
+          <Pattern3 size={50} className="rotate-180" />
+        </div>
+        <h1 className="mt-1 text-3xl font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
+          <span className="font-bold" style={{ color: COLORS.green }}>LUCKY </span>,
+          <span className="font-bold" style={{ color: COLORS.red }}>UNLUCKY </span> &amp;
+          <span className="font-bold" style={{ color: COLORS.gold }}> NEUTRAL  NUMBERS </span>
         </h1>
-        <p className="mt-1 text-[8.5px] italic" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           Your Personal Number Vibrations Guide
         </p>
       </header>
 
-      <section className="relative z-10 mt-2">
+      <section className="relative z-10 mt-3 font-nunito-sans">
         <div className="mb-1 flex items-center gap-1.5">
           <SectionBadge index="6.1" />
           <SectionDiamondTitle>YOUR PERSONAL NUMBER PROFILE</SectionDiamondTitle>
@@ -557,49 +654,31 @@ export default function LuckyUnluckyNeutralNumbers({
         <ProfileTable rows={profileRows} />
       </section>
 
-      <section className="relative z-10 mt-2 grid grid-cols-3 gap-1.5">
+      <section className="relative z-10 mt-2 grid grid-cols-[1.15fr_1fr_0.9fr] gap-1.5 font-nunito-sans">
         <LuckyAnalysisColumn primaryLucky={primaryLucky} secondaryLucky={secondaryLucky} />
         <UnluckyColumn unluckyNumbers={unluckyNumbers} neutralNote={neutralNote} />
         <QuickTipsColumn dos={dos} donts={donts} />
       </section>
 
-      <section className="relative z-10 mt-2">
+      <section className="relative z-10 mt-2 font-nunito-sans">
         <div className="mb-1 flex items-center gap-1.5">
           <SectionBadge index="6.4" />
-          <SectionDiamondTitle>HOW TO USE THESE NUMBERS IN DAILY LIFE (PRACTICAL GUIDE)</SectionDiamondTitle>
+          <p className="text-[11px] font-bold tracking-wide" style={{ color: COLORS.brown }}>
+            HOW TO USE THESE NUMBERS IN DAILY LIFE (PRACTICAL GUIDE)
+          </p>
         </div>
         <DailyUseTable rows={dailyUseRows} />
       </section>
 
-      <footer className="relative z-10 mt-2 flex flex-col items-center pb-1">
-        <LoShuSquare className="pointer-events-none absolute -left-1 bottom-0 h-12 w-12 opacity-70" />
-        <div
-          className="flex items-center gap-2 rounded-md px-3 py-1.5"
-          style={{
-            border: "1px solid rgba(184, 134, 11, 0.45)",
-            backgroundColor: "rgba(212, 142, 49, 0.08)",
-          }}
-        >
-          <LotusIcon className="h-4 w-7 shrink-0 opacity-55" />
-          <div className="text-center">
-            <p className="text-[6px] font-bold tracking-wide" style={{ color: COLORS.gold }}>
-              POWER TIP
-            </p>
-            <p
-              className="max-w-[520px] text-[6px] italic leading-relaxed"
-              style={{ color: COLORS.brown, opacity: 0.88 }}
-            >
-              {powerTip}
-            </p>
-          </div>
-          <LotusIcon className="h-4 w-7 shrink-0 opacity-55" />
-        </div>
+
+      <footer className="relative z-10 mt-2 flex justify-center px-2 pb-1">
+        <FooterSummaryBanner summary={powerTip} />
       </footer>
 
-      <PageFooterBar
+      {/* <PageFooterBar
         className="relative -mx-6 mt-1.5 h-9 w-[calc(100%+48px)]"
         pageNumber={pageNumber}
-      />
+      /> */}
     </ReportPageShell>
   );
 }

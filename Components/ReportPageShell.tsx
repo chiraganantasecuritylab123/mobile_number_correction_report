@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
-import { cinzel } from "@/app/fonts";
 
 /** A4 at 96 DPI — 210mm × 297mm */
 export const PAGE_WIDTH = 794;
@@ -12,6 +11,10 @@ export const REPORT_COLORS = {
   brown: "#5d2e17",
   gold: "#b8860b",
   goldLight: "#d4af37",
+  green: "#2d7a4f",
+  red: "#a84432",
+  black: "#000000",
+  darkBlue: '#171919',
 };
 
 type ReportPageShellProps = {
@@ -21,6 +24,8 @@ type ReportPageShellProps = {
   padding?: string;
   style?: CSSProperties;
   pageNumber?: string;
+  /** Stable identifier used in PDF debug logs */
+  pageLabel?: string;
 };
 
 export default function ReportPageShell({
@@ -30,12 +35,19 @@ export default function ReportPageShell({
   padding = "50px 40px 36px",
   style,
   pageNumber = "01",
+  pageLabel,
 }: ReportPageShellProps) {
+  const resolvedLabel = pageLabel ?? `page-${pageNumber}`;
+
   return (
     <article
-      className={`relative mx-auto overflow-hidden shadow-xl bg-[url('/assets/cover-bg.png')] bg-cover bg-center bg-no-repeat ${cinzel.className}`}
+      data-report-page
+      data-page-label={resolvedLabel}
+      data-report-page-number={pageNumber}
+      className="relative mx-auto overflow-hidden shadow-xl bg-[url('/assets/cover-bg.png')] bg-cover bg-center bg-no-repeat font-cinzel"
       style={{
         width,
+        minHeight: height,
         height,
         color: REPORT_COLORS.brown,
         ...style,
@@ -49,7 +61,11 @@ export default function ReportPageShell({
         className="pointer-events-none object-fill select-none"
         priority
       /> */}
-      <div className="relative z-10 h-full overflow-hidden" style={{ padding }}>
+      <div
+        data-report-page-inner
+        className="relative z-10 h-full overflow-hidden"
+        style={{ padding }}
+      >
         {children}
 
         {/* <div className="absolute bottom-0 left-0 w-full">

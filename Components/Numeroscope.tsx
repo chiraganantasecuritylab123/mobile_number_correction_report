@@ -1,8 +1,8 @@
-import { Smartphone } from "lucide-react";
+import { Heart, Smartphone, Star, User } from "lucide-react";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
 import Image from "next/image";
-import { cinzel } from "@/app/fonts";
 import { CoverLotus } from "./CommunComponents";
+import FooterSummaryBanner from "./FooterSummaryBanner";
 
 export type NumeroscopeProps = {
   birthDate?: string;
@@ -82,13 +82,233 @@ const chartNodes = (
   nameDestiny: number,
   mobileRoot: number,
 ) => [
-    { label: "DRIVER NUMBER", sublabel: "(PSYCHIC)", value: driver, symbol: "☿", position: "top" as const },
-    { label: "SOUL URGE NUMBER", value: soulUrge, symbol: "♥", position: "topLeft" as const },
-    { label: "PERSONALITY NUMBER", value: personality, symbol: "☺", position: "topRight" as const },
-    { label: "NAME DESTINY", sublabel: "(SINGLE ROOT)", value: nameDestiny, symbol: "★", position: "bottomLeft" as const },
-    { label: "MOBILE ROOT NUMBER", value: mobileRoot, symbol: "☎", position: "bottomRight" as const },
-    { label: "CONDUCTOR NUMBER", sublabel: "(DESTINY)", value: conductor, symbol: "♆", position: "bottom" as const },
+    { label: "DRIVER NUMBER", sublabel: "(PSYCHIC)", value: driver, position: "top" as const, icon: "mercury" as const },
+    { label: "SOUL URGE NUMBER", value: soulUrge, position: "topLeft" as const, icon: "heart" as const },
+    { label: "PERSONALITY NUMBER", value: personality, position: "topRight" as const, icon: "user" as const },
+    { label: "NAME DESTINY", sublabel: "(SINGLE ROOT)", value: nameDestiny, position: "bottomLeft" as const, icon: "star" as const },
+    { label: "MOBILE ROOT NUMBER", value: mobileRoot, position: "bottomRight" as const, icon: "phone" as const },
+    { label: "CONDUCTOR NUMBER", sublabel: "(DESTINY)", value: conductor, position: "bottom" as const, icon: "neptune" as const },
   ];
+
+type ChartPosition = "top" | "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "bottom";
+
+const CHART_CARD_POSITIONS: Record<ChartPosition, React.CSSProperties> = {
+  top: { top: "4%", left: "50%", transform: "translateX(-50%)" },
+  topLeft: { top: "21%", left: "2%" },
+  topRight: { top: "21%", right: "2%" },
+  bottomLeft: { bottom: "21%", left: "2%" },
+  bottomRight: { bottom: "21%", right: "2%" },
+  bottom: { bottom: "4%", left: "50%", transform: "translateX(-50%)" },
+};
+
+const CHART_LINE_ENDPOINTS: Record<ChartPosition, { x: number; y: number }> = {
+  top: { x: 150, y: 38 },
+  topLeft: { x: 52, y: 78 },
+  topRight: { x: 248, y: 78 },
+  bottomLeft: { x: 52, y: 192 },
+  bottomRight: { x: 248, y: 192 },
+  bottom: { x: 150, y: 232 },
+};
+
+const CHART_CENTER = { x: 150, y: 132 };
+
+function ChartNodeIcon({ type }: { type: "mercury" | "heart" | "user" | "star" | "phone" | "neptune" }) {
+  const color = BURGUNDY;
+  const size = 14;
+
+  switch (type) {
+    case "mercury":
+      return (
+        <Image
+          src="/assets/cover/mercury.png"
+          alt=""
+          width={size}
+          height={size}
+          className="shrink-0 object-contain"
+          aria-hidden
+        />
+      );
+    case "heart":
+      return <Heart size={size} strokeWidth={1.6} style={{ color }} fill="none" />;
+    case "user":
+      return <User size={size} strokeWidth={1.6} style={{ color }} />;
+    case "star":
+      return <Star size={size} strokeWidth={1.6} style={{ color }} fill="none" />;
+    case "phone":
+      return <Smartphone size={size} strokeWidth={1.6} style={{ color }} />;
+    case "neptune":
+      return (
+        <span className="text-[14px] leading-none" style={{ color }} aria-hidden>
+          ♆
+        </span>
+      );
+  }
+}
+
+function ChartSatelliteCard({
+  label,
+  sublabel,
+  value,
+  icon,
+  position,
+}: {
+  label: string;
+  sublabel?: string;
+  value: number;
+  icon: "mercury" | "heart" | "user" | "star" | "phone" | "neptune";
+  position: ChartPosition;
+}) {
+  return (
+    <div
+      className="absolute z-10 flex w-[80px] flex-col rounded-xl px-1.5 py-1"
+      style={{
+        ...CHART_CARD_POSITIONS[position],
+        border: "1px solid #D8AC71",
+        backgroundColor: "#FDF3E2",
+      }}
+    >
+      <div className="flex items-start gap-1">
+        <ChartNodeIcon type={icon} />
+        <div className="min-w-0 flex-1 leading-tight">
+          <p
+            className="text-[7px] font-bold tracking-[0.04em]"
+            style={{ color: '#1E1B17', ...TEXT_UPPER }}
+          >
+            {label}
+          </p>
+          {sublabel && (
+            <p
+              className="text-[4px] font-semibold"
+              style={{ color: BURGUNDY, opacity: 0.9, ...TEXT_UPPER }}
+            >
+              {sublabel}
+            </p>
+          )}
+        </div>
+      </div>
+      <p
+        className="mt-0.5 text-center text-[18px] font-bold leading-none"
+        style={{ color: BURGUNDY }}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function CoreVibrationHub({ value }: { value: number }) {
+  return (
+    <div
+      className="absolute left-1/2 top-1/2 z-10 flex h-[76px] w-[76px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center"
+    >
+      <svg viewBox="0 0 76 76" fill="none" className="absolute inset-0 h-full w-full" aria-hidden>
+        <circle cx={38} cy={38} r={35} stroke="#D8AC71" strokeWidth="1" />
+        <circle cx={38} cy={38} r={30} stroke="#D8AC71" strokeWidth="0.6" opacity="0.5" />
+        {Array.from({ length: 20 }).map((_, i) => {
+          const angle = (i * 18 * Math.PI) / 180;
+          const x1 = 38 + 28 * Math.cos(angle);
+          const y1 = 38 + 28 * Math.sin(angle);
+          const x2 = 38 + 34 * Math.cos(angle);
+          const y2 = 38 + 34 * Math.sin(angle);
+          return (
+            <line
+              key={i}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke="#D8AC71"
+              strokeWidth="0.7"
+              opacity="0.45"
+            />
+          );
+        })}
+      </svg>
+      <p
+        className="relative z-10 text-[5.5px] font-bold tracking-[0.08em]"
+        style={{ color: BURGUNDY, ...TEXT_UPPER }}
+      >
+        CORE VIBRATION
+      </p>
+      <p
+        className="relative z-10 text-[26px] font-bold leading-none"
+        style={{ color: BURGUNDY }}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function VisualNumerologyChartPanel({
+  coreVibration,
+  driverNumber,
+  conductorNumber,
+  soulUrgeNumber,
+  personalityNumber,
+  singleRootNumber,
+  mobileRootNumber,
+}: {
+  coreVibration: number;
+  driverNumber: number;
+  conductorNumber: number;
+  soulUrgeNumber: number;
+  personalityNumber: number;
+  singleRootNumber: number;
+  mobileRootNumber: number;
+}) {
+  const nodes = chartNodes(
+    driverNumber,
+    conductorNumber,
+    soulUrgeNumber,
+    personalityNumber,
+    singleRootNumber,
+    mobileRootNumber,
+  );
+
+  return (
+    <div className="relative mx-auto h-[270px] w-full max-w-[300px]">
+      <svg
+        viewBox="0 0 300 270"
+        fill="none"
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        aria-hidden
+      >
+        {nodes.map((node) => {
+          const end = CHART_LINE_ENDPOINTS[node.position];
+          return (
+            <g key={node.label}>
+              <line
+                x1={CHART_CENTER.x}
+                y1={CHART_CENTER.y}
+                x2={end.x}
+                y2={end.y}
+                stroke="#D8AC71"
+                strokeWidth="0.9"
+                strokeDasharray="4 3"
+                opacity="0.7"
+              />
+              <circle cx={end.x} cy={end.y} r="2" fill="#D8AC71" opacity="0.85" />
+            </g>
+          );
+        })}
+      </svg>
+
+      <CoreVibrationHub value={coreVibration} />
+
+      {nodes.map((node) => (
+        <ChartSatelliteCard
+          key={node.label}
+          label={node.label}
+          sublabel={node.sublabel}
+          value={node.value}
+          icon={node.icon}
+          position={node.position}
+        />
+      ))}
+    </div>
+  );
+}
 
 function CoreBirthCard({
   children,
@@ -107,7 +327,7 @@ function CoreBirthCard({
 function CoreNumberBadge({ value }: { value: number }) {
   return (
     <div
-      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-[22px] font-bold"
+      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[22px] font-bold"
       style={{
         backgroundColor: "#A67C52",
         color: "#ffffff",
@@ -120,32 +340,10 @@ function CoreNumberBadge({ value }: { value: number }) {
 
 function NumeroscopeSectionHeader({ title }: { title: string }) {
   return (
-    <div className="relative mb-3 flex items-center justify-center">
-      <div
-        className="relative flex w-full items-center justify-center rounded-2xl px-10 py-2"
-        style={{
-          border: "1px solid #D8AC71",
-          backgroundColor: "rgba(250, 236, 218, 0.65)",
-        }}
-      >
-        <Image
-          src="/assets/cover/pattern-1.png"
-          alt=""
-          width={30}
-          height={42}
-          className="absolute left-4 top-1/2 -translate-y-1/2 object-contain"
-          aria-hidden
-        />
-        <Image
-          src="/assets/cover/pattern-1.png"
-          alt=""
-          width={30}
-          height={42}
-          className="absolute right-4 top-1/2 -translate-y-1/2 object-contain"
-          aria-hidden
-        />
+    <div className="relative mb-1 flex items-center justify-center">
+      <div className="relative flex w-full items-center  rounded-2xl">
         <h3
-          className="text-center text-[11px] font-bold tracking-[0.14em]"
+          className="text-center text-[9px] font-bold tracking-[0.14em]"
           style={{ color: BURGUNDY, ...TEXT_UPPER }}
         >
           {title}
@@ -180,14 +378,14 @@ function CoreNumberCard({
     <CoreBirthCard className="px-2.5 py-2.5">
       <div className="text-center">
         <p
-          className="text-[8px] font-bold tracking-[0.1em]"
+          className="text-[10px] font-bold tracking-[0.1em]"
           style={{ color: COLORS.brown, ...TEXT_UPPER }}
         >
           {title}
         </p>
         <p
-          className="mt-0.5 text-[7px]"
-          style={{ color: COLORS.brown, opacity: 0.75, ...TEXT_CAP }}
+          className="mt-0.5 text-[9px]"
+          style={{ color: COLORS.brown, fontWeight: 700 }}
         >
           {subtitle}
         </p>
@@ -207,7 +405,7 @@ function CoreNumberCard({
         >
           {symbol}
         </span>
-        <div className="min-w-0 text-[7.5px] leading-snug" style={{ color: COLORS.brown, ...TEXT_NORMAL }}>
+        <div className="min-w-0 text-[9px] leading-snug" style={{ color: COLORS.brown, ...TEXT_NORMAL }}>
           <p>
             <span className="font-bold" style={TEXT_CAP}>{primaryLabel}</span>{" "}
             <span style={TEXT_CAP}>{toCapitalizeText(primaryValue)}</span>
@@ -344,12 +542,12 @@ export default function Numeroscope({
       </header>
 
       {/* Section 1: Core Birth Numbers */}
-      <section className={`relative z-10 mt-4 ${cinzel.className}`}>
+      <section className="relative z-10 mt-4 font-cinzel">
         <CoreBirthSectionHeader />
         <div className="grid grid-cols-4 gap-2.5">
           <CoreBirthCard className="items-center px-3 py-3 text-center">
             <p
-              className="text-[8px] font-bold tracking-[0.12em]"
+              className="text-[10px] font-bold tracking-[0.12em]"
               style={{ color: COLORS.brown, ...TEXT_UPPER }}
             >
               BIRTH DATE
@@ -364,7 +562,7 @@ export default function Numeroscope({
               aria-hidden
             />
             <p
-              className="text-[15px] font-bold leading-tight"
+              className="text-[18px] font-bold leading-tight"
               style={{ color: COLORS.brown, ...TEXT_UPPER }}
             >
               {toUpperText(birthDate)}
@@ -410,7 +608,7 @@ export default function Numeroscope({
       </section>
 
       {/* Section 2: Full Name Vibration Analysis */}
-      <section className={`relative z-10 mt-4 ${cinzel.className}`}>
+      <section className="relative z-10 mt-4 font-cinzel">
         <NumeroscopeSectionHeader title="2. FULL NAME VIBRATION ANALYSIS (PYTHAGOREAN SYSTEM)" />
         <div className="px-4 py-4" style={CORE_CARD_STYLE}>
           <p
@@ -434,13 +632,13 @@ export default function Numeroscope({
               style={{ borderRight: "1px solid rgba(184, 134, 11, 0.28)" }}
             >
               <p
-                className="text-[7.5px] font-bold tracking-[0.1em]"
+                className="text-[9px] font-bold tracking-[0.1em]"
                 style={{ color: COLORS.gold, ...TEXT_UPPER }}
               >
                 COMPOUND NAME TOTAL
               </p>
               <p
-                className="mt-1.5 text-[28px] font-bold leading-none"
+                className="mt-1.5 text-[32px] font-bold leading-none"
                 style={{ color: BURGUNDY }}
               >
                 {compoundNameTotal}
@@ -452,13 +650,13 @@ export default function Numeroscope({
               style={{ borderRight: "1px solid rgba(184, 134, 11, 0.28)" }}
             >
               <p
-                className="text-[7.5px] font-bold tracking-[0.1em]"
+                className="text-[9px] font-bold tracking-[0.1em]"
                 style={{ color: COLORS.gold, ...TEXT_UPPER }}
               >
                 SINGLE ROOT / DESTINY NUMBER
               </p>
               <div
-                className="mt-1.5 flex items-center justify-center gap-1.5 text-[18px] font-bold leading-none"
+                className="mt-1.5 flex items-center justify-center gap-1.5 text-[28px] font-bold leading-none"
                 style={{ color: BURGUNDY }}
               >
                 <span>{compoundNameTotal}</span>
@@ -469,13 +667,13 @@ export default function Numeroscope({
 
             <div className="px-3">
               <p
-                className="text-[7.5px] font-bold tracking-[0.1em]"
+                className="text-[9px] font-bold tracking-[0.1em]"
                 style={{ color: COLORS.gold, ...TEXT_UPPER }}
               >
                 COMPARISON &amp; INSIGHT
               </p>
               <p
-                className="mt-1.5 text-[8px] leading-snug"
+                className="mt-1.5 text-[9px] leading-snug font-nunito-sans"
                 style={{ color: BURGUNDY, opacity: 0.9, ...TEXT_NORMAL }}
               >
                 {nameInsight}
@@ -486,11 +684,11 @@ export default function Numeroscope({
       </section>
 
       {/* Sections 3 & 4: Bottom row */}
-      <section className={`relative z-10 mt-4 grid grid-cols-2 gap-3 ${cinzel.className}`}>
+      <section className="relative z-10 mt-4 grid grid-cols-2 gap-3 font-cinzel">
         {/* Mobile Number Vibration */}
         <div>
           <NumeroscopeSectionHeader title="3. MOBILE NUMBER VIBRATION" />
-          <div className="px-3 py-6" style={{...CORE_CARD_STYLE , marginTop: "28px"}}>
+          <div className="px-3 py-6" style={{ ...CORE_CARD_STYLE, marginTop: "28px" }}>
             <p
               className="text-[8px] font-bold tracking-wider"
               style={{ color: COLORS.gold, ...TEXT_UPPER }}
@@ -569,7 +767,7 @@ export default function Numeroscope({
               <div className="flex gap-2">
                 <Smartphone size={14} style={{ color: COLORS.gold, flexShrink: 0 }} />
                 <p
-                  className="text-[7.5px] leading-snug"
+                  className="text-[9px] leading-snug font-nunito-sans"
                   style={{ color: BURGUNDY, opacity: 0.9, ...TEXT_NORMAL }}
                 >
                   {mobileSummary}
@@ -582,55 +780,26 @@ export default function Numeroscope({
         {/* Visual Numerology Chart */}
         <div>
           <NumeroscopeSectionHeader title="4. VISUAL NUMEROLOGY CHART (PYTHAGOREAN SYSTEM)" />
-          <div className=" relative flex items-center justify-center " style={CORE_CARD_STYLE}>
-            <Image
-              src="/assets/numeroscope/numeroscope-sec-4.png"
-              alt=""
-              width={230}
-              height={300}
-              className="cover"
-              aria-hidden
+          <div
+            className="relative flex min-h-[290px] items-center justify-center px-2 py-4"
+            style={CORE_CARD_STYLE}
+          >
+            <VisualNumerologyChartPanel
+              coreVibration={coreVibration}
+              driverNumber={driverNumber}
+              conductorNumber={conductorNumber}
+              soulUrgeNumber={soulUrgeNumber}
+              personalityNumber={personalityNumber}
+              singleRootNumber={singleRootNumber}
+              mobileRootNumber={mobileRootNumber}
             />
-            <p className="absolute top-8 left-[50%] -translate-x-1/2 text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              5
-            </p>
-            <p className="absolute top-18 left-[28%]  text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              7
-            </p>
-            <p className="absolute top-19 right-[26%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              6
-            </p>
-            <p className="absolute top-30 left-[50%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              {coreVibration}
-            </p>
-            <p className="absolute bottom-17 left-[27%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              {coreVibration}
-            </p>
-            <p className="absolute bottom-17 right-[26%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              1
-            </p>
-            <p className="absolute bottom-3 left-[50%] text-[10px] font-bold tracking-[0.12em]" style={{ color: BURGUNDY, ...TEXT_UPPER }}>
-              {coreVibration}
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Footer summary */}
-      <footer className="relative z-10 mt-4 flex flex-col items-center px-4 pb-2">
-        <div className="flex items-center gap-2 border border-[#D68F34] rounded-xl p-3">
-          <CoverLotus size={40} />
-          <p
-            className="max-w-[480px] text-center text-[10px] leading-relaxed"
-            style={{ color: COLORS.brown, opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
-          >
-            {footerSummary}
-          </p>
-          <CoverLotus size={40} />
-        </div>
+      <footer className="relative z-10 mt-2 flex justify-center px-2 pb-1">
+        <FooterSummaryBanner summary={footerSummary} />
       </footer>
-
-      {/* <PageFooterBar className="relative -mx-[30px] mt-3 h-9 w-[calc(100%+60px)]" pageNumber={pageNumber} /> */}
     </ReportPageShell>
   );
 }
