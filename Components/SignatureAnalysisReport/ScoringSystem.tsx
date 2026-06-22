@@ -20,15 +20,8 @@ export type ScoringSystemProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
+const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif, Georgia, serif";
 const CARD_GOLD = "#C5A059";
-const CARD_STATUS_BG = "#FAE6C1";
-
-const SECTION_BOX_STYLE = {
-  border: `1.5px solid ${COLORS.gold}`,
-  borderRadius: 10,
-  backgroundColor: "rgba(253, 245, 230, 0.55)",
-} as const;
 
 const defaultScores: ScoringItem[] = [
   {
@@ -78,33 +71,23 @@ const defaultScores: ScoringItem[] = [
   },
   {
     title: "OVERALL SIGNATURE STRENGTH SCORE",
-    description:
-      "Overall evaluation of your signature's strength, balance and effectiveness.",
+    description: "Overall evaluation of your signature's strength, balance and effectiveness.",
     score: 83,
-    isOverall: true,
   },
 ];
 
-function HeaderDivider() {
-  return (
-    <div className="mt-1 flex w-full max-w-[460px] items-center justify-center gap-2">
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      <span className="text-[8px] leading-none" style={{ color: COLORS.gold }}>
-        ◆
-      </span>
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-    </div>
-  );
-}
-
 function percentToStarRating(percent: number): number {
-  return Math.min(5, Math.max(1, Math.round(percent / 20)));
+  if (percent >= 90) return 5;
+  if (percent >= 80) return 4;
+  if (percent >= 65) return 3;
+  if (percent >= 50) return 2;
+  return 1;
 }
 
 function PartialStarRating({
   rating,
   max = 5,
-  size = 9,
+  size = 16,
 }: {
   rating: number;
   max?: number;
@@ -118,6 +101,7 @@ function PartialStarRating({
           size={size}
           fill={index < rating ? COLORS.gold : "transparent"}
           stroke={COLORS.gold}
+          strokeWidth={1.5}
           aria-hidden
         />
       ))}
@@ -132,58 +116,61 @@ function NumberBadge({
   index: number;
   isOverall?: boolean;
 }) {
-  const badgeSize = isOverall ? "h-11 w-11" : "h-9 w-9";
-  const textSize = isOverall ? "text-[10px]" : "text-[9px]";
-
   return (
-    <div className="relative flex shrink-0 items-center justify-center">
-      {isOverall ? (
-        <Award
-          size={52}
-          strokeWidth={1}
-          className="absolute"
-          style={{ color: CARD_GOLD, opacity: 0.85 }}
-          aria-hidden
-        />
-      ) : (
-        <>
-          <span
-            className="absolute -top-1.5 left-1/2 -translate-x-1/2 text-[4px] leading-none"
-            style={{ color: COLORS.gold }}
-          >
-            ◆
-          </span>
-          <span
-            className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 text-[4px] leading-none"
-            style={{ color: COLORS.gold }}
-          >
-            ◆
-          </span>
-          <span
-            className="absolute top-1/2 -left-1.5 -translate-y-1/2 text-[4px] leading-none"
-            style={{ color: COLORS.gold }}
-          >
-            ◆
-          </span>
-          <span
-            className="absolute top-1/2 -right-1.5 -translate-y-1/2 text-[4px] leading-none"
-            style={{ color: COLORS.gold }}
-          >
-            ◆
-          </span>
-        </>
-      )}
+    <div
+      className="relative flex shrink-0 items-center justify-center"
+      style={{ width: 44, height: 44 }}
+    >
+      {/* Diamond decorators */}
+      <span
+        className="absolute left-1/2 -translate-x-1/2 text-[6px] leading-none"
+        style={{ color: CARD_GOLD, top: -6 }}
+      >
+        ◆
+      </span>
+      <span
+        className="absolute left-1/2 -translate-x-1/2 text-[6px] leading-none"
+        style={{ color: CARD_GOLD, bottom: -6 }}
+      >
+        ◆
+      </span>
+      <span
+        className="absolute top-1/2 -translate-y-1/2 text-[6px] leading-none"
+        style={{ color: CARD_GOLD, left: -6 }}
+      >
+        ◆
+      </span>
+      <span
+        className="absolute top-1/2 -translate-y-1/2 text-[6px] leading-none"
+        style={{ color: CARD_GOLD, right: -6 }}
+      >
+        ◆
+      </span>
 
       <div
-        className={`relative z-10 flex ${badgeSize} items-center justify-center rounded-full`}
+        className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"
         style={{
-          border: `1.5px solid ${COLORS.gold}`,
-          backgroundColor: CARD_STATUS_BG,
+          background:
+            "radial-gradient(circle at 35% 35%, #4a1a0a 0%, #2a0c02 60%, #1a0800 100%)",
+          border: `2px solid ${CARD_GOLD}`,
+          boxShadow: `0 0 0 1px rgba(197,160,89,0.3), inset 0 1px 3px rgba(255,200,100,0.15)`,
         }}
       >
-        <span className={`${textSize} font-bold leading-none`} style={{ color: COLORS.brown }}>
-          {String(index).padStart(2, "0")}
-        </span>
+        {isOverall ? (
+          <Award
+            size={18}
+            strokeWidth={1.5}
+            style={{ color: CARD_GOLD }}
+            aria-hidden
+          />
+        ) : (
+          <span
+            className="text-[11px] font-bold leading-none"
+            style={{ color: CARD_GOLD, fontFamily: "Georgia, serif" }}
+          >
+            {String(index).padStart(2, "0")}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -203,53 +190,99 @@ function ScoringRow({
 
   return (
     <div
-      className="flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 font-nunito-sans"
+      className="relative flex items-center font-nunito-sans"
       style={{
-        border: isOverall ? `2px solid ${COLORS.gold}` : `1px solid ${COLORS.gold}`,
-        backgroundColor: isOverall
-          ? "rgba(253, 245, 230, 0.88)"
-          : "rgba(253, 245, 230, 0.68)",
-        boxShadow: isOverall ? `inset 0 0 0 1px ${COLORS.goldLight}` : "inset 0 1px 3px rgba(93, 46, 23, 0.06)",
-        minHeight: isOverall ? 58 : 50,
+        backgroundImage: "url('/assets/signaturePages/foooter-background.png')",
+        backgroundSize: "100% 100%",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        minHeight: isOverall ? 68 : 70,
+        paddingLeft: 18,
+        paddingRight: 18,
+        paddingTop: 8,
+        paddingBottom: 8,
       }}
     >
-      <NumberBadge index={index} isOverall={isOverall} />
+      {/* Left: Number Badge */}
+      <div className="mr-3 shrink-0">
+        <NumberBadge index={index} isOverall={isOverall} />
+      </div>
 
+      {/* Center: Title + Description */}
       <div className="min-w-0 flex-1">
         <p
-          className={`font-bold tracking-[0.04em] ${isOverall ? "text-[9.5px]" : "text-[8.5px]"}`}
-          style={{ color: COLORS.brown }}
+          className="font-bold tracking-[0.05em]"
+          style={{
+            color: COLORS.black,
+            fontSize: isOverall ? 11 : 16,
+          }}
         >
           {item.title}
         </p>
         <p
-          className="mt-0.5 text-[7.5px] leading-snug"
-          style={{ color: COLORS.brown, opacity: 0.86, fontFamily: BODY_SANS }}
+          className="mt-0.5 leading-snug"
+          style={{
+            color: COLORS.black,
+            fontSize: 13.5,
+          }}
         >
           {item.description}
         </p>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2 pr-0.5">
-        <div className="text-right leading-none">
+      {/* Right: Score Box + Divider + Stars */}
+      <div className="ml-2 flex shrink-0 items-center gap-2">
+        {/* Score box */}
+        <div
+          className="flex items-baseline justify-center"
+          style={{
+            border: `1.5px solid ${COLORS.gold}`,
+            borderRadius: 5,
+            backgroundColor: "rgba(253,245,230,0.8)",
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 3,
+            paddingBottom: 3,
+            minWidth: 70,
+          }}
+        >
           <span
-            className={`font-bold ${isOverall ? "text-[18px]" : "text-[16px]"}`}
-            style={{ color: COLORS.brown }}
+            style={{
+              color: COLORS.brown,
+              fontFamily: "Georgia, serif",
+              fontSize: isOverall ? 20 : 18,
+              fontWeight: "bold",
+              lineHeight: 1,
+            }}
           >
             {item.score}
           </span>
-          <span className="text-[9px] font-semibold" style={{ color: COLORS.brown, opacity: 0.75 }}>
-            {" "}
+          <span
+            style={{
+              color: COLORS.brown,
+              opacity: 0.65,
+              fontSize: 9,
+              fontWeight: 600,
+              marginLeft: 2,
+            }}
+          >
             / {maxScore}
           </span>
         </div>
 
+        {/* Divider */}
         <div
-          className="h-7 w-px shrink-0"
-          style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
+          className="shrink-0"
+          style={{
+            width: 1,
+            height: 28,
+            backgroundColor: COLORS.gold,
+            opacity: 0.45,
+          }}
         />
 
-        <PartialStarRating rating={starRating} size={isOverall ? 10 : 9} />
+        {/* Stars */}
+        <PartialStarRating rating={starRating} size={isOverall ? 17 : 15} />
       </div>
     </div>
   );
@@ -257,13 +290,29 @@ function ScoringRow({
 
 function IntroSection({ text }: { text: string }) {
   return (
-    <section className="relative z-10 mt-2 px-4 py-2.5 font-nunito-sans" style={SECTION_BOX_STYLE}>
-      <p
-        className="text-center text-[9px] leading-relaxed"
-        style={{ color: COLORS.brown, opacity: 0.9, fontFamily: BODY_SANS }}
+    <section className="relative z-10 mt-1.5 font-nunito-sans">
+      <div
+        className="relative flex w-full items-center justify-center px-6 py-3"
+        style={{
+          backgroundImage:
+            "url('/assets/signaturePages/footer-backgroundSummaryPage.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          minHeight: 80,
+        }}
       >
-        {text}
-      </p>
+        <p
+          className="max-w-[88%] text-center leading-relaxed"
+          style={{
+            color: COLORS.black,
+            fontFamily: "Georgia, serif",
+            fontSize: 13,
+          }}
+        >
+          {text}
+        </p>
+      </div>
     </section>
   );
 }
@@ -276,7 +325,7 @@ function ScoringRowsSection({
   maxScore: number;
 }) {
   return (
-    <section className="relative z-10 mt-2 flex flex-col gap-1 font-nunito-sans">
+    <section className="relative z-10 mt-1.5 flex flex-col gap-1 font-nunito-sans">
       {scores.map((item, index) => (
         <ScoringRow key={item.title} index={index + 1} item={item} maxScore={maxScore} />
       ))}
@@ -286,40 +335,26 @@ function ScoringRowsSection({
 
 function ScoringFooter({ text }: { text: string }) {
   return (
-    <footer className="relative z-10 mt-2 font-nunito-sans">
-      <div className="relative px-4 py-2.5" style={SECTION_BOX_STYLE}>
-        <Star
-          size={8}
-          fill={COLORS.gold}
-          stroke={COLORS.gold}
-          className="absolute left-2 top-2"
-          aria-hidden
-        />
-        <Star
-          size={8}
-          fill={COLORS.gold}
-          stroke={COLORS.gold}
-          className="absolute right-2 top-2"
-          aria-hidden
-        />
-        <Star
-          size={8}
-          fill={COLORS.gold}
-          stroke={COLORS.gold}
-          className="absolute bottom-2 left-2"
-          aria-hidden
-        />
-        <Star
-          size={8}
-          fill={COLORS.gold}
-          stroke={COLORS.gold}
-          className="absolute bottom-2 right-2"
-          aria-hidden
-        />
-
+    <footer className="relative z-10 mt-1.5 font-nunito-sans">
+      <div
+        className="relative flex w-full items-center justify-center px-8 py-2"
+        style={{
+          backgroundImage: "url('/assets/signaturePages/foooter-background.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          minHeight: 48,
+        }}
+      >
         <p
-          className="px-3 text-center text-[8.5px] leading-relaxed"
-          style={{ color: COLORS.brown, opacity: 0.9, fontFamily: BODY_SANS }}
+          className="max-w-[88%] text-center leading-relaxed"
+          style={{
+            color: COLORS.black,
+            opacity: 0.9,
+            fontFamily: "Georgia",
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
         >
           {text}
         </p>
@@ -338,35 +373,32 @@ export default function ScoringSystem({
   footerText = "Higher scores reflect stronger alignment and positive potential. Consistent use of your signature with awareness will maximize these energies.",
 }: ScoringSystemProps) {
   return (
-    <SignatureReportPageShell padding="16px 36px 18px" pageNumber={pageNumber}>
+    <SignatureReportPageShell padding="14px 32px 14px" pageNumber={pageNumber}>
       <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/signatureReport/logo-main.png"
           alt="Astro Aarambh"
-          width={84}
-          height={84}
+          width={72}
+          height={72}
           className="mb-0.5"
           priority
         />
         <h1
-          className="max-w-[620px] text-[26px] font-bold leading-tight tracking-[0.06em]"
-          style={{ color: COLORS.brown }}
+          className="max-w-[620px] font-bold leading-tight tracking-[0.06em]"
+          style={{ color: COLORS.brown, fontSize: 26 }}
         >
           {title}
         </h1>
         <p
-          className="mt-0.5 max-w-[520px] text-[12px] italic font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
+          className="mt-0.5 max-w-[520px] italic font-nunito-sans"
+          style={{ color: COLORS.black, opacity: 0.85, fontSize: 13 }}
         >
           {subtitle}
         </p>
-        <HeaderDivider />
       </header>
 
       <IntroSection text={introText} />
-
       <ScoringRowsSection scores={scores} maxScore={maxScore} />
-
       <ScoringFooter text={footerText} />
     </SignatureReportPageShell>
   );
