@@ -522,7 +522,7 @@ function UnluckyColumn({
 
 function QuickTipsColumn({ dos, donts }: { dos: string[]; donts: string[] }) {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col justify-between">
       <SectionTitleRow index="6.5" title="QUICK USAGE TIPS" />
 
       <ThemedBox borderColor={LUCKY_GREEN} className="mb-1.5 p-2">

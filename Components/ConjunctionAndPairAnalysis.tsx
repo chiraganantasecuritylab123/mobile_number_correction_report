@@ -467,7 +467,7 @@ export default function ConjunctionAndPairAnalysis({
             <div className="flex min-w-0 items-center gap-2.5 pl-1">
               <ReportIcon src={CONJUNCTION_ICONS.adjacencyAtom} size={32} />
               <p
-                className="min-w-0 flex-1 text-center text-[9px] font-normal normal-case leading-[1.65]"
+                className="min-w-0 flex-1 text-center text-[10px] font-normal normal-case leading-[1.65]"
                 style={{ color: "#5C4D3C", fontFamily: SANS }}
               >
                 {ADJACENCY_TEXT}

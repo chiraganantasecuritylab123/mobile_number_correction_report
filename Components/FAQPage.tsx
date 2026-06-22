@@ -373,7 +373,10 @@ export default function FAQPage({
         <h1 className="text-[40px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           FAQS <span style={{ color: COLORS.red }}>&amp; Common Myths</span>
         </h1>
-        <p className="text-md italic font-nunito-sans" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p
+          className="text-[13px]"
+          style={{ color: "#213247", opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
+        >
           Clearing Doubts About Mobile Number Numerology
         </p>
       </header>

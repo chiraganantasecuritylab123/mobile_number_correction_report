@@ -15,6 +15,7 @@ import {
 import { Pattern3, CoverLotus } from "./CommunComponents";
 import { CornerFlourish } from "./CoverPageDecorations";
 import ReportPageShell, { REPORT_COLORS } from "./ReportPageShell";
+import OverallCompatibilityScore from "./OverallCompatibilityScore";
 
 const COLORS = REPORT_COLORS;
 
@@ -96,7 +97,7 @@ function SectionBadge({ title }: { title: string }) {
       className="mb-1 self-start inline-block rounded-[4px] border px-2 py-0.5"
       style={{ borderColor: BADGE_BORDER, backgroundColor: BADGE_BG }}
     >
-      <h3 className="text-[9px] font-bold tracking-wide uppercase font-serif text-[#8b2500]">{title}</h3>
+      <h3 className="text-[9px] font-bold tracking-wide uppercase font-serif text-[#8b2500] font-nunito-sans">{title}</h3>
     </div>
   );
 }
@@ -137,11 +138,11 @@ function LifeAreaRow({
     <div className={`flex items-start gap-1.5 ${withTopBorder ? "border-t border-neutral-100/80 pt-1" : ""} ${className}`}>
       <div className={`relative shrink-0 ${iconClassName}`}>
         <img src={iconSrc} alt={iconAlt} className={`${iconClassName} object-contain`} />
-        <div
+        {/* <div
           className={`absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full border text-[7.5px] font-bold font-serif shadow-xs ${badgeToneClasses[badgeTone]}`}
         >
           {badge}
-        </div>
+        </div> */}
       </div>
       <div className="min-w-0 flex-1 leading-tight">
         <span className={`text-[9.5px] font-extrabold tracking-wide font-sans uppercase ${titleClassName}`}>{title}</span>
@@ -149,7 +150,7 @@ function LifeAreaRow({
           {items.map((item) => (
             <li key={item} className="flex items-center">
               <span className={`mr-1 font-black text-[9px] ${bulletClassName}`}>•</span>
-              {item}
+              <span className="text-[9px] font-nunito-sans">{item}</span>
             </li>
           ))}
         </ul>
@@ -245,13 +246,11 @@ export default function MissingNumbersAnalysis({
 
           {/* Main Structural Content Grid */}
           <section className="relative z-10 mt-[-4px] grid shrink-0 grid-cols-[1.25fr_1fr] items-stretch gap-2">
-            
             {/* Column 1 Card: 1. MISSING NUMBERS IN YOUR MOBILE */}
             <ReportCard className="flex h-full flex-col">
               <SectionBadge title="1. MISSING NUMBERS IN YOUR MOBILE" />
               
-              <ReportCardInner className="flex flex-1 flex-col justify-between divide-y divide-neutral-100/80 px-2 py-1">
-                
+              <ReportCardInner className="flex flex-1 flex-col justify-between divide-y divide-neutral-100/80 px-2 py-1">                
                 <div className="grid flex-1 grid-cols-[auto_1.1fr_1.3fr] items-center gap-1.5">
                   <div className="flex items-center gap-1">
                     <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-red-500 bg-white font-serif text-[12px] font-black text-red-600 shadow-sm">5</div>
@@ -261,9 +260,9 @@ export default function MissingNumbersAnalysis({
                     <span className="text-[9px] font-bold text-neutral-800 font-sans">Number 5 (Mercury)</span>
                     <span className="text-[8px] font-bold tracking-wide text-red-600">Missing</span>
                   </div>
-                  <div className="flex items-start gap-1 border-l border-neutral-100 pl-1.5">
-                    <AlertTriangle size={9} className="mt-0.5 shrink-0 text-red-600" />
-                    <p className="text-[8.5px] font-medium leading-tight text-neutral-700">Lack of adaptability, flexibility, travel luck &amp; quick decision making ability.</p>
+                  <div className="flex items-start gap-1 border-l border-neutral-100 pl-1.5 min-w-25">
+                    <AlertTriangle size={11} className="mt-0.5 shrink-0 text-red-600" />
+                    <p className="font-nunito-sans text-[9px] font-medium leading-tight text-neutral-700">Lack of adaptability, flexibility, travel luck &amp; quick decision making ability.</p>
                   </div>
                 </div>
 
@@ -277,8 +276,8 @@ export default function MissingNumbersAnalysis({
                     <span className="text-[8px] font-bold tracking-wide text-red-600">Missing</span>
                   </div>
                   <div className="flex items-start gap-1 border-l border-neutral-100 pl-1.5">
-                    <AlertTriangle size={9} className="mt-0.5 shrink-0 text-red-600" />
-                    <p className="text-[8.5px] font-medium leading-tight text-neutral-700">May face challenges in love, harmony, comforts, luxury &amp; maintaining balance.</p>
+                    <AlertTriangle size={11} className="mt-0.5 shrink-0 text-red-600" />
+                    <p className="font-nunito-sans text-[8.5px] font-medium leading-tight text-neutral-700">May face challenges in love, harmony, comforts, luxury &amp; maintaining balance.</p>
                   </div>
                 </div>
 
@@ -292,8 +291,8 @@ export default function MissingNumbersAnalysis({
                     <span className="text-[8px] font-bold tracking-wide text-red-600">Missing <span className="text-[7px] font-medium">(Very Important)</span></span>
                   </div>
                   <div className="flex items-start gap-1 border-l border-neutral-100 pl-1.5">
-                    <AlertTriangle size={9} className="mt-0.5 shrink-0 text-red-600" />
-                    <p className="text-[8.5px] font-medium leading-tight text-neutral-700">Affects spiritual growth, intuition, inner wisdom, research ability &amp; mental depth.</p>
+                    <AlertTriangle size={11} className="mt-0.5 shrink-0 text-red-600" />
+                    <p className="font-nunito-sans text-[8.5px] font-medium leading-tight text-neutral-700">Affects spiritual growth, intuition, inner wisdom, research ability &amp; mental depth.</p>
                   </div>
                 </div>
 
@@ -307,11 +306,10 @@ export default function MissingNumbersAnalysis({
                     <span className="text-[8px] font-bold tracking-wide text-red-600">Missing</span>
                   </div>
                   <div className="flex items-start gap-1 border-l border-neutral-100 pl-1.5">
-                    <AlertTriangle size={9} className="mt-0.5 shrink-0 text-red-600" />
-                    <p className="text-[8.5px] font-medium leading-tight text-neutral-700">Can bring instability in finances, professional growth, discipline &amp; long-term success.</p>
+                    <AlertTriangle size={11} className="mt-0.5 shrink-0 text-red-600" />
+                    <p className="font-nunito-sans text-[8.5px] font-medium leading-tight text-neutral-700">Can bring instability in finances, professional growth, discipline &amp; long-term success.</p>
                   </div>
                 </div>
-
               </ReportCardInner>
             </ReportCard>
 
@@ -411,14 +409,14 @@ export default function MissingNumbersAnalysis({
               </div>
 
               <div className="flex flex-col text-left">
-                <h3 className="text-[10px] font-extrabold tracking-wide uppercase font-serif text-red-600">
+                <h3 className="text-[10px] font-extrabold tracking-wide font-nunito-sans uppercase text-red-600">
                   3. HOW TO BALANCE MISSING ENERGIES
                 </h3>
-                <p className="text-[9.5px] font-medium leading-relaxed text-neutral-700 mt-0.5 max-w-2xl">
+                <p className="text-[10px] font-medium leading-relaxed font-nunito-sans text-neutral-700 mt-0.5 max-w-2xl">
                   Missing numbers create energetic voids that can influence different areas of life. 
                   To understand how these gaps are affecting you personally and to receive powerful remedies, practical suggestions and customized guidance,
                 </p>
-                <p className="text-[10.5px] font-extrabold tracking-wide text-red-600 mt-0.5 font-sans uppercase">
+                <p className="text-[10.5px] font-extrabold tracking-wide text-red-600 mt-0.5 font-nunito-sans uppercase">
                   you can consult our expert numerologist.
                 </p>
               </div>
@@ -426,13 +424,13 @@ export default function MissingNumbersAnalysis({
           </section>
 
           {/* Sections 4 & 5: ENERGY RESTORATION SCORE & IMPORTANT POINTS */}
-          <section className="relative z-10 mt-[-4px] grid shrink-0 grid-cols-2 items-stretch gap-2">
+          <section className="relative z-10 mt-[-4px] grid shrink-0 grid-cols-2 items-stretch gap-2 font-nunito-sans">
             {/* Column 4: 4. ENERGY RESTORATION SCORE */}
             <ReportCard className="flex h-full flex-col">
               <SectionBadge title="4. ENERGY RESTORATION SCORE" />
-
               <ReportCardInner className="flex flex-1 flex-col items-center justify-between p-2">
-                <div className="relative flex h-[72px] w-40 items-center justify-center">
+                <OverallCompatibilityScore value={58} size={100} style={{ marginTop: '-15px' }} />
+                {/* <div className="relative flex h-[72px] w-40 items-center justify-center">
                   <svg className="h-full w-full" viewBox="0 0 100 52">
                     <defs>
                       <linearGradient id="gaugeGradient2026" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -471,9 +469,9 @@ export default function MissingNumbersAnalysis({
                       CURRENT BALANCE
                     </span>
                   </div>
-                </div>
+                </div> */}
 
-                <div className="mt-0.5 flex w-full max-w-[170px] justify-between px-1 text-[7px] font-extrabold">
+                {/* <div className="mt-0.5 flex w-full max-w-[170px] justify-between px-1 text-[7px] font-extrabold">
                   <div className="text-center text-red-600">
                     LOW
                     <br />
@@ -489,9 +487,9 @@ export default function MissingNumbersAnalysis({
                     <br />
                     <span className="font-medium text-neutral-500">100%</span>
                   </div>
-                </div>
+                </div> */}
 
-                <div className="mt-1.5 w-full rounded-[8px] border border-emerald-200/40 bg-emerald-50/60 px-2 py-1 text-center">
+                <div className="mt-4 w-full rounded-[8px] border border-emerald-200/40 bg-emerald-50/60 px-2 py-1 text-center">
                   <p className="text-[7px] font-black uppercase tracking-wider text-emerald-800">
                     POTENTIAL BALANCE AFTER CORRECTION
                   </p>
@@ -508,29 +506,29 @@ export default function MissingNumbersAnalysis({
               <SectionBadge title="5. IMPORTANT POINTS TO REMEMBER" />
 
               <ReportCardInner className="flex flex-1 flex-col justify-between gap-1 p-1.5">
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 size={11} className="mt-0.5 shrink-0 text-emerald-600" />
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 size={14} className="shrink-0 text-emerald-600" />
                   <p className="text-[8.5px] font-medium leading-tight text-neutral-700">
                     <strong className="text-neutral-900">Missing numbers don&apos;t mean bad luck</strong> — they mean untapped energies.
                   </p>
                 </div>
 
                 <div className="flex items-start gap-2 border-t border-neutral-100/70 pt-1">
-                  <Info size={11} className="mt-0.5 shrink-0 text-amber-500" />
+                  <Info size={14} className="shrink-0 text-amber-500" />
                   <p className="text-[8.5px] font-medium leading-tight text-neutral-700">
                     Awareness of these gaps is the <strong className="text-neutral-900">first step towards transformation</strong>.
                   </p>
                 </div>
 
                 <div className="flex items-start gap-2 border-t border-neutral-100/70 pt-1">
-                  <Lightbulb size={11} className="mt-0.5 shrink-0 text-purple-600" />
+                  <Lightbulb size={14} className="shrink-0 text-purple-600" />
                   <p className="text-[8.5px] font-medium leading-tight text-neutral-700">
                     With the right remedies, you can attract <strong className="text-neutral-900">balance, opportunities and positive changes</strong>.
                   </p>
                 </div>
 
                 <div className="flex items-start gap-2 border-t border-neutral-100/70 pt-1">
-                  <Star size={11} className="mt-0.5 shrink-0 text-indigo-600" />
+                  <Star size={14} className="shrink-0 text-indigo-600" />
                   <p className="text-[8.5px] font-medium leading-tight text-neutral-700">
                     Strengthening missing numbers helps in overall <strong className="text-neutral-900">growth, peace and success</strong>.
                   </p>

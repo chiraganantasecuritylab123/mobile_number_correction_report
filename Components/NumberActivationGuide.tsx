@@ -165,7 +165,7 @@ function CheckItem({ children }: { children: ReactNode }) {
       <span className="mt-0.5 flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
         <Check size={8} strokeWidth={3.5} />
       </span>
-      <span>{children}</span>
+      <span className="text-[9px]">{children}</span>
     </li>
   );
 }
@@ -176,7 +176,7 @@ function AvoidItem({ children }: { children: ReactNode }) {
       <span className="mt-0.5 flex h-3 w-3 shrink-0 items-center justify-center rounded-full bg-red-500 text-white">
         <X size={8} strokeWidth={3.5} />
       </span>
-      <span>{children}</span>
+      <span className="text-[9px]">{children}</span>
     </li>
   );
 }
@@ -205,7 +205,7 @@ function TipFooter({ children, tone = "green" }: { children: ReactNode; tone?: "
   return (
     <div className={`mt-auto flex items-start gap-1.5 rounded-md border px-2 py-1.5 ${toneClass}`}>
       <Star size={10} className={`mt-0.5 shrink-0 fill-current ${starClass}`} />
-      <p className="text-[7.5px] font-bold leading-tight">{children}</p>
+      <p className="text-[9px] font-bold leading-tight">{children}</p>
     </div>
   );
 }
@@ -216,7 +216,7 @@ function PurpleActionItem({ icon: Icon, label }: { icon: LucideIcon; label: stri
       <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-purple-700 text-white">
         <Icon size={9} strokeWidth={2.5} />
       </div>
-      <span>{label}</span>
+      <span className="text-[9px]">{label}</span>
     </div>
   );
 }
@@ -270,9 +270,9 @@ function SectionCardHeader({ icon: Icon, title }: { icon: LucideIcon; title: str
 
 function CheckRow({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-start gap-1.5 text-[8.5px] font-semibold uppercase leading-tight tracking-wide text-[#213247]">
+    <div className="flex items-start gap-1.5 text-[10px] font-semibold leading-tight tracking-wide text-[#213247]">
       <Check size={11} className="mt-0.5 shrink-0 text-emerald-600" strokeWidth={3} />
-      <span>{children}</span>
+      <span className="font-nunito-sans">{children}</span>
     </div>
   );
 }
@@ -352,7 +352,10 @@ export default function NumberActivationGuide({
           <h1 className="mt-0.5 text-[26px] font-bold uppercase leading-tight font-serif" style={{ color: COLORS.brown }}>
             MOBILE NUMBER ACTIVATION GUIDE
           </h1>
-          <p className="text-[12px] font-medium tracking-wide text-slate-800">
+          <p
+            className="text-[13px]"
+            style={{ color: "#213247", opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
+          >
             How To Activate Your New Number For Maximum Positive Results
           </p>
         </header>
@@ -475,7 +478,7 @@ export default function NumberActivationGuide({
         <div className="mt-2 grid shrink-0 grid-cols-4 items-stretch gap-2 font-sans normal-case">
           <ActivationCard>
             <ActivationCardHeader icon={<User size={11} strokeWidth={2.5} />} title="10.1 BEFORE ACTIVATION" />
-            <p className="mt-1.5 text-[8px] font-semibold leading-tight text-[#213247]">
+            <p className="mt-1.5 text-[10px] font-semibold leading-tight text-[#213247]">
               Save these contacts first before using the new number regularly.
             </p>
             <ul className="mt-1 space-y-0.5">
@@ -575,7 +578,7 @@ export default function NumberActivationGuide({
         <div className="mt-3 grid shrink-0 grid-cols-3 items-stretch gap-2">
           <GuideSectionCard>
             <SectionCardHeader icon={User} title="10.5 NAME SAVING STRATEGY" />
-            <p className="mt-2 text-[9px] font-bold uppercase leading-tight text-[#213247]">
+            <p className="mt-2 text-[10px] font-bold font-nunito-sans leading-tight text-[#213247]">
               Save your own number in your phone as:
             </p>
             <div className="mt-1.5 space-y-1">
@@ -592,7 +595,7 @@ export default function NumberActivationGuide({
 
           <GuideSectionCard>
             <SectionCardHeader icon={ShieldCheck} title="10.6 POSITIVE VIBRATION CHECKLIST" />
-            <p className="mt-1.5 text-center text-[9px] font-bold italic text-emerald-800">
+            <p className="mt-1.5 text-center text-[10px] font-bold font-nunito-sans text-emerald-800">
               During the first 21 days:
             </p>
             <div className="mt-1.5 space-y-1">
@@ -613,10 +616,10 @@ export default function NumberActivationGuide({
           <GuideSectionCard>
             <SectionCardHeader icon={Zap} title="10.7 POWER ACTIVATION PRINCIPLE" />
             <div className="mt-1.5 text-center">
-              <p className="text-[9px] font-extrabold uppercase text-emerald-900 font-sans">
+              <p className="text-[10px] font-nunito-sans font-bold text-emerald-900 font-sans">
                 For Driver {driverNumber} + Conductor {conductorNumber}
               </p>
-              <p className="mt-0.5 text-[8px] font-medium uppercase text-neutral-500">
+              <p className="mt-0.5 text-[9px] font-medium  text-black">
                 (Driver {driverNumber} = {driverPlanet}, Conductor {conductorNumber} = {conductorPlanet})
               </p>
             </div>
