@@ -6,7 +6,9 @@ import PersonalityIndicators from "@/Components/SignatureAnalysisReport/Personal
 import RelationshipIndicators from "@/Components/SignatureAnalysisReport/RelationshipIndicators";
 import PressureStrokeAnalysis from "@/Components/SignatureAnalysisReport/PressureStrokeAnalysis";
 import SignatureGeometryAnalysis from "@/Components/SignatureAnalysisReport/SignatureGeometryAnalysis";
+import ScoringSystem from "@/Components/SignatureAnalysisReport/ScoringSystem";
 import SignatureImprovement from "@/Components/SignatureAnalysisReport/SignatureImprovement";
+import Summary from "@/Components/SignatureAnalysisReport/Summary";
 import WritingStyleAnalysis from "@/Components/SignatureAnalysisReport/WritingStyleAnalysis";
 import PersonalityAnalysis from "@/Components/SignatureAnalysisReport/PersonalityAnalysis";
 import SignatureAnalysisReport from "@/Components/SignatureAnalysisReport/SignatureAnalysisReport";
@@ -22,17 +24,19 @@ export default function SignatureReportPage() {
 
       <SignatureAnalysisReport /> {/* 1 */}
       <PersonalityAnalysis /> {/* 2 */}
-      <SignatureStructureAnalysis />
+      <SignatureStructureAnalysis /> {/* 3 */}
       <DirectionAlignmentAnalysis /> {/* 4 */}
       <WritingStyleAnalysis /> {/* 5 */}
       <PressureStrokeAnalysis /> {/* 6 */}
       <SignatureGeometryAnalysis /> {/* 7 */}
+      <EndingStrokeAnalysis /> {/* 8 */}
       <PersonalityIndicators /> {/* 9 */}
       <FinancialIndicators /> {/* 11 */}
       <RelationshipIndicators /> {/* 12 */}
       <NumerologyView /> {/* 13 */}
       <SignatureImprovement /> {/* 14 */}
-      <EndingStrokeAnalysis /> {/* 8 */}
+      <ScoringSystem /> {/* 15 */}
+      <Summary /> {/* 16 */}
     </ReportHomeClient>
   );
 }
