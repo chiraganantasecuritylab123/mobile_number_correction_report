@@ -3,6 +3,8 @@ import DirectionAlignmentAnalysis from "@/Components/SignatureAnalysisReport/Dir
 import PressureStrokeAnalysis from "@/Components/SignatureAnalysisReport/PressureStrokeAnalysis";
 import SignatureGeometryAnalysis from "@/Components/SignatureAnalysisReport/SignatureGeometryAnalysis";
 import WritingStyleAnalysis from "@/Components/SignatureAnalysisReport/WritingStyleAnalysis";
+import PersonalityAnalysis from "@/Components/SignatureAnalysisReport/PersonalityAnalysis";
+import SignatureAnalysisReport from "@/Components/SignatureAnalysisReport/SignatureAnalysisReport";
 
 export default function SignatureReportPage() {
   return (
@@ -10,6 +12,9 @@ export default function SignatureReportPage() {
       reportTitle="Signature Analysis Report"
       reportDescription="Graphology insights and signature vibration analysis"
     >
+
+      <SignatureAnalysisReport /> {/* 1 */}
+      <PersonalityAnalysis /> {/* 2 */}
       <DirectionAlignmentAnalysis /> {/* 4 */}
       <WritingStyleAnalysis /> {/* 5 */}
       <PressureStrokeAnalysis /> {/* 6 */}
