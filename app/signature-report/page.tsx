@@ -32,13 +32,13 @@ export default function SignatureReportPage() {
       <SignatureGeometryAnalysis /> {/* 7 */}
       <EndingStrokeAnalysis /> {/* 8 */}
       <PersonalityIndicators /> {/* 9 */}
+      <CareerIndicators /> {/* 10 */}
       <FinancialIndicators /> {/* 11 */}
       <RelationshipIndicators /> {/* 12 */}
       <NumerologyView /> {/* 13 */}
       <SignatureImprovement /> {/* 14 */}
       <ScoringSystem /> {/* 15 */}
       <Summary /> {/* 16 */}
-      <CareerIndicators /> {/* 10 */}
     </ReportHomeClient>
   );
 }
