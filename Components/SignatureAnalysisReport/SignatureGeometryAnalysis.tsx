@@ -116,11 +116,11 @@ const defaultAttributes: GeometryAttribute[] = [
 
 function AttributeIcon({ attribute }: { attribute: GeometryAttribute }) {
   if (attribute.label === "Stability") {
-    return <CoverLotus size={16} />;
+    return <CoverLotus size={25} />;
   }
 
   const Icon = attribute.icon;
-  return <Icon size={12} strokeWidth={1.25} style={{ color: COLORS.gold }} />;
+  return <Icon size={25} strokeWidth={1.25} style={{ color: COLORS.gold }} />;
 }
 
 function StarRating({ count }: { count: number }) {
@@ -211,7 +211,7 @@ function SimpleDivider() {
 
 function CardTypeIcon({ type }: { type: GeometryCardType }) {
   const iconStyle = { color: COLORS.brown, flexShrink: 0 };
-  const size = 22;
+  const size = 40;
 
   const icons: Record<GeometryCardType, ReactNode> = {
     widthHeightRatio: <Expand size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />,
@@ -232,18 +232,18 @@ function CardTypeIcon({ type }: { type: GeometryCardType }) {
 function LabeledProgressBar({ label, percent }: { label: string; percent: number }) {
   return (
     <div className="w-full">
-      <div className="mb-0.5 flex items-center justify-between text-[8px] font-bold">
+      <div className="mb-0.5 flex items-center justify-between text-[8px] font-bold gap-2">
         <span style={{ color: COLORS.brown }}>{label}</span>
-        <span style={{ color: COLORS.brown }}>{percent}%</span>
-      </div>
-      <div
-        className="h-2.5 w-full overflow-hidden rounded-full"
-        style={{ backgroundColor: "#f2e4d4" }}
-      >
         <div
-          className="h-full rounded-full"
-          style={{ width: `${percent}%`, backgroundColor: COLORS.brown }}
-        />
+          className="h-2.5 w-full overflow-hidden rounded-full"
+          style={{ backgroundColor: "#f2e4d4" }}
+        >
+          <div
+            className="h-full rounded-full"
+            style={{ width: `${percent}%`, backgroundColor: COLORS.brown }}
+          />
+        </div>
+        <span style={{ color: COLORS.brown }}>{percent}%</span>
       </div>
     </div>
   );
@@ -342,11 +342,12 @@ function AnalysisCard({
     <div className="relative flex h-[190px] w-[240px] flex-col bg-[url('/assets/signatureReport/card-bg.png')] bg-cover bg-center bg-no-repeat">
       <span
         className="absolute left-1/2 top-[8px] z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[35%] items-center justify-center rounded-full text-[11px] font-bold"
+        style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full flex-col justify-center px-8 pb-2.5 pt-5 font-nunito-sans">
+      <div className="flex h-full flex-col justify-center px-8 pb-2.5 pt-5 font-nunito-sans gap-1">
         <div className="flex items-center justify-center gap-1.5 px-4 py-1">
           <CardTypeIcon type={card.type} />
           <p
@@ -371,7 +372,7 @@ function AnalysisCard({
             <SimpleDivider />
             {card.description ? (
               <p
-                className="mt-auto px-1 text-center text-[12px] leading-snug"
+                className="px-1 text-center text-[12px] leading-snug"
                 style={{ color: COLORS.black, opacity: 0.82 }}
               >
                 {card.description}
@@ -380,7 +381,7 @@ function AnalysisCard({
           </>
         ) : (
           <>
-            <div className="mt-1 flex flex-1 flex-col items-center justify-center">
+            <div className="mt-1 flex flex-col items-center justify-center">
               <CardVisual card={card} />
             </div>
             {card.description ? (
@@ -409,7 +410,7 @@ function GeometricInterpretationSection({ text }: { text: string }) {
           backgroundPosition: "center",
         }}
       >
-        <Flower2 size={34} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} />
+        <Image src="/assets/signatureReport/image.png" alt="Flower" width={70} height={70} />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
@@ -419,14 +420,15 @@ function GeometricInterpretationSection({ text }: { text: string }) {
             GEOMETRIC INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
+            className="max-w-[520px] text-center text-[11px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88 }}
           >
             {text}
           </p>
         </div>
 
-        <Flower2 size={34} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} />
+        <Image src="/assets/signatureReport/image.png" alt="Flower" width={70} height={70} />
+
       </div>
     </section>
   );
@@ -434,18 +436,17 @@ function GeometricInterpretationSection({ text }: { text: string }) {
 
 function AttributePills({ attributes }: { attributes: GeometryAttribute[] }) {
   return (
-    <section className="relative z-10 mt-2 flex flex-wrap items-center justify-center gap-2 px-1 font-nunito-sans">
+    <section className="relative z-10 mt-2 flex flex-wrap items-center justify-center gap-1 px-1 font-nunito-sans">
       {attributes.map((attribute) => (
         <div
           key={attribute.label}
-          className="flex items-center gap-1 rounded-full px-2.5 py-1"
+          className="flex items-center justify-center gap-1 rounded-full px-1 min-w-[110px] py-1"
           style={{
-            backgroundColor: COLORS.cream,
             border: `1px solid ${COLORS.gold}`,
           }}
         >
           <AttributeIcon attribute={attribute} />
-          <span className="text-[9px] font-semibold" style={{ color: COLORS.brown }}>
+          <span className="text-[11px] font-semibold" style={{ color: COLORS.brown }}>
             {attribute.label}
           </span>
         </div>
@@ -456,7 +457,7 @@ function AttributePills({ attributes }: { attributes: GeometryAttribute[] }) {
 
 function ExpertObservationFooter({ observation }: { observation: string }) {
   return (
-    <footer className="relative z-10 mt-2 font-nunito-sans">
+    <footer className="relative z-10 mt-1 font-nunito-sans">
       <div
         className="flex min-h-[108px] w-full items-center gap-3 bg-no-repeat px-5 py-4"
         style={{
@@ -466,10 +467,10 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
         }}
       >
         <div
-          className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full"
+          className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full"
           style={{ border: `1.5px solid ${COLORS.goldLight}` }}
         >
-          <User size={24} strokeWidth={1.25} style={{ color: COLORS.goldLight }} />
+          <User size={40} strokeWidth={1.25} style={{ color: COLORS.goldLight }} />
           <Star
             size={11}
             fill={COLORS.goldLight}
@@ -478,7 +479,7 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
           />
         </div>
 
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex flex-col items-start justify-center">
           <p
             className="text-[12px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.goldLight }}
@@ -493,13 +494,7 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
           </p>
         </div>
 
-        <Compass
-          size={56}
-          strokeWidth={1}
-          className="shrink-0"
-          style={{ color: COLORS.goldLight }}
-          aria-hidden
-        />
+        <Image src="/assets/signatureReport/Compass.png" alt="Compass" width={90} height={90} />
       </div>
     </footer>
   );

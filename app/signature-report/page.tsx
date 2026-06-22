@@ -3,6 +3,7 @@ import DirectionAlignmentAnalysis from "@/Components/SignatureAnalysisReport/Dir
 import PressureStrokeAnalysis from "@/Components/SignatureAnalysisReport/PressureStrokeAnalysis";
 import SignatureGeometryAnalysis from "@/Components/SignatureAnalysisReport/SignatureGeometryAnalysis";
 import WritingStyleAnalysis from "@/Components/SignatureAnalysisReport/WritingStyleAnalysis";
+import EndingStrokeAnalysis from "@/Components/SignatureAnalysisReport/EndingStrokeAnalysis";
 
 export default function SignatureReportPage() {
   return (
@@ -14,6 +15,7 @@ export default function SignatureReportPage() {
       <WritingStyleAnalysis /> {/* 5 */}
       <PressureStrokeAnalysis /> {/* 6 */}
       <SignatureGeometryAnalysis /> {/* 7 */}
+      <EndingStrokeAnalysis /> {/* 8 */}
     </ReportHomeClient>
   );
 }
