@@ -14,6 +14,7 @@ import PersonalityAnalysis from "@/Components/SignatureAnalysisReport/Personalit
 import SignatureAnalysisReport from "@/Components/SignatureAnalysisReport/SignatureAnalysisReport";
 import SignatureStructureAnalysis from "@/Components/SignatureAnalysisReport/SignatureStructureAnalysis";
 import EndingStrokeAnalysis from "@/Components/SignatureAnalysisReport/EndingStrokeAnalysis";
+import CareerIndicators from "@/Components/SignatureAnalysisReport/CareerIndicators";
 
 export default function SignatureReportPage() {
   return (
@@ -30,6 +31,7 @@ export default function SignatureReportPage() {
       <PressureStrokeAnalysis /> {/* 6 */}
       <SignatureGeometryAnalysis /> {/* 7 */}
       <EndingStrokeAnalysis /> {/* 8 */}
+      <CareerIndicators /> {/* 10 */}
       <PersonalityIndicators /> {/* 9 */}
       <FinancialIndicators /> {/* 11 */}
       <RelationshipIndicators /> {/* 12 */}
