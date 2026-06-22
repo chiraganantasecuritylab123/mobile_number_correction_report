@@ -31,8 +31,8 @@ export default function SignatureReportPage() {
       <PressureStrokeAnalysis /> {/* 6 */}
       <SignatureGeometryAnalysis /> {/* 7 */}
       <EndingStrokeAnalysis /> {/* 8 */}
-      <CareerIndicators /> {/* 10 */}
       <PersonalityIndicators /> {/* 9 */}
+      <CareerIndicators /> {/* 10 */}
       <FinancialIndicators /> {/* 11 */}
       <RelationshipIndicators /> {/* 12 */}
       <NumerologyView /> {/* 13 */}

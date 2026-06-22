@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
+import { Pattern3 } from "../CommunComponents";
 
 export type RelationshipLevelLabel = "HIGH" | "VERY HIGH";
 
@@ -51,6 +52,8 @@ const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
 const CARD_GOLD = "#C5A059";
 const CARD_GOLD_LIGHT = "#E8C872";
 const CARD_STATUS_BG = "#FAE6C1";
+const COMPACT_CARD_BG = "/assets/signatureReport/cardBG-190*250.png";
+const LARGE_CARD_BG = "/assets/signatureReport/cardBg-250*320.png";
 
 const defaultCards: RelationshipIndicatorCard[] = [
   {
@@ -144,14 +147,30 @@ function PartialStarRating({
   );
 }
 
-function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: string }) {
-  const radius = 34;
+function SemiCircularGauge({
+  percent,
+  gaugeId,
+  compact = false,
+}: {
+  percent: number;
+  gaugeId: string;
+  compact?: boolean;
+}) {
+  const radius = compact ? 30 : 34;
   const circumference = Math.PI * radius;
   const offset = circumference * (1 - percent / 100);
 
   return (
-    <div className="relative flex h-[54px] w-[92px] items-end justify-center">
-      <svg viewBox="0 0 92 54" className="h-full w-full" aria-hidden>
+    <div
+      className={`relative flex items-end justify-center ${
+        compact ? "h-[48px] w-[80px]" : "h-[54px] w-[92px]"
+      }`}
+    >
+      <svg
+        viewBox={compact ? "0 0 80 48" : "0 0 92 54"}
+        className="h-full w-full"
+        aria-hidden
+      >
         <defs>
           <linearGradient id={gaugeId} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={CARD_GOLD} />
@@ -159,24 +178,26 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
           </linearGradient>
         </defs>
         <path
-          d="M 10 46 A 34 34 0 0 1 82 46"
+          d={compact ? "M 8 40 A 30 30 0 0 1 72 40" : "M 10 46 A 34 34 0 0 1 82 46"}
           fill="none"
           stroke="#F0E0C8"
-          strokeWidth="7"
+          strokeWidth={compact ? 6 : 7}
           strokeLinecap="round"
         />
         <path
-          d="M 10 46 A 34 34 0 0 1 82 46"
+          d={compact ? "M 8 40 A 30 30 0 0 1 72 40" : "M 10 46 A 34 34 0 0 1 82 46"}
           fill="none"
           stroke={`url(#${gaugeId})`}
-          strokeWidth="7"
+          strokeWidth={compact ? 6 : 7}
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
         />
       </svg>
       <span
-        className="absolute bottom-[2px] text-[13px] font-bold leading-none"
+        className={`absolute font-bold leading-none ${
+          compact ? "bottom-[2px] text-[13px]" : "bottom-[2px] text-[15px]"
+        }`}
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -185,15 +206,26 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
   );
 }
 
-function RelationshipCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: string }) {
+function RelationshipCardIcon({
+  icon: Icon,
+  title,
+  compact = false,
+}: {
+  icon: LucideIcon;
+  title: string;
+  compact?: boolean;
+}) {
+  const iconSize = compact ? 32 : 38;
   const iconStyle = { color: CARD_GOLD, flexShrink: 0 };
 
   if (title.includes("TRUST")) {
     return (
-      <div className="relative flex h-12 w-12 items-center justify-center">
-        <Shield size={38} strokeWidth={1.15} style={iconStyle} aria-hidden />
+      <div
+        className={`relative flex items-center justify-center ${compact ? "h-10 w-10" : "h-12 w-12"}`}
+      >
+        <Shield size={iconSize} strokeWidth={1.15} style={iconStyle} aria-hidden />
         <Check
-          size={14}
+          size={compact ? 12 : 14}
           strokeWidth={2.5}
           className="absolute"
           style={{ color: COLORS.brown }}
@@ -203,51 +235,75 @@ function RelationshipCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: 
     );
   }
 
-  return <Icon size={38} strokeWidth={1.15} style={iconStyle} aria-hidden />;
+  return <Icon size={iconSize} strokeWidth={1.15} style={iconStyle} aria-hidden />;
 }
 
 function RelationshipIndicatorCardView({
   index,
   card,
+  compact = false,
 }: {
   index: number;
   card: RelationshipIndicatorCard;
+  compact?: boolean;
 }) {
   return (
-    <div className="relative flex h-[292px] w-full flex-col items-center bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat text-center">
+    <div
+      className={`relative flex shrink-0 flex-col items-center justify-between bg-cover bg-center bg-no-repeat text-center ${
+        compact ? "h-[190px] w-[240px]" : "h-[250px] w-[320px]"
+      }`}
+      style={{
+        backgroundImage: `url('${compact ? COMPACT_CARD_BG : LARGE_CARD_BG}')`,
+      }}
+    >
       <span
-        className="absolute left-1/2 top-0 z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
+        className={`absolute left-1/2 top-4 z-10 flex -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full font-bold ${
+          compact ? "h-8 w-8 text-[11px]" : "h-9 w-9 text-[11px]"
+        }`}
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full w-full flex-col items-center justify-between px-2.5 pb-3 pt-6">
-        <RelationshipCardIcon icon={card.icon} title={card.title} />
+      <div
+        className={`flex h-full w-full flex-col items-center justify-between px-2.5 ${
+          compact ? "pb-2.5 p-10" : "pb-3 p-10"
+        }`}
+      >
+        <RelationshipCardIcon icon={card.icon} title={card.title} compact={compact} />
 
         <p
-          className="px-1 text-[9px] font-bold leading-[1.25] tracking-[0.04em]"
+          className={`px-1 font-bold leading-[1.25] tracking-[0.04em] ${
+            compact ? "text-[8px]" : "text-[10px]"
+          }`}
           style={{ color: COLORS.brown }}
         >
           {card.title}
         </p>
 
-        <SemiCircularGauge percent={card.percent} gaugeId={`relationship-gauge-${index}`} />
+        <SemiCircularGauge
+          percent={card.percent}
+          gaugeId={`relationship-gauge-${index}`}
+          compact={compact}
+        />
 
         <div
-          className="rounded-full px-3 py-0.5"
+          className={`rounded-full ${compact ? "px-2 py-0.5" : "px-3 py-0.5"}`}
           style={{
             backgroundColor: CARD_STATUS_BG,
             border: `1px solid ${COLORS.brown}`,
           }}
         >
-          <span className="text-[8px] font-bold tracking-[0.06em]" style={{ color: COLORS.brown }}>
+          <span
+            className={`font-bold tracking-[0.06em] ${compact ? "text-[7px]" : "text-[8px]"}`}
+            style={{ color: COLORS.brown }}
+          >
             {card.levelLabel}
           </span>
         </div>
 
         <p
-          className="px-1 text-[9px] leading-snug"
+          className={`px-1 leading-snug ${compact ? "text-[8px]" : "text-[9px]"}`}
           style={{ color: COLORS.brown, opacity: 0.88 }}
         >
           {card.description}
@@ -269,24 +325,20 @@ function RelationshipIndexSection({
   indexLabel: string;
 }) {
   return (
-    <section className="relative z-10 flex justify-center font-nunito-sans">
+    <section className="relative z-10 mt-2 flex justify-center font-nunito-sans">
       <div
-        className="relative flex items-center justify-center px-8 py-4"
+        className="relative h-[200px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/assets/signatureReport/background-image.png')",
-          backgroundSize: "cover",
-          height: "168px",
-          width: "460px",
-          backgroundPosition: "center",
+          backgroundImage: "url('/assets/signatureReport/page-8-circle.png')",
         }}
       >
         <div className="absolute top-3 flex items-center gap-0.5" aria-hidden>
-          <Users size={14} strokeWidth={1.5} style={{ color: COLORS.gold }} />
-          <Heart size={10} fill={COLORS.gold} stroke={COLORS.gold} />
+          <Users size={30} strokeWidth={1.5} style={{ color: COLORS.gold }} />
+          <Heart size={25} fill={COLORS.gold} stroke={COLORS.gold} />
         </div>
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center gap-2">
           <p
-            className="text-[10px] font-bold tracking-[0.14em]"
+            className="text-[13px] font-bold tracking-[0.14em]"
             style={{ color: COLORS.gold }}
           >
             RELATIONSHIP INDEX
@@ -295,7 +347,7 @@ function RelationshipIndexSection({
             className="mt-0.5 text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            {score} / {maxScore}
+            <span className="text-[32px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
           </p>
           <PartialStarRating rating={starRating} size={12} />
           <p
@@ -315,13 +367,18 @@ function RelationshipCardsSection({ cards }: { cards: RelationshipIndicatorCard[
   const bottomRow = cards.slice(3, 5);
 
   return (
-    <section className="relative z-10 mt-3 flex flex-col gap-1.5">
-      <div className="grid grid-cols-3 gap-1.5">
+    <section className="relative z-10 mt-3 flex flex-col items-center gap-1.5">
+      <div className="flex justify-between gap-1.5">
         {topRow.map((card, index) => (
-          <RelationshipIndicatorCardView key={card.title} index={index + 1} card={card} />
+          <RelationshipIndicatorCardView
+            key={card.title}
+            index={index + 1}
+            card={card}
+            compact
+          />
         ))}
       </div>
-      <div className="mx-auto grid w-[calc(66.666%+0.375rem)] grid-cols-2 gap-1.5">
+      <div className="flex justify-between gap-1.5">
         {bottomRow.map((card, index) => (
           <RelationshipIndicatorCardView key={card.title} index={index + 4} card={card} />
         ))}
@@ -459,15 +516,15 @@ export default function RelationshipIndicators({
 }: RelationshipIndicatorsProps) {
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center">
-        <Image
+      <header className="flex flex-col items-center text-center mt-5">
+        {/* <Image
           src="/assets/signatureReport/logo-main.png"
           alt="Astro Aarambh"
           width={96}
           height={96}
           className="mb-0.5"
           priority
-        />
+        /> */}
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
@@ -480,7 +537,7 @@ export default function RelationshipIndicators({
         >
           {subtitle}
         </p>
-        <HeaderDivider />
+        {/* <HeaderDivider /> */}
       </header>
 
       <RelationshipIndexSection
@@ -491,10 +548,12 @@ export default function RelationshipIndicators({
       />
 
       <p
-        className="relative z-10 mt-1.5 text-center text-[11px] font-nunito-sans"
-        style={{ color: COLORS.black, opacity: 0.9, fontFamily: BODY_SANS }}
+        className="max-w-[500px] mx-auto flex flex-row items-center justify-center relative z-10 mt-1 text-center text-[12px] leading-3 font-nunito-sans"
+        style={{ color: COLORS.black, opacity: 0.88 }}
       >
+        <Pattern3 size={32} />
         {introText}
+        <Pattern3 size={32} className="rotate-180" />
       </p>
 
       <RelationshipCardsSection cards={cards} />
