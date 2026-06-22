@@ -186,7 +186,7 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
         />
       </svg>
       <span
-        className="absolute bottom-[1px] text-[11px] font-bold leading-none"
+        className="absolute bottom-[8px] text-[15px] font-bold leading-none"
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -201,7 +201,7 @@ function CircularGauge({ percent, label }: { percent: number; label: string }) {
   const offset = circumference * (1 - percent / 100);
 
   return (
-    <div className="relative flex h-[58px] w-[58px] items-center justify-center">
+    <div className="relative flex h-[80px] w-[80px] items-center justify-center">
       <svg viewBox="0 0 58 58" className="h-full w-full -rotate-90" aria-hidden>
         <circle cx="29" cy="29" r={radius} fill="none" stroke="#F0E0C8" strokeWidth="5" />
         <circle
@@ -217,7 +217,7 @@ function CircularGauge({ percent, label }: { percent: number; label: string }) {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-[10px] font-bold leading-none" style={{ color: COLORS.brown }}>
+        <span className="text-[15px] font-bold leading-none" style={{ color: COLORS.brown }}>
           {label}
         </span>
       </div>
@@ -236,64 +236,67 @@ function ClientInfoSection({
 }) {
   return (
     <section
-      className="relative z-10 mx-auto mt-2 grid max-w-[560px] grid-cols-2 font-nunito-sans"
-      style={{
-        border: `1.5px solid ${COLORS.gold}`,
-        borderRadius: 8,
-        backgroundColor: "rgba(253, 245, 230, 0.65)",
-      }}
+      className="relative z-10 mx-auto font-nunito-sans"
     >
-      <Pattern3 size={34} className="absolute -left-1 -top-1 opacity-70" />
-      <Pattern3 size={34} className="absolute -right-1 -top-1 rotate-180 opacity-70" />
 
-      <div
-        className="flex items-center gap-2 border-r px-3 py-2.5"
-        style={{ borderColor: "rgba(184, 134, 11, 0.35)" }}
+      <div className="relative flex items-center justify-center px-8 py-2 bg-contain bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundSize: "60% 100%",
+          height: "100px",
+          backgroundPosition: "center",
+        }}
       >
         <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-          style={{ border: `1px solid ${COLORS.gold}` }}
+          className="flex items-center gap-2 border-r px-3 py-2.5"
+          style={{ borderColor: "rgba(184, 134, 11, 0.35)" }}
         >
-          <UserRound size={16} strokeWidth={1.25} style={{ color: COLORS.brown }} />
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+            style={{ border: `1px solid ${COLORS.gold}`, backgroundColor: COLORS.brown }}
+          >
+            <UserRound size={35} strokeWidth={1.25} style={{ color: COLORS.cream }} />
+          </div>
+          <div>
+            <p
+              className="text-[13px] font-bold tracking-[0.1em]"
+              style={{ color: COLORS.gold }}
+            >
+              FULL NAME
+            </p>
+            <p
+              className="text-[15px] italic leading-tight"
+              style={{ color: COLORS.brown, fontFamily: "Georgia, 'Times New Roman', serif" }}
+            >
+              {fullName}
+            </p>
+          </div>
         </div>
-        <div>
-          <p
-            className="text-[7px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.gold }}
+
+        <div className="flex items-center gap-2 px-3 py-2.5">
+          <div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+            style={{ border: `1px solid ${COLORS.gold}`, backgroundColor: COLORS.brown }}
           >
-            FULL NAME
-          </p>
-          <p
-            className="text-[12px] italic leading-tight"
-            style={{ color: COLORS.brown, fontFamily: "Georgia, 'Times New Roman', serif" }}
-          >
-            {fullName}
-          </p>
+            <Calendar size={35} strokeWidth={1.25} style={{ color: COLORS.cream }} />
+          </div>
+          <div>
+            <p
+              className="text-[13px] font-bold tracking-[0.1em]"
+              style={{ color: COLORS.gold }}
+            >
+              DATE OF BIRTH
+            </p>
+            <p className="text-[15px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
+              {birthDate}
+            </p>
+            <p className="text-[12px] leading-tight" style={{ color: COLORS.brown, opacity: 0.8 }}>
+              {birthDay}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-2 px-3 py-2.5">
-        <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-          style={{ border: `1px solid ${COLORS.gold}` }}
-        >
-          <Calendar size={16} strokeWidth={1.25} style={{ color: COLORS.brown }} />
-        </div>
-        <div>
-          <p
-            className="text-[7px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.gold }}
-          >
-            DATE OF BIRTH
-          </p>
-          <p className="text-[9px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
-            {birthDate}
-          </p>
-          <p className="text-[8px] leading-tight" style={{ color: COLORS.brown, opacity: 0.8 }}>
-            {birthDay}
-          </p>
-        </div>
-      </div>
     </section>
   );
 }
@@ -310,20 +313,17 @@ function AlignmentScoreSection({
   scoreLabel: string;
 }) {
   return (
-    <section className="relative z-10 mt-2 flex justify-center font-nunito-sans">
+    <section className="relative z-10 flex justify-center font-nunito-sans">
       <div
-        className="relative flex items-center justify-center px-8 py-4"
+        className="relative h-[190px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/assets/signatureReport/background-image.png')",
-          backgroundSize: "cover",
-          height: "168px",
-          width: "460px",
-          backgroundPosition: "center",
+          backgroundImage: "url('/assets/signatureReport/page-8-circle.png')",
         }}
       >
         <div className="flex flex-col items-center text-center">
+          <Image src="/assets/signatureReport/123Icone.png" alt="Numerology Score" width={45} height={45} className="shrink-0" />
           <p
-            className="text-[10px] font-bold tracking-[0.14em]"
+            className="text-[12px] max-w-[180px] text-center font-bold tracking-[0.14em]"
             style={{ color: COLORS.gold }}
           >
             NUMEROLOGY ALIGNMENT SCORE
@@ -334,16 +334,16 @@ function AlignmentScoreSection({
           >
             {score} / {maxScore}
           </p>
-          <PartialStarRating rating={starRating} size={12} />
+          <PartialStarRating rating={starRating} size={15} />
           <p
-            className="mt-1 text-[11px] font-semibold"
+            className="mt-1 text-[11px] max-w-[150px] font-semibold"
             style={{ color: COLORS.brown }}
           >
             {scoreLabel}
           </p>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
 
@@ -357,17 +357,17 @@ function NumerologyCardView({
   const isVibration = card.variant === "vibration";
 
   return (
-    <div className="relative flex h-[248px] w-full flex-col items-center bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat text-center">
+    <div className="relative flex h-[240px] w-[240px] flex-col items-center bg-[url('/assets/signatureReport/cardBG-2.png')] bg-cover bg-center bg-no-repeat text-center">
       <span
-        className="absolute left-1/2 top-0 z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
+        className="absolute left-1/2 top-[13px] z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full w-full flex-col items-center justify-between px-2 pb-2.5 pt-6">
+      <div className="flex h-full w-full flex-col items-center justify-between px-3 py-4 mt-5">
         <p
-          className="min-h-[26px] px-1 text-[8px] font-bold leading-[1.2] tracking-[0.03em]"
+          className="min-h-[26px] px-1 text-[13px] font-bold leading-[1.2] tracking-[0.03em]"
           style={{ color: COLORS.brown }}
         >
           {card.title}
@@ -376,10 +376,9 @@ function NumerologyCardView({
         <div className="flex w-full items-center justify-center gap-2 px-1">
           {!isVibration ? (
             <div
-              className="flex min-w-[52px] flex-col items-center rounded-md px-1.5 py-1"
+              className="flex w-17 h-15 flex-col items-center rounded-md px-1.5 py-1"
               style={{
                 border: `1px solid ${COLORS.gold}`,
-                backgroundColor: "rgba(253, 245, 230, 0.85)",
               }}
             >
               <span
@@ -389,7 +388,7 @@ function NumerologyCardView({
                 {card.valueLabel}
               </span>
               <span
-                className="text-[18px] font-bold leading-none"
+                className="text-[30px] font-bold leading-none"
                 style={{ color: COLORS.brown }}
               >
                 {card.value}
@@ -408,11 +407,11 @@ function NumerologyCardView({
         </div>
 
         <div
-          className="rounded-full px-2.5 py-0.5"
+          className="rounded-full min-w-[110px] px-5 h-5 flex items-center justify-center"
           style={{ backgroundColor: COLORS.gold }}
         >
           <span
-            className="text-[6.5px] font-bold tracking-[0.05em]"
+            className="text-[10px] font-bold tracking-[0.05em]"
             style={{ color: COLORS.cream }}
           >
             {card.statusBadge}
@@ -420,7 +419,7 @@ function NumerologyCardView({
         </div>
 
         <p
-          className="px-1 text-[8px] leading-snug"
+          className="px-1 text-[11px] font-nunito-sans leading-snug"
           style={{ color: COLORS.brown, opacity: 0.88 }}
         >
           {card.description}
@@ -438,62 +437,67 @@ function NumerologicalOverviewSection({
   overviewStarRating: number;
 }) {
   return (
-    <section
-      className="relative z-10 mt-2 px-3 py-3 font-nunito-sans"
-      style={{
-        border: `1.5px solid ${COLORS.gold}`,
-        borderRadius: 10,
-        backgroundColor: "rgba(253, 245, 230, 0.55)",
-      }}
-    >
-      <div className="flex items-center justify-center gap-2">
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-        <p
-          className="text-[11px] font-bold tracking-[0.1em]"
-          style={{ color: COLORS.brown }}
-        >
-          NUMEROLOGICAL ALIGNMENT OVERVIEW
-        </p>
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      </div>
-
-      <div className="mt-2 grid grid-cols-6 gap-1">
-        {cards.map((card) => {
-          const Icon = card.overviewIcon;
-          return (
-            <div key={card.title} className="flex flex-col items-center gap-1 px-0.5 text-center">
-              <div
-                className="flex h-8 w-8 items-center justify-center rounded-full"
-                style={{ border: `1px solid ${COLORS.gold}` }}
-              >
-                <Icon size={16} strokeWidth={1.25} style={{ color: COLORS.brown }} />
-              </div>
-              <p className="text-[6.5px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
-                {card.overviewLabel}
-              </p>
-              <PartialStarRating rating={overviewStarRating} size={8} />
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function NumerologyInterpretationSection({ text }: { text: string }) {
-  return (
-    <section className="relative z-10 mt-2 font-nunito-sans">
+    <section className="relative z-10 font-nunito-sans">
       <div
-        className="flex min-h-[92px] w-full items-center bg-no-repeat px-5 py-3"
+        className="flex flex-col w-full items-center bg-no-repeat px-5 py-2"
         style={{
           backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
-        <CoverLotus size={40} className="shrink-0" />
 
-        <div className="flex min-w-0 flex-1 flex-col items-center px-4">
+        <div className="flex items-center justify-center gap-2">
+          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+          <p
+            className="text-[11px] font-bold tracking-[0.1em]"
+            style={{ color: COLORS.brown }}
+          >
+            NUMEROLOGICAL ALIGNMENT OVERVIEW
+          </p>
+          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+        </div>
+
+        <div className="flex items-stretch justify-center px-1 w-full">
+          {cards.map((card, index) => {
+            const Icon = card.overviewIcon;
+            return (
+              <div key={card.title} className="flex flex-1 items-stretch">
+                {index > 0 ? (
+                  <span
+                    className="my-2 w-px shrink-0"
+                    style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
+                  />
+                ) : null}
+
+                <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
+                  <div
+                    className="flex h-8 w-8 items-center justify-center rounded-full"
+                  >
+                    <Icon size={45} strokeWidth={1.25} style={{ color: COLORS.brown }} />
+                  </div>
+                  <p className="text-[11px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
+                    {card.overviewLabel}
+                  </p>
+                  <PartialStarRating rating={overviewStarRating} size={11} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+    </section>
+  );
+}
+
+function NumerologyInterpretationSection({ text }: { text: string }) {
+  return (
+    <section className="relative z-10 font-nunito-sans">
+      <div className="flex min-h-[92px] w-full items-center bg-no-repeat px-5 py-3">
+        <Image src="/assets/signatureReport/lotusCircle.png" alt="Interpretation" width={100} height={100} className="shrink-0" />
+
+        <div className="flex min-w-0 flex-1 flex-col items-center px-1">
           <p
             className="text-[12px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
@@ -501,14 +505,14 @@ function NumerologyInterpretationSection({ text }: { text: string }) {
             NUMEROLOGY INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[10px] leading-relaxed"
+            className="mt-1 max-w-[550px] text-center text-[11px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
           >
             {text}
           </p>
         </div>
 
-        <CoverLotus size={40} className="shrink-0" />
+        <Image src="/assets/signatureReport/lotusCircle.png" alt="Interpretation" width={100} height={100} className="shrink-0" />
       </div>
     </section>
   );
@@ -531,15 +535,7 @@ export default function NumerologyView({
 }: NumerologyViewProps) {
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center">
-        <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={96}
-          height={96}
-          className="mb-0.5"
-          priority
-        />
+      <header className="flex flex-col items-center text-center mt-5">
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
@@ -552,7 +548,6 @@ export default function NumerologyView({
         >
           {subtitle}
         </p>
-        <HeaderDivider />
       </header>
 
       <ClientInfoSection fullName={fullName} birthDate={birthDate} birthDay={birthDay} />
@@ -564,7 +559,7 @@ export default function NumerologyView({
         scoreLabel={scoreLabel}
       />
 
-      <section className="relative z-10 mt-3 grid grid-cols-3 gap-1.5">
+      <section className="relative z-10 mt-1 grid grid-cols-3 gap-1.5">
         {cards.map((card, index) => (
           <NumerologyCardView key={card.title} index={index + 1} card={card} />
         ))}

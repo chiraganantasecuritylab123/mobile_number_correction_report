@@ -275,7 +275,7 @@ function FinancialIndicatorCardView({
 
 
         <p
-          className="px-1 text-[10px] leading-snug font-nunito-sans"
+          className="px-1 text-[11px] leading-snug font-nunito-sans"
           style={{ color: COLORS.brown, opacity: 0.88 }}
         >
           {card.description}
@@ -414,7 +414,7 @@ function FinancialInterpretationSection({ text }: { text: string }) {
             FINANCIAL INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[10px] leading-relaxed"
+            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
           >
             {text}
@@ -437,7 +437,6 @@ function FinancialTraitPills({ pills }: { pills: FinancialTraitPill[] }) {
             key={pill.label}
             className="flex items-center justify-center min-w-[120px] gap-1 rounded-full px-2.5 py-1"
             style={{
-              // backgroundColor: COLORS.cream,
               border: `1px solid ${COLORS.gold}`,
             }}
           >

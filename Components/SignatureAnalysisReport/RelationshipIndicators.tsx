@@ -52,8 +52,8 @@ const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
 const CARD_GOLD = "#C5A059";
 const CARD_GOLD_LIGHT = "#E8C872";
 const CARD_STATUS_BG = "#FAE6C1";
-const COMPACT_CARD_BG = "/assets/signatureReport/cardBG-190*250.png";
-const LARGE_CARD_BG = "/assets/signatureReport/cardBg-250*320.png";
+const COMPACT_CARD_BG = "/assets/signatureReport/cardBG-2.png";
+const LARGE_CARD_BG = "/assets/signatureReport/cardBG-1.png";
 
 const defaultCards: RelationshipIndicatorCard[] = [
   {
@@ -162,9 +162,8 @@ function SemiCircularGauge({
 
   return (
     <div
-      className={`relative flex items-end justify-center ${
-        compact ? "h-[48px] w-[80px]" : "h-[54px] w-[92px]"
-      }`}
+      className={`relative flex items-end justify-center ${compact ? "h-[48px] w-[80px]" : "h-[54px] w-[92px]"
+        }`}
     >
       <svg
         viewBox={compact ? "0 0 80 48" : "0 0 92 54"}
@@ -195,9 +194,8 @@ function SemiCircularGauge({
         />
       </svg>
       <span
-        className={`absolute font-bold leading-none ${
-          compact ? "bottom-[2px] text-[13px]" : "bottom-[2px] text-[15px]"
-        }`}
+        className={`absolute font-bold leading-none ${compact ? "bottom-[5px] text-[18px]" : "bottom-[5px] text-[18px]"
+          }`}
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -215,7 +213,7 @@ function RelationshipCardIcon({
   title: string;
   compact?: boolean;
 }) {
-  const iconSize = compact ? 32 : 38;
+  const iconSize = compact ? 35 : 38;
   const iconStyle = { color: CARD_GOLD, flexShrink: 0 };
 
   if (title.includes("TRUST")) {
@@ -249,37 +247,35 @@ function RelationshipIndicatorCardView({
 }) {
   return (
     <div
-      className={`relative flex shrink-0 flex-col items-center justify-between bg-cover bg-center bg-no-repeat text-center ${
-        compact ? "h-[190px] w-[240px]" : "h-[250px] w-[320px]"
-      }`}
+      className={`relative flex shrink-0 flex-col items-center justify-between bg-cover bg-center bg-no-repeat text-center ${compact ? "h-[230px] w-[240px]" : "h-[215px] w-[360px]"
+        }`}
       style={{
         backgroundImage: `url('${compact ? COMPACT_CARD_BG : LARGE_CARD_BG}')`,
       }}
     >
       <span
-        className={`absolute left-1/2 top-4 z-10 flex -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full font-bold ${
-          compact ? "h-8 w-8 text-[11px]" : "h-9 w-9 text-[11px]"
-        }`}
+        className={`absolute left-1/2 z-10 flex -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full font-bold ${compact ? "h-8 w-8 text-[11px] top-3" : "h-9 w-9 text-[11px] top-4"
+          }`}
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
       <div
-        className={`flex h-full w-full flex-col items-center justify-between px-2.5 ${
-          compact ? "pb-2.5 p-10" : "pb-3 p-10"
-        }`}
+        className={`flex h-full w-full flex-col items-center justify-between px-6 py-4`}
       >
-        <RelationshipCardIcon icon={card.icon} title={card.title} compact={compact} />
+        <div className={`flex items-center justify-center mt-5  ${compact ? "flex-col" : "flex-row"}`}>
 
-        <p
-          className={`px-1 font-bold leading-[1.25] tracking-[0.04em] ${
-            compact ? "text-[8px]" : "text-[10px]"
-          }`}
-          style={{ color: COLORS.brown }}
-        >
-          {card.title}
-        </p>
+          <RelationshipCardIcon icon={card.icon} title={card.title} compact={compact} />
+
+          <p
+            className={`px-1 font-bold tracking-[0.04em] ${compact ? "text-[13px]" : "text-[13px]"
+              }`}
+            style={{ color: COLORS.brown }}
+          >
+            {card.title}
+          </p>
+        </div>
 
         <SemiCircularGauge
           percent={card.percent}
@@ -288,14 +284,13 @@ function RelationshipIndicatorCardView({
         />
 
         <div
-          className={`rounded-full ${compact ? "px-2 py-0.5" : "px-3 py-0.5"}`}
+          className={`min-w-[90px] h-5 flex items-center justify-center rounded-full ${compact ? "px-0 py-0.5" : "px-0 py-0.5"}`}
           style={{
-            backgroundColor: CARD_STATUS_BG,
             border: `1px solid ${COLORS.brown}`,
           }}
         >
           <span
-            className={`font-bold tracking-[0.06em] ${compact ? "text-[7px]" : "text-[8px]"}`}
+            className={`font-bold tracking-[0.06em] text-[11px]`}
             style={{ color: COLORS.brown }}
           >
             {card.levelLabel}
@@ -303,8 +298,8 @@ function RelationshipIndicatorCardView({
         </div>
 
         <p
-          className={`px-1 leading-snug ${compact ? "text-[8px]" : "text-[9px]"}`}
-          style={{ color: COLORS.brown, opacity: 0.88 }}
+          className={`px-1 font-nunito-sans leading-snug text-[11px]`}
+          style={{ color: COLORS.black, opacity: 0.88 }}
         >
           {card.description}
         </p>
@@ -367,7 +362,7 @@ function RelationshipCardsSection({ cards }: { cards: RelationshipIndicatorCard[
   const bottomRow = cards.slice(3, 5);
 
   return (
-    <section className="relative z-10 mt-3 flex flex-col items-center gap-1.5">
+    <section className="relative z-10 mt-2 flex flex-col items-center gap-1.5">
       <div className="flex justify-between gap-1.5">
         {topRow.map((card, index) => (
           <RelationshipIndicatorCardView
@@ -395,43 +390,53 @@ function RelationshipBalanceOverviewSection({
   overviewStarRating?: number;
 }) {
   return (
-    <section
-      className="relative z-10 mt-2 px-3 py-3 font-nunito-sans"
-      style={{
-        border: `1.5px solid ${COLORS.gold}`,
-        borderRadius: 10,
-        backgroundColor: "rgba(253, 245, 230, 0.55)",
-      }}
-    >
-      <div className="flex items-center justify-center gap-2">
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-        <p
-          className="text-[11px] font-bold tracking-[0.1em]"
-          style={{ color: COLORS.brown }}
-        >
-          RELATIONSHIP BALANCE OVERVIEW
-        </p>
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      </div>
+    <section className="relative z-10 mt-2 font-nunito-sans">
+      <div
+        className="flex flex-col w-full items-center bg-no-repeat px-5 py-3"
+        style={{
+          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+        }}
+      >
 
-      <div className="mt-2 grid grid-cols-5 gap-1">
-        {cards.map((card) => {
-          const Icon = card.icon;
-          return (
-            <div key={card.title} className="flex flex-col items-center gap-1 px-1 text-center">
-              <div
-                className="flex h-8 w-8 items-center justify-center rounded-full"
-                style={{ border: `1px solid ${COLORS.gold}` }}
-              >
-                <Icon size={16} strokeWidth={1.25} style={{ color: COLORS.brown }} />
+        <div className="flex items-center justify-center gap-2">
+          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+          <p
+            className="text-[11px] font-bold tracking-[0.1em]"
+            style={{ color: COLORS.brown }}
+          >
+            RELATIONSHIP BALANCE OVERVIEW
+          </p>
+          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+        </div>
+
+        <div className="flex items-stretch justify-center px-1 w-full">
+          {cards.map((card, index) => {
+            const Icon = card.icon;
+            return (
+              <div key={card.title} className="flex flex-1 items-stretch">
+                {index > 0 ? (
+                  <span
+                    className="my-2 w-px shrink-0"
+                    style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
+                  />
+                ) : null}
+                <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
+                  <div
+                    className="flex h-8 w-8 items-center justify-center rounded-full"
+                  >
+                    <Icon size={45} strokeWidth={1.25} style={{ color: COLORS.gold }} />
+                  </div>
+                  <p className="text-[11px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
+                    {card.overviewLabel}
+                  </p>
+                  <PartialStarRating rating={overviewStarRating} size={11} />
+                </div>
               </div>
-              <p className="text-[7px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
-                {card.overviewLabel}
-              </p>
-              <PartialStarRating rating={overviewStarRating} size={9} />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -448,7 +453,8 @@ function RelationshipInterpretationSection({ text }: { text: string }) {
           backgroundPosition: "center",
         }}
       >
-        <HandHeart size={36} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} />
+
+        <Image src="/assets/signatureReport/heart.png" alt="Heart" width={70} height={64} aria-hidden />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
@@ -458,19 +464,15 @@ function RelationshipInterpretationSection({ text }: { text: string }) {
             RELATIONSHIP INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[10px] leading-relaxed"
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
           >
             {text}
           </p>
         </div>
 
-        <HeartHandshake
-          size={36}
-          strokeWidth={1.1}
-          className="shrink-0"
-          style={{ color: COLORS.gold }}
-        />
+        <Image src="/assets/signatureReport/heart-heand.png" alt="Heart Hand" width={70} height={64} aria-hidden />
+
       </div>
     </section>
   );
@@ -478,25 +480,43 @@ function RelationshipInterpretationSection({ text }: { text: string }) {
 
 function RelationshipTraitPills({ pills }: { pills: RelationshipTraitPill[] }) {
   return (
-    <section className="relative z-10 mt-2 flex flex-wrap items-center justify-center gap-1.5 px-1 font-nunito-sans">
-      {pills.map((pill) => {
-        const Icon = pill.icon;
-        return (
-          <div
-            key={pill.label}
-            className="flex items-center gap-1 rounded-full px-2.5 py-0.5"
-            style={{
-              backgroundColor: COLORS.cream,
-              border: `1px solid ${COLORS.gold}`,
-            }}
-          >
-            <Icon size={10} strokeWidth={1.25} style={{ color: COLORS.gold }} />
-            <span className="text-[8px] font-semibold" style={{ color: COLORS.brown }}>
-              {pill.label}
-            </span>
-          </div>
-        );
-      })}
+    <section className="relative z-10 mt-2 px-1 font-nunito-sans">
+      <div
+        className="flex w-full items-stretch overflow-hidden rounded-full"
+        style={{
+          border: `1px solid ${COLORS.gold}`,
+        }}
+      >
+        {pills.map((pill, index) => {
+          const Icon = pill.icon;
+          const isLast = index === pills.length - 1;
+
+          return (
+            <div
+              key={pill.label}
+              className="flex flex-1 items-center justify-center gap-1 px-1.5 py-2"
+              style={
+                isLast
+                  ? undefined
+                  : { borderRight: `1px dashed rgba(184, 134, 11, 0.55)` }
+              }
+            >
+              <Icon
+                size={25}
+                strokeWidth={1.25}
+                className="shrink-0"
+                style={{ color: COLORS.gold }}
+              />
+              <span
+                className="text-center text-[11px] font-semibold leading-tight"
+                style={{ color: COLORS.brown }}
+              >
+                {pill.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }
@@ -517,14 +537,6 @@ export default function RelationshipIndicators({
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
       <header className="flex flex-col items-center text-center mt-5">
-        {/* <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={96}
-          height={96}
-          className="mb-0.5"
-          priority
-        /> */}
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
@@ -537,7 +549,6 @@ export default function RelationshipIndicators({
         >
           {subtitle}
         </p>
-        {/* <HeaderDivider /> */}
       </header>
 
       <RelationshipIndexSection
