@@ -203,7 +203,7 @@ function AnalysisCard({
 }) {
   return (
     <div className="relative flex h-[270px] w-[200px] min-h-[270px] flex-col items-center bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat text-center">
-      <div className="flex h-full w-full flex-col items-center justify-center gap-1 p-4 font-nunito-sans">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-4 font-nunito-sans">
         <span
           className="absolute left-1/2 top-[5px] flex h-7 w-6 -translate-x-1/2 items-center justify-center text-[11px] font-bold"
           style={{ color: COLORS.cream }}
@@ -228,7 +228,7 @@ function AnalysisCard({
           }}
         >
           <span
-            className="text-[11px] font-semibold tracking-wide"
+            className=" flex items-center justify-center text-[11px] font-semibold tracking-wide"
             style={{ color: COLORS.brown }}
           >
             {card.valueLabel}
