@@ -355,7 +355,7 @@ function CareerIndicatorCard({
         </p>
 
         <p
-          className="px-1 leading-snug text-[10px]"
+          className="px-1 leading-snug text-[11px]"
           style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
