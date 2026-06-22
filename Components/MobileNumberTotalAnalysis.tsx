@@ -190,48 +190,9 @@ function getDigitGapTickX(digitCount: number, afterDigitIndex: number) {
 }
 
 function DigitRowBracket({ digitCount }: { digitCount: number }) {
-  const stroke = "rgba(92, 64, 51, 0.45)";
-  const baselineY = 10;
-  const leftX = 2;
-  const rightX = 98;
-  const centerX = 50;
-  const splitTickX = getDigitGapTickX(digitCount, Math.min(7, digitCount - 2));
-
   return (
-    <div className="relative mx-auto mt-1 h-6 w-full">
-      <svg className="h-full w-full" viewBox="0 0 100 22" fill="none" preserveAspectRatio="none" aria-hidden>
-        {/* Main horizontal line */}
-        <line x1={leftX} y1={baselineY} x2={rightX} y2={baselineY} stroke={stroke} strokeWidth="1" />
-
-        {/* Left bracket tick */}
-        <line x1={leftX} y1={baselineY} x2={leftX} y2={2} stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-
-        {/* Right bracket tick */}
-        <line x1={rightX} y1={baselineY} x2={rightX} y2={2} stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-
-        {/* Split tick between 8th and 9th digits */}
-        {digitCount >= 9 && (
-          <line
-            x1={splitTickX}
-            y1={baselineY}
-            x2={splitTickX}
-            y2={5}
-            stroke={stroke}
-            strokeWidth="1"
-            strokeLinecap="round"
-          />
-        )}
-
-        {/* Center downward arrow */}
-        <line x1={centerX} y1={baselineY} x2={centerX} y2={19} stroke={stroke} strokeWidth="1" />
-        <path
-          d={`M ${centerX - 2},16 L ${centerX},20 L ${centerX + 2},16`}
-          stroke={stroke}
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+    <div className="relative  mt-1 h-6 w-full flex justify-center items-center">
+      <Image src="/assets/line-effect.png" alt="" width={630} height={22} className="object-cover" aria-hidden />
     </div>
   );
 }

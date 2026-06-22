@@ -363,7 +363,7 @@ function EffectListCard({
             >
               <BulletIcon size={8} strokeWidth={3} color="#fff" />
             </span>
-            {item}
+            <span className="text-[9px] leading-snug text-black">{item}</span>
           </li>
         ))}
       </ul>
@@ -511,7 +511,10 @@ export default function OverAllVardict({
         <h1 className="text-[40px] font-bold leading-tight tracking-wide" style={{ color: COLORS.brown }}>
           OVERALL <span style={{ color: COLORS.red }}>VERDICT</span>
         </h1>
-        <p className="text-md italic font-nunito-sans" style={{ color: COLORS.brown, opacity: 0.85 }}>
+        <p
+          className="text-[13px]"
+          style={{ color: "#213247", opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}
+        >
           Summary of Your Current Mobile Number&apos;s Influence
         </p>
       </header>
@@ -521,11 +524,11 @@ export default function OverAllVardict({
         <MobileNumberCard details={mobileDetails} />
         <VerdictBadge verdict={verdict} />
         <div className="flex flex-col items-start justify-center">
-          {/* <Image src="/assets/cover/petten-page-13.png" alt="Scale" width={200} height={10} /> */}
-          <p className="text-[13px] flex items-start justify-start leading-6 text-black max-w-[200px] mx-auto">
-            {verdict.summaryDescription}
-          </p>
-          {/* <Image src="/assets/cover/petten-page-13.png" alt="Scale" width={200} height={10} /> */}
+          <GoldBox className="h-full min-h-[200px] p-3">
+            <p className="text-[13px] flex items-start justify-start leading-6 text-black max-w-[200px] mx-auto">
+              {verdict.summaryDescription}
+            </p>
+          </GoldBox>
         </div>
       </section>
 

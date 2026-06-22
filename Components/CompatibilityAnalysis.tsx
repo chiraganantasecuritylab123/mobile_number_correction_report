@@ -261,6 +261,73 @@ function SectionHeading({ index, title }: { index: string; title: string }) {
   );
 }
 
+function CurrentMobileNumberCard({
+  mobileNumber,
+  mobileRootTotal,
+  rulingPlanet,
+}: {
+  mobileNumber: string;
+  mobileRootTotal: string;
+  rulingPlanet: string;
+}) {
+  return (
+    <div
+      className="relative flex h-full min-h-[190px] flex-col items-center rounded-md px-3 py-3 text-center"
+      style={{
+        border: `1.5px solid ${GOLD_BORDER}`,
+        backgroundColor: "#ffffff",
+      }}
+    >
+      <p
+        className="text-[9px] font-bold tracking-wide"
+        style={{ color: SECTION_ORANGE, ...TEXT_UPPER }}
+      >
+        Current Mobile Number
+      </p>
+
+      <div
+        className="mt-2.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+        style={{ border: `1.5px solid ${SECTION_ORANGE}` }}
+      >
+        <Image
+          src={ASSETS.phone}
+          alt=""
+          width={ 72}
+          height={72}
+          className="object-contain"
+          aria-hidden
+        />
+      </div>
+
+      <p
+        className={`${cinzel.className} mt-2.5 text-[20px] font-bold leading-tight tracking-wide`}
+        style={{ color: NAVY }}
+      >
+        {mobileNumber}
+      </p>
+
+      <div className="w-full pt-3 text-left absolute left-10 bottom-3">
+        <p
+          className="text-[9px] font-semibold leading-snug"
+          style={{ color: NAVY, fontFamily: BODY_SANS }}
+        >
+          Mobile Root / Driver Total:{" "}
+          <span className="font-bold" style={{ color: SECTION_ORANGE }}>
+            {mobileRootTotal}
+          </span>
+        </p>
+        <p
+          className="mt-1 flex items-center gap-1 text-[7.5px] font-semibold"
+          style={{ color: NAVY, fontFamily: BODY_SANS }}
+        >
+          Ruling Planet: {rulingPlanet}
+          <Image src={ASSETS.sun} alt="" width={42} height={42} className="object-contain " aria-hidden />
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function QuickStatItem({ row, showConnector = false }: { row: QuickStatRow; showConnector?: boolean }) {
   const color = STATUS_COLORS[row.status];
 
@@ -290,7 +357,7 @@ function QuickStatItem({ row, showConnector = false }: { row: QuickStatRow; show
         </div>
         <div className="mt-1 flex items-center gap-1.5">
           <ProgressBar value={row.score} color={color} className="flex-1" height="h-[5px]" />
-          <span className="min-w-[22px] text-right text-[7.5px] font-bold" style={{ color }}>
+          <span className="min-w-[22px] text-right text-[14px] font-bold" style={{ color }}>
             {row.score}%
           </span>
         </div>
@@ -333,7 +400,7 @@ function BreakdownTableRow({
         </div>
       </td>
       <td className="px-3 py-2.5 align-middle">
-        <p className="text-[8.5px] font-bold" style={{ color, ...TEXT_UPPER }}>
+        <p className="text-[9px] font-bold" style={{ color, ...TEXT_UPPER }}>
           {row.statusLabel}
         </p>
         <StarRating rating={row.starRating} color={starColor} />
@@ -345,7 +412,7 @@ function BreakdownTableRow({
       </td>
       <td className="px-3 py-2.5 align-middle">
         <p
-          className="text-[8px] leading-snug"
+          className="text-[9px] leading-snug"
           style={{ color: COLORS.brown, opacity: 0.92, fontFamily: BODY_SANS }}
         >
           {row.keyReason}
@@ -378,13 +445,13 @@ function LifeAreaCardView({ area }: { area: LifeAreaCard }) {
         />
       </div>
       <p
-        className={`${cinzel.className} mt-1 text-center text-[9.5px] font-bold leading-tight`}
-        style={{ color: COLORS.brown, ...TEXT_UPPER }}
+        className={`${cinzel.className} mt-1 text-center text-[10px] font-nunito-sans font-bold leading-tight`}
+        style={{ color: NAVY, ...TEXT_UPPER }}
       >
         {area.title}
       </p>
       <p
-        className="mt-1 text-center text-[8px] font-bold"
+        className="mt-1 text-center text-[9px] font-bold"
         style={{ color, ...TEXT_UPPER }}
       >
         Rating: {area.ratingLabel}
@@ -394,8 +461,8 @@ function LifeAreaCardView({ area }: { area: LifeAreaCard }) {
       </div>
       <ProgressBar value={area.progress} color={color} className="mx-auto mt-1.5 w-[90%]" height="h-[5px]" />
       <p
-        className="mt-1.5 text-center text-[8.5px] leading-snug"
-        style={{ color: COLORS.brown, opacity: 0.9, fontFamily: BODY_SANS }}
+        className="mt-1.5 text-center text-[9px] leading-snug"
+        style={{ color: NAVY, opacity: 0.9, fontFamily: BODY_SANS }}
       >
         {area.description}
       </p>
@@ -500,51 +567,11 @@ export default function CompatibilityAnalysis({
       <section className={`relative z-10 mt-3.5 ${nunitoSans.className}`}>
         <div className="grid grid-cols-[1.05fr_0.9fr_1fr] items-stretch gap-2">
           {/* Left — current mobile number */}
-          <div
-            className="flex flex-col justify-center rounded-md px-3 py-2.5"
-            style={{
-              border: `1.5px solid ${GOLD_BORDER}`,
-              backgroundColor: CARD_BG,
-            }}
-          >
-            <p
-              className="text-[8px] font-bold tracking-wide"
-              style={{ color: SECTION_ORANGE, ...TEXT_UPPER }}
-            >
-              Current Mobile Number
-            </p>
-            <div className="mt-1.5 flex items-start gap-2.5">
-              <Image
-                src={ASSETS.phone}
-                alt=""
-                width={34}
-                height={34}
-                className="mt-0.5 shrink-0 object-contain"
-                aria-hidden
-              />
-              <div className="min-w-0">
-                <p
-                  className={`${cinzel.className} text-[17px] font-bold leading-tight tracking-wide`}
-                  style={{ color: COLORS.brown }}
-                >
-                  {mobileNumber}
-                </p>
-                <p
-                  className="mt-1.5 text-[7.5px] font-semibold leading-snug"
-                  style={{ color: COLORS.brown, fontFamily: BODY_SANS }}
-                >
-                  Mobile Root / Driver Total: {mobileRootTotal}
-                </p>
-                <p
-                  className="mt-0.5 flex items-center gap-1 text-[7.5px] font-bold"
-                  style={{ color: SECTION_ORANGE }}
-                >
-                  Ruling Planet: {rulingPlanet}
-                  <Image src={ASSETS.sun} alt="" width={12} height={12} className="object-contain" aria-hidden />
-                </p>
-              </div>
-            </div>
-          </div>
+          <CurrentMobileNumberCard
+            mobileNumber={mobileNumber}
+            mobileRootTotal={mobileRootTotal}
+            rulingPlanet={rulingPlanet}
+          />
 
           {/* Center — overall score gauge */}
           <div
@@ -637,7 +664,7 @@ export default function CompatibilityAnalysis({
           <div className="min-w-0 flex-1">
             <VerdictHeadline text={resolvedVerdictHeadline} highlight={resolvedVerdictHighlight} />
             <p
-              className="mt-1 text-[8px] leading-snug"
+              className="mt-1 text-[10px] leading-snug"
               style={{ color: COLORS.brown, opacity: 0.92, fontFamily: BODY_SANS }}
             >
               {verdictDescription}
@@ -646,11 +673,11 @@ export default function CompatibilityAnalysis({
               className="my-1.5 border-t border-dashed"
               style={{ borderColor: "rgba(184, 134, 11, 0.4)" }}
             />
-            <p className="text-[7.5px] leading-snug" style={{ fontFamily: BODY_SANS }}>
+            <p className="text-[9px] leading-snug" style={{ fontFamily: BODY_SANS }}>
               <span className="font-bold" style={{ color: STATUS_COLORS.good, ...TEXT_UPPER }}>
                 Recommendation:{" "}
               </span>
-              <span style={{ color: STATUS_COLORS.good }}>{recommendation}</span>
+              <span className="font-nunito-sans text-[9px]" style={{ color: STATUS_COLORS.good }}>{recommendation}</span>
             </p>
           </div>
         </div>
