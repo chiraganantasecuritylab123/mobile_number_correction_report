@@ -4,6 +4,7 @@ import PressureStrokeAnalysis from "@/Components/SignatureAnalysisReport/Pressur
 import SignatureGeometryAnalysis from "@/Components/SignatureAnalysisReport/SignatureGeometryAnalysis";
 import WritingStyleAnalysis from "@/Components/SignatureAnalysisReport/WritingStyleAnalysis";
 import EndingStrokeAnalysis from "@/Components/SignatureAnalysisReport/EndingStrokeAnalysis";
+import CareerIndicators from "@/Components/SignatureAnalysisReport/CareerIndicators";
 
 export default function SignatureReportPage() {
   return (
@@ -16,6 +17,7 @@ export default function SignatureReportPage() {
       <PressureStrokeAnalysis /> {/* 6 */}
       <SignatureGeometryAnalysis /> {/* 7 */}
       <EndingStrokeAnalysis /> {/* 8 */}
+      <CareerIndicators /> {/* 10 */}
     </ReportHomeClient>
   );
 }
