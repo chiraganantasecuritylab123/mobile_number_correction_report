@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
+import { Pattern3 } from "../CommunComponents";
 
 export type FinancialStatusLabel = "STRONG" | "GOOD" | "EXCELLENT";
 
@@ -189,7 +190,7 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
         />
       </svg>
       <span
-        className="absolute bottom-[2px] text-[13px] font-bold leading-none"
+        className="absolute bottom-[5px] text-[19px] font-bold leading-none"
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -204,9 +205,9 @@ function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: str
   if (title.includes("STABILITY")) {
     return (
       <div className="relative flex h-12 w-12 items-center justify-center">
-        <Shield size={38} strokeWidth={1.15} style={iconStyle} aria-hidden />
+        <Shield size={45} strokeWidth={1.15} style={iconStyle} aria-hidden />
         <IndianRupee
-          size={14}
+          size={16}
           strokeWidth={1.5}
           className="absolute"
           style={{ color: COLORS.brown }}
@@ -219,7 +220,7 @@ function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: str
   if (title.includes("WEALTH ATTRACTION")) {
     return (
       <div className="relative flex h-12 w-12 items-center justify-center">
-        <Magnet size={38} strokeWidth={1.15} style={iconStyle} aria-hidden />
+        <Magnet size={45} strokeWidth={1.15} style={iconStyle} aria-hidden />
         <IndianRupee
           size={13}
           strokeWidth={1.5}
@@ -231,7 +232,7 @@ function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: str
     );
   }
 
-  return <Icon size={38} strokeWidth={1.15} style={iconStyle} aria-hidden />;
+  return <Icon size={45} strokeWidth={1.15} style={iconStyle} aria-hidden />;
 }
 
 function FinancialIndicatorCardView({
@@ -242,19 +243,19 @@ function FinancialIndicatorCardView({
   card: FinancialIndicatorCard;
 }) {
   return (
-    <div className="relative flex h-[292px] w-full flex-col items-center bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat text-center">
+    <div className="relative flex h-[320px] w-full flex-col items-center bg-[url('/assets/signatureReport/CradBG.png')] bg-cover bg-center bg-no-repeat text-center">
       <span
-        className="absolute left-1/2 top-0 z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
+        className="absolute left-1/2 top-4 z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full w-full flex-col items-center justify-between px-2.5 pb-3 pt-6">
+      <div className="flex h-full w-full flex-col items-center justify-between px-2.5 p-10 gap-1">
         <FinancialCardIcon icon={card.icon} title={card.title} />
 
         <p
-          className="px-1 text-[9px] font-bold leading-[1.25] tracking-[0.04em]"
+          className="px-1 text-[14px] font-bold leading-[1.25] tracking-[0.04em]"
           style={{ color: COLORS.brown }}
         >
           {card.title}
@@ -262,20 +263,19 @@ function FinancialIndicatorCardView({
 
         <SemiCircularGauge percent={card.percent} gaugeId={`financial-gauge-${index}`} />
 
-        <div
-          className="rounded-full px-3 py-0.5"
+        <p
+          className="min-w-[100px] text-[10px] font-bold flex items-center justify-center rounded-full px-1 py-0.5"
           style={{
-            backgroundColor: CARD_STATUS_BG,
-            border: `1px solid ${COLORS.brown}`,
+            backgroundColor: COLORS.cream,
+            border: `1px solid ${COLORS.gold}`,
           }}
         >
-          <span className="text-[8px] font-bold tracking-[0.06em]" style={{ color: COLORS.brown }}>
-            {card.statusLabel}
-          </span>
-        </div>
+          {card.statusLabel}
+        </p>
+
 
         <p
-          className="px-1 text-[9px] leading-snug"
+          className="px-1 text-[11px] leading-snug font-nunito-sans"
           style={{ color: COLORS.brown, opacity: 0.88 }}
         >
           {card.description}
@@ -297,25 +297,21 @@ function FinancialPotentialScoreSection({
   scoreLabel: string;
 }) {
   return (
-    <section className="relative z-10 flex justify-center font-nunito-sans">
+    <section className="relative z-10 flex justify-center font-nunito-sans mt-3">
       <div
-        className="relative flex items-center justify-center px-8 py-4"
+        className="relative h-[220px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/assets/signatureReport/background-image.png')",
-          backgroundSize: "cover",
-          height: "168px",
-          width: "460px",
-          backgroundPosition: "center",
+          backgroundImage: "url('/assets/signatureReport/page-8-circle.png')",
         }}
       >
         <IndianRupee
-          size={16}
+          size={36}
           strokeWidth={1.5}
           className="absolute top-3"
           style={{ color: COLORS.gold }}
           aria-hidden
         />
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center gap-2">
           <p
             className="text-[10px] font-bold tracking-[0.14em]"
             style={{ color: COLORS.gold }}
@@ -326,11 +322,11 @@ function FinancialPotentialScoreSection({
             className="mt-0.5 text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            {score} / {maxScore}
+            <span className="text-[32px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
           </p>
           <StarRating count={starRating} />
           <p
-            className="mt-1 text-[11px] font-semibold"
+            className="mt-1 text-[12px] font-semibold"
             style={{ color: COLORS.brown }}
           >
             {scoreLabel}
@@ -344,43 +340,54 @@ function FinancialPotentialScoreSection({
 function FinancialOverviewSection({ cards }: { cards: FinancialIndicatorCard[] }) {
   return (
     <section
-      className="relative z-10 mt-2 px-3 py-3 font-nunito-sans"
-      style={{
-        border: `1.5px solid ${COLORS.gold}`,
-        borderRadius: 10,
-        backgroundColor: "rgba(253, 245, 230, 0.55)",
-      }}
+      className="relative z-10 font-nunito-sans"
     >
-      <div className="flex items-center justify-center gap-2">
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-        <p
-          className="text-[11px] font-bold tracking-[0.1em]"
-          style={{ color: COLORS.brown }}
-        >
-          FINANCIAL OVERVIEW
-        </p>
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+      <div
+        className="flex flex-col w-full items-center bg-no-repeat px-5 py-3"
+        style={{
+          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+        }}
+      >
+
+        <div className="flex items-center justify-center gap-2">
+          <Pattern3 size={28} />
+          <p
+            className="text-[15px] font-bold tracking-[0.1em]"
+            style={{ color: COLORS.brown }}
+          >
+            FINANCIAL OVERVIEW
+          </p>
+          <Pattern3 size={28} />
+        </div>
+
+        <div className="flex items-stretch justify-center px-1 w-full">
+          {cards.map((card, index) => {
+            const Icon = card.icon;
+            return (
+              <div key={card.title} className="flex flex-1 items-stretch">
+                {index > 0 ? (
+                  <span
+                    className="my-2 w-px shrink-0"
+                    style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
+                  />
+                ) : null}
+                <div
+                  className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2"
+                >
+                  <Icon size={50} strokeWidth={1.25} style={{ color: COLORS.gold }} />
+                  <p className="text-[12px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
+                    {card.overviewLabel}
+                  </p>
+                  <PartialStarRating rating={percentToStarRating(card.percent)} size={12} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="mt-2 grid grid-cols-5 gap-1">
-        {cards.map((card) => {
-          const Icon = card.icon;
-          return (
-            <div key={card.title} className="flex flex-col items-center gap-1 px-1 text-center">
-              <div
-                className="flex h-8 w-8 items-center justify-center rounded-full"
-                style={{ border: `1px solid ${COLORS.gold}` }}
-              >
-                <Icon size={16} strokeWidth={1.25} style={{ color: COLORS.brown }} />
-              </div>
-              <p className="text-[7px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
-                {card.overviewLabel}
-              </p>
-              <PartialStarRating rating={percentToStarRating(card.percent)} size={9} />
-            </div>
-          );
-        })}
-      </div>
     </section>
   );
 }
@@ -396,7 +403,8 @@ function FinancialInterpretationSection({ text }: { text: string }) {
           backgroundPosition: "center",
         }}
       >
-        <Coins size={36} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} />
+        {/* <Coins size={36} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} /> */}
+        <Image src="/assets/signatureReport/ruppesGullak.png" alt="Building" width={100} height={64} aria-hidden />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
@@ -406,14 +414,14 @@ function FinancialInterpretationSection({ text }: { text: string }) {
             FINANCIAL INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[10px] leading-relaxed"
+            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
           >
             {text}
           </p>
         </div>
 
-        <Coins size={36} strokeWidth={1.1} className="shrink-0 scale-x-[-1]" style={{ color: COLORS.gold }} />
+        <Image src="/assets/signatureReport/ruppesGullak.png" alt="Building" width={100} height={64} aria-hidden />
       </div>
     </section>
   );
@@ -421,20 +429,19 @@ function FinancialInterpretationSection({ text }: { text: string }) {
 
 function FinancialTraitPills({ pills }: { pills: FinancialTraitPill[] }) {
   return (
-    <section className="relative z-10 mt-2 flex flex-wrap items-center justify-center gap-1.5 px-1 font-nunito-sans">
+    <section className="relative z-10 mt-2 flex flex-wrap items-center justify-center gap-5 px-1 font-nunito-sans">
       {pills.map((pill) => {
         const Icon = pill.icon;
         return (
           <div
             key={pill.label}
-            className="flex items-center gap-1 rounded-full px-2.5 py-0.5"
+            className="flex items-center justify-center min-w-[120px] gap-1 rounded-full px-2.5 py-1"
             style={{
-              backgroundColor: COLORS.cream,
               border: `1px solid ${COLORS.gold}`,
             }}
           >
-            <Icon size={10} strokeWidth={1.25} style={{ color: COLORS.gold }} />
-            <span className="text-[8px] font-semibold" style={{ color: COLORS.brown }}>
+            <Icon size={25} strokeWidth={1.25} style={{ color: COLORS.gold }} />
+            <span className="text-[12px] font-semibold" style={{ color: COLORS.brown }}>
               {pill.label}
             </span>
           </div>

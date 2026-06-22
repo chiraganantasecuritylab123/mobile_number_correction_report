@@ -31,9 +31,11 @@ export default function SignatureReportPageShell({
   height = PAGE_HEIGHT,
   padding = "50px 40px 36px",
   style,
+  pageNumber,
 }: ReportPageShellProps) {
   return (
     <article
+      id={pageNumber ?? ""}
       className="relative mx-auto overflow-hidden shadow-xl bg-[url('/assets/signatureReport/signature-cover-page.png')] bg-cover bg-center bg-no-repeat font-cinzel"
       style={{
         width,
