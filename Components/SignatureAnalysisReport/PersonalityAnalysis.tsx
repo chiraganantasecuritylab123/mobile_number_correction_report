@@ -389,7 +389,7 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
 // ─── Main export ──────────────────────────────────────────────────────────────
 
 export default function PersonalityAnalysis({
-  pageNumber = "05",
+  pageNumber = "02",
   title = "PERSONALITY ANALYSIS",
   subtitle = "What Your Signature Reveals About Your Inner Personality",
   profileScore = 8.7,

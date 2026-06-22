@@ -23,22 +23,22 @@ export default function SignatureReportPage() {
       reportDescription="Graphology insights and signature vibration analysis"
     >
 
-      <SignatureAnalysisReport /> {/* 1 */}
-      <PersonalityAnalysis /> {/* 2 */}
-      <SignatureStructureAnalysis /> {/* 3 */}
-      <DirectionAlignmentAnalysis /> {/* 4 */}
-      <WritingStyleAnalysis /> {/* 5 */}
-      <PressureStrokeAnalysis /> {/* 6 */}
-      <SignatureGeometryAnalysis /> {/* 7 */}
-      <EndingStrokeAnalysis /> {/* 8 */}
-      <CareerIndicators /> {/* 10 */}
-      <PersonalityIndicators /> {/* 9 */}
-      <FinancialIndicators /> {/* 11 */}
-      <RelationshipIndicators /> {/* 12 */}
-      <NumerologyView /> {/* 13 */}
-      <SignatureImprovement /> {/* 14 */}
-      <ScoringSystem /> {/* 15 */}
-      <Summary /> {/* 16 */}
+      <SignatureAnalysisReport  /> {/* 1 */}
+      <PersonalityAnalysis pageNumber='02' /> {/* 2 */}
+      <SignatureStructureAnalysis pageNumber='03' /> {/* 3 */}
+      <DirectionAlignmentAnalysis pageNumber='04' /> {/* 4 */}
+      <WritingStyleAnalysis pageNumber='05' /> {/* 5 */}
+      <PressureStrokeAnalysis pageNumber='06' /> {/* 6 */}
+      <SignatureGeometryAnalysis pageNumber='07' /> {/* 7 */}
+      <EndingStrokeAnalysis pageNumber='08' /> {/* 8 */}
+      <PersonalityIndicators pageNumber='09' /> {/* 9 */}
+      <CareerIndicators pageNumber='10' /> {/* 10 */}
+      <FinancialIndicators pageNumber='11' /> {/* 11 */}
+      <RelationshipIndicators pageNumber='12' /> {/* 12 */}
+      <NumerologyView pageNumber='13' /> {/* 13 */}
+      <SignatureImprovement pageNumber='14' /> {/* 14 */}
+      <ScoringSystem pageNumber='15' /> {/* 15 */}
+      <Summary pageNumber='16' /> {/* 16 */}
     </ReportHomeClient>
   );
 }

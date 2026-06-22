@@ -613,7 +613,7 @@ import {
   // ─── main export ──────────────────────────────────────────────────────────────
   
   export default function SignatureStructureAnalysis({
-    pageNumber = "02",
+    pageNumber = "03",
     title = "SIGNATURE STRUCTURE ANALYSIS",
     subtitle = "Decoding the Architectural Framework of Your Signature",
     structureScore = 86,

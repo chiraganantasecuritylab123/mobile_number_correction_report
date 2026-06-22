@@ -371,7 +371,7 @@ function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
 }
 
 export default function DirectionAlignmentAnalysis({
-  pageNumber = "03",
+  pageNumber = "04",
   title = "DIRECTION & ALIGNMENT ANALYSIS",
   subtitle = "Understanding the Direction of Your Energy & Focus",
   cards = defaultCards,
@@ -379,7 +379,7 @@ export default function DirectionAlignmentAnalysis({
   expertGraphologyInsight = "The direction and alignment of your signature reveal how you navigate life's path. Your signature reflects determination, balance, and a naturally positive outlook towards growth and success.",
 }: DirectionAlignmentAnalysisProps) {
   return (
-    <SignatureReportPageShell padding="20px 40px 28px">
+    <SignatureReportPageShell padding="20px 40px 28px" pageNumber={pageNumber}>
       <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/signatureReport/logo-main.png"

@@ -381,7 +381,7 @@ function TraitsFooter({ traits }: { traits: PressureStrokeTrait[] }) {
 }
 
 export default function PressureStrokeAnalysis({
-  pageNumber = "05",
+  pageNumber = "06",
   title = "PRESSURE & STROKE ANALYSIS",
   subtitle = "Understanding The Strength Behind Your Signature",
   intro = "The pressure and strokes in your signature reveal your energy, determination, and inner drive.",

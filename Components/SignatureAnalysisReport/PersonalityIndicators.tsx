@@ -342,7 +342,14 @@ function CorePersonalitySummarySection({
           backgroundPosition: "center",
         }}
       >
-        <Feather size={32} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} />
+        <Image
+          src="/assets/signatureReport/page-8-image.png"
+          alt=""
+          width={90}
+          height={90}
+          className="shrink-0 object-contain"
+          aria-hidden
+        />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
@@ -359,7 +366,14 @@ function CorePersonalitySummarySection({
           </p>
         </div>
 
-        <Feather size={32} strokeWidth={1.1} className="shrink-0 scale-x-[-1]" style={{ color: COLORS.gold }} />
+        <Image
+          src="/assets/signatureReport/page-8-image.png"
+          alt=""
+          width={90}
+          height={90}
+          className="shrink-0 object-contain"
+          aria-hidden
+        />
       </div>
 
       <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5 px-1">

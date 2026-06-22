@@ -320,7 +320,7 @@ function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
 }
 
 export default function WritingStyleAnalysis({
-  pageNumber = "04",
+  pageNumber = "05",
   title = "WRITING STYLE ANALYSIS",
   subtitle = "Exploring The Unique Style of Your Signature Expression",
   cards = defaultCards,
