@@ -232,7 +232,7 @@ function CardTypeIcon({ type }: { type: GeometryCardType }) {
 function LabeledProgressBar({ label, percent }: { label: string; percent: number }) {
   return (
     <div className="w-full">
-      <div className="mb-0.5 flex items-center justify-between text-[8px] font-bold gap-2">
+      <div className="mb-0.5 flex items-center justify-between text-[9px] font-bold gap-2">
         <span style={{ color: COLORS.brown }}>{label}</span>
         <div
           className="h-2.5 w-full overflow-hidden rounded-full"
@@ -361,7 +361,7 @@ function AnalysisCard({
         <OrnamentalDivider />
 
         <p
-          className="text-center text-[12px] font-bold leading-tight"
+          className="text-center text-[13px] font-bold leading-tight"
           style={{ color: COLORS.brown }}
         >
           {card.valueLabel}
@@ -372,7 +372,7 @@ function AnalysisCard({
             <SimpleDivider />
             {card.description ? (
               <p
-                className="px-1 text-center text-[12px] leading-snug"
+                className="px-1 text-center text-[14px] leading-snug"
                 style={{ color: COLORS.black, opacity: 0.82 }}
               >
                 {card.description}
@@ -386,7 +386,7 @@ function AnalysisCard({
             </div>
             {card.description ? (
               <p
-                className="mt-1 px-1 text-center text-[12px] leading-snug"
+                className="mt-1 px-1 text-center text-[14px] leading-snug"
                 style={{ color: COLORS.black, opacity: 0.82 }}
               >
                 {card.description}
@@ -414,13 +414,13 @@ function GeometricInterpretationSection({ text }: { text: string }) {
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
-            className="text-[13px] font-bold tracking-[0.1em]"
+            className="text-[14px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             GEOMETRIC INTERPRETATION
           </p>
           <p
-            className="max-w-[520px] text-center text-[11px] leading-relaxed"
+            className="max-w-[520px] text-center text-[13px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88 }}
           >
             {text}
@@ -481,13 +481,13 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
 
         <div className="min-w-0 flex flex-col items-start justify-center">
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.goldLight }}
           >
             GRAPHOLOGY EXPERT OBSERVATION
           </p>
           <p
-            className="mt-1 text-[10px] leading-relaxed"
+            className="mt-1 text-[12px] leading-relaxed"
             style={{ color: COLORS.cream, opacity: 0.95 }}
           >
             {observation}

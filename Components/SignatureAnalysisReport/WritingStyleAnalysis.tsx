@@ -133,7 +133,7 @@ function CardIconGraphic({ icon }: { icon: WritingStyleIcon }) {
 
   return (
     <div
-      className="flex h-[55px] w-[55px] items-center justify-center rounded-full"
+      className="flex h-[50px] w-[50px] items-center justify-center rounded-full"
       style={{
         border: `1.5px dashed ${COLORS.gold}`,
       }}
@@ -179,8 +179,8 @@ function AnalysisCard({
           }}
         >
           <span
-            className="text-[11px] font-semibold tracking-wide"
-            style={{ color: COLORS.brown, fontFamily: BODY_SANS }}
+            className="text-[12px] font-semibold tracking-wide font-nunito-sans"
+            style={{ color: COLORS.brown }}
           >
             {card.valueLabel}
           </span>
@@ -189,8 +189,8 @@ function AnalysisCard({
         {/* <CardTitleDivider /> */}
 
         <p
-          className="px-2 text-[12px] leading-snug"
-          style={{ color: COLORS.black, opacity: 0.82, fontFamily: BODY_SANS }}
+          className="px-2 text-[14px] leading-snug font-nunito-sans"
+          style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
         </p>
@@ -239,8 +239,8 @@ function OverallWritingStyleInsightSection({ insight }: { insight: string }) {
           </p>
           <OverallInsightDivider />
           <p
-            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+            className="mt-1 max-w-[520px] text-center text-[13px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.black, opacity: 0.88 }}
           >
             {insight}
           </p>
@@ -293,14 +293,14 @@ function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
 
         <div className="min-w-0 flex-1">
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[14px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.goldLight }}
           >
             EXPERT GRAPHOLOGY INSIGHT
           </p>
           <p
-            className="mt-1.5 text-[10px] leading-relaxed"
-            style={{ color: COLORS.cream, fontFamily: BODY_SANS, opacity: 0.95 }}
+            className="mt-1.5 text-[13px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.cream, opacity: 0.95 }}
           >
             {insight}
           </p>
@@ -329,7 +329,8 @@ export default function WritingStyleAnalysis({
 }: WritingStyleAnalysisProps) {
   return (
     <SignatureReportPageShell padding="20px 40px 28px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center">
+      <div className="font-nunito-sans">
+        <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/signatureReport/logo-main.png"
           alt="Astro Aarambh"
@@ -339,14 +340,14 @@ export default function WritingStyleAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[32px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[32px] font-bold leading-tight tracking-[0.06em] font-cinzel"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
         <p
           className="mt-0.5 max-w-[520px] text-[17px]"
-          style={{ color: COLORS.black, opacity: 0.85, fontFamily: BODY_SANS }}
+          style={{ color: COLORS.black, opacity: 0.85 }}
         >
           {subtitle}
         </p>
@@ -362,6 +363,7 @@ export default function WritingStyleAnalysis({
       <OverallWritingStyleInsightSection insight={overallWritingStyleInsight} />
 
       <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
+    </div>
     </SignatureReportPageShell>
   );
 }

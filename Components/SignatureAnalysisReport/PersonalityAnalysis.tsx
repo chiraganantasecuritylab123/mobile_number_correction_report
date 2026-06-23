@@ -157,10 +157,12 @@ function ProfileScoreSection({
       >
         <div className="flex flex-col items-center text-center">
           <p
-            className="text-[11px] font-bold tracking-[0.14em]"
+            className="text-[14px] font-bold tracking-[0.14em]"
             style={{ color: COLORS.gold }}
           >
-            PERSONALITY PROFILE
+            PERSONALITY
+            <br />
+            PROFILE
           </p>
           <p
             className="mt-0.5 text-[28px] font-bold leading-none"
@@ -170,7 +172,7 @@ function ProfileScoreSection({
           </p>
           <StarRating count={starRating} />
           <p
-            className="mt-1 text-[12px] font-semibold"
+            className="mt-1 text-[14px] font-bold"
             style={{ color: COLORS.brown }}
           >
             {personalityLabel}
@@ -202,6 +204,30 @@ function SimpleDivider() {
   );
 }
 
+const ASSETS = {
+  pattern2: "/assets/cover/pattern-2.png",
+} as const;
+
+function OrnamentDivider({ width = 220, lotusSize = 0 }: { width?: number; lotusSize?: number }) {
+  return (
+    <div className="relative flex items-center justify-center" style={{ width }}>
+      <Image
+        src={ASSETS.pattern2}
+        alt=""
+        width={width}
+        height={Math.round(width * 0.12)}
+        className="h-auto w-full object-contain"
+        aria-hidden
+      />
+      {lotusSize > 0 ? (
+        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-[#f4e7c9] px-1">
+          {/* <LotusGlyph size={lotusSize} /> */}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function PersonalityCard({
   index,
   card,
@@ -212,16 +238,16 @@ function PersonalityCard({
   return (
     <div className="relative flex h-[179px] w-[229px] flex-col bg-[url('/assets/signatureReport/card-bg.png')] bg-cover bg-center bg-no-repeat">
       <span className="absolute left-1/2 top-[6px] z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[35%] items-center justify-center rounded-full text-[11px] font-bold text-white"
-      style={{ backgroundColor: COLORS.brown }}
+        style={{ backgroundColor: COLORS.brown }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full flex-col justify-center px-8 pb-2.5  font-nunito-sans">
+      <div className="flex h-full flex-col justify-center px-8 pb-2.5 mt-4.5 font-nunito-sans">
         <div className="flex items-center justify-center gap-2  py-1">
           {card.icon}
           <p
-            className="text-left text-[14px] font-bold mb-3leading-tight tracking-[0.04em] font-weight-bold"
+            className="text-left text-[14px] font-cinzel font-bold leading-tight tracking-[0.04em]"
             style={{ color: COLORS.brown }}
           >
             {card.title}
@@ -231,18 +257,17 @@ function PersonalityCard({
         {/* <OrnamentalDivider /> */}
 
         <p
-          className="text-center text-[12px] font-bold leading-tight uppercase"
+          className="text-center text-[12px] mr-2 font-bold leading-tight"
           style={{ color: COLORS.gold }}
         >
           {card.valueLabel}
         </p>
-
-        <SimpleDivider />
+        <OrnamentDivider width={160} />
 
         {card.description ? (
           <p
-            className=" px-1 text-center text-[12px] leading-snug"
-            style={{ color: COLORS.black, opacity: 0.82 }}
+            className="px-1 text-center text-[13px] leading-snug font-nunito-sans"
+            style={{ color: COLORS.black }}
           >
             {card.description}
           </p>
@@ -252,7 +277,7 @@ function PersonalityCard({
   );
 }
 
-function CorePersonalitySummary({ text }: { text: string }) {
+function  CorePersonalitySummary({ text }: { text: string }) {
   return (
     <section className="relative z-10 flex justify-center font-nunito-sans">
       <div
@@ -266,16 +291,24 @@ function CorePersonalitySummary({ text }: { text: string }) {
         <CoverLotus size={80} className="shrink-0" />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-5">
-          <p
-            className="text-[14px] font-bold tracking-[0.12em]"
-            style={{ color: COLORS.brown }}
-          >
-            CORE PERSONALITY SUMMARY
-          </p>
+          <div className="flex items-center justify-center gap-3">
+            <OrnamentDivider width={130} />
+
+            <p
+              className="text-[14px] font-cinzel font-bold tracking-[0.12em] whitespace-nowrap"
+              style={{ color: COLORS.brown }}
+            >
+              CORE PERSONALITY SUMMARY
+            </p>
+
+            <div className="rotate-180">
+              <OrnamentDivider width={130} />
+            </div>
+          </div>
           {/* <OverallInsightDivider /> */}
           <p
             className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88 }}
+            style={{ color: COLORS.black , fontFamily: "var(--font-nunito-sans), sans-serif"}}
           >
             {text}
           </p>
@@ -291,47 +324,54 @@ function StrengthPills({ strengths }: { strengths: PersonalityStrength[] }) {
   return (
 
     <section className="relative z-10 mt-2 flex flex-col items-center gap-2 px-1 font-nunito-sans">
-  <p
-    className="text-[14px] font-bold tracking-[0.12em]"
-    style={{ color: COLORS.brown }}
-  >
-    PERSONALITY STRENGTHS
-  </p>
+     <div className="flex items-center justify-center gap-3">
+            <OrnamentDivider width={130} />
 
-  <div className="flex flex-wrap items-center justify-center gap-2">
-    {strengths.map((strength) => {
-      const Icon = strength.icon;
-      return (
-        <div
-          key={strength.label}
-          className="flex items-center gap-1 rounded-full px-2.5 py-1"
-          style={{
-            backgroundColor: COLORS.cream,
-            border: `1px solid ${COLORS.gold}`,
-          }}
-        >
-          <Icon
-            size={12}
-            strokeWidth={1.25}
-            style={{ color: COLORS.gold }}
-          />
-          <span
-            className="text-[9px] font-semibold"
-            style={{ color: COLORS.brown }}
-          >
-            {strength.label}
-          </span>
-        </div>
-      );
-    })}
-  </div>
-</section>
+            <p
+              className="text-[14px] font-cinzel font-bold tracking-[0.12em] whitespace-nowrap"
+              style={{ color: COLORS.brown }}
+            >
+              PERSONALITY STRENGTHS
+            </p>
+
+            <div className="rotate-180">
+              <OrnamentDivider width={130} />
+            </div>
+          </div>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {strengths.map((strength) => {
+          const Icon = strength.icon;
+          return (
+            <div
+              key={strength.label}
+              className="flex items-center gap-1 rounded-full px-2.5 py-1"
+              style={{
+                backgroundColor: COLORS.cream,
+                border: `1px solid ${COLORS.gold}`,
+              }}
+            >
+              <Icon
+                size={18}
+                strokeWidth={1.25}
+                style={{ color: COLORS.gold }}
+              />
+              <span
+                className="text-[12px] font-semibold"
+                style={{ color: COLORS.brown }}
+              >
+                {strength.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
 function ExpertObservationFooter({ observation }: { observation: string }) {
   return (
-  
+
 
     <footer className="relative z-10 mt-1">
       <div
@@ -359,15 +399,19 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
         </div>
 
         <div className="min-w-0 flex-1">
+       <div className="flex items-center gap-3">
+  <p
+    className="text-[12px] font-cinzel font-bold tracking-[0.1em] whitespace-nowrap"
+    style={{ color: COLORS.goldLight }}
+  >
+    GRAPHOLOGY EXPERT OBSERVATION
+  </p>
+
+  <OrnamentDivider width={130} />
+</div>
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.goldLight }}
-          >
-            GRAPHOLOGY EXPERT OBSERVATION
-          </p>
-          <p
-            className="mt-1.5 text-[10px] leading-relaxed"
-            style={{ color: COLORS.cream,  opacity: 0.95 }}
+            className="mt-1.5 text-[12px] leading-relaxed"
+            style={{ color: COLORS.cream,  opacity: 0.95 , fontFamily: "sans-serif"}}
           >
             {observation}
           </p>
@@ -415,7 +459,7 @@ export default function PersonalityAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[30px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[30px] font-cinzel font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
@@ -437,8 +481,11 @@ export default function PersonalityAnalysis({
         />
 
         <p
-          className="relative z-10 mt-2 text-center text-[12px] italic"
-          style={{ color: COLORS.black, opacity: 0.9 }}
+          className="relative z-10 mt-2 text-center text-[12px] italic font-nunito-sans"
+          style={{
+            color: COLORS.black,
+            opacity: 0.9,
+          }}
         >
           {summaryQuote}
         </p>

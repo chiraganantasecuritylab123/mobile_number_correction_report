@@ -252,13 +252,13 @@ function AnalysisCard({
             border: `1px solid ${COLORS.gold}`,
           }}
         >
-          <span className="text-[11px] font-semibold" style={{ color: COLORS.brown }}>
+          <span className="text-[12px] font-semibold" style={{ color: COLORS.brown }}>
             {card.valueLabel}
           </span>
         </div>
 
         <p
-          className="px-1.5 leading-snug text-[10px]"
+          className="px-1.5 leading-snug text-[12px]"
           style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
@@ -270,15 +270,15 @@ function AnalysisCard({
 
 function IntroHeader({ text }: { text: string }) {
   return (
-    <div className="mt-1 flex w-full max-w-[620px] items-center justify-center gap-3 px-2 font-nunito-sans">
-      <Pattern3 size={32} />
+    <div className="mt-1 flex w-full items-center justify-center gap-3 px-2 font-nunito-sans">
+      <Pattern3 size={60} />
       <p
-        className="text-center text-[13px] italic leading-snug"
+        className="max-w-[620px] text-center text-[13px] italic leading-snug"
         style={{ color: COLORS.brown, opacity: 0.9 }}
       >
         {text}
       </p>
-      <Pattern3 size={32} className="rotate-180" />
+      <Pattern3 size={60} className="rotate-180" />
     </div>
   );
 }
@@ -349,7 +349,7 @@ function TraitsFooter({ traits }: { traits: EndingStrokeTrait[] }) {
               />
             ) : null}
             <div className="relative flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
-              <Icon size={28} strokeWidth={1.25} style={{ color: COLORS.gold }} />
+              <Icon size={32} strokeWidth={1.25} style={{ color: COLORS.gold }} />
               {trait.label === "Responsibility" ? (
                 <Star
                   size={9}
@@ -360,7 +360,7 @@ function TraitsFooter({ traits }: { traits: EndingStrokeTrait[] }) {
                 />
               ) : null}
               <span
-                className="text-[9px] font-semibold tracking-wide"
+                className="text-[12px] font-semibold tracking-wide"
                 style={{ color: COLORS.brown }}
               >
                 {trait.label}

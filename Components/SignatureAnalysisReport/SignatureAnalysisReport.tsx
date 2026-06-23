@@ -315,8 +315,8 @@ function SignatureCoverContentPage({
         </div>
 
         <blockquote
-          className="mt-3.5 max-w-[360px] text-[16px] italic leading-relaxed"
-          style={{ color: COLORS.maroon }}
+          className="mt-3.5 max-w-[360px] text-[18px] italic leading-relaxed"
+          style={{ color: COLORS.maroon, fontFamily: "Georgia" }}
         >
           &ldquo;Your Signature Is The Reflection Of Your Mind, Personality
           &amp; Potential.&rdquo;
@@ -328,11 +328,11 @@ function SignatureCoverContentPage({
 
         {/* ---- Small wordmark repeat + tagline + contact ---- */}
         <div className="mt-3 flex items-center justify-center gap-2">
-          <OrnamentDivider width={100} />
+          <OrnamentDivider width={160} />
           <p className="text-[26px] font-bold tracking-wide" style={{ color: COLORS.maroon }}>
             Astro Aarambh
           </p>
-          <OrnamentDivider width={100} />
+          <OrnamentDivider width={160} />
         </div>
 
         <p
