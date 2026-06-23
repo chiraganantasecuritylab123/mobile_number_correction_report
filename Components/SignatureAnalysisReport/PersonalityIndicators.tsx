@@ -1,8 +1,6 @@
 import {
   Brain,
-  Compass,
   Crown,
-  Feather,
   Heart,
   Palette,
   Repeat,
@@ -19,7 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
-import { Pattern3, SubtitleHeader } from "../CommunComponents";
+import { SubtitleHeader } from "../CommunComponents";
 
 export type PersonalityIndicator = {
   title: string;
@@ -90,18 +88,6 @@ const defaultTraitPills: PersonalityTraitPill[] = [
   { label: "Ambition", icon: TrendingUp },
 ];
 
-function HeaderDivider() {
-  return (
-    <div className="mt-1 flex w-full max-w-[420px] items-center justify-center gap-2">
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      <span className="text-[8px] leading-none" style={{ color: COLORS.gold }}>
-        ◆
-      </span>
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-    </div>
-  );
-}
-
 function StarRating({ count, size = 15 }: { count: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -148,7 +134,6 @@ function PersonalityIndexSection({
   return (
     <section className="relative z-10 flex justify-center font-nunito-sans mt-3">
       <div
-        // className="relative flex items-center justify-center px-8 py-4"
         className="relative flex h-[200px] min-w-[400px] items-center justify-center bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/assets/signatureReport/page-8-circle.png')" }}
       >
@@ -381,7 +366,6 @@ function CorePersonalitySummarySection({
               key={pill.label}
               className="flex items-center gap-1 rounded-full px-2 py-1"
               style={{
-                // backgroundColor: COLORS.cream,
                 border: `1px solid ${COLORS.gold}`,
               }}
             >
@@ -466,14 +450,6 @@ export default function PersonalityIndicators({
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
       <header className="flex flex-col items-center text-center pt-6">
-        {/* <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={96}
-          height={96}
-          className="mb-0.5"
-          priority
-        /> */}
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
