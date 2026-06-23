@@ -17,7 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
-import { Pattern3 } from "../CommunComponents";
+import { Pattern3, SubtitleHeader } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
 export type CareerIndicatorIcon =
@@ -176,7 +176,7 @@ function SemiCircularGauge({ percent }: { percent: number }) {
   const offset = arcLength * (1 - percent / 100);
 
   return (
-    <div className="relative flex h-[52px] w-[76px] items-end justify-center">
+    <div className="relative flex h-[45px] w-[76px] items-end justify-center">
       <svg viewBox="0 0 76 44" className="h-full w-full" aria-hidden>
         <path
           d={`M 4 40 A ${radius} ${radius} 0 0 1 72 40`}
@@ -195,7 +195,7 @@ function SemiCircularGauge({ percent }: { percent: number }) {
         />
       </svg>
       <span
-        className="absolute bottom-3 text-[14px] font-bold leading-none"
+        className="absolute bottom-2 text-[15px] font-bold leading-none"
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -217,7 +217,7 @@ function DecisionDonut({
 
   return (
     <div className="flex items-center gap-2">
-      <div className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center">
+      <div className="relative flex h-[45px] w-[52px] shrink-0 items-center justify-center">
         <svg viewBox="0 0 52 52" className="h-full w-full -rotate-90" aria-hidden>
           <circle cx="26" cy="26" r={radius} fill="none" stroke="#f2e4d4" strokeWidth="5" />
           <circle
@@ -233,7 +233,7 @@ function DecisionDonut({
           />
         </svg>
         <span
-          className="absolute text-[13px] font-bold leading-none"
+          className="absolute text-[15px] font-bold leading-none"
           style={{ color: COLORS.brown }}
         >
           {percent}%
@@ -266,21 +266,21 @@ function CareerPotentialScoreSection({
   potentialLabel: string;
 }) {
   return (
-    <section className="relative z-10 flex justify-center font-nunito-sans mt-4">
+    <section className="relative z-10 flex justify-center font-nunito-sans mt-1">
       <div
-        className="relative flex h-[180px] w-[420px] items-center justify-center bg-contain bg-center bg-no-repeat"
+        className="relative flex h-[190px] w-full items-center justify-center bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/assets/signatureReport/page-8-circle.png')" }}
       >
         <div className="flex flex-col items-center text-center gap-1.5">
-          <Briefcase size={36} strokeWidth={1.5} style={{ color: COLORS.gold }} aria-hidden />
+          <Briefcase size={33} strokeWidth={1.5} style={{ color: COLORS.gold }} aria-hidden />
           <p
-            className="text-[10px] font-bold tracking-[0.1em]"
+            className="text-[11px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             CAREER POTENTIAL SCORE
           </p>
           <p className="text-[26px] font-bold leading-none" style={{ color: COLORS.brown }}>
-            <span className="text-[30px]">{score}</span> /{" "}
+            <span className="text-[40px]">{score}</span> /{" "}
             <span className="text-[16px]">{maxScore}</span>
           </p>
           <StarRating count={starRating} />
@@ -309,13 +309,13 @@ function CareerIndicatorCard({
 
   return (
     <div
-      className={`relative flex flex-col items-center bg-cover bg-center bg-no-repeat text-center font-nunito-sans ${compact ? "h-[230px] w-[172px]" : "h-[190px] w-[240px]"
+      className={`relative flex flex-col items-center bg-cover bg-center bg-no-repeat text-center font-nunito-sans ${compact ? "h-[240px] w-[172px]" : "h-[205px] w-[240px]"
         }`}
       style={{ backgroundImage: `url('${backgroundImage}')` }}
     >
-      <div className="flex h-full w-full flex-col items-center justify-center gap-1 p-4 mt-3">
+      <div className="flex h-full w-full flex-col items-center justify-center gap-1 px-2 mt-5">
         <span
-          className="absolute left-1/2 top-[0px] flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full text-[11px] font-bold"
+          className="absolute left-1/2 top-[3px] flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full text-[11px] font-bold"
           style={{ color: COLORS.cream, backgroundColor: COLORS.brown }}
         >
           {String(index).padStart(2, "0")}
@@ -331,7 +331,7 @@ function CareerIndicatorCard({
           />
 
           <p
-            className="px-0.5 font-bold leading-tight tracking-[0.04em] text-[10px]"
+            className="px-0.5 font-bold leading-tight tracking-[0.04em] text-[11px]"
             style={{ color: COLORS.brown }}
           >
             {card.title}
@@ -355,27 +355,12 @@ function CareerIndicatorCard({
         </p>
 
         <p
-          className="px-1 leading-snug text-[11px]"
+          className="px-0 leading-snug text-[12px]"
           style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
         </p>
       </div>
-    </div>
-  );
-}
-
-function SubtitleHeader({ text }: { text: string }) {
-  return (
-    <div className="mt-1 flex w-full max-w-[620px] items-center justify-center gap-3 px-2 font-nunito-sans">
-      <Pattern3 size={32} />
-      <p
-        className="text-center text-[13px] italic leading-snug"
-        style={{ color: COLORS.brown, opacity: 0.9 }}
-      >
-        {text}
-      </p>
-      <Pattern3 size={32} className="rotate-180" />
     </div>
   );
 }
@@ -395,7 +380,7 @@ function CareerStrengthOverview({ strengths }: { strengths: CareerStrength[] }) 
         <div className="flex items-center justify-center gap-2">
           <Pattern3 size={28} />
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             CAREER STRENGTH OVERVIEW
@@ -415,9 +400,9 @@ function CareerStrengthOverview({ strengths }: { strengths: CareerStrength[] }) 
                   />
                 ) : null}
                 <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
-                  <Icon size={30} strokeWidth={1.25} style={{ color: COLORS.gold }} />
+                  <Icon size={33} strokeWidth={1.25} style={{ color: COLORS.gold }} />
                   <span
-                    className="text-[10px] font-semibold tracking-wide"
+                    className="text-[11px] font-semibold tracking-wide"
                     style={{ color: COLORS.brown }}
                   >
                     {strength.label}
@@ -457,7 +442,7 @@ function CareerInterpretationSection({ text }: { text: string }) {
           <div className="flex items-center gap-2">
             <Pattern3 size={24} />
             <p
-              className="text-[12px] font-bold tracking-[0.1em]"
+              className="text-[13px] font-bold tracking-[0.1em]"
               style={{ color: COLORS.brown }}
             >
               CAREER INTERPRETATION
@@ -465,7 +450,7 @@ function CareerInterpretationSection({ text }: { text: string }) {
             <Pattern3 size={24} className="rotate-180" />
           </div>
           <p
-            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-4"
             style={{ color: COLORS.black, opacity: 0.88 }}
           >
             {text}
@@ -489,14 +474,14 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
   return (
     <footer className="relative z-10 font-nunito-sans">
       <div
-        className="flex min-h-[100px] w-full items-center gap-3 bg-no-repeat px-5 py-3"
+        className="flex min-h-[100px] w-full items-center gap-3 bg-no-repeat px-5 py-2"
         style={{
           backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
-        <div className="flex items-center gap-3 px-2">
+        <div className="flex items-center gap-3 px-1">
           <div
             className="relative flex h-[65px] w-[65px] shrink-0 items-center justify-center rounded-full"
             style={{ border: `1.5px solid ${COLORS.goldLight}` }}
@@ -557,7 +542,7 @@ export default function CareerIndicators({
   return (
     <SignatureReportPageShell padding="16px 36px 22px" pageNumber={pageNumber}>
       <div className="font-nunito-sans">
-        <header className="mt-8 flex flex-col items-center text-center">
+        <header className="mt-3 flex flex-col items-center text-center">
           <h1
             className="max-w-[620px] text-[26px] font-bold leading-tight tracking-[0.06em]"
             style={{ color: COLORS.brown }}
@@ -575,7 +560,7 @@ export default function CareerIndicators({
         />
 
         <p
-          className="max-w-[500px] mx-auto flex flex-row items-center justify-center relative z-10 mt-1 text-center text-[12px] leading-3"
+          className="max-w-[600px] mx-auto flex flex-row items-center justify-center relative z-10 mt-1 text-center text-[13px] leading-4"
           style={{ color: COLORS.black, opacity: 0.88 }}
         >
           <Pattern3 size={32} />
@@ -583,7 +568,7 @@ export default function CareerIndicators({
           <Pattern3 size={32} className="rotate-180" />
         </p>
 
-        <section className="relative z-10 mt-2 grid grid-cols-4 place-items-center gap-x-0">
+        <section className="relative z-10 grid grid-cols-4 place-items-center gap-x-0">
           {firstRowCards.map((card, index) => (
             <CareerIndicatorCard
               key={`${card.title}-${index}`}
@@ -595,7 +580,7 @@ export default function CareerIndicators({
           ))}
         </section>
 
-        <section className="relative z-10 mt-1 flex justify-center gap-0">
+        <section className="relative z-10 mt-0 flex justify-center gap-0.5">
           {secondRowCards.map((card, index) => (
             <CareerIndicatorCard
               key={`${card.title}-${index}`}
