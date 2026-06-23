@@ -382,8 +382,8 @@ function NumerologyCardView({
               }}
             >
               <span
-                className="text-[6px] font-bold tracking-[0.08em]"
-                style={{ color: COLORS.gold }}
+                className="text-[7px] font-bold tracking-[0.08em]"
+                style={{ color: COLORS.brown }}
               >
                 {card.valueLabel}
               </span>

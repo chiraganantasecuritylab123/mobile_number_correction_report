@@ -241,7 +241,7 @@ function AnalysisCard({
           {card.title}
         </p>
 
-        <div className="mb-0.5 flex h-[40px] items-center justify-center">
+        <div className="mb-0.5 flex h-[38px] items-center justify-center">
           <StrokeGraphic icon={card.icon} compact={compact} />
         </div>
 
@@ -252,13 +252,13 @@ function AnalysisCard({
             border: `1px solid ${COLORS.gold}`,
           }}
         >
-          <span className="text-[11px] font-semibold" style={{ color: COLORS.brown }}>
+          <span className="text-[10px] font-semibold" style={{ color: COLORS.brown }}>
             {card.valueLabel}
           </span>
         </div>
 
         <p
-          className="px-1.5 leading-snug text-[10px]"
+          className="px-1.5 leading-snug text-[11px]"
           style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
@@ -270,15 +270,17 @@ function AnalysisCard({
 
 function IntroHeader({ text }: { text: string }) {
   return (
-    <div className="mt-1 flex w-full max-w-[620px] items-center justify-center gap-3 px-2 font-nunito-sans">
-      <Pattern3 size={32} />
-      <p
-        className="text-center text-[13px] italic leading-snug"
-        style={{ color: COLORS.brown, opacity: 0.9 }}
-      >
-        {text}
-      </p>
-      <Pattern3 size={32} className="rotate-180" />
+    <div className="mt-1 flex w-full  items-center justify-center gap-3 px-2 font-nunito-sans">
+      <div className="flex items-center justify-center max-w-[500px]">
+        <Pattern3 size={32} className="rotate-180" />
+        <p
+          className="text-center text-[13px] italic leading-snug"
+          style={{ color: COLORS.brown, opacity: 0.9 }}
+        >
+          {text}
+        </p>
+        <Pattern3 size={32} />
+      </div>
     </div>
   );
 }

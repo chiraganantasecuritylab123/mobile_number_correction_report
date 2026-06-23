@@ -379,7 +379,7 @@ function ExpertRecommendation({ text }: { text: string }) {
       <div className="flex-1">
         <OrnateLabel text="EXPERT RECOMMENDATION" light />
         <p
-          className="mt-1 leading-relaxed"
+          className="mt-1 leading-relaxed px-3"
           style={{
             color: "#F5E6C8",
             fontFamily: BODY_SANS,

@@ -212,7 +212,7 @@ function PersonalityCard({
   return (
     <div className="relative flex h-[179px] w-[229px] flex-col bg-[url('/assets/signatureReport/card-bg.png')] bg-cover bg-center bg-no-repeat">
       <span className="absolute left-1/2 top-[6px] z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[35%] items-center justify-center rounded-full text-[11px] font-bold text-white"
-      style={{ backgroundColor: COLORS.brown }}
+        style={{ backgroundColor: COLORS.brown }}
       >
         {String(index).padStart(2, "0")}
       </span>
@@ -291,47 +291,47 @@ function StrengthPills({ strengths }: { strengths: PersonalityStrength[] }) {
   return (
 
     <section className="relative z-10 mt-2 flex flex-col items-center gap-2 px-1 font-nunito-sans">
-  <p
-    className="text-[14px] font-bold tracking-[0.12em]"
-    style={{ color: COLORS.brown }}
-  >
-    PERSONALITY STRENGTHS
-  </p>
+      <p
+        className="text-[14px] font-bold tracking-[0.12em]"
+        style={{ color: COLORS.brown }}
+      >
+        PERSONALITY STRENGTHS
+      </p>
 
-  <div className="flex flex-wrap items-center justify-center gap-2">
-    {strengths.map((strength) => {
-      const Icon = strength.icon;
-      return (
-        <div
-          key={strength.label}
-          className="flex items-center gap-1 rounded-full px-2.5 py-1"
-          style={{
-            backgroundColor: COLORS.cream,
-            border: `1px solid ${COLORS.gold}`,
-          }}
-        >
-          <Icon
-            size={12}
-            strokeWidth={1.25}
-            style={{ color: COLORS.gold }}
-          />
-          <span
-            className="text-[9px] font-semibold"
-            style={{ color: COLORS.brown }}
-          >
-            {strength.label}
-          </span>
-        </div>
-      );
-    })}
-  </div>
-</section>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {strengths.map((strength) => {
+          const Icon = strength.icon;
+          return (
+            <div
+              key={strength.label}
+              className="flex items-center gap-1 rounded-full px-2.5 py-2"
+              style={{
+                backgroundColor: COLORS.cream,
+                border: `1px solid ${COLORS.gold}`,
+              }}
+            >
+              <Icon
+                size={16}
+                strokeWidth={2}
+                style={{ color: COLORS.gold }}
+              />
+              <span
+                className="text-[11px] font-semibold"
+                style={{ color: COLORS.brown }}
+              >
+                {strength.label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
 function ExpertObservationFooter({ observation }: { observation: string }) {
   return (
-  
+
 
     <footer className="relative z-10 mt-1">
       <div
@@ -366,8 +366,8 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
             GRAPHOLOGY EXPERT OBSERVATION
           </p>
           <p
-            className="mt-1.5 text-[10px] leading-relaxed"
-            style={{ color: COLORS.cream,  opacity: 0.95 }}
+            className="mt-1.5 text-[11px] leading-relaxed"
+            style={{ color: COLORS.cream, opacity: 0.95 }}
           >
             {observation}
           </p>
@@ -420,10 +420,7 @@ export default function PersonalityAnalysis({
         >
           {title}
         </h1>
-        <p
-          className="mt-0.5 max-w-[520px] text-[17px] font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
+        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
           {subtitle}
         </p>
       </header>
