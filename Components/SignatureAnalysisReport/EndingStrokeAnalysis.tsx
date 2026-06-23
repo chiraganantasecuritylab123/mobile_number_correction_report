@@ -21,6 +21,18 @@ import {
 } from "./ArrowIcons";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
+const COLORS = REPORT_COLORS;
+
+const ASSETS = {
+  scoreBg: "/assets/signatureReport/page-8-circle.png",
+  footerBg: "/assets/signatureReport/foooter-background.png",
+  redBg: "/assets/signatureReport/redBackgroundImage.png",
+  cardBgSmall: "/assets/signatureReport/cardBackground.png",
+  cardBgLarge: "/assets/signatureReport/card-bg.png",
+  sideImage: "/assets/signatureReport/page-8-image.png",
+  footerImage: "/assets/signatureReport/footer-image.png",
+} as const;
+
 export type EndingStrokeIcon =
   | "upwardEnding"
   | "downwardEnding"
@@ -57,8 +69,6 @@ export type EndingStrokeAnalysisProps = {
   expertObservation?: string;
   traits?: EndingStrokeTrait[];
 };
-
-const COLORS = REPORT_COLORS;
 
 const defaultFirstRowCards: EndingStrokeCard[] = [
   {
@@ -152,29 +162,22 @@ function EndingStrokeScoreSection({
   closureLabel: string;
 }) {
   return (
-    <section className="relative z-10 flex justify-center font-nunito-sans mt-5">
+    <section className="relative z-10 mt-5 flex justify-center font-nunito-sans">
       <div
         className="relative flex h-[180px] w-[420px] items-center justify-center bg-contain bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/assets/signatureReport/page-8-circle.png')" }}
+        style={{ backgroundImage: `url('${ASSETS.scoreBg}')` }}
       >
-        <div className="flex flex-col items-center text-center gap-2">
-          <p
-            className="text-[11px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.brown }}
-          >
+        <div className="flex flex-col items-center gap-2 text-center">
+          <p className="text-[11px] font-bold tracking-[0.1em]" style={{ color: COLORS.brown }}>
             ENDING STROKE SCORE
           </p>
-          <p
-            className="text-[26px] font-bold leading-none"
-            style={{ color: COLORS.brown }}
-          >
-            <span className="text-[30px] font-bold leading-none">{score}</span> / <span className="text-[16px] font-bold leading-none">{maxScore}</span>
+          <p className="text-[26px] font-bold leading-none" style={{ color: COLORS.brown }}>
+            <span className="text-[30px] font-bold leading-none">{score}</span>
+            {" / "}
+            <span className="text-[16px] font-bold leading-none">{maxScore}</span>
           </p>
           <StarRating count={starRating} />
-          <p
-            className="text-[11px] font-semibold"
-            style={{ color: COLORS.brown }}
-          >
+          <p className="text-[11px] font-semibold" style={{ color: COLORS.brown }}>
             {closureLabel}
           </p>
         </div>
@@ -183,16 +186,10 @@ function EndingStrokeScoreSection({
   );
 }
 
-function StrokeGraphic({
-  icon,
-  compact = false,
-}: {
-  icon: EndingStrokeIcon;
-  compact?: boolean;
-}) {
+function StrokeGraphic({ icon, compact = false }: { icon: EndingStrokeIcon; compact?: boolean }) {
   const iconClass = compact ? "h-9 w-15" : "h-11 w-17";
 
-  const graphics = {
+  const graphics: Record<EndingStrokeIcon, React.ReactNode> = {
     upwardEnding: <UpwardArrow className={iconClass} />,
     downwardEnding: <DownwardArrow className={iconClass} />,
     straightEnding: <RightArrow className={iconClass} />,
@@ -228,14 +225,14 @@ function AnalysisCard({
     >
       <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-5">
         <span
-          className="absolute left-1/2 top-[0px] flex h-8 w-8 -translate-x-1/2 items-center justify-center text-[11px] font-bold rounded-full"
+          className="absolute left-1/2 top-[0px] flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full text-[11px] font-bold"
           style={{ color: COLORS.cream, backgroundColor: COLORS.brown }}
         >
           {String(index).padStart(2, "0")}
         </span>
 
         <p
-          className="mt-6 px-0.5 font-bold leading-tight tracking-[0.05em] text-[11px]"
+          className="mt-6 px-0.5 text-[11px] font-bold leading-tight tracking-[0.05em]"
           style={{ color: COLORS.brown }}
         >
           {card.title}
@@ -246,11 +243,8 @@ function AnalysisCard({
         </div>
 
         <div
-          className="min-w-[100px] flex items-center justify-center rounded-full px-2 py-0.5"
-          style={{
-            backgroundColor: COLORS.cream,
-            border: `1px solid ${COLORS.gold}`,
-          }}
+          className="flex min-w-[100px] items-center justify-center rounded-full px-2 py-0.5"
+          style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.gold}` }}
         >
           <span className="text-[12px] font-semibold" style={{ color: COLORS.brown }}>
             {card.valueLabel}
@@ -258,7 +252,7 @@ function AnalysisCard({
         </div>
 
         <p
-          className="px-1.5 leading-snug text-[12px]"
+          className="px-1.5 text-[12px] leading-snug"
           style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
@@ -270,8 +264,8 @@ function AnalysisCard({
 
 function IntroHeader({ text }: { text: string }) {
   return (
-    <div className="mt-1 flex w-full  items-center justify-center gap-3 px-2 font-nunito-sans">
-      <div className="flex items-center justify-center max-w-[500px]">
+    <div className="mt-1 flex w-full items-center justify-center gap-3 px-2 font-nunito-sans">
+      <div className="flex max-w-[500px] items-center justify-center">
         <Pattern3 size={32} className="rotate-180" />
         <p
           className="text-center text-[13px] italic leading-snug"
@@ -291,13 +285,13 @@ function EndingStrokeSummarySection({ summary }: { summary: string }) {
       <div
         className="flex min-h-[88px] w-full items-center bg-no-repeat px-4 py-3"
         style={{
-          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundImage: `url('${ASSETS.footerBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
         <Image
-          src="/assets/signatureReport/page-8-image.png"
+          src={ASSETS.sideImage}
           alt=""
           width={110}
           height={110}
@@ -308,10 +302,7 @@ function EndingStrokeSummarySection({ summary }: { summary: string }) {
         <div className="flex min-w-0 flex-1 flex-col items-center px-3">
           <div className="flex items-center gap-2">
             <Pattern3 size={28} />
-            <p
-              className="text-[13px] font-bold tracking-[0.1em]"
-              style={{ color: COLORS.brown }}
-            >
+            <p className="text-[13px] font-bold tracking-[0.1em]" style={{ color: COLORS.brown }}>
               ENDING STROKE SUMMARY
             </p>
             <Pattern3 size={28} className="rotate-180" />
@@ -325,7 +316,7 @@ function EndingStrokeSummarySection({ summary }: { summary: string }) {
         </div>
 
         <Image
-          src="/assets/signatureReport/page-8-image.png"
+          src={ASSETS.sideImage}
           alt=""
           width={110}
           height={110}
@@ -344,15 +335,15 @@ function TraitsFooter({ traits }: { traits: EndingStrokeTrait[] }) {
         const Icon = trait.icon;
         return (
           <div key={trait.label} className="flex flex-1 items-stretch">
-            {index > 0 ? (
+            {index > 0 && (
               <span
                 className="my-2 w-px shrink-0"
                 style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
               />
-            ) : null}
+            )}
             <div className="relative flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
               <Icon size={32} strokeWidth={1.25} style={{ color: COLORS.gold }} />
-              {trait.label === "Responsibility" ? (
+              {trait.label === "Responsibility" && (
                 <Star
                   size={9}
                   fill={COLORS.gold}
@@ -360,7 +351,7 @@ function TraitsFooter({ traits }: { traits: EndingStrokeTrait[] }) {
                   className="absolute top-6 right-[calc(50%-18px)]"
                   aria-hidden
                 />
-              ) : null}
+              )}
               <span
                 className="text-[12px] font-semibold tracking-wide"
                 style={{ color: COLORS.brown }}
@@ -381,13 +372,12 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
       <div
         className="flex min-h-[100px] w-full items-center gap-3 bg-no-repeat px-5 py-3"
         style={{
-          backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
+          backgroundImage: `url('${ASSETS.redBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
         <div className="flex items-center gap-3 px-4">
-
           <div
             className="relative flex h-[65px] w-[65px] shrink-0 items-center justify-center rounded-full"
             style={{ border: `1.5px solid ${COLORS.goldLight}` }}
@@ -397,27 +387,21 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
               size={20}
               fill={COLORS.goldLight}
               stroke={COLORS.goldLight}
-              className="absolute right-2 bottom-2"
+              className="absolute bottom-2 right-2"
             />
           </div>
 
           <div className="min-w-0 flex-1">
-            <p
-              className="text-[13px] font-bold tracking-[0.1em]"
-              style={{ color: COLORS.goldLight }}
-            >
+            <p className="text-[13px] font-bold tracking-[0.1em]" style={{ color: COLORS.goldLight }}>
               GRAPHOLOGY EXPERT OBSERVATION
             </p>
-            <p
-              className="mt-1 text-[12px]"
-              style={{ color: COLORS.cream, opacity: 0.95 }}
-            >
+            <p className="mt-1 text-[12px]" style={{ color: COLORS.cream, opacity: 0.95 }}>
               {observation}
             </p>
           </div>
 
           <Image
-            src="/assets/signatureReport/footer-image.png"
+            src={ASSETS.footerImage}
             alt=""
             width={130}
             height={64}
@@ -425,7 +409,6 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
             aria-hidden
           />
         </div>
-
       </div>
     </footer>
   );
@@ -449,9 +432,9 @@ export default function EndingStrokeAnalysis({
   return (
     <SignatureReportPageShell padding="16px 36px 22px" pageNumber={pageNumber}>
       <div className="font-nunito-sans">
-        <header className="flex flex-col items-center text-center mt-10">
+        <header className="mt-10 flex flex-col items-center text-center">
           <h1
-            className="max-w-[620px] text-[26px] font-bold leading-tight tracking-[0.06em]"
+            className="max-w-[620px] text-[26px] font-cinzel font-bold leading-tight tracking-[0.06em]"
             style={{ color: COLORS.brown }}
           >
             {title}
@@ -479,7 +462,7 @@ export default function EndingStrokeAnalysis({
               key={`${card.title}-${index}`}
               index={index + 1}
               card={card}
-              backgroundImage="/assets/signatureReport/cardBackground.png"
+              backgroundImage={ASSETS.cardBgSmall}
               compact
             />
           ))}
@@ -491,15 +474,13 @@ export default function EndingStrokeAnalysis({
               key={`${card.title}-${index}`}
               index={index + 5}
               card={card}
-              backgroundImage="/assets/signatureReport/card-bg.png"
+              backgroundImage={ASSETS.cardBgLarge}
             />
           ))}
         </section>
 
         <EndingStrokeSummarySection summary={endingStrokeSummary} />
-
         <TraitsFooter traits={traits} />
-
         <ExpertObservationFooter observation={expertObservation} />
       </div>
     </SignatureReportPageShell>

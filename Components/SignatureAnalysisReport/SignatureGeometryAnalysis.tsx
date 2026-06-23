@@ -14,9 +14,22 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { CoverLotus } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
-import Image from "next/image";
+
+const COLORS = REPORT_COLORS;
+
+const ASSETS = {
+  pattern2: "/assets/cover/pattern-2.png",
+  cardBg: "/assets/signatureReport/card-bg.png",
+  footerBg: "/assets/signatureReport/foooter-background.png",
+  redBg: "/assets/signatureReport/redBackgroundImage.png",
+  scoreBg: "/assets/signatureReport/background-image.png",
+  flowerImage: "/assets/signatureReport/image.png",
+  compassImage: "/assets/signatureReport/Compass.png",
+  logo: "/assets/signatureReport/logo-main.png",
+} as const;
 
 export type GeometryCardType =
   | "widthHeightRatio"
@@ -57,8 +70,6 @@ export type SignatureGeometryAnalysisProps = {
   expertObservation?: string;
   attributes?: GeometryAttribute[];
 };
-
-const COLORS = REPORT_COLORS;
 
 const defaultCards: GeometryAnalysisCard[] = [
   {
@@ -118,7 +129,6 @@ function AttributeIcon({ attribute }: { attribute: GeometryAttribute }) {
   if (attribute.label === "Stability") {
     return <CoverLotus size={25} />;
   }
-
   const Icon = attribute.icon;
   return <Icon size={25} strokeWidth={1.25} style={{ color: COLORS.gold }} />;
 }
@@ -155,31 +165,22 @@ function GeometryScoreSection({
       <div
         className="flex items-center justify-center px-8 py-5"
         style={{
-          backgroundImage: "url('/assets/signatureReport/background-image.png')",
+          backgroundImage: `url('${ASSETS.scoreBg}')`,
           backgroundSize: "cover",
-          height: "200px",
-          width: '500px',
           backgroundPosition: "center",
+          height: "200px",
+          width: "500px",
         }}
       >
         <div className="flex flex-col items-center text-center">
-          <p
-            className="text-[11px] font-bold tracking-[0.14em]"
-            style={{ color: COLORS.gold }}
-          >
+          <p className="text-[11px] font-bold tracking-[0.14em]" style={{ color: COLORS.gold }}>
             GEOMETRY SCORE
           </p>
-          <p
-            className="mt-0.5 text-[28px] font-bold leading-none"
-            style={{ color: COLORS.brown }}
-          >
+          <p className="mt-0.5 text-[28px] font-bold leading-none" style={{ color: COLORS.brown }}>
             {score} / {maxScore}
           </p>
           <StarRating count={starRating} />
-          <p
-            className="mt-1 text-[12px] font-semibold"
-            style={{ color: COLORS.brown }}
-          >
+          <p className="mt-1 text-[12px] font-semibold" style={{ color: COLORS.brown }}>
             {structureLabel}
           </p>
         </div>
@@ -192,9 +193,7 @@ function OrnamentalDivider() {
   return (
     <div className="flex w-full items-center gap-1">
       <div className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      <span className="text-[6px] leading-none" style={{ color: COLORS.gold }}>
-        ◆
-      </span>
+      <span className="text-[6px] leading-none" style={{ color: COLORS.gold }}>◆</span>
       <div className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
     </div>
   );
@@ -202,42 +201,30 @@ function OrnamentalDivider() {
 
 function SimpleDivider() {
   return (
-    <div
-      className="my-1 h-px w-full"
-      style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
-    />
+    <div className="my-1 h-px w-full" style={{ backgroundColor: COLORS.gold, opacity: 0.45 }} />
   );
 }
 
 function CardTypeIcon({ type }: { type: GeometryCardType }) {
-  const iconStyle = { color: COLORS.brown, flexShrink: 0 };
+  const style = { color: COLORS.brown, flexShrink: 0 as const };
   const size = 40;
-
   const icons: Record<GeometryCardType, ReactNode> = {
-    widthHeightRatio: <Expand size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />,
-    horizontalDominance: (
-      <MoveHorizontal size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />
-    ),
-    verticalDominance: (
-      <MoveVertical size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />
-    ),
-    balanceSymmetry: <Scale size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />,
-    openFormations: <Circle size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />,
-    closedFormations: <Hexagon size={size} strokeWidth={1.25} style={iconStyle} aria-hidden />,
+    widthHeightRatio: <Expand size={size} strokeWidth={1.25} style={style} aria-hidden />,
+    horizontalDominance: <MoveHorizontal size={size} strokeWidth={1.25} style={style} aria-hidden />,
+    verticalDominance: <MoveVertical size={size} strokeWidth={1.25} style={style} aria-hidden />,
+    balanceSymmetry: <Scale size={size} strokeWidth={1.25} style={style} aria-hidden />,
+    openFormations: <Circle size={size} strokeWidth={1.25} style={style} aria-hidden />,
+    closedFormations: <Hexagon size={size} strokeWidth={1.25} style={style} aria-hidden />,
   };
-
-  return icons[type];
+  return <>{icons[type]}</>;
 }
 
 function LabeledProgressBar({ label, percent }: { label: string; percent: number }) {
   return (
     <div className="w-full">
-      <div className="mb-0.5 flex items-center justify-between text-[9px] font-bold gap-2">
+      <div className="mb-0.5 flex items-center justify-between gap-2 text-[9px] font-bold">
         <span style={{ color: COLORS.brown }}>{label}</span>
-        <div
-          className="h-2.5 w-full overflow-hidden rounded-full"
-          style={{ backgroundColor: "#f2e4d4" }}
-        >
+        <div className="h-2.5 w-full overflow-hidden rounded-full" style={{ backgroundColor: "#f2e4d4" }}>
           <div
             className="h-full rounded-full"
             style={{ width: `${percent}%`, backgroundColor: COLORS.brown }}
@@ -270,22 +257,12 @@ function BalanceDonut({ percent }: { percent: number }) {
   const radius = 24;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - percent / 100);
-
   return (
     <div className="relative flex h-[58px] w-[58px] items-center justify-center">
       <svg viewBox="0 0 64 64" className="h-full w-full -rotate-90" aria-hidden>
+        <circle cx="32" cy="32" r={radius} fill="none" stroke="#f2e4d4" strokeWidth="5" />
         <circle
-          cx="32"
-          cy="32"
-          r={radius}
-          fill="none"
-          stroke="#f2e4d4"
-          strokeWidth="5"
-        />
-        <circle
-          cx="32"
-          cy="32"
-          r={radius}
+          cx="32" cy="32" r={radius}
           fill="none"
           stroke={COLORS.brown}
           strokeWidth="5"
@@ -306,6 +283,8 @@ function BalanceDonut({ percent }: { percent: number }) {
   );
 }
 
+const simpleCardTypes = new Set<GeometryCardType>(["openFormations", "closedFormations"]);
+
 function CardVisual({ card }: { card: GeometryAnalysisCard }) {
   const visuals: Record<GeometryCardType, ReactNode> = {
     widthHeightRatio: (
@@ -314,32 +293,23 @@ function CardVisual({ card }: { card: GeometryAnalysisCard }) {
         <LabeledProgressBar label="Height" percent={card.heightPercent ?? 25} />
       </div>
     ),
-    horizontalDominance: (
-      <BlockIndicator filled={card.filledBlocks ?? 8} total={card.totalBlocks ?? 10} />
-    ),
-    verticalDominance: (
-      <BlockIndicator filled={card.filledBlocks ?? 5} total={card.totalBlocks ?? 10} />
-    ),
+    horizontalDominance: <BlockIndicator filled={card.filledBlocks ?? 8} total={card.totalBlocks ?? 10} />,
+    verticalDominance: <BlockIndicator filled={card.filledBlocks ?? 5} total={card.totalBlocks ?? 10} />,
     balanceSymmetry: <BalanceDonut percent={card.balancePercent ?? 91} />,
     openFormations: null,
     closedFormations: null,
   };
-
-  return visuals[card.type];
+  return <>{visuals[card.type]}</>;
 }
 
-function AnalysisCard({
-  index,
-  card,
-}: {
-  index: number;
-  card: GeometryAnalysisCard;
-}) {
-  const isSimpleCard =
-    card.type === "openFormations" || card.type === "closedFormations";
+function AnalysisCard({ index, card }: { index: number; card: GeometryAnalysisCard }) {
+  const isSimpleCard = simpleCardTypes.has(card.type);
 
   return (
-    <div className="relative flex h-[190px] w-[240px] flex-col bg-[url('/assets/signatureReport/card-bg.png')] bg-cover bg-center bg-no-repeat">
+    <div
+      className="relative flex h-[190px] w-[240px] flex-col bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url('${ASSETS.cardBg}')` }}
+    >
       <span
         className="absolute left-1/2 top-[8px] z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[35%] items-center justify-center rounded-full text-[11px] font-bold"
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
@@ -347,7 +317,7 @@ function AnalysisCard({
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full flex-col justify-center px-8 pb-2.5 pt-5 font-nunito-sans gap-1">
+      <div className="flex h-full flex-col justify-center gap-1 px-8 pb-2.5 pt-5 font-nunito-sans">
         <div className="flex items-center justify-center gap-1.5 px-4 py-1">
           <CardTypeIcon type={card.type} />
           <p
@@ -360,38 +330,35 @@ function AnalysisCard({
 
         <OrnamentalDivider />
 
-        <p
-          className="text-center text-[13px] font-bold leading-tight"
-          style={{ color: COLORS.brown }}
-        >
+        <p className="text-center text-[13px] font-bold leading-tight" style={{ color: COLORS.brown }}>
           {card.valueLabel}
         </p>
 
         {isSimpleCard ? (
           <>
             <SimpleDivider />
-            {card.description ? (
+            {card.description && (
               <p
                 className="px-1 text-center text-[14px] leading-snug"
                 style={{ color: COLORS.black, opacity: 0.82 }}
               >
                 {card.description}
               </p>
-            ) : null}
+            )}
           </>
         ) : (
           <>
             <div className="mt-1 flex flex-col items-center justify-center">
               <CardVisual card={card} />
             </div>
-            {card.description ? (
+            {card.description && (
               <p
                 className="mt-1 px-1 text-center text-[14px] leading-snug"
                 style={{ color: COLORS.black, opacity: 0.82 }}
               >
                 {card.description}
               </p>
-            ) : null}
+            )}
           </>
         )}
       </div>
@@ -405,18 +372,15 @@ function GeometricInterpretationSection({ text }: { text: string }) {
       <div
         className="flex min-h-[88px] w-full items-center bg-no-repeat px-5 py-3"
         style={{
-          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundImage: `url('${ASSETS.footerBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
-        <Image src="/assets/signatureReport/image.png" alt="Flower" width={70} height={70} />
+        <Image src={ASSETS.flowerImage} alt="Flower" width={70} height={70} />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
-          <p
-            className="text-[14px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.brown }}
-          >
+          <p className="text-[14px] font-bold tracking-[0.1em]" style={{ color: COLORS.brown }}>
             GEOMETRIC INTERPRETATION
           </p>
           <p
@@ -427,8 +391,7 @@ function GeometricInterpretationSection({ text }: { text: string }) {
           </p>
         </div>
 
-        <Image src="/assets/signatureReport/image.png" alt="Flower" width={70} height={70} />
-
+        <Image src={ASSETS.flowerImage} alt="Flower" width={70} height={70} />
       </div>
     </section>
   );
@@ -440,10 +403,8 @@ function AttributePills({ attributes }: { attributes: GeometryAttribute[] }) {
       {attributes.map((attribute) => (
         <div
           key={attribute.label}
-          className="flex items-center justify-center gap-1 rounded-full px-1 min-w-[110px] py-1"
-          style={{
-            border: `1px solid ${COLORS.gold}`,
-          }}
+          className="flex min-w-[110px] items-center justify-center gap-1 rounded-full px-1 py-1"
+          style={{ border: `1px solid ${COLORS.gold}` }}
         >
           <AttributeIcon attribute={attribute} />
           <span className="text-[11px] font-semibold" style={{ color: COLORS.brown }}>
@@ -461,7 +422,7 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
       <div
         className="flex min-h-[108px] w-full items-center gap-3 bg-no-repeat px-5 py-4"
         style={{
-          backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
+          backgroundImage: `url('${ASSETS.redBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
@@ -475,26 +436,20 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
             size={11}
             fill={COLORS.goldLight}
             stroke={COLORS.goldLight}
-            className="absolute right-2 bottom-2"
+            className="absolute bottom-2 right-2"
           />
         </div>
 
-        <div className="min-w-0 flex flex-col items-start justify-center">
-          <p
-            className="text-[13px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.goldLight }}
-          >
+        <div className="flex min-w-0 flex-1 flex-col items-start justify-center">
+          <p className="text-[13px] font-bold tracking-[0.1em]" style={{ color: COLORS.goldLight }}>
             GRAPHOLOGY EXPERT OBSERVATION
           </p>
-          <p
-            className="mt-1 text-[12px] leading-relaxed"
-            style={{ color: COLORS.cream, opacity: 0.95 }}
-          >
+          <p className="mt-1 text-[12px] leading-relaxed" style={{ color: COLORS.cream, opacity: 0.95 }}>
             {observation}
           </p>
         </div>
 
-        <Image src="/assets/signatureReport/Compass.png" alt="Compass" width={90} height={90} />
+        <Image src={ASSETS.compassImage} alt="Compass" width={90} height={90} />
       </div>
     </footer>
   );
@@ -516,10 +471,9 @@ export default function SignatureGeometryAnalysis({
 }: SignatureGeometryAnalysisProps) {
   return (
     <SignatureReportPageShell padding="20px 40px 24px" pageNumber={pageNumber}>
-
       <header className="flex flex-col items-center text-center">
         <Image
-          src="/assets/signatureReport/logo-main.png"
+          src={ASSETS.logo}
           alt="Astro Aarambh"
           width={110}
           height={110}
@@ -527,7 +481,7 @@ export default function SignatureGeometryAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[30px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[30px] font-cinzel font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
@@ -562,9 +516,7 @@ export default function SignatureGeometryAnalysis({
         </section>
 
         <GeometricInterpretationSection text={geometricInterpretation} />
-
         <AttributePills attributes={attributes} />
-
         <ExpertObservationFooter observation={expertObservation} />
       </div>
     </SignatureReportPageShell>
