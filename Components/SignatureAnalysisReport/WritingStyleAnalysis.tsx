@@ -15,6 +15,16 @@ import type { ReactNode } from "react";
 import { CoverLotus } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
+const COLORS = REPORT_COLORS;
+
+const ASSETS = {
+  footerBg: "/assets/signatureReport/foooter-background.png",
+  redBg: "/assets/signatureReport/redBackgroundImage.png",
+  cardBg: "/assets/signatureReport/cardBackground.png",
+  footerImage: "/assets/signatureReport/footer-image.png",
+  logo: "/assets/signatureReport/logo-main.png",
+} as const;
+
 export type WritingStyleIcon =
   | "pen"
   | "link"
@@ -38,10 +48,6 @@ export type WritingStyleAnalysisProps = {
   overallWritingStyleInsight?: string;
   expertGraphologyInsight?: string;
 };
-
-const COLORS = REPORT_COLORS;
-
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
 
 const defaultCards: WritingStyleCard[] = [
   {
@@ -88,27 +94,23 @@ const defaultCards: WritingStyleCard[] = [
   },
 ];
 
-function CardTitleDivider() {
+function GoldDivider({ maxWidth }: { maxWidth?: number }) {
   return (
-    <div className="my-1.5 flex w-[72px] items-center justify-center">
-      <div className="flex flex-1 items-center">
-        <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.7 }} />
-        <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full"
-          style={{ border: `1px solid ${COLORS.gold}` }}
-        />
-      </div>
-      <div className="mx-1 flex gap-[2px]">
-        <span className="h-3 w-px" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-        <span className="h-3 w-px" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      </div>
-      <div className="flex flex-1 items-center">
-        <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full"
-          style={{ backgroundColor: COLORS.gold }}
-        />
-        <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.7 }} />
-      </div>
+    <div
+      className="mt-1 flex w-full items-center justify-center gap-2"
+      style={maxWidth ? { maxWidth } : undefined}
+    >
+      <span
+        className="h-px flex-1"
+        style={{ backgroundColor: COLORS.gold, opacity: 0.55 }}
+      />
+      <span className="text-[11px] leading-none" style={{ color: COLORS.gold }}>
+        ✦
+      </span>
+      <span
+        className="h-px flex-1"
+        style={{ backgroundColor: COLORS.gold, opacity: 0.55 }}
+      />
     </div>
   );
 }
@@ -119,40 +121,33 @@ function CardIconGraphic({ icon }: { icon: WritingStyleIcon }) {
   const graphics: Record<WritingStyleIcon, ReactNode> = {
     pen: <PenLine size={28} strokeWidth={1.25} style={iconStyle} aria-hidden />,
     link: <Link2 size={28} strokeWidth={1.25} style={iconStyle} aria-hidden />,
-    shapes: (
-      <div className="flex items-center gap-0" aria-hidden>
-        <Circle size={19} strokeWidth={1.25} style={iconStyle} />
-        <Slash size={19} strokeWidth={1.25} style={iconStyle} className="rotate-145 ml-[-5px]"/>
-        <Triangle size={19} strokeWidth={1.25} style={iconStyle} className="ml-[-5px]"/>
-      </div>
-    ),
     sparkles: <Sparkles size={28} strokeWidth={1.25} style={iconStyle} aria-hidden />,
     penStroke: <PenLine size={28} strokeWidth={1.25} style={iconStyle} aria-hidden />,
     person: <UserRound size={28} strokeWidth={1.25} style={iconStyle} aria-hidden />,
+    shapes: (
+      <div className="flex items-center gap-0" aria-hidden>
+        <Circle size={19} strokeWidth={1.25} style={iconStyle} />
+        <Slash size={19} strokeWidth={1.25} style={iconStyle} className="ml-[-5px] rotate-145" />
+        <Triangle size={19} strokeWidth={1.25} style={iconStyle} className="ml-[-5px]" />
+      </div>
+    ),
   };
 
   return (
     <div
       className="flex h-[50px] w-[50px] items-center justify-center rounded-full"
-      style={{
-        border: `1.5px dashed ${COLORS.gold}`,
-      }}
+      style={{ border: `1.5px dashed ${COLORS.gold}` }}
     >
       {graphics[icon]}
     </div>
   );
 }
 
-function AnalysisCard({
-  index,
-  card,
-}: {
-  index: number;
-  card: WritingStyleCard;
-}) {
+function AnalysisCard({ index, card }: { index: number; card: WritingStyleCard }) {
   return (
     <div
-      className="relative flex h-[300px] w-[230px] min-h-[200px] flex-col items-center bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat text-center"
+      className="relative flex h-[300px] w-[230px] min-h-[200px] flex-col items-center bg-cover bg-center bg-no-repeat text-center"
+      style={{ backgroundImage: `url('${ASSETS.cardBg}')` }}
     >
       <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 p-4">
         <span
@@ -172,11 +167,8 @@ function AnalysisCard({
         </p>
 
         <div
-          className="rounded-full px-1 py-0.5 min-w-[120px]"
-          style={{
-            backgroundColor: COLORS.cream,
-            border: `1px solid ${COLORS.gold}`,
-          }}
+          className="min-w-[120px] rounded-full px-1 py-0.5"
+          style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.gold}` }}
         >
           <span
             className="text-[12px] font-semibold tracking-wide font-nunito-sans"
@@ -185,8 +177,6 @@ function AnalysisCard({
             {card.valueLabel}
           </span>
         </div>
-
-        {/* <CardTitleDivider /> */}
 
         <p
           className="px-2 text-[14px] leading-snug font-nunito-sans"
@@ -199,31 +189,13 @@ function AnalysisCard({
   );
 }
 
-function OverallInsightDivider() {
-  return (
-    <div className="mt-1 flex w-full max-w-[320px] items-center justify-center gap-2">
-      <span
-        className="h-px flex-1"
-        style={{ backgroundColor: COLORS.gold, opacity: 0.55 }}
-      />
-      <span className="text-[11px] leading-none" style={{ color: COLORS.gold }}>
-        ✦
-      </span>
-      <span
-        className="h-px flex-1"
-        style={{ backgroundColor: COLORS.gold, opacity: 0.55 }}
-      />
-    </div>
-  );
-}
-
 function OverallWritingStyleInsightSection({ insight }: { insight: string }) {
   return (
     <section className="relative z-10 mt-1 flex justify-center">
       <div
         className="flex min-h-[100px] w-full items-center bg-no-repeat px-6 py-4"
         style={{
-          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
+          backgroundImage: `url('${ASSETS.footerBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
@@ -237,7 +209,7 @@ function OverallWritingStyleInsightSection({ insight }: { insight: string }) {
           >
             OVERALL WRITING STYLE INSIGHT
           </p>
-          <OverallInsightDivider />
+          <GoldDivider maxWidth={320} />
           <p
             className="mt-1 max-w-[520px] text-center text-[13px] leading-relaxed font-nunito-sans"
             style={{ color: COLORS.black, opacity: 0.88 }}
@@ -252,50 +224,32 @@ function OverallWritingStyleInsightSection({ insight }: { insight: string }) {
   );
 }
 
-function HeaderDivider() {
-  return (
-    <div className="mt-1 flex w-full items-center justify-center gap-2">
-      <span className="h-px flex-1 max-w-[120px]" style={{ backgroundColor: COLORS.gold, opacity: 0.45 }} />
-      <span className="text-[10px]" style={{ color: COLORS.gold }}>
-        ✦
-      </span>
-      <span className="h-px flex-1 max-w-[120px]" style={{ backgroundColor: COLORS.gold, opacity: 0.45 }} />
-    </div>
-  );
-}
-
 function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
   return (
     <footer className="relative z-10 mt-1">
       <div
         className="flex min-h-[108px] w-full items-center gap-4 bg-no-repeat px-6 py-4"
         style={{
-          backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
+          backgroundImage: `url('${ASSETS.redBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
         <div
           className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full"
-          style={{
-            border: `1.5px solid ${COLORS.goldLight}`,
-            backgroundColor: "transparent",
-          }}
+          style={{ border: `1.5px solid ${COLORS.goldLight}`, backgroundColor: "transparent" }}
         >
           <User size={24} strokeWidth={1.25} style={{ color: COLORS.goldLight }} />
           <Star
             size={11}
             fill={COLORS.goldLight}
             stroke={COLORS.goldLight}
-            className="absolute right-2 bottom-2"
+            className="absolute bottom-2 right-2"
           />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p
-            className="text-[14px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.goldLight }}
-          >
+          <p className="text-[14px] font-bold tracking-[0.1em]" style={{ color: COLORS.goldLight }}>
             EXPERT GRAPHOLOGY INSIGHT
           </p>
           <p
@@ -307,7 +261,7 @@ function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
         </div>
 
         <Image
-          src="/assets/signatureReport/footer-image.png"
+          src={ASSETS.footerImage}
           alt=""
           width={118}
           height={72}
@@ -331,39 +285,38 @@ export default function WritingStyleAnalysis({
     <SignatureReportPageShell padding="20px 40px 28px" pageNumber={pageNumber}>
       <div className="font-nunito-sans">
         <header className="flex flex-col items-center text-center">
-        <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={110}
-          height={110}
-          className="mb-1"
-          priority
-        />
-        <h1
-          className="max-w-[620px] text-[32px] font-bold leading-tight tracking-[0.06em] font-cinzel"
-          style={{ color: COLORS.brown }}
-        >
-          {title}
-        </h1>
-        <p
-          className="mt-0.5 max-w-[520px] text-[17px]"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
-          {subtitle}
-        </p>
-        <HeaderDivider />
-      </header>
+          <Image
+            src={ASSETS.logo}
+            alt="Astro Aarambh"
+            width={110}
+            height={110}
+            className="mb-1"
+            priority
+          />
+          <h1
+            className="max-w-[620px] text-[32px] font-cinzel font-bold leading-tight tracking-[0.06em]"
+            style={{ color: COLORS.brown }}
+          >
+            {title}
+          </h1>
+          <p
+            className="mt-0.5 max-w-[520px] text-[17px]"
+            style={{ color: COLORS.black, opacity: 0.85 }}
+          >
+            {subtitle}
+          </p>
+          <GoldDivider />
+        </header>
 
-      <section className="relative z-10 mt-1 grid grid-cols-3">
-        {cards.map((card, index) => (
-          <AnalysisCard key={`${card.title}-${index}`} index={index + 1} card={card} />
-        ))}
-      </section>
+        <section className="relative z-10 mt-1 grid grid-cols-3">
+          {cards.map((card, index) => (
+            <AnalysisCard key={`${card.title}-${index}`} index={index + 1} card={card} />
+          ))}
+        </section>
 
-      <OverallWritingStyleInsightSection insight={overallWritingStyleInsight} />
-
-      <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
-    </div>
+        <OverallWritingStyleInsightSection insight={overallWritingStyleInsight} />
+        <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
+      </div>
     </SignatureReportPageShell>
   );
 }

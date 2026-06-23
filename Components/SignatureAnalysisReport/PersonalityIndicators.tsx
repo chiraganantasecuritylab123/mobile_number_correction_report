@@ -1,8 +1,6 @@
 import {
   Brain,
-  Compass,
   Crown,
-  Feather,
   Heart,
   Palette,
   Repeat,
@@ -19,7 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
-import { Pattern3, SubtitleHeader } from "../CommunComponents";
+import { SubtitleHeader } from "../CommunComponents";
 
 export type PersonalityIndicator = {
   title: string;

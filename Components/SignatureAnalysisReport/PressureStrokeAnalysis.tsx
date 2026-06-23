@@ -19,6 +19,16 @@ import type { ReactNode } from "react";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
+const COLORS = REPORT_COLORS;
+
+const ASSETS = {
+  footerBg: "/assets/signatureReport/foooter-background.png",
+  redBg: "/assets/signatureReport/redBackgroundImage.png",
+  cardBg: "/assets/signatureReport/cardBackground.png",
+  footerImage: "/assets/signatureReport/footer-image.png",
+  logo: "/assets/signatureReport/logo-main.png",
+} as const;
+
 export type PressureStrokeIcon =
   | "lightPressure"
   | "mediumPressure"
@@ -41,16 +51,14 @@ export type PressureStrokeTrait = {
 
 export type PressureStrokeAnalysisProps = {
   pageNumber?: string;
-  subtitle?: string;
   title?: string;
+  subtitle?: string;
   intro?: string;
   cards?: PressureStrokeCard[];
   pressureStrokeSummary?: string;
   expertGraphologyInsight?: string;
   traits?: PressureStrokeTrait[];
 };
-
-const COLORS = REPORT_COLORS;
 
 const defaultCards: PressureStrokeCard[] = [
   {
@@ -106,39 +114,11 @@ const defaultTraits: PressureStrokeTrait[] = [
   { label: "SUCCESS", icon: Trophy },
 ];
 
-function CardTitleDivider() {
-  return (
-    <div className="my-1.5 flex w-[72px] items-center justify-center">
-      <div className="flex flex-1 items-center">
-        <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.7 }} />
-        <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full"
-          style={{ border: `1px solid ${COLORS.gold}` }}
-        />
-      </div>
-      <div className="mx-1 flex gap-[2px]">
-        <span className="h-3 w-px" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-        <span className="h-3 w-px" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      </div>
-      <div className="flex flex-1 items-center">
-        <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full"
-          style={{ backgroundColor: COLORS.gold }}
-        />
-        <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.7 }} />
-      </div>
-    </div>
-  );
-}
-
 function PenStrokeLine({ thickness }: { thickness: number }) {
   return (
     <svg viewBox="0 0 48 8" className="h-2 w-full" aria-hidden>
       <line
-        x1="4"
-        y1="4"
-        x2="44"
-        y2="4"
+        x1="4" y1="4" x2="44" y2="4"
         stroke={COLORS.brown}
         strokeWidth={thickness}
         strokeLinecap="round"
@@ -152,14 +132,14 @@ function CardIconGraphic({ icon }: { icon: PressureStrokeIcon }) {
 
   const graphics: Record<PressureStrokeIcon, ReactNode> = {
     lightPressure: (
-      <div className="flex flex-col items-center mt-3" aria-hidden>
+      <div className="mt-3 flex flex-col items-center" aria-hidden>
         <Feather size={45} strokeWidth={1.25} style={iconStyle} />
         <PenStrokeLine thickness={1} />
       </div>
     ),
     mediumPressure: (
       <div className="flex flex-col items-center" aria-hidden>
-        <PenTool size={45} strokeWidth={1.25} style={iconStyle} className="mt-5"/>
+        <PenTool size={45} strokeWidth={1.25} style={iconStyle} className="mt-5" />
         <PenStrokeLine thickness={2} />
       </div>
     ),
@@ -169,40 +149,20 @@ function CardIconGraphic({ icon }: { icon: PressureStrokeIcon }) {
         <PenStrokeLine thickness={3.5} />
       </div>
     ),
-    strokeUniformity: (
-      <Waves size={45} strokeWidth={1.25} style={iconStyle} aria-hidden />
-    ),
-    boldness: (
-      <Signature size={45} strokeWidth={1.25} style={iconStyle} aria-hidden className="mt-5"/>
-    ),
-    energy: (
-        <Zap size={45} strokeWidth={1.25} style={iconStyle} fill={COLORS.gold} className="mt-4" />
-    ),
+    strokeUniformity: <Waves size={45} strokeWidth={1.25} style={iconStyle} aria-hidden />,
+    boldness: <Signature size={45} strokeWidth={1.25} style={iconStyle} aria-hidden className="mt-5" />,
+    energy: <Zap size={45} strokeWidth={1.25} style={iconStyle} fill={COLORS.gold} className="mt-4" aria-hidden />,
   };
 
-  if (icon === "energy") {
-    return graphics.energy;
-  }
-
-  return (
-    <div
-      // className="flex h-[55px] w-[55px] items-center justify-center rounded-full"
-      // style={{ border: `1.5px dashed ${COLORS.gold}` }}
-    >
-      {graphics[icon]}
-    </div>
-  );
+  return <div>{graphics[icon]}</div>;
 }
 
-function AnalysisCard({
-  index,
-  card,
-}: {
-  index: number;
-  card: PressureStrokeCard;
-}) {
+function AnalysisCard({ index, card }: { index: number; card: PressureStrokeCard }) {
   return (
-    <div className="relative flex h-[270px] w-[200px] min-h-[270px] flex-col items-center bg-[url('/assets/signatureReport/cardBackground.png')] bg-cover bg-center bg-no-repeat text-center">
+    <div
+      className="relative flex h-[270px] w-[200px] min-h-[270px] flex-col items-center bg-cover bg-center bg-no-repeat text-center"
+      style={{ backgroundImage: `url('${ASSETS.cardBg}')` }}
+    >
       <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-4 font-nunito-sans">
         <span
           className="absolute left-1/2 top-[5px] flex h-7 w-6 -translate-x-1/2 items-center justify-center text-[11px] font-bold"
@@ -222,13 +182,10 @@ function AnalysisCard({
 
         <div
           className="min-w-[120px] rounded-full px-1 py-0.5"
-          style={{
-            backgroundColor: COLORS.cream,
-            border: `1px solid ${COLORS.gold}`,
-          }}
+          style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.gold}` }}
         >
           <span
-            className=" flex items-center justify-center text-[12px] font-semibold tracking-wide"
+            className="flex items-center justify-center text-[12px] font-semibold tracking-wide"
             style={{ color: COLORS.brown }}
           >
             {card.valueLabel}
@@ -243,41 +200,6 @@ function AnalysisCard({
         </p>
       </div>
     </div>
-  );
-}
-
-function PressureStrokeSummarySection({ summary }: { summary: string }) {
-  return (
-    <section className="relative z-10 flex justify-center font-nunito-sans">
-      <div
-        className="flex min-h-[90px] w-full items-center bg-no-repeat px-6 py-4"
-        style={{
-          backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
-          backgroundSize: "100% 100%",
-          backgroundPosition: "center",
-        }}
-      >
-        <CoverLotus size={80} className="shrink-0" />
-
-        <div className="flex min-w-0 flex-1 flex-col items-center px-5">
-          <p
-            className="text-[14px] font-bold tracking-[0.12em]"
-            style={{ color: COLORS.brown }}
-          >
-            PRESSURE & STROKE SUMMARY
-          </p>
-          {/* <OverallInsightDivider /> */}
-          <p
-            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88 }}
-          >
-            {summary}
-          </p>
-        </div>
-
-        <CoverLotus size={80} className="shrink-0" />
-      </div>
-    </section>
   );
 }
 
@@ -296,38 +218,66 @@ function IntroHeader({ text }: { text: string }) {
   );
 }
 
+function PressureStrokeSummarySection({ summary }: { summary: string }) {
+  return (
+    <section className="relative z-10 flex justify-center font-nunito-sans">
+      <div
+        className="flex min-h-[90px] w-full items-center bg-no-repeat px-6 py-4"
+        style={{
+          backgroundImage: `url('${ASSETS.footerBg}')`,
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+        }}
+      >
+        <CoverLotus size={80} className="shrink-0" />
+
+        <div className="flex min-w-0 flex-1 flex-col items-center px-5">
+          <p
+            className="text-[14px] font-bold tracking-[0.12em]"
+            style={{ color: COLORS.brown }}
+          >
+            PRESSURE & STROKE SUMMARY
+          </p>
+          <p
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
+            style={{ color: COLORS.black, opacity: 0.88 }}
+          >
+            {summary}
+          </p>
+        </div>
+
+        <CoverLotus size={80} className="shrink-0" />
+      </div>
+    </section>
+  );
+}
+
 function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
   return (
     <footer className="relative z-10 font-nunito-sans">
       <div
         className="flex min-h-[108px] w-full items-center gap-2 bg-no-repeat px-6 py-4"
         style={{
-          backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
+          backgroundImage: `url('${ASSETS.redBg}')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}
       >
         <div
           className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full"
-          style={{
-            border: `1.5px solid ${COLORS.goldLight}`,
-            backgroundColor: "transparent",
-          }}
+          style={{ border: `1.5px solid ${COLORS.goldLight}`, backgroundColor: "transparent" }}
         >
           <User size={24} strokeWidth={1.25} style={{ color: COLORS.goldLight }} />
           <Star
             size={11}
             fill={COLORS.goldLight}
             stroke={COLORS.goldLight}
-            className="absolute right-2 bottom-2"
+            className="absolute bottom-2 right-2"
           />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p
-            className="text-[14px] font-bold tracking-[0.1em]"
-            style={{ color: COLORS.goldLight }}
-          >
+          <p className="text-[14px] font-bold tracking-[0.1em]" style={{ color: COLORS.goldLight }}>
             EXPERT GRAPHOLOGY INSIGHT
           </p>
           <p
@@ -339,7 +289,7 @@ function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
         </div>
 
         <Image
-          src="/assets/signatureReport/footer-image.png"
+          src={ASSETS.footerImage}
           alt=""
           width={118}
           height={72}
@@ -358,14 +308,14 @@ function TraitsFooter({ traits }: { traits: PressureStrokeTrait[] }) {
         const Icon = trait.icon;
         return (
           <div key={trait.label} className="flex flex-1 items-stretch">
-            {index > 0 ? (
+            {index > 0 && (
               <span
                 className="my-2 w-px shrink-0"
                 style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
               />
-            ) : null}
+            )}
             <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
-              <Icon size={35} fill= {COLORS.gold} strokeWidth={1.25} style={{ color: COLORS.brown }} />
+              <Icon size={35} fill={COLORS.gold} strokeWidth={1.25} style={{ color: COLORS.brown }} />
               <span
                 className="text-[9px] font-bold tracking-[0.1em]"
                 style={{ color: COLORS.brown }}
@@ -394,41 +344,39 @@ export default function PressureStrokeAnalysis({
     <SignatureReportPageShell padding="20px 40px 28px" pageNumber={pageNumber}>
       <div className="font-nunito-sans">
         <header className="flex flex-col items-center text-center">
-        <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={110}
-          height={110}
-          className="mb-1"
-          priority
-        />
-        <h1
-          className="max-w-[620px] text-[30px] font-bold leading-tight tracking-[0.06em] font-cinzel"
-          style={{ color: COLORS.brown }}
-        >
-          {title}
-        </h1>
-        <p
-          className="mt-0.5 max-w-[520px] text-[19px] font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
-          {subtitle}
-        </p>
-        <IntroHeader text={intro} />
-      </header>
+          <Image
+            src={ASSETS.logo}
+            alt="Astro Aarambh"
+            width={110}
+            height={110}
+            className="mb-1"
+            priority
+          />
+          <h1
+            className="max-w-[620px] text-[30px] font-cinzel font-bold leading-tight tracking-[0.06em]"
+            style={{ color: COLORS.brown }}
+          >
+            {title}
+          </h1>
+          <p
+            className="mt-0.5 max-w-[520px] text-[19px] font-nunito-sans"
+            style={{ color: COLORS.black, opacity: 0.85 }}
+          >
+            {subtitle}
+          </p>
+          <IntroHeader text={intro} />
+        </header>
 
-      <section className="relative z-10 mt-1 grid grid-cols-3">
-        {cards.map((card, index) => (
-          <AnalysisCard key={`${card.title}-${index}`} index={index + 1} card={card} />
-        ))}
-      </section>
+        <section className="relative z-10 mt-1 grid grid-cols-3">
+          {cards.map((card, index) => (
+            <AnalysisCard key={`${card.title}-${index}`} index={index + 1} card={card} />
+          ))}
+        </section>
 
-      <PressureStrokeSummarySection summary={pressureStrokeSummary} />
-
-      <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
-
-      <TraitsFooter traits={traits} />
-    </div>
+        <PressureStrokeSummarySection summary={pressureStrokeSummary} />
+        <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
+        <TraitsFooter traits={traits} />
+      </div>
     </SignatureReportPageShell>
   );
 }
