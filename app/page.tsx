@@ -30,6 +30,15 @@ export default function Home() {
             Signature Analysis Report
           </h2>
         </Link>
+
+        <Link
+          href="/business-name-report"
+          className="rounded-lg border border-[#b8860b]/40 bg-[#fdf5e6] p-6 shadow-md transition hover:border-[#b8860b] hover:shadow-lg"
+        >
+          <h2 className="text-lg font-bold text-[#5d2e17]">
+            Business Name Analysis Report
+          </h2>
+        </Link>
       </div>
     </main>
   );
