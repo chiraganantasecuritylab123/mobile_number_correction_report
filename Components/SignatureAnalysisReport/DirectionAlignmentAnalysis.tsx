@@ -231,16 +231,16 @@ function AnalysisCard({
             <StatusIcon size={7} strokeWidth={2} style={{ color: COLORS.cream }} />
           </span>
           <span
-            className="text-[12px] font-semibold tracking-wide"
-            style={{ color: COLORS.brown, fontFamily: BODY_SANS }}
+            className="text-[13px] font-semibold tracking-wide font-nunito-sans"
+            style={{ color: COLORS.brown }}
           >
             {card.statusLabel}
           </span>
         </div>
 
         <p
-          className="text-[12px] leading-snug px-2"
-          style={{ color: COLORS.black, opacity: 0.82, fontFamily: BODY_SANS }}
+          className="text-[13px] leading-snug px-2 font-nunito-sans"
+          style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
         </p>
@@ -290,8 +290,8 @@ function OverallDirectionInsightSection({ insight }: { insight: string }) {
           </p>
           <OverallInsightDivider />
           <p
-            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.black, opacity: 0.88 }}
           >
             {insight}
           </p>
@@ -344,14 +344,14 @@ function ExpertGraphologyFooterSection({ insight }: { insight: string }) {
 
         <div className="min-w-0 flex-1">
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.goldLight }}
           >
             EXPERT GRAPHOLOGY INSIGHT
           </p>
           <p
-            className="mt-1.5 text-[10px] leading-relaxed"
-            style={{ color: COLORS.cream, fontFamily: BODY_SANS, opacity: 0.95 }}
+            className="mt-1.5 text-[12px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.cream, opacity: 0.95 }}
           >
             {insight}
           </p>
@@ -380,7 +380,8 @@ export default function DirectionAlignmentAnalysis({
 }: DirectionAlignmentAnalysisProps) {
   return (
     <SignatureReportPageShell padding="20px 40px 28px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center">
+      <div className="font-nunito-sans">
+        <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/signatureReport/logo-main.png"
           alt="Astro Aarambh"
@@ -390,13 +391,13 @@ export default function DirectionAlignmentAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[27px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[27px] font-bold leading-tight tracking-[0.06em] font-cinzel"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
         <p
-          className="mt-0.5 max-w-[520px] text-[17px] font-nunito-sans"
+          className="mt-0.5 max-w-[520px] text-[17px]"
           style={{ color: COLORS.black, opacity: 0.85 }}
         >
           {subtitle}
@@ -413,6 +414,7 @@ export default function DirectionAlignmentAnalysis({
       <OverallDirectionInsightSection insight={overallDirectionInsight} />
 
       <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
+    </div>
     </SignatureReportPageShell>
   );
 }

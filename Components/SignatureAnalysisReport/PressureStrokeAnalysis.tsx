@@ -152,31 +152,31 @@ function CardIconGraphic({ icon }: { icon: PressureStrokeIcon }) {
 
   const graphics: Record<PressureStrokeIcon, ReactNode> = {
     lightPressure: (
-      <div className="flex flex-col items-center" aria-hidden>
-        <Feather size={50} strokeWidth={1.25} style={iconStyle} />
+      <div className="flex flex-col items-center mt-3" aria-hidden>
+        <Feather size={45} strokeWidth={1.25} style={iconStyle} />
         <PenStrokeLine thickness={1} />
       </div>
     ),
     mediumPressure: (
       <div className="flex flex-col items-center" aria-hidden>
-        <PenTool size={50} strokeWidth={1.25} style={iconStyle} />
+        <PenTool size={45} strokeWidth={1.25} style={iconStyle} className="mt-5"/>
         <PenStrokeLine thickness={2} />
       </div>
     ),
     heavyPressure: (
       <div className="flex flex-col items-center" aria-hidden>
-        <PenTool size={50} strokeWidth={1.5} style={iconStyle} />
+        <PenTool size={45} strokeWidth={1.5} style={iconStyle} />
         <PenStrokeLine thickness={3.5} />
       </div>
     ),
     strokeUniformity: (
-      <Waves size={50} strokeWidth={1.25} style={iconStyle} aria-hidden />
+      <Waves size={45} strokeWidth={1.25} style={iconStyle} aria-hidden />
     ),
     boldness: (
-      <Signature size={50} strokeWidth={1.25} style={iconStyle} aria-hidden />
+      <Signature size={45} strokeWidth={1.25} style={iconStyle} aria-hidden className="mt-5"/>
     ),
     energy: (
-        <Zap size={50} strokeWidth={1.25} style={iconStyle} fill={COLORS.gold} />
+        <Zap size={45} strokeWidth={1.25} style={iconStyle} fill={COLORS.gold} className="mt-4" />
     ),
   };
 
@@ -214,7 +214,7 @@ function AnalysisCard({
         <CardIconGraphic icon={card.icon} />
 
         <p
-          className="px-0.5 text-[13px] font-bold leading-tight tracking-[0.06em]"
+          className="px-0.5 text-[12px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {card.title}
@@ -228,7 +228,7 @@ function AnalysisCard({
           }}
         >
           <span
-            className=" flex items-center justify-center text-[11px] font-semibold tracking-wide"
+            className=" flex items-center justify-center text-[12px] font-semibold tracking-wide"
             style={{ color: COLORS.brown }}
           >
             {card.valueLabel}
@@ -236,7 +236,7 @@ function AnalysisCard({
         </div>
 
         <p
-          className="px-2 text-[11px] leading-snug"
+          className="px-2 text-[12px] leading-snug"
           style={{ color: COLORS.black, opacity: 0.82 }}
         >
           {card.description}
@@ -284,14 +284,14 @@ function PressureStrokeSummarySection({ summary }: { summary: string }) {
 function IntroHeader({ text }: { text: string }) {
   return (
     <div className="mt-1 flex w-full max-w-[620px] items-center justify-center gap-3 px-2 font-nunito-sans">
-      <Pattern3 size={36} />
+      <Pattern3 size={80} />
       <p
-        className="text-center text-[15px] leading-snug"
+        className="text-center text-[16px] leading-snug"
         style={{ color: COLORS.brown, opacity: 0.9 }}
       >
         {text}
       </p>
-      <Pattern3 size={36} className="rotate-180" />
+      <Pattern3 size={80} className="rotate-180" />
     </div>
   );
 }
@@ -392,7 +392,8 @@ export default function PressureStrokeAnalysis({
 }: PressureStrokeAnalysisProps) {
   return (
     <SignatureReportPageShell padding="20px 40px 28px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center">
+      <div className="font-nunito-sans">
+        <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/signatureReport/logo-main.png"
           alt="Astro Aarambh"
@@ -402,13 +403,13 @@ export default function PressureStrokeAnalysis({
           priority
         />
         <h1
-          className="max-w-[620px] text-[30px] font-bold leading-tight tracking-[0.06em]"
+          className="max-w-[620px] text-[30px] font-bold leading-tight tracking-[0.06em] font-cinzel"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
         <p
-          className="mt-0.5 max-w-[520px] text-[17px] font-nunito-sans"
+          className="mt-0.5 max-w-[520px] text-[19px] font-nunito-sans"
           style={{ color: COLORS.black, opacity: 0.85 }}
         >
           {subtitle}
@@ -427,6 +428,7 @@ export default function PressureStrokeAnalysis({
       <ExpertGraphologyFooterSection insight={expertGraphologyInsight} />
 
       <TraitsFooter traits={traits} />
+    </div>
     </SignatureReportPageShell>
   );
 }

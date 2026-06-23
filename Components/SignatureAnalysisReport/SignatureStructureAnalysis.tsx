@@ -1,9 +1,6 @@
 import {
   BookOpen,
-  Circle,
-  Compass,
   Eye,
-  Flower2,
   LayoutGrid,
   Puzzle,
   Ruler,
@@ -34,16 +31,13 @@ export type StructureAnalysisCard = {
   valueLabel: string;
   description?: string;
   type: StructureCardType;
-  // nameBalance
   firstNamePercent?: number;
   surnamePercent?: number;
-  // legibilityLevel / strokeConsistency donut
   donutPercent?: number;
   donutLabel?: string;
-  // complexityIndex blocks
   filledBlocks?: number;
   totalBlocks?: number;
-  complexityScore?: string; // e.g. "4 / 5"
+  complexityScore?: string;
 };
 
 export type StructureAttribute = {
@@ -70,8 +64,6 @@ export type SignatureStructureAnalysisProps = {
 };
 
 const COLORS = REPORT_COLORS;
-
-// ─── defaults ────────────────────────────────────────────────────────────────
 
 const defaultCards: StructureAnalysisCard[] = [
   {
@@ -139,8 +131,6 @@ const defaultAttributes: StructureAttribute[] = [
   { label: "Growth", icon: TrendingUp },
 ];
 
-// ─── small shared pieces ──────────────────────────────────────────────────────
-
 function OrnamentalDivider() {
   return (
     <div className="flex w-full items-center gap-1">
@@ -184,13 +174,13 @@ function StarRating({ count, max = 7 }: { count: number; max?: number }) {
 function ScoreRing({
   score,
   maxScore,
-  starRating,
-  personalityLabel,
+  starRating = 0,
+  label,
 }: {
   score: number;
   maxScore: number;
-  starRating: number;
-  personalityLabel: string;
+  starRating?: number;
+  label?: string;
 }) {
   return (
     <section className="relative z-10 flex justify-center font-nunito-sans">
@@ -219,15 +209,9 @@ function ScoreRing({
           </p>
 
           <OrnamentDivider width={120} lotusSize={0} />
-          {/* <p
-              className="mt-1 text-[12px] font-semibold"
-              style={{ color: COLORS.brown }}
-            >
-              {personalityLabel}
-            </p> */}
-
+          {/* optional personality label */}
           <p className="text-[9px] font-bold tracking-[0.12em]" style={{ color: COLORS.gold }}>
-            STRONG & INFLUENTIAL
+            {label ?? "STRONG & INFLUENTIAL"}
           </p>
         </div>
       </div>
@@ -275,8 +259,8 @@ function SmallDonut({ percent, label }: { percent: number; label: string }) {
   const circ = 2 * Math.PI * r;
   const offset = circ * (1 - percent / 100);
   return (
-    <div className="relative flex h-[50px] w-[50px] items-center justify-center">
-      <svg viewBox="0 0 64 64" className="h-full w-full -rotate-90" aria-hidden>
+    <div className="relative flex  items-center justify-center">
+      <svg viewBox="0 0 64 64" className="h-[50px] w-[50px] -rotate-90" aria-hidden>
         <circle cx="32" cy="32" r={r} fill="none" stroke="#f2e4d4" strokeWidth="5" />
         <circle
           cx="32"
@@ -291,7 +275,7 @@ function SmallDonut({ percent, label }: { percent: number; label: string }) {
         />
       </svg>
       <span
-        className="absolute text-[11px] font-bold leading-none"
+        className="absolute text-[10px] font-bold leading-none"
         style={{ color: COLORS.brown }}
       >
         {label}
@@ -319,7 +303,7 @@ function DotBlocks({ filled, total = 5 }: { filled: number; total?: number }) {
 function CardVisual({ card }: { card: StructureAnalysisCard }) {
   if (card.type === "nameBalance") {
     return (
-      <div className="flex w-full flex-col gap-1.5 px-1">
+      <div className="flex w-full flex-col  px-1">
         <LabeledProgressBar label="First Name" percent={card.firstNamePercent ?? 65} />
         <LabeledProgressBar label="Surname" percent={card.surnamePercent ?? 35} />
       </div>
@@ -330,7 +314,7 @@ function CardVisual({ card }: { card: StructureAnalysisCard }) {
   }
   if (card.type === "complexityIndex") {
     return (
-      <div className="flex flex-col items-center gap-1">
+      <div className="flex flex-col items-center ">
         <DotBlocks filled={card.filledBlocks ?? 4} total={card.totalBlocks ?? 5} />
         <p className="text-[13px] font-bold" style={{ color: COLORS.brown }}>
           {card.complexityScore ?? "4 / 5"}
@@ -352,38 +336,41 @@ function AnalysisCard({ index, card }: { index: number; card: StructureAnalysisC
 
   return (
     <div className="relative flex h-[205px] w-[245px] flex-col bg-[url('/assets/signatureReport/card-bg.png')] bg-cover bg-center bg-no-repeat">
+      {/* number badge */}
+      {/* <span className="absolute left-1/2 top-[8px] z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[35%] items-center justify-center rounded-full text-[11px] font-bold">
+          {String(index).padStart(2, "0")}
+        </span> */}
+
       <span className="absolute left-1/2 top-[12px] z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-[35%] items-center justify-center rounded-full text-[11px] font-bold text-white"
         style={{ backgroundColor: COLORS.brown }}
       >
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full flex-col justify-start px-3 pb-3 pt-5 font-nunito-sans">
+      <div className="flex h-full flex-col justify-start px-8 pb-2.5 pt-5 font-nunito-sans">
         {/* icon + title */}
         <div className="flex items-center justify-center gap-1 px-2 py-1 mt-2">
           <CardTypeIcon type={card.type} />
           <p
-            className="text-left text-[10px] font-bold leading-tight tracking-[0.04em]"
+            className="text-left text-[11px] font-bold leading-tight tracking-[0.04em]"
             style={{ color: COLORS.brown }}
           >
             {card.title}
           </p>
         </div>
 
-        <div className="flex items-center justify-center">
-          <OrnamentDivider width={150} lotusSize={0} />
-        </div>
+        <OrnamentDivider width={180} lotusSize={0} />
 
         {card.valueLabel ? (
           <p className="text-center text-[12px] font-bold leading-tight" style={{ color: COLORS.brown }}>
-            2   {card.valueLabel}
+            {card.valueLabel}
           </p>
         ) : null}
 
         {hasVisual ? (
-          <div className=" flex flex-1 flex-col items-center justify-center">
+          // <div className=" flex flex-1 flex-col items-center justify-center">
             <CardVisual card={card} />
-          </div>
+          // </div>
         ) : (
           // <SimpleDivider />
           null
@@ -391,7 +378,7 @@ function AnalysisCard({ index, card }: { index: number; card: StructureAnalysisC
 
         {card.description ? (
           <p
-            className=" px-1 text-center text-[12px] leading-snug mb-1.5"
+            className="  text-center text-[12px] leading-snug mb-1"
             style={{ color: COLORS.black }}
           >
             {card.description}
@@ -421,7 +408,7 @@ function CompletenessSection({
   text: string;
 }) {
   return (
-    <section className="relative z-10 align-middle flex justify-center font-nunito-sans">
+    <section className="relative z-10 flex justify-center font-nunito-sans">
       <div
         className="relative flex min-h-[120px] w-full items-center justify-between "
         style={{
@@ -432,11 +419,17 @@ function CompletenessSection({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <CoverLotus
-          size={65}
-          className="opacity-90 absolute left-4"
-        />
-        <div className="flex flex-1 flex-col items-center justify-center text-center px-6 max-w-[600px] mx-auto">
+        {/* Left Lotus */}
+        <div className="flex items-center justify-center">
+          <CoverLotus
+            size={65}
+            className="opacity-90"
+          />
+        </div>
+
+        {/* Center Content */}
+        <div className="flex flex-1 flex-col items-center justify-center text-center px-6">
+          {/* Title */}
           <h2
             className="text-[12px] font-bold uppercase tracking-[0.08em]"
             style={{ color: COLORS.brown }}
@@ -480,10 +473,14 @@ function CompletenessSection({
             {text}
           </p>
         </div>
-        <CoverLotus
-          size={65}
-          className="opacity-90 absolute right-4"
-        />
+
+        {/* Right Lotus */}
+        <div className="flex items-center justify-center">
+          <CoverLotus
+            size={65}
+            className="opacity-90"
+          />
+        </div>
       </div>
     </section>
   );
@@ -523,7 +520,7 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
             EXPERT GRAPHOLOGY OBSERVATION
           </p>
           <p
-            className="mt-1 text-[10px] leading-relaxed"
+            className="mt-1 text-[12px] leading-relaxed"
             style={{ color: COLORS.cream, opacity: 0.95 }}
           >
             {observation}
@@ -546,7 +543,7 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
 
 function AttributeIcon({ attribute }: { attribute: StructureAttribute }) {
   const Icon = attribute.icon;
-  return <Icon size={16} strokeWidth={2} style={{ color: COLORS.gold }} />;
+  return <Icon size={12} strokeWidth={1.25} style={{ color: COLORS.gold }} />;
 }
 
 function AttributePills({ attributes }: { attributes: StructureAttribute[] }) {
@@ -559,7 +556,7 @@ function AttributePills({ attributes }: { attributes: StructureAttribute[] }) {
           style={{ backgroundColor: COLORS.cream, border: `1px solid ${COLORS.gold}` }}
         >
           <AttributeIcon attribute={a} />
-          <span className="text-[10px] font-semibold" style={{ color: COLORS.brown }}>
+          <span className="text-[12px] font-semibold" style={{ color: COLORS.brown }}>
             {a.label}
           </span>
         </div>
@@ -619,42 +616,42 @@ export default function SignatureStructureAnalysis({
   return (
     <SignatureReportPageShell padding="20px 40px 24px" pageNumber={pageNumber}>
 
-      {/* header */}
-      <header className="flex flex-col items-center text-center">
-        <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={ 80}
-          height={80}
-          // className="mb-1"
-          priority
-        />
-        <h1
-          className="max-w-[620px] text-[25px] font-bold leading-tight tracking-[0.06em]"
-          style={{ color: COLORS.brown }}
-        >
-          {title}
-        </h1>
-        <p
-          className=" max-w-[520px] text-[12px] font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
-          {subtitle}
-        </p>
-
-
-        <div className="mt-0 ">
-          <OrnamentDivider width={220} lotusSize={0} />
-        </div>
-      </header>
-
       <div className="font-nunito-sans">
+        {/* header */}
+        <header className="flex flex-col items-center text-center">
+          <Image
+            src="/assets/signatureReport/logo-main.png"
+            alt="Astro Aarambh"
+            width={110}
+            height={110}
+            // className="mb-1"
+            priority
+          />
+          <h1
+            className="max-w-[620px] text-[25px] font-bold leading-tight tracking-[0.06em] font-cinzel"
+            style={{ color: COLORS.brown }}
+          >
+            {title}
+          </h1>
+          <p
+            className=" max-w-[520px] text-[14px]"
+            style={{ color: COLORS.black, opacity: 0.85 }}
+          >
+            {subtitle}
+          </p>
+
+
+          <div className="mt-0 ">
+            <OrnamentDivider width={220} lotusSize={0} />
+          </div>
+        </header>
+
         {/* score ring */}
         <ScoreRing score={structureScore} maxScore={maxScore} label={structureLabel} />
 
         {/* summary */}
         <p
-          className="relative z-10  text-center text-[12px] italic"
+          className="relative z-10  text-center text-[13px] italic"
           style={{ color: COLORS.black }}
         >
           {summaryText}
