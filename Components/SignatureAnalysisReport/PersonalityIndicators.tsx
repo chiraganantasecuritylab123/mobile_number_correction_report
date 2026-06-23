@@ -54,7 +54,6 @@ export type PersonalityIndicatorsProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
 
 const defaultIndicators: PersonalityIndicator[] = [
   { title: "CONFIDENCE", percent: 92, icon: Shield },
@@ -89,18 +88,6 @@ const defaultTraitPills: PersonalityTraitPill[] = [
   { label: "Independence", icon: UserRound },
   { label: "Ambition", icon: TrendingUp },
 ];
-
-function HeaderDivider() {
-  return (
-    <div className="mt-1 flex w-full max-w-[420px] items-center justify-center gap-2">
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      <span className="text-[8px] leading-none" style={{ color: COLORS.gold }}>
-        ◆
-      </span>
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-    </div>
-  );
-}
 
 function StarRating({ count, size = 15 }: { count: number; size?: number }) {
   return (
@@ -148,7 +135,6 @@ function PersonalityIndexSection({
   return (
     <section className="relative z-10 flex justify-center font-nunito-sans mt-3">
       <div
-        // className="relative flex items-center justify-center px-8 py-4"
         className="relative flex h-[200px] min-w-[400px] items-center justify-center bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/assets/signatureReport/page-8-circle.png')" }}
       >
@@ -264,14 +250,14 @@ function CharacterStrengthMapSection({
       }}
     >
       <div className="flex items-center justify-center gap-2">
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold }} />
         <p
           className="text-[13px] font-bold tracking-[0.1em]"
           style={{ color: COLORS.brown }}
         >
           CHARACTER STRENGTH MAP
         </p>
-        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+        <span className="h-px w-10" style={{ backgroundColor: COLORS.gold }} />
       </div>
 
       <div className="mt-2 flex items-center justify-around gap-6">
@@ -356,8 +342,8 @@ function CorePersonalitySummarySection({
             CORE PERSONALITY SUMMARY
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.black }}
           >
             {summary}
           </p>
@@ -381,7 +367,6 @@ function CorePersonalitySummarySection({
               key={pill.label}
               className="flex items-center gap-1 rounded-full px-2 py-1"
               style={{
-                // backgroundColor: COLORS.cream,
                 border: `1px solid ${COLORS.gold}`,
               }}
             >
@@ -429,8 +414,8 @@ function ExpertObservationFooter({ observation }: { observation: string }) {
             GRAPHOLOGY EXPERT OBSERVATION
           </p>
           <p
-            className="mt-1 text-[12px] leading-relaxed"
-            style={{ color: COLORS.cream, opacity: 0.95, fontFamily: BODY_SANS }}
+            className="mt-1 text-[12px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.cream }}
           >
             {observation}
           </p>
@@ -466,14 +451,6 @@ export default function PersonalityIndicators({
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
       <header className="flex flex-col items-center text-center pt-6">
-        {/* <Image
-          src="/assets/signatureReport/logo-main.png"
-          alt="Astro Aarambh"
-          width={96}
-          height={96}
-          className="mb-0.5"
-          priority
-        /> */}
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}

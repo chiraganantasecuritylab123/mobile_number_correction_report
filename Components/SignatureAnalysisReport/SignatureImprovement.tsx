@@ -96,7 +96,7 @@ const defaultBenefits = [
   "Stronger Business Impression",
 ];
 
-function OrnateLabel({ text, light = false }: { text: string; light?: boolean }) {
+function OrnateLabel({ text }: { text: string }) {
   return (
     <div className="flex items-center justify-center gap-2 py-0.5">
       <Pattern3 size={42} />
@@ -273,7 +273,6 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
       </p>
 
       <div className="mt-2 flex gap-3">
-        {/* Left column */}
         <div className="flex flex-1 flex-col gap-1">
           {left.map((b, i) => (
             <div key={i} className="flex items-start gap-1.5">
@@ -295,7 +294,6 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
           ))}
         </div>
 
-        {/* Center divider */}
         <div
           style={{
             width: 1,
@@ -305,7 +303,6 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
           }}
         />
 
-        {/* Right column */}
         <div className="flex flex-1 flex-col gap-1">
           {right.map((b, i) => (
             <div key={i} className="flex items-start gap-1.5">
@@ -386,7 +383,6 @@ export default function SignatureImprovement({
 }: SignatureImprovementProps) {
   return (
     <SignatureReportPageShell padding="14px 32px 12px" pageNumber={pageNumber}>
-      {/* ── Header ── */}
       <header className="flex flex-col items-center text-center">
         <Image
           src="/assets/signatureReport/logo-main.png"
@@ -410,29 +406,24 @@ export default function SignatureImprovement({
 
       </header>
 
-      {/* ── Overall Recommendation ── */}
       <section className="relative z-10 mt-1">
         <OverallRecommendation text={overallRecommendation} />
       </section>
 
-      {/* ── Suggested Improvements label ── */}
       <div className="mt-1 flex items-center justify-center gap-2">
         <OrnateLabel text="SUGGESTED IMPROVEMENTS" />
       </div>
 
-      {/* ── Improvement Rows ── */}
       <section className="relative z-10 mt-1 flex flex-col gap-1">
         {improvements.map((item, index) => (
           <ImprovementRow key={item.title} index={index + 1} item={item} />
         ))}
       </section>
 
-      {/* ── Expected Benefits ── */}
       <section className="relative z-10">
         <ExpectedBenefits benefits={benefits} />
       </section>
 
-      {/* ── Expert Recommendation ── */}
       <section className="relative z-10">
         <ExpertObservationFooter observation={expertRecommendation} />
       </section>

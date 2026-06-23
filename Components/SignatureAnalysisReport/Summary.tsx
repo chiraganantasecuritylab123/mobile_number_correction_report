@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties, ReactNode } from "react";
 import { Pattern3, SubtitleHeader } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
@@ -25,13 +26,46 @@ export type SummaryProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
+const SERIF_FONT = "Georgia, serif";
+const RATING_TEXT_COLOR = "#8B6A2F";
 
-const SECTION_BOX_STYLE = {
-  border: `1.5px solid ${COLORS.gold}`,
-  borderRadius: 10,
-  backgroundColor: "rgba(253, 245, 230, 0.55)",
+const ASSETS = {
+  logo: "/assets/signatureReport/logo-main.png",
+  pattern2: "/assets/cover/pattern-2.png",
+  atAGlanceTable: "/assets/signaturePages/table.png",
+  verdictBackground: "/assets/signaturePages/footer-backgroundSummaryPage.png",
 } as const;
+
+const TABLE_HEADER_STYLE: CSSProperties = {
+  color: COLORS.brown,
+  fontFamily: SERIF_FONT,
+};
+
+const TABLE_CATEGORY_STYLE: CSSProperties = {
+  color: COLORS.brown,
+  fontFamily: SERIF_FONT,
+};
+
+const TABLE_RATING_STYLE: CSSProperties = {
+  color: RATING_TEXT_COLOR,
+  fontFamily: SERIF_FONT,
+};
+
+const AT_A_GLANCE_TABLE_STYLE: CSSProperties = {
+  backgroundImage: `url('${ASSETS.atAGlanceTable}')`,
+  backgroundSize: "70% 100%",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  minHeight: "230px",
+  padding: "20px 30px",
+};
+
+const VERDICT_BACKGROUND_STYLE: CSSProperties = {
+  backgroundImage: `url('${ASSETS.verdictBackground}')`,
+  backgroundSize: "70% 100%",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+};
 
 const defaultRatings: SummaryRatingRow[] = [
   { category: "Confidence", rating: "Excellent" },
@@ -62,70 +96,42 @@ const defaultFocusAreas = [
   "Refine ending stroke",
 ];
 
+function TableHeaderCell({ children }: { children: ReactNode }) {
+  return (
+    <div className="text-center text-[15px] font-bold" style={TABLE_HEADER_STYLE}>
+      {children}
+    </div>
+  );
+}
+
+function TableDataCell({
+  children,
+  style,
+}: {
+  children: ReactNode;
+  style: CSSProperties;
+}) {
+  return (
+    <div className="text-center text-[15px] font-semibold" style={style}>
+      {children}
+    </div>
+  );
+}
+
 function AtAGlanceTable({ ratings }: { ratings: SummaryRatingRow[] }) {
   return (
     <section className="relative z-10 mt-1 font-nunito-sans">
-      <div
-        className="relative w-full"
-        style={{
-          backgroundImage:
-            "url('/assets/signaturePages/table.png')",
-          backgroundSize: "70% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          minHeight: "230px",
-          padding: "20px 30px",
-        }}
-      >
-        {/* Header */}
+      <div className="relative w-full" style={AT_A_GLANCE_TABLE_STYLE}>
         <div className="grid grid-cols-2">
-          <div
-            className="text-center text-[15px] font-bold"
-            style={{
-              color: COLORS.brown,
-              fontFamily: "Georgia, serif",
-            }}
-          >
-            Category
-          </div>
-
-          <div
-            className="text-center text-[15px] font-bold"
-            style={{
-              color: COLORS.brown,
-              fontFamily: "Georgia, serif",
-            }}
-          >
-            Rating
-          </div>
+          <TableHeaderCell>Category</TableHeaderCell>
+          <TableHeaderCell>Rating</TableHeaderCell>
         </div>
 
-        {/* Rows */}
         <div className="mt-1">
           {ratings.map((row) => (
-            <div
-              key={row.category}
-              className="grid grid-cols-2 py-[5px]"
-            >
-              <div
-                className="text-center text-[15px] font-semibold"
-                style={{
-                  color: COLORS.brown,
-                  fontFamily: "Georgia, serif",
-                }}
-              >
-                {row.category}
-              </div>
-
-              <div
-                className="text-center text-[15px] font-semibold"
-                style={{
-                  color: "#8B6A2F",
-                  fontFamily: "Georgia, serif",
-                }}
-              >
-                {row.rating}
-              </div>
+            <div key={row.category} className="grid grid-cols-2 py-[5px]">
+              <TableDataCell style={TABLE_CATEGORY_STYLE}>{row.category}</TableDataCell>
+              <TableDataCell style={TABLE_RATING_STYLE}>{row.rating}</TableDataCell>
             </div>
           ))}
         </div>
@@ -134,17 +140,7 @@ function AtAGlanceTable({ ratings }: { ratings: SummaryRatingRow[] }) {
   );
 }
 
-const ASSETS = {
-  // Pre-built cover background (image 3 reference): frame, zodiac/pen emblem,
-  // sun, astro-chart corners, quill + signature, and bottom maroon arch
-  // are already baked into this artwork. Page 02 just needs to lay text on top.
-  cover: "/assets/signaturePages/coverPage1.png",
-  pattern2: "/assets/cover/pattern-2.png",
-  nameBorder: "/assets/signaturePages/nameImageBorder.png",
-} as const;
-
-
-function OrnamentDivider({ width = 220, lotusSize = 0, className }: { className?: string, width?: number; lotusSize?: number }) {
+function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
     <div className="relative flex items-center justify-center" style={{ width }}>
       <Image
@@ -155,75 +151,7 @@ function OrnamentDivider({ width = 220, lotusSize = 0, className }: { className?
         className="h-auto w-full object-contain"
         aria-hidden
       />
-      {lotusSize > 0 ? (
-        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-[#f4e7c9] px-1">
-          {/* <LotusGlyph size={lotusSize} /> */}
-        </div>
-      ) : null}
     </div>
-  );
-}
-
-
-function HighlightsAndFocusSection({
-  keyHighlights,
-  focusAreas,
-}: {
-  keyHighlights: string[];
-  focusAreas: string[];
-}) {
-  return (
-    <section className="relative px-6 py-2 max-w-[700px] mx-auto">
-      <div className="grid grid-cols-[1fr_auto_1fr] gap-0 font-semibold">
-        {/* Left Column */}
-        <div>
-          <FancyHeading title="KEY HIGHLIGHTS" />
-
-          <ul className="mt-2 space-y-1">
-            {keyHighlights.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 text-[14px] font-nunito-sans"
-                style={{ color: COLORS.black }}
-              >
-                <span style={{ color: COLORS.gold }}>•</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Divider */}
-        <div className="relative flex w-10 justify-center">
-          <div
-            className="h-full w-px"
-            style={{
-              background: "rgba(184,134,11,0.45)",
-            }}
-          />
-
-          <OrnamentDivider width={290} className="rotate-90" />
-        </div>
-
-        {/* Right Column */}
-        <div>
-          <FancyHeading title="RECOMMENDED FOCUS AREAS" />
-
-          <ul className="mt-4 space-y-1">
-            {focusAreas.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-1 text-[14px] font-nunito-sans"
-                style={{ color: COLORS.black }}
-              > 
-                <span style={{ color: COLORS.gold }}>•</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -235,14 +163,80 @@ function FancyHeading({ title }: { title: string }) {
         className="text-center text-[16px] font-bold uppercase leading-none"
         style={{
           color: COLORS.brown,
-          fontFamily: "Georgia, serif",
+          fontFamily: SERIF_FONT,
         }}
       >
         {title}
       </h3>
       <Pattern3 size={42} className="rotate-180" />
-
     </div>
+  );
+}
+
+function BulletListItem({
+  children,
+  gapClass,
+}: {
+  children: string;
+  gapClass: string;
+}) {
+  return (
+    <li
+      className={`flex items-start ${gapClass} text-[14px] font-nunito-sans`}
+      style={{ color: COLORS.black }}
+    >
+      <span style={{ color: COLORS.gold }}>•</span>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function HighlightsAndFocusSection({
+  keyHighlights,
+  focusAreas,
+}: {
+  keyHighlights: string[];
+  focusAreas: string[];
+}) {
+  return (
+    <section className="relative mx-auto max-w-[700px] px-6 py-2">
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-0 font-semibold">
+        <div>
+          <FancyHeading title="KEY HIGHLIGHTS" />
+
+          <ul className="mt-2 space-y-1">
+            {keyHighlights.map((item) => (
+              <BulletListItem key={item} gapClass="gap-3">
+                {item}
+              </BulletListItem>
+            ))}
+          </ul>
+        </div>
+
+        <div className="relative flex w-10 justify-center">
+          <div
+            className="h-full w-px"
+            style={{
+              background: "rgba(184,134,11,0.45)",
+            }}
+          />
+
+          <OrnamentDivider width={290} />
+        </div>
+
+        <div>
+          <FancyHeading title="RECOMMENDED FOCUS AREAS" />
+
+          <ul className="mt-4 space-y-1">
+            {focusAreas.map((item) => (
+              <BulletListItem key={item} gapClass="gap-1">
+                {item}
+              </BulletListItem>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -261,15 +255,8 @@ function FinalVerdictSection({
     <section className="relative z-10 flex justify-center font-nunito-sans">
       <div
         className="relative flex min-h-[150px] w-full items-center justify-center"
-        style={{
-          backgroundImage:
-            "url('/assets/signaturePages/footer-backgroundSummaryPage.png')",
-          backgroundSize: "70% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+        style={VERDICT_BACKGROUND_STYLE}
       >
-        {/* Center Content */}
         <div className="flex flex-col items-center justify-center px-2 text-center">
           <h2
             className="text-[14px] font-bold uppercase tracking-[0.08em]"
@@ -280,19 +267,17 @@ function FinalVerdictSection({
 
           <p
             className="mt-1 text-[9px] font-semibold tracking-[0.1em]"
-            style={{
-              color: COLORS.brown,
-            }}
+            style={{ color: COLORS.brown }}
           >
             {scoreLabel}
           </p>
-
 
           <p
             className="mt-0.5 text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            <span className="text-[55px]">{score}</span> / <span className="text-[25px]">{maxScore}</span>
+            <span className="text-[55px]">{score}</span> /{" "}
+            <span className="text-[25px]">{maxScore}</span>
           </p>
 
           <p
@@ -318,7 +303,7 @@ function ClosingStatement({ text }: { text: string }) {
       </p>
 
       <div className="flex justify-center">
-        <OrnamentDivider width={290} lotusSize={0} />
+        <OrnamentDivider width={290} />
       </div>
     </section>
   );
@@ -378,10 +363,9 @@ export default function Summary({
 }: SummaryProps) {
   return (
     <SignatureReportPageShell padding="16px 36px 18px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center mt-1">
-
+      <header className="mt-1 flex flex-col items-center text-center" id="16">
         <Image
-          src="/assets/signatureReport/logo-main.png"
+          src={ASSETS.logo}
           alt="Astro Aarambh"
           width={80}
           height={80}
@@ -390,19 +374,22 @@ export default function Summary({
         />
 
         <h1
-          className="max-w-[620px] inline-flex items-center gap-2 text-[30px] font-bold leading-tight tracking-[0.06em]"
+          className="inline-flex max-w-[620px] items-center gap-2 text-[30px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
-        <OrnamentDivider width={290} lotusSize={0} />
+        <OrnamentDivider width={290} />
 
         <SubtitleHeader text={subtitle} />
       </header>
 
       <AtAGlanceTable ratings={ratings} />
 
-      <HighlightsAndFocusSection keyHighlights={keyHighlights} focusAreas={focusAreas} />
+      <HighlightsAndFocusSection
+        keyHighlights={keyHighlights}
+        focusAreas={focusAreas}
+      />
 
       <FinalVerdictSection
         score={overallScore}

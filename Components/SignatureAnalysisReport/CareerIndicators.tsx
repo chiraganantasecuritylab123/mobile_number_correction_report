@@ -356,7 +356,7 @@ function CareerIndicatorCard({
 
         <p
           className="px-0 leading-snug text-[12px]"
-          style={{ color: COLORS.black, opacity: 0.82 }}
+          style={{ color: COLORS.black }}
         >
           {card.description}
         </p>
@@ -396,7 +396,7 @@ function CareerStrengthOverview({ strengths }: { strengths: CareerStrength[] }) 
                 {index > 0 ? (
                   <span
                     className="my-2 w-px shrink-0"
-                    style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
+                    style={{ backgroundColor: COLORS.gold }}
                   />
                 ) : null}
                 <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
@@ -451,7 +451,7 @@ function CareerInterpretationSection({ text }: { text: string }) {
           </div>
           <p
             className="mt-1 max-w-[520px] text-center text-[12px] leading-4"
-            style={{ color: COLORS.black, opacity: 0.88 }}
+            style={{ color: COLORS.black }}
           >
             {text}
           </p>
@@ -561,7 +561,7 @@ export default function CareerIndicators({
 
         <p
           className="max-w-[600px] mx-auto flex flex-row items-center justify-center relative z-10 mt-1 text-center text-[13px] leading-4"
-          style={{ color: COLORS.black, opacity: 0.88 }}
+          style={{ color: COLORS.black }}
         >
           <Pattern3 size={32} />
           {summaryText}

@@ -42,11 +42,6 @@ export type NumerologyViewProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
-
-const CARD_GOLD = "#C5A059";
-const CARD_GOLD_LIGHT = "#E8C872";
-const CARD_STATUS_BG = "#FAE6C1";
 
 const defaultCards: NumerologyCard[] = [
   {
@@ -118,18 +113,6 @@ const defaultCards: NumerologyCard[] = [
   },
 ];
 
-function HeaderDivider() {
-  return (
-    <div className="mt-1 flex w-full max-w-[420px] items-center justify-center gap-2">
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      <span className="text-[8px] leading-none" style={{ color: COLORS.gold }}>
-        ◆
-      </span>
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-    </div>
-  );
-}
-
 function PartialStarRating({
   rating,
   max = 5,
@@ -164,8 +147,8 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
       <svg viewBox="0 0 72 48" className="h-full w-full" aria-hidden>
         <defs>
           <linearGradient id={gaugeId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={CARD_GOLD} />
-            <stop offset="100%" stopColor={CARD_GOLD_LIGHT} />
+            <stop offset="0%" stopColor={COLORS.gold} />
+            <stop offset="100%" stopColor={COLORS.goldLight} />
           </linearGradient>
         </defs>
         <path
@@ -209,7 +192,7 @@ function CircularGauge({ percent, label }: { percent: number; label: string }) {
           cy="29"
           r={radius}
           fill="none"
-          stroke={CARD_GOLD}
+          stroke={COLORS.gold}
           strokeWidth="5"
           strokeDasharray={circumference}
           strokeDashoffset={offset}

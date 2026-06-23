@@ -1,8 +1,6 @@
 import {
   Check,
   Heart,
-  HeartHandshake,
-  HandHeart,
   Home,
   Link2,
   MessagesSquare,
@@ -47,11 +45,7 @@ export type RelationshipIndicatorsProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
 
-const CARD_GOLD = "#C5A059";
-const CARD_GOLD_LIGHT = "#E8C872";
-const CARD_STATUS_BG = "#FAE6C1";
 const COMPACT_CARD_BG = "/assets/signatureReport/cardBG-2.png";
 const LARGE_CARD_BG = "/assets/signatureReport/cardBG-1.png";
 
@@ -172,8 +166,8 @@ function SemiCircularGauge({
       >
         <defs>
           <linearGradient id={gaugeId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={CARD_GOLD} />
-            <stop offset="100%" stopColor={CARD_GOLD_LIGHT} />
+            <stop offset="0%" stopColor={COLORS.gold} />
+            <stop offset="100%" stopColor={COLORS.goldLight} />
           </linearGradient>
         </defs>
         <path
@@ -213,7 +207,7 @@ function RelationshipCardIcon({
   compact?: boolean;
 }) {
   const iconSize = compact ? 40 : 40;
-  const iconStyle = { color: CARD_GOLD, flexShrink: 0 };
+  const iconStyle = { color: COLORS.gold, flexShrink: 0 };
 
   if (title.includes("TRUST")) {
     return (
@@ -297,7 +291,7 @@ function RelationshipIndicatorCardView({
 
         <p
           className={`px-5 font-nunito-sans leading-snug text-[12px]`}
-          style={{ color: COLORS.black, opacity: 0.88 }}
+          style={{ color: COLORS.black }}
         >
           {card.description}
         </p>
@@ -399,14 +393,14 @@ function RelationshipBalanceOverviewSection({
       >
 
         <div className="flex items-center justify-center gap-2">
-          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold }} />
           <p
             className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             RELATIONSHIP BALANCE OVERVIEW
           </p>
-          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
+          <span className="h-px w-10" style={{ backgroundColor: COLORS.gold }} />
         </div>
 
         <div className="flex items-stretch justify-center px-1 w-full">
@@ -417,7 +411,7 @@ function RelationshipBalanceOverviewSection({
                 {index > 0 ? (
                   <span
                     className="my-2 w-px shrink-0"
-                    style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
+                    style={{ backgroundColor: COLORS.gold }}
                   />
                 ) : null}
                 <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-1 ">
@@ -462,8 +456,8 @@ function RelationshipInterpretationSection({ text }: { text: string }) {
             RELATIONSHIP INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.black }}
           >
             {text}
           </p>
@@ -496,7 +490,7 @@ function RelationshipTraitPills({ pills }: { pills: RelationshipTraitPill[] }) {
               style={
                 isLast
                   ? undefined
-                  : { borderRight: `1px dashed rgba(184, 134, 11, 0.55)` }
+                  : { borderRight: `1px dashed ${COLORS.gold}` }
               }
             >
               <Icon
@@ -553,7 +547,7 @@ export default function RelationshipIndicators({
 
       <p
         className="max-w-[500px] mx-auto flex flex-row items-center justify-center relative z-10 mt-1 text-center text-[12px] leading-3 font-nunito-sans"
-        style={{ color: COLORS.black, opacity: 0.88 }}
+        style={{ color: COLORS.black }}
       >
         <Pattern3 size={32} />
         {introText}

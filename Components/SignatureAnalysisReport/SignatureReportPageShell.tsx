@@ -1,7 +1,5 @@
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 
-/** A4 at 96 DPI — 210mm × 297mm */
 export const PAGE_WIDTH = 794;
 export const PAGE_HEIGHT = 1123;
 export const COVER_BG_PATH = "/assets/cover-bg.png";
@@ -44,7 +42,7 @@ export default function SignatureReportPageShell({
         ...style,
       }}
     >
-      <div className="relative z-10 h-full overflow-hidden" style={{ padding }}>
+      <div className="relative z-10 h-full overflow-hidden" id={pageNumber} style={{ padding }}>
         {children}
       </div>
     </article>

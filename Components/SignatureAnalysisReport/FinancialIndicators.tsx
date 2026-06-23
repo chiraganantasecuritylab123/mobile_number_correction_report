@@ -48,11 +48,6 @@ export type FinancialIndicatorsProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif";
-
-const CARD_GOLD = "#C5A059";
-const CARD_GOLD_LIGHT = "#E8C872";
-const CARD_STATUS_BG = "#FAE6C1";
 
 const defaultCards: FinancialIndicatorCard[] = [
   {
@@ -110,18 +105,6 @@ const defaultTraitPills: FinancialTraitPill[] = [
   { label: "Opportunity", icon: Key },
 ];
 
-function HeaderDivider() {
-  return (
-    <div className="mt-1 flex w-full max-w-[420px] items-center justify-center gap-2">
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-      <span className="text-[8px] leading-none" style={{ color: COLORS.gold }}>
-        ◆
-      </span>
-      <span className="h-px flex-1" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
-    </div>
-  );
-}
-
 function StarRating({ count, size = 12 }: { count: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
@@ -168,8 +151,8 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
       <svg viewBox="0 0 92 54" className="h-full w-full" aria-hidden>
         <defs>
           <linearGradient id={gaugeId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={CARD_GOLD} />
-            <stop offset="100%" stopColor={CARD_GOLD_LIGHT} />
+            <stop offset="0%" stopColor={COLORS.gold} />
+            <stop offset="100%" stopColor={COLORS.goldLight} />
           </linearGradient>
         </defs>
         <path
@@ -200,7 +183,7 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
 }
 
 function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: string }) {
-  const iconStyle = { color: CARD_GOLD, flexShrink: 0 };
+  const iconStyle = { color: COLORS.gold, flexShrink: 0 };
 
   if (title.includes("STABILITY")) {
     return (
@@ -397,7 +380,6 @@ function FinancialInterpretationSection({ text }: { text: string }) {
           backgroundPosition: "center",
         }}
       >
-        {/* <Coins size={36} strokeWidth={1.1} className="shrink-0" style={{ color: COLORS.gold }} /> */}
         <Image src="/assets/signatureReport/ruppesGullak.png" alt="Building" width={100} height={64} aria-hidden />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
@@ -408,8 +390,8 @@ function FinancialInterpretationSection({ text }: { text: string }) {
             FINANCIAL INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed font-nunito-sans"
+            style={{ color: COLORS.black }}
           >
             {text}
           </p>
@@ -487,7 +469,7 @@ export default function FinancialIndicators({
 
       <p
         className="flex items-center justify-center gap-2 max-w-[500px] mx-auto z-10 mt-1.5 text-center text-[13px] font-nunito-sans leading-4"
-        style={{ color: COLORS.black, opacity: 0.9, fontFamily: BODY_SANS }}
+        style={{ color: COLORS.black }}
       >
         <Pattern3 size={32} />
         {introText}

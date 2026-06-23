@@ -1,5 +1,6 @@
 import { Award, Star } from "lucide-react";
 import Image from "next/image";
+import type { CSSProperties, ReactNode } from "react";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 import { SubtitleHeader } from "../CommunComponents";
 
@@ -21,8 +22,45 @@ export type ScoringSystemProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif, Georgia, serif";
-const CARD_GOLD = "#C5A059";
+const SERIF_FONT = "Georgia, serif";
+
+const ASSETS = {
+  logo: "/assets/signatureReport/logo-main.png",
+  rowBackground: "/assets/signaturePages/foooter-background.png",
+  introBackground: "/assets/signaturePages/footer-backgroundSummaryPage.png",
+  flower: "/assets/signatureReport/flower-Bg.png",
+} as const;
+
+const BADGE_DIAMOND_POSITIONS = [
+  { className: "left-1/2 -translate-x-1/2", top: -6 },
+  { className: "left-1/2 -translate-x-1/2", bottom: -6 },
+  { className: "top-1/2 -translate-y-1/2", left: -6 },
+  { className: "top-1/2 -translate-y-1/2", right: -6 },
+] as const;
+
+const BADGE_CIRCLE_STYLE: CSSProperties = {
+  background:
+    "radial-gradient(circle at 35% 35%, #4a1a0a 0%, #2a0c02 60%, #1a0800 100%)",
+  border: `2px solid ${COLORS.gold}`,
+  boxShadow: "0 0 0 1px rgba(197,160,89,0.3), inset 0 1px 3px rgba(255,200,100,0.15)",
+};
+
+const SCORE_BOX_STYLE: CSSProperties = {
+  border: `1.5px solid ${COLORS.gold}`,
+  borderRadius: 5,
+  paddingLeft: 10,
+  paddingRight: 10,
+  paddingTop: 3,
+  paddingBottom: 3,
+  minWidth: 100,
+};
+
+const SCORE_DIVIDER_STYLE: CSSProperties = {
+  width: 1,
+  height: 28,
+  backgroundColor: COLORS.gold,
+  opacity: 0.45,
+};
 
 const defaultScores: ScoringItem[] = [
   {
@@ -77,6 +115,16 @@ const defaultScores: ScoringItem[] = [
   },
 ];
 
+function createBackgroundStyle(image: string, minHeight: number): CSSProperties {
+  return {
+    backgroundImage: `url('${image}')`,
+    backgroundSize: "100% 100%",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    minHeight,
+  };
+}
+
 function percentToStarRating(percent: number): number {
   if (percent >= 90) return 5;
   if (percent >= 80) return 4;
@@ -110,6 +158,24 @@ function PartialStarRating({
   );
 }
 
+function BackgroundPanel({
+  backgroundImage,
+  minHeight,
+  className,
+  children,
+}: {
+  backgroundImage: string;
+  minHeight: number;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className={className} style={createBackgroundStyle(backgroundImage, minHeight)}>
+      {children}
+    </div>
+  );
+}
+
 function NumberBadge({
   index,
   isOverall = false,
@@ -122,56 +188,65 @@ function NumberBadge({
       className="relative flex shrink-0 items-center justify-center"
       style={{ width: 44, height: 44 }}
     >
-      {/* Diamond decorators */}
-      <span
-        className="absolute left-1/2 -translate-x-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, top: -6 }}
-      >
-        ◆
-      </span>
-      <span
-        className="absolute left-1/2 -translate-x-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, bottom: -6 }}
-      >
-        ◆
-      </span>
-      <span
-        className="absolute top-1/2 -translate-y-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, left: -6 }}
-      >
-        ◆
-      </span>
-      <span
-        className="absolute top-1/2 -translate-y-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, right: -6 }}
-      >
-        ◆
-      </span>
+      {BADGE_DIAMOND_POSITIONS.map(({ className, ...positionStyle }, diamondIndex) => (
+        <span
+          key={`badge-diamond-${diamondIndex}`}
+          className={`absolute text-[6px] leading-none ${className}`}
+          style={{ color: COLORS.gold, ...positionStyle }}
+        >
+          ◆
+        </span>
+      ))}
 
       <div
         className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle at 35% 35%, #4a1a0a 0%, #2a0c02 60%, #1a0800 100%)",
-          border: `2px solid ${CARD_GOLD}`,
-          boxShadow: `0 0 0 1px rgba(197,160,89,0.3), inset 0 1px 3px rgba(255,200,100,0.15)`,
-        }}
+        style={BADGE_CIRCLE_STYLE}
       >
         {isOverall ? (
           <Award
             size={18}
             strokeWidth={1.5}
-            style={{ color: CARD_GOLD }}
+            style={{ color: COLORS.gold }}
             aria-hidden
           />
         ) : (
           <span
             className="text-[19px] font-bold leading-none"
-            style={{ color: COLORS.cream, fontFamily: "Georgia, serif" }}
+            style={{ color: COLORS.cream, fontFamily: SERIF_FONT }}
           >
             {String(index).padStart(2, "0")}
           </span>
         )}
+      </div>
+    </div>
+  );
+}
+
+function ScoreDisplay({
+  score,
+  maxScore,
+  starRating,
+  starSize,
+}: {
+  score: number;
+  maxScore: number;
+  starRating: number;
+  starSize: number;
+}) {
+  return (
+    <div className="ml-2 flex shrink-0 items-center gap-2">
+      <div className="flex items-baseline justify-center gap-5" style={SCORE_BOX_STYLE}>
+        <p
+          className="mt-0.5 text-[26px] font-bold leading-none"
+          style={{ color: COLORS.brown }}
+        >
+          <span className="text-[35px]">{score}</span> /{" "}
+          <span className="text-[16px]">{maxScore}</span>
+        </p>
+
+        <div className="shrink-0" style={SCORE_DIVIDER_STYLE} />
+
+        <PartialStarRating rating={starRating} size={starSize} />
       </div>
     </div>
   );
@@ -186,26 +261,18 @@ function ScoringRow({
   item: ScoringItem;
   maxScore: number;
 }) {
-  const starRating = percentToStarRating(item.score);
   const isOverall = item.isOverall ?? false;
+  const starRating = percentToStarRating(item.score);
 
   return (
     <div
-      className="relative flex items-center font-nunito-sans px-4 py-2"
-      style={{
-        backgroundImage: "url('/assets/signaturePages/foooter-background.png')",
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        minHeight: isOverall ? 68 : 70,
-      }}
+      className="relative flex items-center px-4 py-2 font-nunito-sans"
+      style={createBackgroundStyle(ASSETS.rowBackground, isOverall ? 68 : 70)}
     >
-      {/* Left: Number Badge */}
       <div className="mr-3 shrink-0">
         <NumberBadge index={index} isOverall={isOverall} />
       </div>
 
-      {/* Center: Title + Description */}
       <div className="min-w-0 flex-1">
         <p
           className="font-bold tracking-[0.05em]"
@@ -227,46 +294,12 @@ function ScoringRow({
         </p>
       </div>
 
-      {/* Right: Score Box + Divider + Stars */}
-      <div className="ml-2 flex shrink-0 items-center gap-2">
-        {/* Score box */}
-        <div
-          className="flex items-baseline justify-center gap-5"
-          style={{
-            border: `1.5px solid ${COLORS.gold}`,
-            borderRadius: 5,
-            // backgroundColor: "rgba(253,245,230,0.8)",
-            paddingLeft: 10,
-            paddingRight: 10,
-            paddingTop: 3,
-            paddingBottom: 3,
-            minWidth: 100,
-          }}
-        >
-
-          <p
-            className="mt-0.5 text-[26px] font-bold leading-none"
-            style={{ color: COLORS.brown }}
-          >
-            <span className="text-[35px]">{item.score}</span> / <span className="text-[16px]">{maxScore}</span>
-          </p>
-
-          {/* Divider */}
-          <div
-            className="shrink-0"
-            style={{
-              width: 1,
-              height: 28,
-              backgroundColor: COLORS.gold,
-              opacity: 0.45,
-            }}
-          />
-
-          {/* Stars */}
-          <PartialStarRating rating={starRating} size={isOverall ? 17 : 15} />
-        </div>
-
-      </div>
+      <ScoreDisplay
+        score={item.score}
+        maxScore={maxScore}
+        starRating={starRating}
+        starSize={isOverall ? 17 : 15}
+      />
     </div>
   );
 }
@@ -274,28 +307,22 @@ function ScoringRow({
 function IntroSection({ text }: { text: string }) {
   return (
     <section className="relative z-10 mt-1 font-nunito-sans">
-      <div
+      <BackgroundPanel
+        backgroundImage={ASSETS.introBackground}
+        minHeight={80}
         className="relative flex w-full items-center justify-center px-6 py-3"
-        style={{
-          backgroundImage:
-            "url('/assets/signaturePages/footer-backgroundSummaryPage.png')",
-          backgroundSize: "100% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          minHeight: 80,
-        }}
       >
         <p
           className="max-w-[88%] text-center leading-relaxed"
           style={{
             color: COLORS.black,
-            fontFamily: "Georgia, serif",
+            fontFamily: SERIF_FONT,
             fontSize: 15,
           }}
         >
           {text}
         </p>
-      </div>
+      </BackgroundPanel>
     </section>
   );
 }
@@ -319,18 +346,13 @@ function ScoringRowsSection({
 function ScoringFooter({ text }: { text: string }) {
   return (
     <footer className="relative z-10 mt-1 font-nunito-sans">
-      <div
+      <BackgroundPanel
+        backgroundImage={ASSETS.rowBackground}
+        minHeight={48}
         className="relative flex w-full items-center justify-center px-8 py-2"
-        style={{
-          backgroundImage: "url('/assets/signaturePages/foooter-background.png')",
-          backgroundSize: "100% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          minHeight: 48,
-        }}
       >
         <Image
-          src="/assets/signatureReport/flower-Bg.png"
+          src={ASSETS.flower}
           alt="Astro Aarambh"
           width={72}
           height={72}
@@ -350,14 +372,14 @@ function ScoringFooter({ text }: { text: string }) {
           {text}
         </p>
         <Image
-          src="/assets/signatureReport/flower-Bg.png"
+          src={ASSETS.flower}
           alt="Astro Aarambh"
           width={72}
           height={72}
           className="mb-0.5"
           priority
         />
-      </div>
+      </BackgroundPanel>
     </footer>
   );
 }
@@ -375,7 +397,7 @@ export default function ScoringSystem({
     <SignatureReportPageShell padding="14px 32px 14px" pageNumber={pageNumber}>
       <header className="flex flex-col items-center text-center">
         <Image
-          src="/assets/signatureReport/logo-main.png"
+          src={ASSETS.logo}
           alt="Astro Aarambh"
           width={72}
           height={72}
