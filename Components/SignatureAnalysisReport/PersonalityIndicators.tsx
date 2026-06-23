@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
+import { Pattern3, SubtitleHeader } from "../CommunComponents";
 
 export type PersonalityIndicator = {
   title: string;
@@ -101,7 +102,7 @@ function HeaderDivider() {
   );
 }
 
-function StarRating({ count, size = 12 }: { count: number; size?: number }) {
+function StarRating({ count, size = 15 }: { count: number; size?: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: count }).map((_, index) => (
@@ -145,20 +146,20 @@ function PersonalityIndexSection({
   indexLabel: string;
 }) {
   return (
-    <section className="relative z-10 flex justify-center font-nunito-sans mt-5">
+    <section className="relative z-10 flex justify-center font-nunito-sans mt-3">
       <div
         // className="relative flex items-center justify-center px-8 py-4"
-        className="relative flex h-[180px] min-w-[400px] items-center justify-center bg-contain bg-center bg-no-repeat"
+        className="relative flex h-[200px] min-w-[400px] items-center justify-center bg-contain bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/assets/signatureReport/page-8-circle.png')" }}
       >
         <Crown
-          size={16}
+          size={30}
           fill={COLORS.gold}
           stroke={COLORS.gold}
-          className="absolute top-3"
+          className="absolute top-2"
           aria-hidden
         />
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center gap-1">
           <p
             className="text-[10px] font-bold tracking-[0.14em]"
             style={{ color: COLORS.gold }}
@@ -166,14 +167,14 @@ function PersonalityIndexSection({
             PERSONALITY INDEX
           </p>
           <p
-            className="mt-0.5 text-[26px] font-bold leading-none"
+            className="text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            {score} / {maxScore}
+            <span className="text-[40px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
           </p>
           <StarRating count={starRating} />
           <p
-            className="mt-1 text-[11px] font-semibold"
+            className="mt-1 text-[12px] font-semibold"
             style={{ color: COLORS.brown }}
           >
             {indexLabel}
@@ -198,7 +199,6 @@ function IndicatorCard({
       className="relative flex h-[74px] items-center gap-2 rounded-md px-2.5 py-2 font-nunito-sans"
       style={{
         border: `1px solid ${COLORS.gold}`,
-        backgroundColor: "rgba(253, 245, 230, 0.72)",
       }}
     >
       <span
@@ -209,20 +209,20 @@ function IndicatorCard({
       </span>
 
       <div
-        className="ml-5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+        className="ml-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
         style={{ border: `1.5px solid ${COLORS.gold}` }}
       >
-        <Icon size={20} strokeWidth={2} style={{ color: COLORS.brown }} aria-hidden />
+        <Icon size={30} strokeWidth={2} style={{ color: COLORS.gold }} aria-hidden />
       </div>
 
       <div className="min-w-0 flex-1">
         <p
-          className="truncate text-[10px] font-bold tracking-[0.04em]"
+          className="truncte text-[11px] font-bold tracking-[0.04em]"
           style={{ color: COLORS.brown }}
         >
           {indicator.title}
         </p>
-        <div className="mt-1.5 flex items-center gap-1.5">
+        <div className="mt-1 flex items-center gap-1.5">
           <div
             className="h-2 min-w-0 flex-1 overflow-hidden rounded-full"
             style={{ backgroundColor: "#f2e4d4" }}
@@ -257,17 +257,16 @@ function CharacterStrengthMapSection({
 
   return (
     <section
-      className="relative z-10 mt-2 px-4 py-3 font-nunito-sans"
+      className="relative z-10 mt-1 px-4 py-3 font-nunito-sans"
       style={{
         border: `1.5px solid ${COLORS.gold}`,
         borderRadius: 10,
-        backgroundColor: "rgba(253, 245, 230, 0.55)",
       }}
     >
       <div className="flex items-center justify-center gap-2">
         <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
         <p
-          className="text-[12px] font-bold tracking-[0.1em]"
+          className="text-[13px] font-bold tracking-[0.1em]"
           style={{ color: COLORS.brown }}
         >
           CHARACTER STRENGTH MAP
@@ -282,12 +281,12 @@ function CharacterStrengthMapSection({
             return (
               <div key={item.label} className="flex items-center gap-2">
                 <div
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
                   style={{ border: `1px solid ${COLORS.gold}` }}
                 >
-                  <Icon size={18} strokeWidth={2} style={{ color: COLORS.brown }} />
+                  <Icon size={22} strokeWidth={2} style={{ color: COLORS.gold }} />
                 </div>
-                <span className="w-[72px] text-[11px] font-semibold" style={{ color: COLORS.brown }}>
+                <span className="w-[80px] text-[13px] font-semibold" style={{ color: COLORS.brown }}>
                   {item.label}
                 </span>
                 <PartialStarRating rating={item.starRating} />
@@ -296,10 +295,8 @@ function CharacterStrengthMapSection({
           })}
         </div>
         <div>
-          <Image src="/assets/signatureReport/map-pattern.png" alt="Compass" width={55} height={55} />
+          <Image src="/assets/signatureReport/map-pattern.png" alt="Compass" width={66} height={66} />
         </div>
-
-        {/* <Compass size={36} strokeWidth={1} style={{ color: COLORS.gold }} aria-hidden /> */}
 
         <div className="flex flex-col gap-2">
           {rightColumn.map((item) => {
@@ -307,12 +304,12 @@ function CharacterStrengthMapSection({
             return (
               <div key={item.label} className="flex items-center gap-2">
                 <div
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
                   style={{ border: `1px solid ${COLORS.gold}` }}
                 >
-                  <Icon size={18} strokeWidth={2} style={{ color: COLORS.brown }} />
+                  <Icon size={22} strokeWidth={2} style={{ color: COLORS.gold }} />
                 </div>
-                <span className="w-[72px] text-[11px] font-semibold" style={{ color: COLORS.brown }}>
+                <span className="w-[80px] text-[13px] font-semibold" style={{ color: COLORS.brown }}>
                   {item.label}
                 </span>
                 <PartialStarRating rating={item.starRating} />
@@ -345,8 +342,8 @@ function CorePersonalitySummarySection({
         <Image
           src="/assets/signatureReport/page-8-image.png"
           alt=""
-          width={90}
-          height={90}
+          width={100}
+          height={100}
           className="shrink-0 object-contain"
           aria-hidden
         />
@@ -369,14 +366,14 @@ function CorePersonalitySummarySection({
         <Image
           src="/assets/signatureReport/page-8-image.png"
           alt=""
-          width={90}
-          height={90}
+          width={100}
+          height={100}
           className="shrink-0 object-contain"
           aria-hidden
         />
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5 px-1">
+      <div className="mt-2 w-full flex flex-wrap items-center justify-between gap-1.5 px-1">
         {traitPills.map((pill) => {
           const Icon = pill.icon;
           return (
@@ -384,12 +381,12 @@ function CorePersonalitySummarySection({
               key={pill.label}
               className="flex items-center gap-1 rounded-full px-2 py-1"
               style={{
-                backgroundColor: COLORS.cream,
+                // backgroundColor: COLORS.cream,
                 border: `1px solid ${COLORS.gold}`,
               }}
             >
-              <Icon size={16} strokeWidth={2} style={{ color: COLORS.gold }} />
-              <span className="text-[10px] font-semibold" style={{ color: COLORS.brown }}>
+              <Icon size={20} strokeWidth={2} style={{ color: COLORS.gold }} />
+              <span className="text-[11px] font-semibold" style={{ color: COLORS.brown }}>
                 {pill.label}
               </span>
             </div>
@@ -402,7 +399,7 @@ function CorePersonalitySummarySection({
 
 function ExpertObservationFooter({ observation }: { observation: string }) {
   return (
-    <footer className="relative z-10 mt-2 font-nunito-sans">
+    <footer className="relative z-10 mt-1 font-nunito-sans">
       <div
         className="flex min-h-[100px] w-full items-center gap-3 bg-no-repeat px-5 py-3"
         style={{
@@ -483,9 +480,7 @@ export default function PersonalityIndicators({
         >
           {title}
         </h1>
-        <p className="text-[14px]" style={{ color: '#213247', opacity: 0.85, fontFamily: "var(--font-geist-sans), 'Segoe UI', sans-serif" }}>
-          {subtitle}
-        </p>
+        <SubtitleHeader text={subtitle} />
       </header>
 
       <PersonalityIndexSection
@@ -495,7 +490,7 @@ export default function PersonalityIndicators({
         indexLabel={indexLabel}
       />
 
-      <section className="relative z-10 mt-5 grid grid-cols-3 gap-2 font-nunito-sans">
+      <section className="relative z-10 mt-3 grid grid-cols-3 gap-2 font-nunito-sans">
         {indicators.map((indicator, index) => (
           <IndicatorCard
             key={`${indicator.title}-${index}`}

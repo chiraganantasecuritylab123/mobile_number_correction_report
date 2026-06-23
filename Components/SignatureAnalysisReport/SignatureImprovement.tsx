@@ -1,6 +1,6 @@
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
-import { Pattern3 } from "../CommunComponents";
+import { Pattern3, SubtitleHeader } from "../CommunComponents";
 
 export type ImprovementItem = {
   title: string;
@@ -18,8 +18,6 @@ export type SignatureImprovementProps = {
 };
 
 const COLORS = REPORT_COLORS;
-const BODY_SANS = "var(--font-geist-sans), 'Segoe UI', sans-serif, Georgia, serif";
-const CARD_GOLD = "#C5A059";
 
 const ROW_BG = {
   backgroundImage: "url('/assets/signaturePages/foooter-background.png')",
@@ -105,12 +103,10 @@ function OrnateLabel({ text, light = false }: { text: string; light?: boolean })
       <span
         className="font-bold tracking-[0.1em]"
         style={{
-          color: light ? CARD_GOLD : COLORS.black,
-          fontSize: 13,
-          fontFamily: "Georgia",
+          color: COLORS.brown,
+          fontSize: 14,
         }}
       >
-
         {text}
       </span>
       <Pattern3 size={42} className="rotate-180" />
@@ -126,34 +122,33 @@ function NumberBadge({ index }: { index: number }) {
     >
       <span
         className="absolute left-1/2 -translate-x-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, top: -5 }}
+        style={{ color: COLORS.gold, top: -5 }}
       >◆</span>
       <span
         className="absolute left-1/2 -translate-x-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, bottom: -5 }}
+        style={{ color: COLORS.gold, bottom: -5 }}
       >◆</span>
       <span
         className="absolute top-1/2 -translate-y-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, left: -5 }}
+        style={{ color: COLORS.gold, left: -5 }}
       >◆</span>
       <span
         className="absolute top-1/2 -translate-y-1/2 text-[6px] leading-none"
-        style={{ color: CARD_GOLD, right: -5 }}
+        style={{ color: COLORS.gold, right: -5 }}
       >◆</span>
       <div
         className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"
         style={{
           background:
             "radial-gradient(circle at 35% 35%, #4a1a0a 0%, #2a0c02 60%, #1a0800 100%)",
-          border: `2px solid ${CARD_GOLD}`,
+          border: `2px solid ${COLORS.gold}`,
           boxShadow: `0 0 0 1px rgba(197,160,89,0.3), inset 0 1px 3px rgba(255,200,100,0.15)`,
         }}
       >
         <span
           style={{
-            color: CARD_GOLD,
-            fontFamily: "Georgia, serif",
-            fontSize: 12,
+            color: COLORS.cream,
+            fontSize: 19,
             fontWeight: "bold",
             lineHeight: 1,
           }}
@@ -186,16 +181,15 @@ function ImprovementRow({ index, item }: { index: number; item: ImprovementItem 
         className="flex shrink-0 items-center justify-start pr-3"
         style={{
           width: 110,
-          borderRight: `1px solid ${CARD_GOLD}`,
+          borderRight: `1px solid ${COLORS.gold}`,
           marginRight: 12,
         }}
       >
         <p
-          className="font-bold leading-tight tracking-[0.04em]"
+          className="font-bold leading-tight"
           style={{
             color: COLORS.brown,
-            fontFamily: "Georgia, serif",
-            fontSize: 11,
+            fontSize: 13,
           }}
         >
           {item.title}
@@ -204,22 +198,13 @@ function ImprovementRow({ index, item }: { index: number; item: ImprovementItem 
 
       <div className="flex flex-1 flex-col justify-center gap-0.5">
         {item.points.map((point, i) => (
-          <div key={i} className="flex items-start gap-1.5">
-            <span
-              style={{
-                color: "000000",
-                fontSize: 8,
-                lineHeight: "16px",
-                flexShrink: 0,
-              }}
+          <div key={i} className="flex items-center gap-1.5">
+            <span className="text-[10px] leading-none"
+              style={{ color: COLORS.brown }}
             >●</span>
             <p
-              style={{
-                color: COLORS.brown,
-                fontFamily: "Georgia",
-                fontSize: 12,
-                lineHeight: 1.4,
-              }} className="tracking-[0.1em]"
+              className="text-[12px] font-nunito-sans"
+              style={{ color: COLORS.black }}
             >
               {point}
             </p>
@@ -248,11 +233,10 @@ function OverallRecommendation({ text }: { text: string }) {
     >
       <OrnateLabel text="OVERALL RECOMMENDATION" />
       <p
-        className="mt-1.5 max-w-[90%] text-center leading-relaxed"
+        className="mt-1.5 max-w-[90%] text-center leading-relaxed font-nunito-sans"
         style={{
-          color: COLORS.brown,
-          fontFamily: "Georgia",
-          fontSize: 13,
+          color: COLORS.black,
+          fontSize: 14,
         }}
       >
         {text}
@@ -279,36 +263,31 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
     >
       <OrnateLabel text="EXPECTED BENEFITS" />
       <p
-        className="mt-1 text-center"
+        className="mt-1 text-center font-nunito-sans"
         style={{
-          color: COLORS.brown,
-          fontSize: 12,
-          fontFamily: "Georgia",
+          color: COLORS.black,
+          fontSize: 13,
         }}
       >
         After implementing these improvements:
       </p>
 
-      <div className="mt-2 flex gap-4">
+      <div className="mt-2 flex gap-3">
         {/* Left column */}
         <div className="flex flex-1 flex-col gap-1">
           {left.map((b, i) => (
             <div key={i} className="flex items-start gap-1.5">
               <span
                 style={{
-                  color: CARD_GOLD,
-                  fontSize: 9,
+                  color: COLORS.black,
+                  fontSize: 10,
                   lineHeight: "15px",
                   flexShrink: 0,
                 }}
               >●</span>
               <p
-                style={{
-                  color: COLORS.brown,
-                  fontFamily: "Georgia",
-                  fontSize: 12,
-                  lineHeight: 1.4,
-                }}
+                className="font-nunito-sans text-[13px] tracking-[0.1em]"
+                style={{ color: COLORS.black }}
               >
                 {b}
               </p>
@@ -320,7 +299,7 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
         <div
           style={{
             width: 1,
-            backgroundColor: CARD_GOLD,
+            backgroundColor: COLORS.black,
             opacity: 0.4,
             alignSelf: "stretch",
           }}
@@ -332,19 +311,15 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
             <div key={i} className="flex items-start gap-1.5">
               <span
                 style={{
-                  color: CARD_GOLD,
-                  fontSize: 9,
+                  color: COLORS.black,
+                  fontSize: 10,
                   lineHeight: "15px",
                   flexShrink: 0,
                 }}
               >●</span>
               <p
-                style={{
-                  color: COLORS.brown,
-                  fontFamily: "Georgia",
-                  fontSize: 12,
-                  lineHeight: 1.4,
-                }}
+                className="font-nunito-sans text-[13px] tracking-[0.1em]"
+                style={{ color: COLORS.black }}
               >
                 {b}
               </p>
@@ -356,43 +331,47 @@ function ExpectedBenefits({ benefits }: { benefits: string[] }) {
   );
 }
 
-function ExpertRecommendation({ text }: { text: string }) {
+function ExpertObservationFooter({ observation }: { observation: string }) {
   return (
-    <div
-      className="relative flex w-full items-center gap-4"
-      style={{
-        backgroundImage: "url('/assets/signaturePages/redBackgroundImage.png')",
-        backgroundSize: "100% 100%",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        minHeight: 90,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 12,
-        paddingBottom: 12,
-      }}
-    >
-      {/* Pen icon circle */}
+    <footer className="relative z-10 font-nunito-sans">
+      <div
+        className="flex min-h-[100px] w-full items-center gap-3 bg-no-repeat px-5 py-2"
+        style={{
+          backgroundImage: "url('/assets/signatureReport/redBackgroundImage.png')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="flex items-center gap-3 px-1">
 
+          <Image src="/assets/signatureReport/pen-bg.png" alt="Design Background" width={65} height={65} className="object-contain" />
 
-      {/* Text */}
-      <div className="flex-1">
-        <OrnateLabel text="EXPERT RECOMMENDATION" light />
-        <p
-          className="mt-1 leading-relaxed"
-          style={{
-            color: "#F5E6C8",
-            fontFamily: BODY_SANS,
-            fontSize: 12,
-          }}
-        >
-          {text}
-        </p>
+          <div className="min-w-0 flex-1">
+            <p
+              className="text-[13px] font-bold tracking-[0.1em]"
+              style={{ color: COLORS.goldLight }}
+            >
+              EXPERT RECOMMENDATION
+            </p>
+            <p
+              className="text-[12px]"
+              style={{ color: COLORS.cream, opacity: 0.95 }}
+            >
+              {observation}
+            </p>
+          </div>
+
+          <Image
+            src="/assets/signatureReport/design-bg.png"
+            alt=""
+            width={120}
+            height={64}
+            className="shrink-0 object-contain mix-blend-screen"
+            aria-hidden
+          />
+        </div>
       </div>
-
-      {/* Decorative floral */}
-
-    </div>
+    </footer>
   );
 }
 
@@ -422,41 +401,23 @@ export default function SignatureImprovement({
           style={{
             color: COLORS.brown,
             fontSize: 26,
-            fontFamily: "Georgia, serif",
           }}
         >
           {title}
         </h1>
 
-        <div className="mt-1 flex items-center gap-2">
-          <Pattern3 size={42} />
-          <p
-            className="text-[16px] italic font-nunito-sans"
-            style={{ color: COLORS.black, opacity: 0.85 }}
-          >
-            {subtitle}
-          </p>
-          <Pattern3 size={42} className="rotate-180" />
-        </div>
+        <SubtitleHeader text={subtitle} />
 
       </header>
 
       {/* ── Overall Recommendation ── */}
-      <section className="relative z-10 mt-2">
+      <section className="relative z-10 mt-1">
         <OverallRecommendation text={overallRecommendation} />
       </section>
 
       {/* ── Suggested Improvements label ── */}
-      <div className="mt-2 flex items-center justify-center gap-2">
-        {/* <span
-          className="h-px flex-1"
-          style={{ backgroundColor: CARD_GOLD, opacity: 0.4 }}
-        /> */}
+      <div className="mt-1 flex items-center justify-center gap-2">
         <OrnateLabel text="SUGGESTED IMPROVEMENTS" />
-        {/* <span
-          className="h-px flex-1"
-          style={{ backgroundColor: CARD_GOLD, opacity: 0.4 }}
-        /> */}
       </div>
 
       {/* ── Improvement Rows ── */}
@@ -467,13 +428,13 @@ export default function SignatureImprovement({
       </section>
 
       {/* ── Expected Benefits ── */}
-      <section className="relative z-10 mt-2">
+      <section className="relative z-10">
         <ExpectedBenefits benefits={benefits} />
       </section>
 
       {/* ── Expert Recommendation ── */}
-      <section className="relative z-10 mt-2">
-        <ExpertRecommendation text={expertRecommendation} />
+      <section className="relative z-10">
+        <ExpertObservationFooter observation={expertRecommendation} />
       </section>
     </SignatureReportPageShell>
   );

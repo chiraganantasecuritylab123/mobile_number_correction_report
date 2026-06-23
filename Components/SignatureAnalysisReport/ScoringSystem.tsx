@@ -1,6 +1,7 @@
 import { Award, Star } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
+import { SubtitleHeader } from "../CommunComponents";
 
 export type ScoringItem = {
   title: string;
@@ -165,8 +166,8 @@ function NumberBadge({
           />
         ) : (
           <span
-            className="text-[11px] font-bold leading-none"
-            style={{ color: CARD_GOLD, fontFamily: "Georgia, serif" }}
+            className="text-[19px] font-bold leading-none"
+            style={{ color: COLORS.cream, fontFamily: "Georgia, serif" }}
           >
             {String(index).padStart(2, "0")}
           </span>
@@ -190,17 +191,13 @@ function ScoringRow({
 
   return (
     <div
-      className="relative flex items-center font-nunito-sans"
+      className="relative flex items-center font-nunito-sans px-4 py-2"
       style={{
         backgroundImage: "url('/assets/signaturePages/foooter-background.png')",
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         minHeight: isOverall ? 68 : 70,
-        paddingLeft: 18,
-        paddingRight: 18,
-        paddingTop: 8,
-        paddingBottom: 8,
       }}
     >
       {/* Left: Number Badge */}
@@ -213,8 +210,8 @@ function ScoringRow({
         <p
           className="font-bold tracking-[0.05em]"
           style={{
-            color: COLORS.black,
-            fontSize: isOverall ? 11 : 16,
+            color: COLORS.brown,
+            fontSize: isOverall ? 11 : 15,
           }}
         >
           {item.title}
@@ -234,55 +231,41 @@ function ScoringRow({
       <div className="ml-2 flex shrink-0 items-center gap-2">
         {/* Score box */}
         <div
-          className="flex items-baseline justify-center"
+          className="flex items-baseline justify-center gap-5"
           style={{
             border: `1.5px solid ${COLORS.gold}`,
             borderRadius: 5,
-            backgroundColor: "rgba(253,245,230,0.8)",
+            // backgroundColor: "rgba(253,245,230,0.8)",
             paddingLeft: 10,
             paddingRight: 10,
             paddingTop: 3,
             paddingBottom: 3,
-            minWidth: 70,
+            minWidth: 100,
           }}
         >
-          <span
-            style={{
-              color: COLORS.brown,
-              fontFamily: "Georgia, serif",
-              fontSize: isOverall ? 20 : 18,
-              fontWeight: "bold",
-              lineHeight: 1,
-            }}
+
+          <p
+            className="mt-0.5 text-[26px] font-bold leading-none"
+            style={{ color: COLORS.brown }}
           >
-            {item.score}
-          </span>
-          <span
+            <span className="text-[35px]">{item.score}</span> / <span className="text-[16px]">{maxScore}</span>
+          </p>
+
+          {/* Divider */}
+          <div
+            className="shrink-0"
             style={{
-              color: COLORS.brown,
-              opacity: 0.65,
-              fontSize: 9,
-              fontWeight: 600,
-              marginLeft: 2,
+              width: 1,
+              height: 28,
+              backgroundColor: COLORS.gold,
+              opacity: 0.45,
             }}
-          >
-            / {maxScore}
-          </span>
+          />
+
+          {/* Stars */}
+          <PartialStarRating rating={starRating} size={isOverall ? 17 : 15} />
         </div>
 
-        {/* Divider */}
-        <div
-          className="shrink-0"
-          style={{
-            width: 1,
-            height: 28,
-            backgroundColor: COLORS.gold,
-            opacity: 0.45,
-          }}
-        />
-
-        {/* Stars */}
-        <PartialStarRating rating={starRating} size={isOverall ? 17 : 15} />
       </div>
     </div>
   );
@@ -290,7 +273,7 @@ function ScoringRow({
 
 function IntroSection({ text }: { text: string }) {
   return (
-    <section className="relative z-10 mt-1.5 font-nunito-sans">
+    <section className="relative z-10 mt-1 font-nunito-sans">
       <div
         className="relative flex w-full items-center justify-center px-6 py-3"
         style={{
@@ -307,7 +290,7 @@ function IntroSection({ text }: { text: string }) {
           style={{
             color: COLORS.black,
             fontFamily: "Georgia, serif",
-            fontSize: 13,
+            fontSize: 15,
           }}
         >
           {text}
@@ -325,7 +308,7 @@ function ScoringRowsSection({
   maxScore: number;
 }) {
   return (
-    <section className="relative z-10 mt-1.5 flex flex-col gap-1 font-nunito-sans">
+    <section className="relative z-10 mt-1 flex flex-col gap-1 font-nunito-sans">
       {scores.map((item, index) => (
         <ScoringRow key={item.title} index={index + 1} item={item} maxScore={maxScore} />
       ))}
@@ -335,7 +318,7 @@ function ScoringRowsSection({
 
 function ScoringFooter({ text }: { text: string }) {
   return (
-    <footer className="relative z-10 mt-1.5 font-nunito-sans">
+    <footer className="relative z-10 mt-1 font-nunito-sans">
       <div
         className="relative flex w-full items-center justify-center px-8 py-2"
         style={{
@@ -346,6 +329,14 @@ function ScoringFooter({ text }: { text: string }) {
           minHeight: 48,
         }}
       >
+        <Image
+          src="/assets/signatureReport/flower-Bg.png"
+          alt="Astro Aarambh"
+          width={72}
+          height={72}
+          className="mb-0.5"
+          priority
+        />
         <p
           className="max-w-[88%] text-center leading-relaxed"
           style={{
@@ -358,6 +349,14 @@ function ScoringFooter({ text }: { text: string }) {
         >
           {text}
         </p>
+        <Image
+          src="/assets/signatureReport/flower-Bg.png"
+          alt="Astro Aarambh"
+          width={72}
+          height={72}
+          className="mb-0.5"
+          priority
+        />
       </div>
     </footer>
   );
@@ -389,12 +388,7 @@ export default function ScoringSystem({
         >
           {title}
         </h1>
-        <p
-          className="mt-0.5 max-w-[520px] italic font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85, fontSize: 13 }}
-        >
-          {subtitle}
-        </p>
+        <SubtitleHeader text={subtitle} />
       </header>
 
       <IntroSection text={introText} />

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
-import { Pattern3 } from "../CommunComponents";
+import { Pattern3, SubtitleHeader } from "../CommunComponents";
 
 export type RelationshipLevelLabel = "HIGH" | "VERY HIGH";
 
@@ -194,8 +194,7 @@ function SemiCircularGauge({
         />
       </svg>
       <span
-        className={`absolute font-bold leading-none ${compact ? "bottom-[5px] text-[18px]" : "bottom-[5px] text-[18px]"
-          }`}
+        className={`absolute font-bold leading-none bottom-[5px] text-[20px]`}
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -213,7 +212,7 @@ function RelationshipCardIcon({
   title: string;
   compact?: boolean;
 }) {
-  const iconSize = compact ? 35 : 38;
+  const iconSize = compact ? 40 : 40;
   const iconStyle = { color: CARD_GOLD, flexShrink: 0 };
 
   if (title.includes("TRUST")) {
@@ -223,10 +222,10 @@ function RelationshipCardIcon({
       >
         <Shield size={iconSize} strokeWidth={1.15} style={iconStyle} aria-hidden />
         <Check
-          size={compact ? 12 : 14}
+          size={compact ? 20 : 20}
           strokeWidth={2.5}
           className="absolute"
-          style={{ color: COLORS.brown }}
+          style={{ color: COLORS.gold }}
           aria-hidden
         />
       </div>
@@ -247,14 +246,14 @@ function RelationshipIndicatorCardView({
 }) {
   return (
     <div
-      className={`relative flex shrink-0 flex-col items-center justify-between bg-cover bg-center bg-no-repeat text-center ${compact ? "h-[230px] w-[240px]" : "h-[215px] w-[360px]"
+      className={`relative flex shrink-0 flex-col items-center justify-between bg-cover bg-center bg-no-repeat text-center ${compact ? "h-[245px] w-[240px]" : "h-[215px] w-[360px]"
         }`}
       style={{
         backgroundImage: `url('${compact ? COMPACT_CARD_BG : LARGE_CARD_BG}')`,
       }}
     >
       <span
-        className={`absolute left-1/2 z-10 flex -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full font-bold ${compact ? "h-8 w-8 text-[11px] top-3" : "h-9 w-9 text-[11px] top-4"
+        className={`absolute left-1/2 z-10 flex -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full font-bold ${compact ? "h-8 w-8 text-[11px] top-[15px]" : "h-9 w-9 text-[11px] top-4"
           }`}
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
@@ -262,15 +261,14 @@ function RelationshipIndicatorCardView({
       </span>
 
       <div
-        className={`flex h-full w-full flex-col items-center justify-between px-6 py-4`}
+        className={`flex h-full w-full flex-col items-center justify-between px-1 py-4`}
       >
         <div className={`flex items-center justify-center mt-5  ${compact ? "flex-col" : "flex-row"}`}>
 
           <RelationshipCardIcon icon={card.icon} title={card.title} compact={compact} />
 
           <p
-            className={`px-1 font-bold tracking-[0.04em] ${compact ? "text-[13px]" : "text-[13px]"
-              }`}
+            className={`px-1 font-bold tracking-[0.04em] text-[13px]`}
             style={{ color: COLORS.brown }}
           >
             {card.title}
@@ -298,7 +296,7 @@ function RelationshipIndicatorCardView({
         </div>
 
         <p
-          className={`px-1 font-nunito-sans leading-snug text-[11px]`}
+          className={`px-5 font-nunito-sans leading-snug text-[12px]`}
           style={{ color: COLORS.black, opacity: 0.88 }}
         >
           {card.description}
@@ -322,7 +320,7 @@ function RelationshipIndexSection({
   return (
     <section className="relative z-10 mt-2 flex justify-center font-nunito-sans">
       <div
-        className="relative h-[200px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
+        className="relative h-[210px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('/assets/signatureReport/page-8-circle.png')",
         }}
@@ -331,10 +329,10 @@ function RelationshipIndexSection({
           <Users size={30} strokeWidth={1.5} style={{ color: COLORS.gold }} />
           <Heart size={25} fill={COLORS.gold} stroke={COLORS.gold} />
         </div>
-        <div className="flex flex-col items-center text-center gap-2">
+        <div className="flex flex-col items-center text-center gap-1">
           <p
-            className="text-[13px] font-bold tracking-[0.14em]"
-            style={{ color: COLORS.gold }}
+            className="text-[12px] font-bold tracking-[0.14em]"
+            style={{ color: COLORS.brown }}
           >
             RELATIONSHIP INDEX
           </p>
@@ -342,7 +340,7 @@ function RelationshipIndexSection({
             className="mt-0.5 text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            <span className="text-[32px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
+            <span className="text-[40px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
           </p>
           <PartialStarRating rating={starRating} size={12} />
           <p
@@ -390,9 +388,9 @@ function RelationshipBalanceOverviewSection({
   overviewStarRating?: number;
 }) {
   return (
-    <section className="relative z-10 mt-2 font-nunito-sans">
+    <section className="relative z-10 font-nunito-sans">
       <div
-        className="flex flex-col w-full items-center bg-no-repeat px-5 py-3"
+        className="flex flex-col w-full items-center bg-no-repeat py-3"
         style={{
           backgroundImage: "url('/assets/signatureReport/foooter-background.png')",
           backgroundSize: "100% 100%",
@@ -403,7 +401,7 @@ function RelationshipBalanceOverviewSection({
         <div className="flex items-center justify-center gap-2">
           <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
           <p
-            className="text-[11px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             RELATIONSHIP BALANCE OVERVIEW
@@ -422,7 +420,7 @@ function RelationshipBalanceOverviewSection({
                     style={{ backgroundColor: COLORS.gold, opacity: 0.45 }}
                   />
                 ) : null}
-                <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-2">
+                <div className="flex flex-1 flex-col items-center justify-center gap-1 px-1 py-1 ">
                   <div
                     className="flex h-8 w-8 items-center justify-center rounded-full"
                   >
@@ -444,7 +442,7 @@ function RelationshipBalanceOverviewSection({
 
 function RelationshipInterpretationSection({ text }: { text: string }) {
   return (
-    <section className="relative z-10 mt-2 font-nunito-sans">
+    <section className="relative z-10 font-nunito-sans">
       <div
         className="flex min-h-[92px] w-full items-center bg-no-repeat px-5 py-3"
         style={{
@@ -458,7 +456,7 @@ function RelationshipInterpretationSection({ text }: { text: string }) {
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             RELATIONSHIP INTERPRETATION
@@ -543,12 +541,7 @@ export default function RelationshipIndicators({
         >
           {title}
         </h1>
-        <p
-          className="mt-0.5 max-w-[520px] text-[14px] italic font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
-          {subtitle}
-        </p>
+        <SubtitleHeader text={subtitle} />
       </header>
 
       <RelationshipIndexSection

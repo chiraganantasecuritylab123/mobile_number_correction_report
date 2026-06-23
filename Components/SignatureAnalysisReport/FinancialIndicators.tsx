@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
-import { Pattern3 } from "../CommunComponents";
+import { Pattern3, SubtitleHeader } from "../CommunComponents";
 
 export type FinancialStatusLabel = "STRONG" | "GOOD" | "EXCELLENT";
 
@@ -205,7 +205,7 @@ function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: str
   if (title.includes("STABILITY")) {
     return (
       <div className="relative flex h-12 w-12 items-center justify-center">
-        <Shield size={45} strokeWidth={1.15} style={iconStyle} aria-hidden />
+        <Shield size={50} strokeWidth={1.15} style={iconStyle} aria-hidden />
         <IndianRupee
           size={16}
           strokeWidth={1.5}
@@ -220,7 +220,7 @@ function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: str
   if (title.includes("WEALTH ATTRACTION")) {
     return (
       <div className="relative flex h-12 w-12 items-center justify-center">
-        <Magnet size={45} strokeWidth={1.15} style={iconStyle} aria-hidden />
+        <Magnet size={50} strokeWidth={1.15} style={iconStyle} aria-hidden />
         <IndianRupee
           size={13}
           strokeWidth={1.5}
@@ -232,7 +232,7 @@ function FinancialCardIcon({ icon: Icon, title }: { icon: LucideIcon; title: str
     );
   }
 
-  return <Icon size={45} strokeWidth={1.15} style={iconStyle} aria-hidden />;
+  return <Icon size={50} strokeWidth={1.15} style={iconStyle} aria-hidden />;
 }
 
 function FinancialIndicatorCardView({
@@ -243,9 +243,9 @@ function FinancialIndicatorCardView({
   card: FinancialIndicatorCard;
 }) {
   return (
-    <div className="relative flex h-[320px] w-full flex-col items-center bg-[url('/assets/signatureReport/CradBG.png')] bg-cover bg-center bg-no-repeat text-center">
+    <div className="relative flex h-[350px] w-full flex-col items-center bg-[url('/assets/signatureReport/CradBG.png')] bg-cover bg-center bg-no-repeat text-center">
       <span
-        className="absolute left-1/2 top-4 z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
+        className="absolute left-1/2 top-5 z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-[42%] items-center justify-center rounded-full text-[10px] font-bold"
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
         {String(index).padStart(2, "0")}
@@ -275,8 +275,8 @@ function FinancialIndicatorCardView({
 
 
         <p
-          className="px-1 text-[11px] leading-snug font-nunito-sans"
-          style={{ color: COLORS.brown, opacity: 0.88 }}
+          className="px-1 text-[12px] leading-snug font-nunito-sans"
+          style={{ color: COLORS.black, opacity: 0.88 }}
         >
           {card.description}
         </p>
@@ -299,22 +299,16 @@ function FinancialPotentialScoreSection({
   return (
     <section className="relative z-10 flex justify-center font-nunito-sans mt-3">
       <div
-        className="relative h-[220px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
+        className="relative h-[250px] w-full flex flex-col items-center justify-center bg-contain bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('/assets/signatureReport/page-8-circle.png')",
         }}
       >
-        <IndianRupee
-          size={36}
-          strokeWidth={1.5}
-          className="absolute top-3"
-          style={{ color: COLORS.gold }}
-          aria-hidden
-        />
-        <div className="flex flex-col items-center text-center gap-2">
+        <Image src="/assets/signatureReport/ruppes.png" alt="Building" width={75} height={75} className="absolute top-3" aria-hidden />
+        <div className="flex flex-col items-center text-center gap-3 mt-12" >
           <p
-            className="text-[10px] font-bold tracking-[0.14em]"
-            style={{ color: COLORS.gold }}
+            className="text-[12px] font-bold tracking-[0.14em]"
+            style={{ color: COLORS.brown }}
           >
             FINANCIAL POTENTIAL SCORE
           </p>
@@ -322,11 +316,11 @@ function FinancialPotentialScoreSection({
             className="mt-0.5 text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            <span className="text-[32px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
+            <span className="text-[40px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
           </p>
           <StarRating count={starRating} />
           <p
-            className="mt-1 text-[12px] font-semibold"
+            className="mt-1 text-[13px] font-semibold"
             style={{ color: COLORS.brown }}
           >
             {scoreLabel}
@@ -354,7 +348,7 @@ function FinancialOverviewSection({ cards }: { cards: FinancialIndicatorCard[] }
         <div className="flex items-center justify-center gap-2">
           <Pattern3 size={28} />
           <p
-            className="text-[15px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             FINANCIAL OVERVIEW
@@ -408,13 +402,13 @@ function FinancialInterpretationSection({ text }: { text: string }) {
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-4">
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             FINANCIAL INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[520px] text-center text-[11px] leading-relaxed"
+            className="mt-1 max-w-[520px] text-center text-[12px] leading-relaxed"
             style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
           >
             {text}
@@ -466,28 +460,22 @@ export default function FinancialIndicators({
 }: FinancialIndicatorsProps) {
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center">
-        <Image
+      <header className="flex flex-col items-center text-center mt-5">
+        {/* <Image
           src="/assets/signatureReport/logo-main.png"
           alt="Astro Aarambh"
           width={96}
           height={96}
           className="mb-0.5"
           priority
-        />
+        /> */}
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
-        <p
-          className="mt-0.5 max-w-[520px] text-[14px] italic font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
-          {subtitle}
-        </p>
-        <HeaderDivider />
+        <SubtitleHeader text={subtitle} />
       </header>
 
       <FinancialPotentialScoreSection
@@ -498,10 +486,12 @@ export default function FinancialIndicators({
       />
 
       <p
-        className="relative z-10 mt-1.5 text-center text-[11px] font-nunito-sans"
+        className="flex items-center justify-center gap-2 max-w-[500px] mx-auto z-10 mt-1.5 text-center text-[13px] font-nunito-sans leading-4"
         style={{ color: COLORS.black, opacity: 0.9, fontFamily: BODY_SANS }}
       >
+        <Pattern3 size={32} />
         {introText}
+        <Pattern3 size={32} className="rotate-180" />
       </p>
 
       <section className="relative z-10 mt-3 grid grid-cols-5 gap-1.5">

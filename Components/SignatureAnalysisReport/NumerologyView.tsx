@@ -10,7 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
-import { CoverLotus, Pattern3 } from "../CommunComponents";
+import { CoverLotus, Pattern3, SubtitleHeader } from "../CommunComponents";
 import SignatureReportPageShell, { REPORT_COLORS } from "./SignatureReportPageShell";
 
 export type NumerologyCard = {
@@ -186,7 +186,7 @@ function SemiCircularGauge({ percent, gaugeId }: { percent: number; gaugeId: str
         />
       </svg>
       <span
-        className="absolute bottom-[8px] text-[15px] font-bold leading-none"
+        className="absolute bottom-[3px] text-[20px] font-bold leading-none"
         style={{ color: COLORS.brown }}
       >
         {percent}%
@@ -313,9 +313,9 @@ function AlignmentScoreSection({
   scoreLabel: string;
 }) {
   return (
-    <section className="relative z-10 flex justify-center font-nunito-sans">
+    <section className="relative bottom-2 z-10 flex justify-center font-nunito-sans">
       <div
-        className="relative h-[190px] w-full flex items-center justify-center px-8 py-4 bg-contain bg-center bg-no-repeat"
+        className="relative h-[210px] w-full flex items-center justify-center px-5 py-1 bg-contain bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('/assets/signatureReport/page-8-circle.png')",
         }}
@@ -323,16 +323,16 @@ function AlignmentScoreSection({
         <div className="flex flex-col items-center text-center">
           <Image src="/assets/signatureReport/123Icone.png" alt="Numerology Score" width={45} height={45} className="shrink-0" />
           <p
-            className="text-[12px] max-w-[180px] text-center font-bold tracking-[0.14em]"
-            style={{ color: COLORS.gold }}
+            className="text-[12px] max-w-[180px] text-center font-bold tracking-[0.14em] leading-tight"
+            style={{ color: COLORS.brown }}
           >
             NUMEROLOGY ALIGNMENT SCORE
           </p>
           <p
-            className="mt-0.5 text-[26px] font-bold leading-none"
+            className="text-[26px] font-bold leading-none"
             style={{ color: COLORS.brown }}
           >
-            {score} / {maxScore}
+            <span className="text-[40px]">{score}</span> / <span className="text-[16px]">{maxScore}</span>
           </p>
           <PartialStarRating rating={starRating} size={15} />
           <p
@@ -365,7 +365,7 @@ function NumerologyCardView({
         {String(index).padStart(2, "0")}
       </span>
 
-      <div className="flex h-full w-full flex-col items-center justify-between px-3 py-4 mt-5">
+      <div className="flex h-full w-full flex-col items-center justify-between px-3 py-4 mt-4">
         <p
           className="min-h-[26px] px-1 text-[13px] font-bold leading-[1.2] tracking-[0.03em]"
           style={{ color: COLORS.brown }}
@@ -382,8 +382,8 @@ function NumerologyCardView({
               }}
             >
               <span
-                className="text-[6px] font-bold tracking-[0.08em]"
-                style={{ color: COLORS.gold }}
+                className="text-[8px] font-bold tracking-[0.08em]"
+                style={{ color: COLORS.brown }}
               >
                 {card.valueLabel}
               </span>
@@ -407,7 +407,7 @@ function NumerologyCardView({
         </div>
 
         <div
-          className="rounded-full min-w-[110px] px-5 h-5 flex items-center justify-center"
+          className="rounded-full min-w-[110px] px-5 h-4 flex items-center justify-center"
           style={{ backgroundColor: COLORS.gold }}
         >
           <span
@@ -419,8 +419,8 @@ function NumerologyCardView({
         </div>
 
         <p
-          className="px-1 text-[11px] font-nunito-sans leading-snug"
-          style={{ color: COLORS.brown, opacity: 0.88 }}
+          className="px-1 text-[12px] font-nunito-sans leading-tight"
+          style={{ color: COLORS.black, opacity: 0.88 }}
         >
           {card.description}
         </p>
@@ -450,7 +450,7 @@ function NumerologicalOverviewSection({
         <div className="flex items-center justify-center gap-2">
           <span className="h-px w-10" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
           <p
-            className="text-[11px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             NUMEROLOGICAL ALIGNMENT OVERVIEW
@@ -474,9 +474,9 @@ function NumerologicalOverviewSection({
                   <div
                     className="flex h-8 w-8 items-center justify-center rounded-full"
                   >
-                    <Icon size={45} strokeWidth={1.25} style={{ color: COLORS.brown }} />
+                    <Icon size={45} strokeWidth={1.25} style={{ color: COLORS.gold }} />
                   </div>
-                  <p className="text-[11px] font-semibold leading-tight" style={{ color: COLORS.brown }}>
+                  <p className="text-[11px] text-center font-semibold leading-tight" style={{ color: COLORS.brown }}>
                     {card.overviewLabel}
                   </p>
                   <PartialStarRating rating={overviewStarRating} size={11} />
@@ -495,24 +495,24 @@ function NumerologyInterpretationSection({ text }: { text: string }) {
   return (
     <section className="relative z-10 font-nunito-sans">
       <div className="flex min-h-[92px] w-full items-center bg-no-repeat px-5 py-3">
-        <Image src="/assets/signatureReport/lotusCircle.png" alt="Interpretation" width={100} height={100} className="shrink-0" />
+        <Image src="/assets/signatureReport/lotusCircle.png" alt="Interpretation" width={80} height={80} className="shrink-0" />
 
         <div className="flex min-w-0 flex-1 flex-col items-center px-1">
           <p
-            className="text-[12px] font-bold tracking-[0.1em]"
+            className="text-[13px] font-bold tracking-[0.1em]"
             style={{ color: COLORS.brown }}
           >
             NUMEROLOGY INTERPRETATION
           </p>
           <p
-            className="mt-1 max-w-[550px] text-center text-[11px] leading-relaxed"
-            style={{ color: COLORS.black, opacity: 0.88, fontFamily: BODY_SANS }}
+            className="mt-1 max-w-[600px] font-nunito-sans text-center text-[12px] leading-relaxed"
+            style={{ color: COLORS.black}}
           >
             {text}
           </p>
         </div>
 
-        <Image src="/assets/signatureReport/lotusCircle.png" alt="Interpretation" width={100} height={100} className="shrink-0" />
+        <Image src="/assets/signatureReport/lotusCircle.png" alt="Interpretation" width={80} height={80} className="shrink-0" />
       </div>
     </section>
   );
@@ -535,19 +535,14 @@ export default function NumerologyView({
 }: NumerologyViewProps) {
   return (
     <SignatureReportPageShell padding="18px 36px 22px" pageNumber={pageNumber}>
-      <header className="flex flex-col items-center text-center mt-5">
+      <header className="flex flex-col items-center text-center mt-4">
         <h1
           className="max-w-[620px] text-[28px] font-bold leading-tight tracking-[0.06em]"
           style={{ color: COLORS.brown }}
         >
           {title}
         </h1>
-        <p
-          className="mt-0.5 max-w-[520px] text-[14px] italic font-nunito-sans"
-          style={{ color: COLORS.black, opacity: 0.85 }}
-        >
-          {subtitle}
-        </p>
+        <SubtitleHeader text={subtitle} />
       </header>
 
       <ClientInfoSection fullName={fullName} birthDate={birthDate} birthDay={birthDay} />
@@ -559,7 +554,7 @@ export default function NumerologyView({
         scoreLabel={scoreLabel}
       />
 
-      <section className="relative z-10 mt-1 grid grid-cols-3 gap-1.5">
+      <section className="relative z-10 grid grid-cols-3">
         {cards.map((card, index) => (
           <NumerologyCardView key={card.title} index={index + 1} card={card} />
         ))}
