@@ -1,4 +1,5 @@
 import BusinessReportPage from "@/Components/BusinessNameReport/BusinessReportPage";
+import PartnerNumerologyDetails from "@/Components/BusinessNameReport/PartnerNumerologyDetails";
 import ReportHomeClient from "@/Components/ReportHomeClient";
 
 export default function BusinessNameReportPage() {
@@ -9,6 +10,7 @@ export default function BusinessNameReportPage() {
     >
 
       <BusinessReportPage  /> {/* 1 */}
+      <PartnerNumerologyDetails /> {/* 2 */}
 
     </ReportHomeClient>
   );
