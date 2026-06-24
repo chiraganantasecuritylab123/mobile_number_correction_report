@@ -147,12 +147,12 @@ export default function PartnerNumerologyDetails() {
             height={80}
             priority
           />
-          <p
-            className="text-[32px] font-semibold tracking-[0.1em]"
-            style={{ color: REPORT_COLORS.red }}
+          <h1
+            className="text-center text-[40px] font-bold leading-none"
+            style={{ color: COLORS.brown }}
           >
             ASTRO AARAMBH
-          </p>
+          </h1>
           <h1
             className={`${cinzel.className}  text-[26px] font-bold leading-tight tracking-wide`}
             style={{ color: SECTION_ORANGE }}
@@ -643,14 +643,14 @@ export default function PartnerNumerologyDetails() {
 
         <div className="text-center  flex flex-col items-center justify-center">
           <section className="relative z-10 flex items-center justify-center gap-2 px-4 text-center">
-            <CoverLotus size={60} />
+            <CoverLotus size={70} />
             <p
-              className="max-w-[320px] text-[12px] italic leading-relaxed font-nunito-sans"
+              className="max-w-[320px] text-[16px] italic leading-relaxed font-nunito-sans"
               style={{ color: COLORS.brown }}
             >
               &ldquo;Strong partnerships with aligned numbers create unstoppable business success.&rdquo;
             </p>
-            <CoverLotus size={60} />
+            <CoverLotus size={70} />
           </section>
 
           <BusinessReportFooter />
