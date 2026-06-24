@@ -25,7 +25,7 @@ export default function BusinessNameReportPage() {
       <IndustryCompatibility /> {/* 7 */}
       <FinancialFrequencyAnalysis /> {/* 8 */}
       <BrandingMarketingAnalysis /> {/* 9 */}
-      <RecommendedCorrectedNames /> {/* 10 */}
+      <RecommendedCorrectedNames /> {/* 10 */}``
     </ReportHomeClient>
   );
 }
