@@ -4,6 +4,7 @@ import ExecutiveSummary from "@/Components/BusinessNameReport/ExecutiveSummary";
 import PartnerDetails from "@/Components/BusinessNameReport/PartnerDetails";
 import PartnerVsBusinessAlignment from "@/Components/BusinessNameReport/PartnerVsBusinessAlignment";
 import ReportHomeClient from "@/Components/ReportHomeClient";
+import FinancialFrequencyAnalysis from "@/Components/BusinessNameReport/FinancialFrequencyAnalysis";
 
 export default function BusinessNameReportPage() {
   return (
@@ -18,6 +19,7 @@ export default function BusinessNameReportPage() {
       {/* <PartnerDetails pageNumber="03" /> */}
 
       <PartnerVsBusinessAlignment /> {/* 5 */}
+      <FinancialFrequencyAnalysis /> {/* 8 */}
 
     </ReportHomeClient>
   );
