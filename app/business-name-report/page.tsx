@@ -1,6 +1,7 @@
 import BusinessReportPage from "@/Components/BusinessNameReport/BusinessReportPage";
 import ExecutiveSummary from "@/Components/BusinessNameReport/ExecutiveSummary";
 import PartnerDetails from "@/Components/BusinessNameReport/PartnerDetails";
+import PartnerNumerologyDetails from "@/Components/BusinessNameReport/PartnerNumerologyDetails";
 import ReportHomeClient from "@/Components/ReportHomeClient";
 
 export default function BusinessNameReportPage() {
@@ -11,6 +12,7 @@ export default function BusinessNameReportPage() {
     >
 
       <BusinessReportPage /> {/* 1 */}
+      <PartnerNumerologyDetails /> {/* 2 */}
       <ExecutiveSummary /> {/* 3 — Executive Summary */}
       {/* <PartnerDetails pageNumber="03" /> */}
 
