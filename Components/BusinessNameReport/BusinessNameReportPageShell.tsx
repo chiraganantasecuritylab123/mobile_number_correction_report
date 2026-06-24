@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 export const PAGE_WIDTH = 794;
 export const PAGE_HEIGHT = 1123;
-export const COVER_BG_PATH = "/assets/cover-bg.png";
+export const COVER_BG_PATH = "/assets/businessReport/homepage-bg.png";
 
 export const REPORT_COLORS = {
   cream: "#fdf5e6",
