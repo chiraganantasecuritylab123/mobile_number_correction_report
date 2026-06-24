@@ -1,229 +1,316 @@
-import {
-  Brain,
-  Briefcase,
-  Building2,
-  Crown,
-  Handshake,
-  Lightbulb,
-  Megaphone,
-  Rocket,
-  Shield,
-  Signpost,
-  Star,
-  Target,
-  TrendingUp,
-  User,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
 import Image from "next/image";
-import { Pattern3, SubtitleHeader } from "../CommunComponents";
-import BusinessNameReportPageShell, { REPORT_COLORS } from "./BusinessNameReportPageShell";
+import type { ReactNode } from "react";
+import { Building2, Calendar, User, type LucideIcon } from "lucide-react";
+import { CoverLotus } from "../CommunComponents";
+import BusinessNameReportPageShell from "./BusinessNameReportPageShell";
+import {
+  BUSINESS_ASSETS,
+  COLORS,
+  BusinessReportFooter,
+  BusinessReportHeader,
+  OrnamentDivider,
+} from "./BusinessReportCommon";
 
-export type CareerIndicatorIcon =
-  | "leadership"
-  | "entrepreneurship"
-  | "corporate"
-  | "salesMarketing"
-  | "creative"
-  | "management"
-  | "decisionMaking";
+// const scriptFont = Great_Vibes({
+//   subsets: ["cyrillic"],
+//   weight: "400",
+//   // display: "swap",
+// });
 
-export type CareerIndicatorCard = {
-  title: string;
-  percent: number;
-  ratingLabel: string;
-  icon: CareerIndicatorIcon;
-  description: string;
-  decisionStyle?: {
-    analytical: string;
-    intuitive: string;
-    balanced: string;
-    styleLabel: string;
-  };
-};
-
-export type CareerStrength = {
-  label: string;
-  icon: LucideIcon;
-  starRating: number;
-};
-
-export type CareerIndicatorsProps = {
+export type BusinessNameReportPageProps = {
   pageNumber?: string;
-  title?: string;
   subtitle?: string;
-  careerPotentialScore?: number;
+  subtitle2?: string;
+  companyName?: string;
+  businessOwner?: string;
+  businessCategory?: string;
+  reportDate?: string;
+  quote?: string;
+  brandScore?: number;
   maxScore?: number;
-  starRating?: number;
-  potentialLabel?: string;
-  summaryText?: string;
-  firstRowCards?: CareerIndicatorCard[];
-  secondRowCards?: CareerIndicatorCard[];
-  careerInterpretation?: string;
-  expertObservation?: string;
-  careerStrengths?: CareerStrength[];
+  destinyNumber?: number;
+  successFrequencyLabel?: string;
 };
 
-const COLORS = REPORT_COLORS;
-
-const ICON_MAP: Record<CareerIndicatorIcon, LucideIcon> = {
-  leadership: Crown,
-  entrepreneurship: Rocket,
-  corporate: Building2,
-  salesMarketing: Megaphone,
-  creative: Lightbulb,
-  management: Users,
-  decisionMaking: Signpost,
-};
-
-const HEADER = {
-  maroon: "#4a0e0e",
-  gold: "#A96505",
-  goldLight: "#b8860b",
-  tagline: "#3a3a3a",
-} as const;
-
-const defaultFirstRowCards: CareerIndicatorCard[] = [
-  {
-    title: "LEADERSHIP SUITABILITY",
-    percent: 92,
-    ratingLabel: "EXCELLENT",
-    icon: "leadership",
-    description:
-      "Natural ability to lead, inspire, and guide people towards goals.",
-  },
-  {
-    title: "ENTREPRENEURSHIP TENDENCY",
-    percent: 88,
-    ratingLabel: "VERY HIGH",
-    icon: "entrepreneurship",
-    description:
-      "Strong independent thinking and capacity to build and innovate.",
-  },
-  {
-    title: "CORPORATE SUITABILITY",
-    percent: 85,
-    ratingLabel: "HIGH",
-    icon: "corporate",
-    description:
-      "Adaptable to corporate environments with strong professional alignment.",
-  },
-  {
-    title: "SALES & MARKETING POTENTIAL",
-    percent: 90,
-    ratingLabel: "EXCELLENT",
-    icon: "salesMarketing",
-    description:
-      "Excellent communication skills and influence with people.",
-  },
-];
-
-const defaultSecondRowCards: CareerIndicatorCard[] = [
-  {
-    title: "CREATIVE PROFESSION SUITABILITY",
-    percent: 84,
-    ratingLabel: "HIGH",
-    icon: "creative",
-    description:
-      "Good imagination, originality and ability to think outside the box.",
-  },
-  {
-    title: "MANAGEMENT ABILITY",
-    percent: 89,
-    ratingLabel: "VERY HIGH",
-    icon: "management",
-    description:
-      "Strong organizing skills, planning ability and team management capabilities.",
-  },
-  {
-    title: "DECISION-MAKING STYLE",
-    percent: 82,
-    ratingLabel: "ANALYTICAL + INTUITIVE",
-    icon: "decisionMaking",
-    description:
-      "You make well-thought decisions with a balance of logic and intuition.",
-    decisionStyle: {
-      analytical: "Primary",
-      intuitive: "Secondary",
-      balanced: "Adaptive",
-      styleLabel: "ANALYTICAL + INTUITIVE",
-    },
-  },
-];
-
-const defaultCareerStrengths: CareerStrength[] = [
-  { label: "Goal Oriented", icon: Target, starRating: 5 },
-  { label: "Ambitious", icon: TrendingUp, starRating: 5 },
-  { label: "Resilient", icon: Shield, starRating: 5 },
-  { label: "Influential", icon: Users, starRating: 5 },
-  { label: "Strategic", icon: Brain, starRating: 5 },
-  { label: "People Skills", icon: Handshake, starRating: 4 },
-];
-
-function StarRating({ count, size = 11 }: { count: number; size?: number }) {
+function CompanyNameFrame({ companyName }: { companyName: string }) {
   return (
-    <div className="flex items-center gap-0.5">
-      {Array.from({ length: count }).map((_, index) => (
-        <Star
-          key={`career-star-${index}`}
-          size={size}
-          fill={COLORS.gold}
-          stroke={COLORS.gold}
-          aria-hidden
-        />
-      ))}
+    <section className="relative z-10 mt-3 flex flex-col items-center text-center">
+      <OrnamentDivider width={250} />
+      <p
+        className="text-[15px] font-semibold"
+        style={{ color: COLORS.brown }}
+      >
+        PREPARED FOR
+      </p>
+
+      <div
+        className="flex h-[110px] w-[570px] items-center justify-center mx-auto bg-[url('/assets/businessReport/frame-bg.png')] bg-cover bg-center bg-no-repeat"
+      >
+        <p
+          className="absolute px-2 text-center text-[23px] font-bold leading-tight tracking-[0.04em]"
+          style={{ color: COLORS.brown }}
+        >
+          {companyName}
+        </p>
+
+      </div>
+    </section>
+  );
+}
+
+function DetailIconBadge({ icon: Icon }: { icon: LucideIcon }) {
+  return (
+    <div
+      className="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-full"
+      style={{ border: `1.5px dashed ${COLORS.gold}` }}
+    >
+      <Icon size={35} strokeWidth={1.25} style={{ color: COLORS.gold }} aria-hidden />
     </div>
   );
 }
 
+function DetailField({
+  icon,
+  label,
+  value,
+  valueClassName = "",
+  italicValue = false,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  valueClassName?: string;
+  italicValue?: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <DetailIconBadge icon={icon} />
+      <div className="flex flex-col items-start text-left">
+        <span
+          className="text-[14px] font-bold tracking-[0.1em]"
+          style={{ color: COLORS.brown }}
+        >
+          {label}
+        </span>
+        <span
+          className={`text-[17px] leading-tight font-bold ${italicValue ? "italic" : ""} ${valueClassName}`}
+          style={{ color: COLORS.red }}
+        >
+          {value}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function VerticalDivider() {
+  return (
+    <div className="relative mx-1 flex min-h-[120px] w-px self-stretch items-center justify-center">
+      <div
+        className="absolute inset-y-0 w-px"
+        style={{ backgroundColor: "rgba(184,134,11,0.45)" }}
+      />
+      <span
+        className="relative z-10 h-1.5 w-1.5 rounded-full"
+        style={{ backgroundColor: COLORS.gold }}
+      />
+    </div>
+  );
+}
+
+function BusinessDetailsSection({
+  businessOwner,
+  businessCategory,
+  reportDate,
+}: {
+  businessOwner: string;
+  businessCategory: string;
+  reportDate: string;
+}) {
+  return (
+    <section className="relative z-10 mt-5 px-4 font-cinzel">
+      <div className="flex items-center gap-5 max-w-[600px] mx-auto">
+        <div className="flex items-center justify-between">
+          <DetailField
+            icon={User}
+            label="BUSINESS OWNER"
+            value={businessOwner}
+            // valueClassName={scriptFont.className}
+            italicValue
+          />
+        </div>
+
+        <VerticalDivider />
+
+        <div className="flex flex-1 flex-col justify-center pl-2">
+          <DetailField
+            icon={Building2}
+            label="BUSINESS CATEGORY"
+            value={businessCategory}
+            // valueClassName={scriptFont.className}
+            italicValue
+          />
+          <div
+            className="my-3 h-px w-full"
+            style={{ backgroundColor: "rgba(184,134,11,0.45)" }}
+          />
+          <DetailField icon={Calendar} label="REPORT DATE" value={reportDate} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function QuoteSection({ quote }: { quote: string }) {
+  return (
+    <section className="relative z-10 mt-3 flex items-center justify-center gap-2 px-4 text-center">
+      <CoverLotus size={100} />
+      <p
+        className="max-w-[420px] text-[16px] italic leading-relaxed"
+        style={{ color: COLORS.brown, fontFamily: "Georgia, serif" }}
+      >
+        &ldquo;{quote}&rdquo;
+      </p>
+      <CoverLotus size={100} />
+    </section>
+  );
+}
+
+function ScoreColumn({
+  label,
+  children,
+  showDivider = true,
+}: {
+  label: string;
+  children: ReactNode;
+  showDivider?: boolean;
+}) {
+  return (
+    <div
+      className={`flex flex-1 flex-col items-center px-1 text-center ${showDivider ? "border-r border-[#b8860b]/45" : ""
+        }`}
+    >
+      <p
+        className="text-[13px] font-bold"
+        style={{ color: COLORS.brown }}
+      >
+        {label}
+      </p>
+      <div className="mt-1 flex min-h-[88px] items-center justify-center">{children}</div>
+    </div>
+  );
+}
+
+function BrandScoreCardSection({
+  brandScore,
+  maxScore,
+  destinyNumber,
+  successFrequencyLabel,
+}: {
+  brandScore: number;
+  maxScore: number;
+  destinyNumber: number;
+  successFrequencyLabel: string;
+}) {
+  return (
+    <section className="relative z-10 mt-4 px-2">
+      <div
+        className="relative rounded-sm px-3 pb-4 pt-5 h-[248px] w-[697px] mx-auto bg-[url('/assets/businessReport/homepage-card-bg.png')] bg-cover bg-center bg-no-repeat"
+      >
+        <p
+          className="px-3 text-center text-[18px] font-bold"
+        >
+          BUSINESS BRAND SCORE CARD
+        </p>
+
+        <div className="flex items-stretch mt-2">
+          <ScoreColumn label="CURRENT BRAND SCORE">
+            <div
+              className="relative flex h-[150px] w-[150px] items-center justify-center bg-contain bg-center bg-no-repeat"
+              style={{ backgroundImage: `url('${BUSINESS_ASSETS.scoreCircle}')` }}
+            >
+              <p className="font-bold leading-none" style={{ color: COLORS.brown }}>
+                <span className="text-[35px]">{brandScore}</span><br />
+                <span className="text-[16px]"> / {maxScore}</span>
+              </p>
+            </div>
+          </ScoreColumn>
+
+          <ScoreColumn label="BUSINESS DESTINY NUMBER">
+            <div
+              className="relative flex h-[140px] w-[180px] items-center justify-center bg-contain bg-center bg-no-repeat"
+              style={{ backgroundImage: `url('${BUSINESS_ASSETS.destinyMandala}')` }}
+            >
+              <span
+                className="text-[40px] font-bold leading-none"
+                style={{ color: COLORS.brown }}
+              >
+                {destinyNumber}
+              </span>
+            </div>
+          </ScoreColumn>
+
+          <ScoreColumn label="SUCCESS FREQUENCY" showDivider={false}>
+            <div className="flex flex-col items-center gap-1">
+              <Image
+                src={BUSINESS_ASSETS.building}
+                alt=""
+                width={120}
+                height={120}
+                className="object-contain"
+                aria-hidden
+              />
+              <p
+                className="text-[15px] font-bold"
+                style={{ color: COLORS.brown }}
+              >
+                {successFrequencyLabel}
+              </p>
+            </div>
+          </ScoreColumn>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function BusinessReportPage({
-  pageNumber = "10",
-  title = "BUSINESS NAME ANALYSIS",
-  subtitle = "What Your Signature Reveals About Your Professional Potential",
-  careerPotentialScore = 89,
+  pageNumber = "01",
+  subtitle = "BUSINESS NAME OPTIMIZATION REPORT",
+  subtitle2 = "PERSONALIZED BUSINESS NUMEROLOGY & BRAND VIBRATION ANALYSIS",
+  companyName = "ANANTAX TECHNOLOGIES PVT LTD",
+  businessOwner = "Bhargav Gujarati",
+  businessCategory = "Information Technology",
+  reportDate = "09-06-2026",
+  quote = "Your Brand Name Shapes Your Business Destiny. Align It With Prosperity.",
+  brandScore = 82,
   maxScore = 100,
-  starRating = 5,
-  potentialLabel = "Strong Professional Potential",
-  summaryText = "Your signature indicates diverse professional strengths and a strong ability to achieve success across multiple domains.",
-  firstRowCards = defaultFirstRowCards,
-  secondRowCards = defaultSecondRowCards,
-  careerInterpretation = "Your signature shows strong leadership qualities, entrepreneurial drive and excellent communication skills. You are capable of excelling in diverse professional environments and have the potential to achieve high positions of authority and recognition.",
-  expertObservation = "The career indicators suggest a dynamic personality with strong ambition, leadership potential, and the ability to influence others. Your signature reflects a professional who can create opportunities, take calculated risks, and achieve long-term success.",
-  careerStrengths = defaultCareerStrengths,
-}: CareerIndicatorsProps) {
+  destinyNumber = 5,
+  successFrequencyLabel = "HIGH GROWTH POTENTIAL",
+}: BusinessNameReportPageProps) {
   return (
-    <BusinessNameReportPageShell padding="16px 36px 22px" pageNumber={pageNumber}>
-      <div className="font-nunito-sans">
-        <header className="mt-3 flex flex-col items-center text-center">
+    <BusinessNameReportPageShell padding="18px 40px 20px" pageNumber={pageNumber}>
+      <div className="flex h-full flex-col">
+        <BusinessReportHeader subtitle={subtitle} subtitle2={subtitle2} />
 
-          <Image
-            src="/assets/ganesha-logo.png"
-            alt="Astro Aarambh"
-            width={100}
-            height={100}
-            className="mb-5"
-            priority
-          />
+        <CompanyNameFrame companyName={companyName} />
 
-          <h1
-            className="text-[40px] font-bold leading-none tracking-[0.1em]"
-            style={{ color: HEADER.maroon }}
-          >
-            ASTRO AARAMBH
-          </h1>
+        <BusinessDetailsSection
+          businessOwner={businessOwner}
+          businessCategory={businessCategory}
+          reportDate={reportDate}
+        />
 
-          {/* <h1
-            className="max-w-[620px] text-[26px] font-bold leading-tight tracking-[0.06em]"
-            style={{ color: COLORS.brown }}
-          >
-            {title}
-          </h1> */}
-          <SubtitleHeader text={subtitle} />
-        </header>
+        <QuoteSection quote={quote} />
 
+        <BrandScoreCardSection
+          brandScore={brandScore}
+          maxScore={maxScore}
+          destinyNumber={destinyNumber}
+          successFrequencyLabel={successFrequencyLabel}
+        />
 
+        <BusinessReportFooter pageNumber={pageNumber} />
       </div>
     </BusinessNameReportPageShell>
   );
