@@ -1,0 +1,602 @@
+import {
+  Ban,
+  BarChart3,
+  Eye,
+  Lightbulb,
+  Sigma,
+  TreeDeciduous,
+  type LucideIcon,
+} from "lucide-react";
+import type { ReactNode } from "react";
+import { CoverLotus, Pattern3 } from "../CommunComponents";
+import BusinessNameReportPageShell from "./BusinessNameReportPageShell";
+import {
+  BUSINESS_ASSETS,
+  COLORS,
+  BusinessReportHeader,
+} from "./BusinessReportCommon";
+
+export type LetterValue = {
+  letter: string;
+  value: number;
+};
+
+export type NameStat = {
+  title: string;
+  description: string;
+  value: string;
+  icon: LucideIcon;
+};
+
+export type ExistingBusinessNameBreakdownProps = {
+  pageNumber?: string;
+  subtitle?: string;
+  subtitle2?: string;
+  sectionTitle?: string;
+  sectionDescription?: string;
+  businessName?: string;
+  letterValues?: LetterValue[];
+  totalNameNumber?: number;
+  compoundNumber?: number;
+  rootNumber?: number;
+  hiddenNumber?: number;
+  missingVibrations?: string;
+  dominantVibrations?: string;
+  vibrationInsight?: string;
+};
+
+const CHALDEAN_VALUES: Record<string, number> = {
+  A: 1,
+  B: 2,
+  C: 3,
+  D: 4,
+  E: 5,
+  F: 8,
+  G: 3,
+  H: 5,
+  I: 1,
+  J: 1,
+  K: 2,
+  L: 3,
+  M: 4,
+  N: 5,
+  O: 7,
+  P: 8,
+  Q: 1,
+  R: 2,
+  S: 3,
+  T: 4,
+  U: 6,
+  V: 6,
+  W: 6,
+  X: 5,
+  Y: 1,
+  Z: 7,
+};
+
+const VALUE_REFERENCE: Record<number, string[]> = {
+  1: ["A", "I", "J", "Q", "Y"],
+  2: ["B", "K", "R"],
+  3: ["C", "G", "L", "S"],
+  4: ["D", "M", "T"],
+  5: ["E", "H", "N", "X"],
+  6: ["U", "V", "W"],
+  7: ["O", "Z"],
+  8: ["F", "P"],
+  9: [],
+};
+
+const DEFAULT_BUSINESS_NAME = "ANANTAX TECHNOLOGIES PVT LTD";
+
+const DEFAULT_LETTER_VALUES: LetterValue[] = DEFAULT_BUSINESS_NAME.replace(
+  /[^A-Za-z]/g,
+  "",
+)
+  .split("")
+  .map((letter) => ({
+    letter,
+    value: CHALDEAN_VALUES[letter.toUpperCase()] ?? 0,
+  }));
+
+const DEFAULT_VIBRATION_INSIGHT =
+  "Your business name carries Root Number 4, which represents stability, discipline, and hard work. This vibration supports building a strong foundation and long-term success through consistent effort and practical planning. To enhance growth, consider balancing the missing vibrations (2, 9) through strategic brand elements, taglines, or visual identity that incorporate these energies.";
+
+function FrameBackground({
+  src,
+  width,
+  height,
+  padding,
+  children,
+  className = "",
+}: {
+  src: string;
+  width: number | string;
+  height: number | string;
+  padding: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative bg-no-repeat ${className}`}
+      style={{
+        width,
+        height,
+        backgroundImage: `url('${src}')`,
+        backgroundSize: "100% 100%",
+      }}
+    >
+      <div className="h-full w-full" style={{ padding }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function PageSectionHeader({
+  pageIndex,
+  title,
+  description,
+}: {
+  pageIndex: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <section className="relative z-10 mt-2 flex flex-col items-center text-center">
+      <div
+        className="flex flex-row h-[92px] w-[570px] items-center justify-center mx-auto bg-[url('/assets/businessReport/page-4-card.png')] bg-cover bg-center bg-no-repeat"
+      >
+        <div className="flex w-full items-center justify-center gap-3">
+          <div
+            className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-[13px] font-bold"
+            style={{
+              backgroundColor: COLORS.brown,
+              color: COLORS.cream,
+              border: `1.5px solid ${COLORS.gold}`,
+            }}
+          >
+            {pageIndex}
+          </div>
+
+          <p
+            className="px-2 text-center text-[16px] font-bold leading-tight tracking-[0.04em]"
+            style={{ color: COLORS.brown }}
+          >
+            {title}
+          </p>
+        </div>
+
+      </div>
+
+      <h2
+        className="mt-2 text-[17px] font-bold tracking-[0.08em]"
+        style={{ color: COLORS.brown }}
+      >
+        {title}
+      </h2>
+      <p
+        className="mt-0.5 max-w-[520px] text-[11px] italic leading-snug"
+        style={{ color: COLORS.brown, opacity: 0.85 }}
+      >
+        {description}
+      </p>
+    </section>
+  );
+}
+
+function BusinessNameBox({ businessName }: { businessName: string }) {
+  return (
+    <section className="relative z-10 mt-3 flex justify-center px-2">
+      <div
+        className="relative flex w-full max-w-[640px] flex-col items-center px-6 py-3"
+        style={{
+          border: `1px solid ${COLORS.gold}`,
+          backgroundColor: "rgba(253, 245, 230, 0.55)",
+        }}
+      >
+        <span
+          className="absolute -top-2.5 bg-[#fdf5e6] px-3 text-[10px] font-bold tracking-[0.14em]"
+          style={{ color: COLORS.gold }}
+        >
+          BUSINESS NAME
+        </span>
+        <p
+          className="text-center text-[16px] font-bold leading-tight tracking-[0.04em]"
+          style={{ color: COLORS.brown }}
+        >
+          {businessName}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function LetterTable({
+  rows,
+  className = "",
+}: {
+  rows: LetterValue[];
+  className?: string;
+}) {
+  return (
+    <table className={`w-full border-collapse text-center ${className}`}>
+      <thead>
+        <tr>
+          <th
+            className="pb-1.5 text-[9px] font-bold tracking-[0.12em]"
+            style={{ color: COLORS.gold }}
+          >
+            LETTER
+          </th>
+          <th
+            className="pb-1.5 text-[9px] font-bold tracking-[0.12em]"
+            style={{ color: COLORS.gold }}
+          >
+            VALUE
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, index) => (
+          <tr
+            key={`${row.letter}-${index}`}
+            className="border-t"
+            style={{ borderColor: "rgba(184, 134, 11, 0.25)" }}
+          >
+            <td
+              className="py-[3px] text-[11px] font-semibold"
+              style={{ color: COLORS.brown }}
+            >
+              {row.letter}
+            </td>
+            <td
+              className="py-[3px] text-[11px] font-bold"
+              style={{ color: COLORS.brown }}
+            >
+              {row.value}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function LetterBreakdownSection({ letterValues }: { letterValues: LetterValue[] }) {
+  const midpoint = Math.ceil(letterValues.length / 2);
+  const leftRows = letterValues.slice(0, midpoint);
+  const rightRows = letterValues.slice(midpoint);
+
+  return (
+    <FrameBackground
+      src={BUSINESS_ASSETS.secondCard}
+      width={410}
+      height={215}
+      padding="18px 22px 16px"
+    >
+      <div
+        className="flex h-full gap-3 rounded-sm"
+        style={{
+          backgroundColor: "rgba(253, 245, 230, 0.72)",
+          border: `1px solid rgba(184, 134, 11, 0.35)`,
+        }}
+      >
+        <LetterTable rows={leftRows} className="flex-1 px-2 pt-2" />
+        <div
+          className="w-px self-stretch my-2"
+          style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }}
+        />
+        <LetterTable rows={rightRows} className="flex-1 px-2 pt-2" />
+      </div>
+    </FrameBackground>
+  );
+}
+
+function CompoundIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="9" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="15" cy="12" r="6" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+function StatRow({
+  title,
+  description,
+  value,
+  icon: Icon,
+  customIcon,
+}: NameStat & { customIcon?: ReactNode }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div
+        className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full"
+        style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
+      >
+        {customIcon ?? <Icon size={15} strokeWidth={1.8} aria-hidden />}
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <p
+          className="text-[8px] font-bold leading-tight tracking-[0.06em]"
+          style={{ color: COLORS.brown }}
+        >
+          {title}
+        </p>
+        <p
+          className="text-[7px] leading-tight"
+          style={{ color: COLORS.brown, opacity: 0.75 }}
+        >
+          {description}
+        </p>
+      </div>
+
+      <div
+        className="flex h-[38px] w-[34px] shrink-0 items-center justify-center text-center text-[11px] font-bold leading-tight"
+        style={{
+          border: `1px solid ${COLORS.gold}`,
+          backgroundColor: "rgba(253, 245, 230, 0.85)",
+          color: COLORS.brown,
+        }}
+      >
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function StatsPanel({
+  totalNameNumber,
+  compoundNumber,
+  rootNumber,
+  hiddenNumber,
+  missingVibrations,
+  dominantVibrations,
+}: {
+  totalNameNumber: number;
+  compoundNumber: number;
+  rootNumber: number;
+  hiddenNumber: number;
+  missingVibrations: string;
+  dominantVibrations: string;
+}) {
+  const stats: (NameStat & { customIcon?: ReactNode })[] = [
+    {
+      title: "TOTAL NAME NUMBER",
+      description: "Sum of all letter values",
+      value: String(totalNameNumber),
+      icon: Sigma,
+    },
+    {
+      title: "COMPOUND NUMBER",
+      description: "Total reduced to single digit",
+      value: String(compoundNumber),
+      icon: Sigma,
+      customIcon: <CompoundIcon />,
+    },
+    {
+      title: "ROOT NUMBER",
+      description: "Final single digit vibration",
+      value: String(rootNumber),
+      icon: TreeDeciduous,
+    },
+    {
+      title: "HIDDEN NUMBER",
+      description: "Total of vowels",
+      value: String(hiddenNumber),
+      icon: Eye,
+    },
+    {
+      title: "MISSING VIBRATIONS",
+      description: "Numbers not present in name",
+      value: missingVibrations,
+      icon: Ban,
+    },
+    {
+      title: "DOMINANT VIBRATIONS",
+      description: "Most recurring numbers",
+      value: dominantVibrations,
+      icon: BarChart3,
+    },
+  ];
+
+  return (
+    <FrameBackground
+      src={BUSINESS_ASSETS.thirdCard}
+      width={278}
+      height={215}
+      padding="16px 14px 14px"
+    >
+      <div className="flex h-full flex-col justify-between gap-1.5">
+        {stats.map((stat) => (
+          <StatRow key={stat.title} {...stat} />
+        ))}
+      </div>
+    </FrameBackground>
+  );
+}
+
+function PanelHeader({ title }: { title: string }) {
+  return (
+    <div
+      className="px-3 py-1.5 text-center text-[9px] font-bold tracking-[0.1em]"
+      style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
+    >
+      {title}
+    </div>
+  );
+}
+
+function ValueReferenceChart() {
+  return (
+    <FrameBackground
+      src={BUSINESS_ASSETS.forthCard}
+      width={410}
+      height={195}
+      padding="12px 14px 10px"
+      className="flex flex-col"
+    >
+      <div
+        className="flex h-full flex-col overflow-hidden rounded-sm"
+        style={{
+          border: `1px solid rgba(184, 134, 11, 0.35)`,
+          backgroundColor: "rgba(253, 245, 230, 0.72)",
+        }}
+      >
+        <PanelHeader title="VALUE REFERENCE CHART" />
+
+        <div className="flex-1 px-2 py-2">
+          <div
+            className="grid grid-cols-9 gap-0 border"
+            style={{ borderColor: "rgba(184, 134, 11, 0.35)" }}
+          >
+            {Array.from({ length: 9 }, (_, index) => index + 1).map((num) => (
+              <div
+                key={num}
+                className="border-r last:border-r-0 text-center"
+                style={{ borderColor: "rgba(184, 134, 11, 0.25)" }}
+              >
+                <div
+                  className="border-b py-0.5 text-[9px] font-bold"
+                  style={{
+                    borderColor: "rgba(184, 134, 11, 0.25)",
+                    color: COLORS.brown,
+                  }}
+                >
+                  {num}
+                </div>
+                <div
+                  className="flex min-h-[34px] flex-col items-center justify-center px-0.5 py-1 text-[7px] font-semibold leading-tight"
+                  style={{ color: COLORS.brown }}
+                >
+                  {VALUE_REFERENCE[num].map((letter) => (
+                    <span key={letter}>{letter}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-2 flex items-start gap-1.5 px-1">
+            <Lightbulb
+              size={12}
+              strokeWidth={1.6}
+              style={{ color: COLORS.gold }}
+              className="mt-0.5 shrink-0"
+              aria-hidden
+            />
+            <p
+              className="text-[7px] leading-snug"
+              style={{ color: COLORS.brown, opacity: 0.85 }}
+            >
+              Each letter carries a specific vibration (1–9) that influences the
+              energy of your business name.
+            </p>
+          </div>
+        </div>
+      </div>
+    </FrameBackground>
+  );
+}
+
+function VibrationInsightPanel({ text }: { text: string }) {
+  return (
+    <FrameBackground
+      src={BUSINESS_ASSETS.forthCard}
+      width={278}
+      height={195}
+      padding="12px 12px 10px"
+    >
+      <div
+        className="flex h-full flex-col overflow-hidden rounded-sm"
+        style={{
+          border: `1px solid rgba(184, 134, 11, 0.35)`,
+          backgroundColor: "rgba(253, 245, 230, 0.72)",
+        }}
+      >
+        <PanelHeader title="NAME VIBRATION INSIGHT" />
+
+        <div className="flex flex-1 items-start gap-2 px-2.5 py-2">
+          <CoverLotus size={42} className="shrink-0" />
+          <p
+            className="text-[8px] leading-relaxed"
+            style={{ color: COLORS.brown, fontFamily: "Georgia, serif" }}
+          >
+            {text}
+          </p>
+        </div>
+      </div>
+    </FrameBackground>
+  );
+}
+
+function SimplePageFooter({ pageNumber }: { pageNumber: string }) {
+  return (
+    <footer className="relative z-10 mt-auto flex justify-end px-2 pt-2">
+      <div className="flex items-center gap-1.5">
+        <Pattern3 size={14} />
+        <span
+          className="text-[10px] font-bold tracking-[0.12em]"
+          style={{ color: COLORS.gold }}
+        >
+          PAGE {pageNumber}
+        </span>
+        <Pattern3 size={14} className="rotate-180" />
+      </div>
+    </footer>
+  );
+}
+
+export default function ExistingBusinessNameBreakdown({
+  pageNumber = "04",
+  subtitle = "BUSINESS NAME OPTIMIZATION REPORT",
+  subtitle2 = "PERSONALIZED BUSINESS NUMEROLOGY & BRAND VIBRATION ANALYSIS",
+  sectionTitle = "EXISTING BUSINESS NAME BREAKDOWN",
+  sectionDescription = "Detailed numerological analysis of each letter in your business name.",
+  businessName = DEFAULT_BUSINESS_NAME,
+  letterValues = DEFAULT_LETTER_VALUES,
+  totalNameNumber = 112,
+  compoundNumber = 4,
+  rootNumber = 4,
+  hiddenNumber = 46,
+  missingVibrations = "2, 9",
+  dominantVibrations = "1, 4, 5",
+  vibrationInsight = DEFAULT_VIBRATION_INSIGHT,
+}: ExistingBusinessNameBreakdownProps) {
+  return (
+    <BusinessNameReportPageShell padding="18px 40px 16px" pageNumber={pageNumber}>
+      <div className="flex h-full flex-col">
+        <BusinessReportHeader subtitle={subtitle} subtitle2={subtitle2} logoSize={85} />
+
+        <PageSectionHeader
+          pageIndex={pageNumber}
+          title={sectionTitle}
+          description={sectionDescription}
+        />
+
+        <BusinessNameBox businessName={businessName} />
+
+        <section className="relative z-10 mt-3 flex justify-center gap-3">
+          <LetterBreakdownSection letterValues={letterValues} />
+          <StatsPanel
+            totalNameNumber={totalNameNumber}
+            compoundNumber={compoundNumber}
+            rootNumber={rootNumber}
+            hiddenNumber={hiddenNumber}
+            missingVibrations={missingVibrations}
+            dominantVibrations={dominantVibrations}
+          />
+        </section>
+
+        <section className="relative z-10 mt-2.5 flex justify-center gap-3">
+          <ValueReferenceChart />
+          <VibrationInsightPanel text={vibrationInsight} />
+        </section>
+
+        <SimplePageFooter pageNumber={pageNumber} />
+      </div>
+    </BusinessNameReportPageShell>
+  );
+}
