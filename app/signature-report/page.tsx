@@ -22,7 +22,6 @@ export default function SignatureReportPage() {
       reportTitle="Signature Analysis Report"
       reportDescription="Graphology insights and signature vibration analysis"
     >
-
       <SignatureAnalysisReport  /> {/* 1 */}
       <PersonalityAnalysis pageNumber='02' /> {/* 2 */}
       <SignatureStructureAnalysis pageNumber='03' /> {/* 3 */}

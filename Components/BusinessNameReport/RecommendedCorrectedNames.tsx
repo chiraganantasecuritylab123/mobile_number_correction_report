@@ -472,13 +472,6 @@ export default function RecommendedCorrectedNames({
           <div className="flex justify-center">
             <OrnamentDivider width={180} />
           </div>
-          <div className="mt-1 flex items-center justify-end gap-1.5">
-            <Pattern3 size={16} />
-            <p className="text-[9px] font-bold tracking-[0.12em]" style={{ color: COLORS.brown, opacity: 0.75 }}>
-              PAGE {pageNumber}
-            </p>
-            <Pattern3 size={16} className="rotate-180" />
-          </div>
         </footer>
       </div>
     </BusinessNameReportPageShell>
