@@ -188,13 +188,13 @@ function InfoColumn({
         />
       ) : null}
       <div
-        className="mb-1.5 flex h-[40px] w-[40px] items-center justify-center rounded-full"
+        className="mb-1.5 flex h-[50px] w-[50px] items-center justify-center rounded-full"
         style={{ border: `1.5px solid ${COLORS.gold}`, backgroundColor: "rgba(253, 245, 230, 0.7)" }}
       >
         <Icon size={20} strokeWidth={2} style={{ color: COLORS.gold }} />
       </div>
       <p
-        className="text-[8px] font-bold tracking-[0.1em]"
+        className="text-[12px] font-bold tracking-[0.1em]"
         style={{ color: COLORS.gold }}
       >
         {label}
@@ -246,7 +246,7 @@ function OverallScoreGauge({ percent }: { percent: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span
-          className="text-[8px] font-bold tracking-widest"
+          className="text-[10px] font-bold tracking-widest"
           style={{ color: COLORS.gold }}
         >
           OVERALL SCORE
@@ -292,7 +292,7 @@ function KeyFindingBox({ card }: { card: KeyFindingCard }) {
       <div className="flex items-center text-center gap-2">
         <FindingIcon type={card.type} />
         <p
-          className="text-[10px] font-bold tracking-[0.06em] leading-none text-start"
+          className="text-[12px] font-bold tracking-[0.06em] leading-none text-start"
           style={{ color: accent }}
         >
           {card.title}
@@ -302,7 +302,7 @@ function KeyFindingBox({ card }: { card: KeyFindingCard }) {
         {card.items.map((item) => (
           <li
             key={item}
-            className="list-disc text-[10px] leading-relaxed marker:text-[6px]"
+            className="list-disc text-[12px] leading-relaxed marker:text-[6px]"
             style={{ color: COLORS.black, opacity: 0.88 }}
           >
             {item}
@@ -410,7 +410,7 @@ export default function ExecutiveSummary({
                 className="mx-auto inline-block rounded-sm px-4 py-1"
                 style={{ border: `1.5px solid ${COLORS.gold}` }}
               >
-                <span className="text-[14px] font-bold" style={{ color: COLORS.brown }}>
+                <span className="text-[16px] font-bold" style={{ color: COLORS.brown }}>
                   {businessNumber}
                 </span>
               </div>
@@ -421,7 +421,7 @@ export default function ExecutiveSummary({
                 className="mx-auto inline-block rounded-sm px-3 py-1"
                 style={{ border: `1.5px solid ${COLORS.gold}` }}
               >
-                <span className="text-[9px] font-bold tracking-[0.04em]" style={{ color: COLORS.brown }}>
+                <span className="text-[12px] font-bold tracking-[0.04em]" style={{ color: COLORS.brown }}>
                   {vibration}
                 </span>
               </div>
@@ -437,8 +437,8 @@ export default function ExecutiveSummary({
               className="grid shrink-0 grid-cols-[1fr_58px] px-3 py-2"
               style={{ backgroundColor: HEADER.maroon }}
             >
-              <span className="text-[8.5px] font-bold tracking-[0.1em] text-white">FACTOR</span>
-              <span className="text-right text-[8.5px] font-bold tracking-[0.1em] text-white">SCORE</span>
+              <span className="text-[12px] font-bold tracking-[0.1em] text-white">FACTOR</span>
+              <span className="text-right text-[12px] font-bold tracking-[0.1em] text-white">SCORE</span>
             </div>
 
             <div className="flex flex-1 flex-col">
@@ -450,10 +450,10 @@ export default function ExecutiveSummary({
                     className="grid grid-cols-[18px_1fr_58px] items-center gap-x-2 px-3 py-[15px]"
                     style={{ borderBottom: `1px solid rgba(184, 134, 11, 0.22)` }}
                   >
-                    <Icon size={18} strokeWidth={1.75} style={{ color: COLORS.gold }} aria-hidden />
+                    <Icon size={22} strokeWidth={1.75} style={{ color: COLORS.gold }} aria-hidden />
                     <div className="flex min-w-0 items-center gap-2">
                       <span
-                        className="w-[100px] shrink-0 text-[10px] font-semibold"
+                        className="w-[100px] shrink-0 text-[12px] font-semibold"
                         style={{ color: COLORS.brown }}
                       >
                         {factor.label}
@@ -461,7 +461,7 @@ export default function ExecutiveSummary({
                       <FactorProgressBar percent={factor.percent} />
                     </div>
                     <span
-                      className="text-right text-[14px] font-bold"
+                      className="text-right text-[16px] font-bold"
                       style={{ color: COLORS.brown }}
                     >
                       {factor.percent}%
@@ -478,7 +478,7 @@ export default function ExecutiveSummary({
                   <Trophy size={18} strokeWidth={2} style={{ color: COLORS.brown }} aria-hidden />
                   <div className="flex min-w-0 items-center gap-2">
                     <span
-                      className="w-[100px] shrink-0 text-[10px] font-bold"
+                      className="w-[100px] shrink-0 text-[14px] font-bold"
                       style={{ color: COLORS.brown }}
                     >
                       {overallFactor.label}
@@ -486,7 +486,7 @@ export default function ExecutiveSummary({
                     <FactorProgressBar percent={overallFactor.percent} isOverall />
                   </div>
                   <span
-                    className="text-right text-[14px] font-bold"
+                    className="text-right text-[16px] font-bold"
                     style={{ color: COLORS.brown }}
                   >
                     {overallFactor.percent}%
@@ -506,11 +506,11 @@ export default function ExecutiveSummary({
             }}
           >
             <OverallScoreGauge percent={overallScore} />
-            <StarRating count={starRating} size={11} />
+            <StarRating count={starRating} size={16} />
             <div className="mt-5 flex w-full items-center justify-center gap-1.5 px-1">
               <Pattern3 size={22} />
               <span
-                className="text-[14px] font-bold tracking-widest"
+                className="text-[18px] font-bold tracking-widest"
                 style={{ color: COLORS.brown }}
               >
                 {ratingLabel}
@@ -525,7 +525,7 @@ export default function ExecutiveSummary({
             <div className="h-px w-20" style={{ backgroundColor: COLORS.gold, opacity: 0.55 }} />
             <Pattern3 size={22} />
             <h3
-              className="text-[11px] font-bold tracking-widest"
+              className="text-[14px] font-bold tracking-widest"
               style={{ color: COLORS.brown }}
             >
               KEY FINDINGS

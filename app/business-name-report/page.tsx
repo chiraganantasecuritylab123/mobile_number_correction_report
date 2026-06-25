@@ -5,12 +5,14 @@ import BusinessNameDefectAnalysis from "@/Components/BusinessNameReport/Business
 import IndustryCompatibility from "@/Components/BusinessNameReport/IndustryCompatibility";
 import PartnerNumerologyDetails from "@/Components/BusinessNameReport/PartnerNumerologyDetails";
 import ExecutiveSummary from "@/Components/BusinessNameReport/ExecutiveSummary";
-import PartnerDetails from "@/Components/BusinessNameReport/PartnerDetails";
 import PartnerVsBusinessAlignment from "@/Components/BusinessNameReport/PartnerVsBusinessAlignment";
 import ExistingBusinessNameBreakdown from "@/Components/BusinessNameReport/ExistingBusinessNameBreakdown";
 import ReportHomeClient from "@/Components/ReportHomeClient";
 import FinancialFrequencyAnalysis from "@/Components/BusinessNameReport/FinancialFrequencyAnalysis";
+import RecommendedNameAnalysis from "@/Components/BusinessNameReport/RecommendedNameAnalysis";
+import LuckyBusinessElements from "@/Components/BusinessNameReport/LuckyBusinessElements";
 import BusinessGrowthRoadmap from "@/Components/BusinessNameReport/BusinessGrowthRoadmap";
+import Conclusion from "@/Components/BusinessNameReport/Conclusion";
 
 export default function BusinessNameReportPage() {
   return (
@@ -21,18 +23,17 @@ export default function BusinessNameReportPage() {
       <BusinessReportPage /> {/* 1 */}
       <PartnerNumerologyDetails /> {/* 2 */}
       <ExecutiveSummary /> {/* 3 */}
-      {/* <PartnerDetails pageNumber="03" /> */}
+      <ExistingBusinessNameBreakdown /> {/* 4 */}
       <PartnerVsBusinessAlignment /> {/* 5 */}
       <BusinessNameDefectAnalysis /> {/* 6 */}
       <IndustryCompatibility /> {/* 7 */}
       <FinancialFrequencyAnalysis /> {/* 8 */}
       <BrandingMarketingAnalysis /> {/* 9 */}
       <RecommendedCorrectedNames /> {/* 10 */}
+      <RecommendedNameAnalysis /> {/* 11 */}
+      <LuckyBusinessElements /> {/* 12 */}
       <BusinessGrowthRoadmap /> {/* 13 */}
-
-      <BusinessReportPage  /> {/* 1 */}
-      <ExistingBusinessNameBreakdown /> {/* 4 */}
-
+      <Conclusion /> {/* 14 */}
     </ReportHomeClient>
   );
 }

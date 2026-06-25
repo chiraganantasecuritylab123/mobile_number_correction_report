@@ -118,7 +118,7 @@ function FrameBackground({
 }) {
   return (
     <div
-      className={`relative bg-no-repeat ${className}`}
+      className={`relative bg-no-repeat font-nunito-sans ${className}`}
       style={{
         width,
         height,
@@ -143,41 +143,32 @@ function PageSectionHeader({
   description: string;
 }) {
   return (
-    <section className="relative z-10 mt-2 flex flex-col items-center text-center">
+    <section className="relative z-10 flex flex-col items-center text-center font-nunito-sans">
       <div
         className="flex flex-row h-[92px] w-[570px] items-center justify-center mx-auto bg-[url('/assets/businessReport/page-4-card.png')] bg-cover bg-center bg-no-repeat"
       >
         <div className="flex w-full items-center justify-center gap-3">
           <div
-            className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full text-[13px] font-bold"
+            className="flex h-[34px] w-[34px] shrink-5 items-center justify-center rounded-full text-[26px] mb-3 mr-6 font-bold font-nunito-sans"
             style={{
-              backgroundColor: COLORS.brown,
               color: COLORS.cream,
-              border: `1.5px solid ${COLORS.gold}`,
             }}
           >
-            {pageIndex}
+            04
           </div>
 
           <p
-            className="px-2 text-center text-[16px] font-bold leading-tight tracking-[0.04em]"
+            className="text-center text-[16px] font-bold leading-tight tracking-[0.04em] mb-3 font-nunito-sans"
             style={{ color: COLORS.brown }}
           >
             {title}
           </p>
         </div>
-
       </div>
 
-      <h2
-        className="mt-2 text-[17px] font-bold tracking-[0.08em]"
-        style={{ color: COLORS.brown }}
-      >
-        {title}
-      </h2>
       <p
-        className="mt-0.5 max-w-[520px] text-[11px] italic leading-snug"
-        style={{ color: COLORS.brown, opacity: 0.85 }}
+        className="mt-0.5 max-w-[520px] text-[16px] italic leading-snug font-nunito-sans"
+        style={{ color: COLORS.brown }}
       >
         {description}
       </p>
@@ -187,22 +178,28 @@ function PageSectionHeader({
 
 function BusinessNameBox({ businessName }: { businessName: string }) {
   return (
-    <section className="relative z-10 mt-3 flex justify-center px-2">
+    <section className="relative z-10 mt-3 flex justify-center px-2 font-nunito-sans">
       <div
-        className="relative flex w-full max-w-[640px] flex-col items-center px-6 py-3"
+        className="relative flex w-full max-w-[640px] flex-col items-center justify-center px-6 pt-6 pb-3"
         style={{
-          border: `1px solid ${COLORS.gold}`,
-          backgroundColor: "rgba(253, 245, 230, 0.55)",
+          backgroundImage:
+            "url('/assets/signaturePages/foooter-background.png')",
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          minHeight: "82px",
         }}
       >
+        {/* Top Label */}
         <span
-          className="absolute -top-2.5 bg-[#fdf5e6] px-3 text-[10px] font-bold tracking-[0.14em]"
+          className="absolute top-[12px] bg-transparent px-3 text-[11px] font-semibold tracking-[0.12em] uppercase font-nunito-sans"
           style={{ color: COLORS.gold }}
         >
           BUSINESS NAME
         </span>
+
+        {/* Business Name */}
         <p
-          className="text-center text-[16px] font-bold leading-tight tracking-[0.04em]"
+          className="mt-3 text-center text-[18px] font-bold leading-tight tracking-[0.02em] font-nunito-sans"
           style={{ color: COLORS.brown }}
         >
           {businessName}
@@ -220,17 +217,17 @@ function LetterTable({
   className?: string;
 }) {
   return (
-    <table className={`w-full border-collapse text-center ${className}`}>
+    <table className={`w-full border-collapse text-center font-nunito-sans ${className}`}>
       <thead>
         <tr>
           <th
-            className="pb-1.5 text-[9px] font-bold tracking-[0.12em]"
+            className="pb-1.5 text-[9px] font-bold tracking-[0.12em] uppercase font-nunito-sans"
             style={{ color: COLORS.gold }}
           >
             LETTER
           </th>
           <th
-            className="pb-1.5 text-[9px] font-bold tracking-[0.12em]"
+            className="pb-1.5 text-[9px] font-bold tracking-[0.12em] uppercase font-nunito-sans"
             style={{ color: COLORS.gold }}
           >
             VALUE
@@ -245,13 +242,13 @@ function LetterTable({
             style={{ borderColor: "rgba(184, 134, 11, 0.25)" }}
           >
             <td
-              className="py-[3px] text-[11px] font-semibold"
+              className="py-[3px] text-[11px] font-semibold font-nunito-sans"
               style={{ color: COLORS.brown }}
             >
               {row.letter}
             </td>
             <td
-              className="py-[3px] text-[11px] font-bold"
+              className="py-[3px] text-[11px] font-bold font-nunito-sans"
               style={{ color: COLORS.brown }}
             >
               {row.value}
@@ -269,14 +266,8 @@ function LetterBreakdownSection({ letterValues }: { letterValues: LetterValue[] 
   const rightRows = letterValues.slice(midpoint);
 
   return (
-    // <FrameBackground
-    //   src={BUSINESS_ASSETS.secondCard}
-    //   width={410}
-    //   height={215}
-    //   padding="18px 22px 16px"
-    // >
     <div
-      className="flex h-full gap-3 rounded-sm w-full px-2 py-2"
+      className="flex h-full gap-3 rounded-sm w-full px-2 py-2 font-nunito-sans"
       style={{
         backgroundColor: "rgba(253, 245, 230, 0.72)",
         border: `1px solid rgba(184, 134, 11, 0.35)`,
@@ -289,7 +280,6 @@ function LetterBreakdownSection({ letterValues }: { letterValues: LetterValue[] 
       />
       <LetterTable rows={rightRows} className="flex-1 px-2 pt-2" />
     </div>
-    // </FrameBackground>
   );
 }
 
@@ -310,7 +300,7 @@ function StatRow({
   customIcon,
 }: NameStat & { customIcon?: ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 font-nunito-sans">
       <div
         className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full"
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
@@ -320,13 +310,13 @@ function StatRow({
 
       <div className="min-w-0 flex-1">
         <p
-          className="text-[12px] font-bold leading-tight"
+          className="text-[12px] font-bold leading-tight uppercase font-nunito-sans"
           style={{ color: COLORS.brown }}
         >
           {title}
         </p>
         <p
-          className="text-[11px] leading-tight"
+          className="text-[11px] leading-tight font-nunito-sans"
           style={{ color: COLORS.brown }}
         >
           {description}
@@ -334,10 +324,9 @@ function StatRow({
       </div>
 
       <div
-        className="flex h-[40px] w-[50px] shrink-0 items-center justify-center text-center text-[18px] font-bold leading-tight"
+        className="flex h-[40px] w-[50px] shrink-0 items-center justify-center text-center text-[18px] font-bold leading-tight font-nunito-sans"
         style={{
           border: `1px solid ${COLORS.gold}`,
-          // backgroundColor: "rgba(253, 245, 230, 0.85)",
           color: COLORS.brown,
         }}
       >
@@ -409,7 +398,7 @@ function StatsPanel({
       height={400}
       padding="20px 15px"
     >
-      <div className="flex h-full flex-col justify-between gap-1.5">
+      <div className="flex h-full flex-col justify-between gap-1.5 font-nunito-sans">
         {stats.map((stat) => (
           <StatRow key={stat.title} {...stat} />
         ))}
@@ -421,7 +410,7 @@ function StatsPanel({
 function PanelHeader({ title }: { title: string }) {
   return (
     <div
-      className="px-3 py-1.5 text-center text-[9px] font-bold tracking-[0.1em]"
+      className="px-3 py-1.5 text-center text-[9px] font-bold tracking-[0.1em] uppercase font-nunito-sans"
       style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
     >
       {title}
@@ -439,11 +428,7 @@ function ValueReferenceChart() {
       className="flex flex-col"
     >
       <div
-        className="flex h-full flex-col overflow-hidden rounded-sm"
-        style={{
-          // border: `1px solid rgba(184, 134, 11, 0.35)`,
-          // backgroundColor: "rgba(253, 245, 230, 0.72)",
-        }}
+        className="flex h-full flex-col overflow-hidden rounded-sm font-nunito-sans"
       >
         <PanelHeader title="VALUE REFERENCE CHART" />
 
@@ -459,7 +444,7 @@ function ValueReferenceChart() {
                 style={{ borderColor: "rgba(184, 134, 11, 0.25)" }}
               >
                 <div
-                  className="border-b py-0.5 text-[15px] font-bold"
+                  className="border-b py-0.5 text-[15px] font-bold font-nunito-sans"
                   style={{
                     borderColor: "rgba(184, 134, 11, 0.25)",
                     color: COLORS.brown,
@@ -468,7 +453,7 @@ function ValueReferenceChart() {
                   {num}
                 </div>
                 <div
-                  className="flex min-h-[34px] flex-col items-center justify-center px-0.5 py-1 text-[11px] font-semibold leading-tight"
+                  className="flex min-h-[34px] flex-col items-center justify-center px-0.5 py-1 text-[11px] font-semibold leading-tight font-nunito-sans"
                   style={{ color: COLORS.brown }}
                 >
                   {VALUE_REFERENCE[num].map((letter) => (
@@ -488,7 +473,7 @@ function ValueReferenceChart() {
               aria-hidden
             />
             <p
-              className="text-[12px] leading-snug"
+              className="text-[12px] leading-snug font-nunito-sans"
               style={{ color: COLORS.black }}
             >
               Each letter carries a specific vibration (1–9) that influences the
@@ -510,18 +495,14 @@ function VibrationInsightPanel({ text }: { text: string }) {
       padding="12px 12px 10px"
     >
       <div
-        className="flex h-full flex-col overflow-hidden rounded-sm"
-        style={{
-          border: `1px solid rgba(184, 134, 11, 0.35)`,
-          backgroundColor: "rgba(253, 245, 230, 0.72)",
-        }}
+        className="flex h-full flex-col overflow-hidden rounded-sm font-nunito-sans"
       >
         <PanelHeader title="NAME VIBRATION INSIGHT" />
 
-        <div className="flex flex-1 items-start gap-2 px-2.5 py-2">
+        <div className="flex flex-1 items-start gap-2 px-2.5 py-2 font-nunito-sans">
           <CoverLotus size={100} className="shrink-0" />
           <p
-            className="text-[12px] leading-relaxed"
+            className="text-[12px] leading-relaxed font-nunito-sans"
             style={{ color: COLORS.brown, fontFamily: "Georgia, serif" }}
           >
             {text}
@@ -534,11 +515,11 @@ function VibrationInsightPanel({ text }: { text: string }) {
 
 function SimplePageFooter({ pageNumber }: { pageNumber: string }) {
   return (
-    <footer className="relative z-10 mt-auto flex justify-end px-2 pt-2">
+    <footer className="relative z-10 mt-auto flex justify-end px-2 pt-2 font-nunito-sans">
       <div className="flex items-center gap-1.5">
         <Pattern3 size={14} />
         <span
-          className="text-[10px] font-bold tracking-[0.12em]"
+          className="text-[10px] font-bold tracking-[0.12em] font-nunito-sans"
           style={{ color: COLORS.gold }}
         >
           PAGE {pageNumber}
@@ -567,7 +548,7 @@ export default function ExistingBusinessNameBreakdown({
 }: ExistingBusinessNameBreakdownProps) {
   return (
     <BusinessNameReportPageShell padding="18px 40px 16px" pageNumber={pageNumber}>
-      <div className="flex h-full flex-col">
+      <div className="flex h-full flex-col font-nunito-sans">
         <BusinessReportHeader subtitle={subtitle} subtitle2={subtitle2} logoSize={85} />
 
         <PageSectionHeader
@@ -578,7 +559,7 @@ export default function ExistingBusinessNameBreakdown({
 
         <BusinessNameBox businessName={businessName} />
 
-        <section className="relative z-10 mt-2 flex justify-center gap-3">
+        <section className="relative z-10 mt-2 flex justify-center gap-3 font-nunito-sans">
           <LetterBreakdownSection letterValues={letterValues} />
           <StatsPanel
             totalNameNumber={totalNameNumber}
@@ -590,7 +571,7 @@ export default function ExistingBusinessNameBreakdown({
           />
         </section>
 
-        <section className="relative z-10 mt-2.5 flex justify-center gap-3">
+        <section className="relative z-10 mt-2.5 flex justify-center gap-3 font-nunito-sans">
           <ValueReferenceChart />
           <VibrationInsightPanel text={vibrationInsight} />
         </section>

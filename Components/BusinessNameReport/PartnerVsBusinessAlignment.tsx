@@ -442,7 +442,7 @@ export default function PartnerVsBusinessAlignmentPage() {
                 </p>
             </div>
 
-            <BusinessReportFooter pageNumber="05" />
+            {/* <BusinessReportFooter pageNumber="05" /> */}
         </BusinessNameReportPageShell>
     );
 }
