@@ -7,6 +7,7 @@ import PartnerNumerologyDetails from "@/Components/BusinessNameReport/PartnerNum
 import ExecutiveSummary from "@/Components/BusinessNameReport/ExecutiveSummary";
 import PartnerDetails from "@/Components/BusinessNameReport/PartnerDetails";
 import PartnerVsBusinessAlignment from "@/Components/BusinessNameReport/PartnerVsBusinessAlignment";
+import ExistingBusinessNameBreakdown from "@/Components/BusinessNameReport/ExistingBusinessNameBreakdown";
 import ReportHomeClient from "@/Components/ReportHomeClient";
 import FinancialFrequencyAnalysis from "@/Components/BusinessNameReport/FinancialFrequencyAnalysis";
 import BusinessGrowthRoadmap from "@/Components/BusinessNameReport/BusinessGrowthRoadmap";
@@ -28,6 +29,10 @@ export default function BusinessNameReportPage() {
       <BrandingMarketingAnalysis /> {/* 9 */}
       <RecommendedCorrectedNames /> {/* 10 */}
       <BusinessGrowthRoadmap /> {/* 13 */}
+
+      <BusinessReportPage  /> {/* 1 */}
+      <ExistingBusinessNameBreakdown /> {/* 4 */}
+
     </ReportHomeClient>
   );
 }
