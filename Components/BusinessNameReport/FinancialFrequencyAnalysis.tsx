@@ -477,8 +477,6 @@ export default function FinancialFrequencyAnalysis({
           <MatrixFooterSection metrics={footerMetrics} />
         </div>
 
-        {/* Outer Shell Global Page Footer */}
-        <BusinessReportFooter pageNumber={pageNumber} />
       </div>
     </BusinessNameReportPageShell>
   );

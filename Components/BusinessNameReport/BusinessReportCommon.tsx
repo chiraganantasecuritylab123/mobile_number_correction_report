@@ -87,7 +87,6 @@ export function BusinessReportHeader({
         alt="Astro Aarambh"
         width={logoSize}
         height={logoSize}
-        className="mb-2"
         priority
       />
 
@@ -111,7 +110,7 @@ export function BusinessReportHeader({
         >
           {subtitle2}
         </p>
-        <OrnamentDivider width={250} />
+        {/* <OrnamentDivider width={250} /> */}
       </div>
     </header>
   );
