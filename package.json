@@ -17,6 +17,7 @@
     "next": "16.2.9",
     "pdfjs-dist": "^6.0.227",
     "pdfkit-next": "^0.11.0",
+    "puppeteer": "^24.43.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-pdf": "^10.4.1"

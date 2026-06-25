@@ -489,13 +489,11 @@ function NumerologyPanel({ number, text }: { number: string | number; text: stri
             {number}
           </span>
         </div>
-        <div>
-          <p className="flex-1 text-[10px] italic leading-relaxed" style={{ color: THEME.bodyText, fontFamily: SERIF }}>
-            <p className="text-[10px] font-bold tracking-widest" style={{ color: COLORS.brown }}>
-              NUMEROLOGY INTERPRETATION
-            </p>
-            {text}
+        <div className="flex-1 text-[10px] italic leading-relaxed" style={{ color: THEME.bodyText, fontFamily: SERIF }}>
+          <p className="text-[10px] font-bold tracking-widest" style={{ color: COLORS.brown }}>
+            NUMEROLOGY INTERPRETATION
           </p>
+          {text}
         </div>
       </div>
     </div>
