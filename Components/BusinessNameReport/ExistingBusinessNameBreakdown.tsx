@@ -99,7 +99,7 @@ const DEFAULT_LETTER_VALUES: LetterValue[] = DEFAULT_BUSINESS_NAME.replace(
   }));
 
 const DEFAULT_VIBRATION_INSIGHT =
-  "Your business name carries Root Number 4, which represents stability, discipline, and hard work. This vibration supports building a strong foundation and long-term success through consistent effort and practical planning. To enhance growth, consider balancing the missing vibrations (2, 9) through strategic brand elements, taglines, or visual identity that incorporate these energies.";
+  "Your business name carries a Root Number 4 vibration, indicating structure, stability, hard work, and a strong foundation Strengthening missing vibrations (2, 9) and balancing dominant energies (1, 4, 5) can enhance growth, visibility, and financial flow.";
 
 function FrameBackground({
   src,
@@ -269,27 +269,27 @@ function LetterBreakdownSection({ letterValues }: { letterValues: LetterValue[] 
   const rightRows = letterValues.slice(midpoint);
 
   return (
-    <FrameBackground
-      src={BUSINESS_ASSETS.secondCard}
-      width={410}
-      height={215}
-      padding="18px 22px 16px"
+    // <FrameBackground
+    //   src={BUSINESS_ASSETS.secondCard}
+    //   width={410}
+    //   height={215}
+    //   padding="18px 22px 16px"
+    // >
+    <div
+      className="flex h-full gap-3 rounded-sm w-full px-2 py-2"
+      style={{
+        backgroundColor: "rgba(253, 245, 230, 0.72)",
+        border: `1px solid rgba(184, 134, 11, 0.35)`,
+      }}
     >
+      <LetterTable rows={leftRows} className="flex-1 px-2 pt-2" />
       <div
-        className="flex h-full gap-3 rounded-sm"
-        style={{
-          backgroundColor: "rgba(253, 245, 230, 0.72)",
-          border: `1px solid rgba(184, 134, 11, 0.35)`,
-        }}
-      >
-        <LetterTable rows={leftRows} className="flex-1 px-2 pt-2" />
-        <div
-          className="w-px self-stretch my-2"
-          style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }}
-        />
-        <LetterTable rows={rightRows} className="flex-1 px-2 pt-2" />
-      </div>
-    </FrameBackground>
+        className="w-px self-stretch my-2"
+        style={{ backgroundColor: "rgba(184, 134, 11, 0.3)" }}
+      />
+      <LetterTable rows={rightRows} className="flex-1 px-2 pt-2" />
+    </div>
+    // </FrameBackground>
   );
 }
 
@@ -310,34 +310,34 @@ function StatRow({
   customIcon,
 }: NameStat & { customIcon?: ReactNode }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       <div
-        className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full"
+        className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full"
         style={{ backgroundColor: COLORS.brown, color: COLORS.cream }}
       >
-        {customIcon ?? <Icon size={15} strokeWidth={1.8} aria-hidden />}
+        {customIcon ?? <Icon size={25} strokeWidth={1.8} aria-hidden />}
       </div>
 
       <div className="min-w-0 flex-1">
         <p
-          className="text-[8px] font-bold leading-tight tracking-[0.06em]"
+          className="text-[12px] font-bold leading-tight"
           style={{ color: COLORS.brown }}
         >
           {title}
         </p>
         <p
-          className="text-[7px] leading-tight"
-          style={{ color: COLORS.brown, opacity: 0.75 }}
+          className="text-[11px] leading-tight"
+          style={{ color: COLORS.brown }}
         >
           {description}
         </p>
       </div>
 
       <div
-        className="flex h-[38px] w-[34px] shrink-0 items-center justify-center text-center text-[11px] font-bold leading-tight"
+        className="flex h-[40px] w-[50px] shrink-0 items-center justify-center text-center text-[18px] font-bold leading-tight"
         style={{
           border: `1px solid ${COLORS.gold}`,
-          backgroundColor: "rgba(253, 245, 230, 0.85)",
+          // backgroundColor: "rgba(253, 245, 230, 0.85)",
           color: COLORS.brown,
         }}
       >
@@ -405,9 +405,9 @@ function StatsPanel({
   return (
     <FrameBackground
       src={BUSINESS_ASSETS.thirdCard}
-      width={278}
-      height={215}
-      padding="16px 14px 14px"
+      width={500}
+      height={400}
+      padding="20px 15px"
     >
       <div className="flex h-full flex-col justify-between gap-1.5">
         {stats.map((stat) => (
@@ -433,21 +433,21 @@ function ValueReferenceChart() {
   return (
     <FrameBackground
       src={BUSINESS_ASSETS.forthCard}
-      width={410}
-      height={195}
-      padding="12px 14px 10px"
+      width={400}
+      height={220}
+      padding="20px 15px"
       className="flex flex-col"
     >
       <div
         className="flex h-full flex-col overflow-hidden rounded-sm"
         style={{
-          border: `1px solid rgba(184, 134, 11, 0.35)`,
-          backgroundColor: "rgba(253, 245, 230, 0.72)",
+          // border: `1px solid rgba(184, 134, 11, 0.35)`,
+          // backgroundColor: "rgba(253, 245, 230, 0.72)",
         }}
       >
         <PanelHeader title="VALUE REFERENCE CHART" />
 
-        <div className="flex-1 px-2 py-2">
+        <div className="flex-1">
           <div
             className="grid grid-cols-9 gap-0 border"
             style={{ borderColor: "rgba(184, 134, 11, 0.35)" }}
@@ -459,7 +459,7 @@ function ValueReferenceChart() {
                 style={{ borderColor: "rgba(184, 134, 11, 0.25)" }}
               >
                 <div
-                  className="border-b py-0.5 text-[9px] font-bold"
+                  className="border-b py-0.5 text-[15px] font-bold"
                   style={{
                     borderColor: "rgba(184, 134, 11, 0.25)",
                     color: COLORS.brown,
@@ -468,7 +468,7 @@ function ValueReferenceChart() {
                   {num}
                 </div>
                 <div
-                  className="flex min-h-[34px] flex-col items-center justify-center px-0.5 py-1 text-[7px] font-semibold leading-tight"
+                  className="flex min-h-[34px] flex-col items-center justify-center px-0.5 py-1 text-[11px] font-semibold leading-tight"
                   style={{ color: COLORS.brown }}
                 >
                   {VALUE_REFERENCE[num].map((letter) => (
@@ -479,17 +479,17 @@ function ValueReferenceChart() {
             ))}
           </div>
 
-          <div className="mt-2 flex items-start gap-1.5 px-1">
+          <div className="mt-2 flex items-start gap-1.5 px-1 font-nunito-sans">
             <Lightbulb
-              size={12}
+              size={25}
               strokeWidth={1.6}
               style={{ color: COLORS.gold }}
               className="mt-0.5 shrink-0"
               aria-hidden
             />
             <p
-              className="text-[7px] leading-snug"
-              style={{ color: COLORS.brown, opacity: 0.85 }}
+              className="text-[12px] leading-snug"
+              style={{ color: COLORS.black }}
             >
               Each letter carries a specific vibration (1–9) that influences the
               energy of your business name.
@@ -505,8 +505,8 @@ function VibrationInsightPanel({ text }: { text: string }) {
   return (
     <FrameBackground
       src={BUSINESS_ASSETS.forthCard}
-      width={278}
-      height={195}
+      width={420}
+      height={220}
       padding="12px 12px 10px"
     >
       <div
@@ -519,9 +519,9 @@ function VibrationInsightPanel({ text }: { text: string }) {
         <PanelHeader title="NAME VIBRATION INSIGHT" />
 
         <div className="flex flex-1 items-start gap-2 px-2.5 py-2">
-          <CoverLotus size={42} className="shrink-0" />
+          <CoverLotus size={100} className="shrink-0" />
           <p
-            className="text-[8px] leading-relaxed"
+            className="text-[12px] leading-relaxed"
             style={{ color: COLORS.brown, fontFamily: "Georgia, serif" }}
           >
             {text}
@@ -578,7 +578,7 @@ export default function ExistingBusinessNameBreakdown({
 
         <BusinessNameBox businessName={businessName} />
 
-        <section className="relative z-10 mt-3 flex justify-center gap-3">
+        <section className="relative z-10 mt-2 flex justify-center gap-3">
           <LetterBreakdownSection letterValues={letterValues} />
           <StatsPanel
             totalNameNumber={totalNameNumber}
