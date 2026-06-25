@@ -135,7 +135,7 @@ function SmallGauge({ title, score, label, color, icon }: SubMetricProps) {
 export default function Conclusion({ pageNumber = "14" }) {
   return (
     <BusinessNameReportPageShell padding="16px 32px 16px" pageNumber={pageNumber}>
-      <div className="relative flex h-full min-h-0 flex-col font-nunito-sans select-none">
+      <div className="relative flex h-full min-h-0 flex-col font-nunito-sans ">
         
         {/* Background Decorative Circles */}
         <Image src={ASSETS.sunCompass} alt="" width={110} height={110} className="pointer-events-none absolute left-[-10px] top-[10px] opacity-25" aria-hidden />
@@ -144,25 +144,23 @@ export default function Conclusion({ pageNumber = "14" }) {
         {/* Master Branding Header */}
         <header className="relative z-10 flex shrink-0 flex-col items-center text-center font-nunito-sans">
           <Image src={ASSETS.logo} alt="Astro Aarambh" width={64} height={64} className="mb-0.5" priority />
-          <h1 className="text-[26px] font-bold leading-none tracking-[0.08em] uppercase font-nunito-sans" style={{ color: THEME.maroon, fontFamily: SERIF }}>
+          <h1 className="text-[28px] font-bold leading-none tracking-[0.08em] uppercase font-nunito-sans" style={{ color: THEME.maroon, fontFamily: SERIF }}>
             ASTRO AARAMBH
           </h1>
-          <p className="mt-0.5 text-[12px] font-bold tracking-[0.06em] uppercase font-nunito-sans" style={{ color: THEME.gold }}>
+          <p className="mt-0.5 text-[16px] font-bold tracking-[0.06em] uppercase font-nunito-sans" style={{ color: THEME.gold }}>
             BUSINESS NAME OPTIMIZATION REPORT
           </p>
-          <p className="mt-0.5 max-w-[560px] text-[9px] font-semibold tracking-[0.1em] uppercase font-nunito-sans" style={{ color: THEME.bodyText, opacity: 0.85 }}>
+          <p className="mt-0.5 max-w-[560px] text-[12px] font-semibold tracking-[0.1em] uppercase font-nunito-sans" style={{ color: THEME.bodyText, opacity: 0.85 }}>
             PERSONALIZED BUSINESS NUMEROLOGY & BRAND VIBRATION ANALYSIS
           </p>
-          <div className="mt-1">
-            <OrnamentDivider width={160} />
-          </div>
+        
         </header>
 
         {/* Section Header Strip */}
         <div className="flex w-full items-center justify-center my-2 font-nunito-sans">
           <div className="relative flex items-center justify-center">
             <Image src={ASSETS.topEffect} alt="" width={380} height={46} className="h-auto w-[380px]" aria-hidden />
-            <div className="absolute left-[54px] top-1/2 flex h-[30px] w-[30px] -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-bold text-white font-nunito-sans">
+            <div className="absolute left-[60px] top-1/2 flex h-[30px] w-[30px] -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-bold text-white font-nunito-sans">
               {pageNumber}
             </div>
             <h2 className="absolute right-[56px] top-1/2 max-w-[240px] -translate-y-1/2 text-center text-[11px] font-bold leading-tight tracking-[0.08em] uppercase font-nunito-sans" style={{ color: COLORS.brown, fontFamily: SERIF }}>
