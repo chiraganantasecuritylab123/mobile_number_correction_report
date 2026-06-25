@@ -86,7 +86,7 @@ function CircularGauge({ score, color, size = 110, strokeWidth = 10 }: { score: 
       </svg>
       <div className="text-center z-10 flex flex-col items-center justify-center font-nunito-sans">
         <span className="text-[34px] font-bold leading-none tracking-tight" style={{ color: THEME.maroon }}>{score}</span>
-        <span className="text-[11px] font-bold opacity-60 mt-0.5 uppercase" style={{ color: THEME.bodyText }}>/100</span>
+        <span className="text-[11px] font-bold opacity-60 mt-0.5 uppercase font-nunito-sans" style={{ color: THEME.bodyText }}>/100</span>
       </div>
     </div>
   );
@@ -101,7 +101,7 @@ function SmallGauge({ title, score, label, color, icon }: SubMetricProps) {
 
   return (
     <div className="flex flex-col items-center text-center p-2 rounded-md mt-2 font-nunito-sans" >
-      <p className="text-[12px] font-bold tracking-wider mb-1 uppercase h-[24px] flex items-center justify-center" style={{ color: THEME.maroon }}>
+      <p className="text-[12px] font-bold tracking-wider mb-1 uppercase h-[24px] flex items-center justify-center font-nunito-sans" style={{ color: THEME.maroon }}>
         {title}
       </p>
       
@@ -117,7 +117,7 @@ function SmallGauge({ title, score, label, color, icon }: SubMetricProps) {
         </svg>
         <div className="text-center z-10 flex flex-col items-center justify-center font-nunito-sans">
           <span className="text-[26px] font-bold leading-none" style={{ color: THEME.maroon }}>{score}</span>
-          <span className="text-[13px] font-bold opacity-60 uppercase" style={{ color: THEME.bodyText }}>/100</span>
+          <span className="text-[13px] font-bold opacity-60 uppercase font-nunito-sans" style={{ color: THEME.bodyText }}>/100</span>
         </div>
       </div>
 
@@ -127,7 +127,7 @@ function SmallGauge({ title, score, label, color, icon }: SubMetricProps) {
           <span key={i} className="text-[16px]" style={{ color: THEME.gold }}>★</span>
         ))}
       </div>
-      <p className="text-[14px] font-bold uppercase tracking-wider" style={{ color: color }}>{label}</p>
+      <p className="text-[14px] font-bold uppercase tracking-wider font-nunito-sans" style={{ color: color }}>{label}</p>
     </div>
   );
 }
@@ -144,13 +144,13 @@ export default function Conclusion({ pageNumber = "14" }) {
         {/* Master Branding Header */}
         <header className="relative z-10 flex shrink-0 flex-col items-center text-center font-nunito-sans">
           <Image src={ASSETS.logo} alt="Astro Aarambh" width={64} height={64} className="mb-0.5" priority />
-          <h1 className="text-[26px] font-bold leading-none tracking-[0.08em] uppercase" style={{ color: THEME.maroon, fontFamily: SERIF }}>
+          <h1 className="text-[26px] font-bold leading-none tracking-[0.08em] uppercase font-nunito-sans" style={{ color: THEME.maroon, fontFamily: SERIF }}>
             ASTRO AARAMBH
           </h1>
-          <p className="mt-0.5 text-[12px] font-bold tracking-[0.06em] uppercase" style={{ color: THEME.gold }}>
+          <p className="mt-0.5 text-[12px] font-bold tracking-[0.06em] uppercase font-nunito-sans" style={{ color: THEME.gold }}>
             BUSINESS NAME OPTIMIZATION REPORT
           </p>
-          <p className="mt-0.5 max-w-[560px] text-[9px] font-semibold tracking-[0.1em] uppercase" style={{ color: THEME.bodyText, opacity: 0.85 }}>
+          <p className="mt-0.5 max-w-[560px] text-[9px] font-semibold tracking-[0.1em] uppercase font-nunito-sans" style={{ color: THEME.bodyText, opacity: 0.85 }}>
             PERSONALIZED BUSINESS NUMEROLOGY & BRAND VIBRATION ANALYSIS
           </p>
           <div className="mt-1">
@@ -177,7 +177,7 @@ export default function Conclusion({ pageNumber = "14" }) {
           {/* TOP SEGMENT: Overall score & Recommended name banner */}
           <div className="grid grid-cols-12 gap-3 p-6 rounded-md font-nunito-sans"  style={{ backgroundImage: `url('/assets/signaturePages/foooter-background.png')`, backgroundSize: "100% 100%" }}>
             <div className="col-span-5 flex flex-col items-center border-r pr-2 justify-center font-nunito-sans" style={{ borderColor: "rgba(184,134,11,0.25)" }}>
-              <p className="text-[14px] font-bold uppercase tracking-wider mb-2 text-center" style={{ color: THEME.maroon }}>
+              <p className="text-[14px] font-bold uppercase tracking-wider mb-2 text-center font-nunito-sans" style={{ color: THEME.maroon }}>
                 OVERALL BUSINESS ENERGY SCORE
               </p>
               <CircularGauge score={96} color="#800000" />
@@ -186,14 +186,14 @@ export default function Conclusion({ pageNumber = "14" }) {
                   <span key={i} className="text-[16px]" style={{ color: THEME.gold }}>★</span>
                 ))}
               </div>
-              <p className="text-[14px] font-bold uppercase tracking-widest mt-0.5 text-emerald-800">EXCELLENT</p>
+              <p className="text-[14px] font-bold uppercase tracking-widest mt-0.5 text-emerald-800 font-nunito-sans">EXCELLENT</p>
             </div>
 
             <div className="col-span-7 flex flex-col items-center pl-2 font-nunito-sans">
-              <span className="text-[14px] font-bold text-white px-4 py-0.5 rounded uppercase tracking-wider mb-2" style={{ backgroundColor: THEME.maroon }}>
+              <span className="text-[14px] font-bold text-white px-4 py-0.5 rounded uppercase tracking-wider mb-2 font-nunito-sans" style={{ backgroundColor: THEME.maroon }}>
                 RECOMMENDED NAME
               </span>
-              <h3 className="text-[24px] font-bold leading-tight tracking-wide uppercase text-center" style={{ color: THEME.maroon, fontFamily: SERIF }}>
+              <h3 className="text-[24px] font-bold leading-tight tracking-wide uppercase text-center font-nunito-sans" style={{ color: THEME.maroon, fontFamily: SERIF }}>
                 ANANTAX INNOVATIONS PVT LTD
               </h3>
               <div className="w-[80px] h-[1px] my-2" style={{ backgroundColor: THEME.goldBorder }} />
@@ -202,7 +202,7 @@ export default function Conclusion({ pageNumber = "14" }) {
                 <div className="p-2 bg-amber-900 rounded text-amber-400 mt-1 shrink-0">
                   <TrendingUp size={24} />
                 </div>
-                <p className="text-[14px] leading-relaxed text-left" style={{ color: THEME.bodyText, fontFamily: SERIF }}>
+                <p className="text-[14px] leading-relaxed text-left font-nunito-sans" style={{ color: THEME.bodyText, fontFamily: SERIF }}>
                   This name carries powerful vibrations of prosperity, growth, leadership, visibility and long-term success.
                 </p>
               </div>
@@ -219,7 +219,7 @@ export default function Conclusion({ pageNumber = "14" }) {
 
           {/* VERDICT SEGMENT: Final Verdict Scale */}
           <div className="flex flex-col items-center font-nunito-sans" style={{ backgroundImage: `url('/assets/signaturePages/foooter-background.png')`, backgroundSize: "100% 100%" }} >
-            <span className="text-[14px] font-bold text-white px-4 py-0.5 rounded uppercase tracking-wider mb-2" style={{ backgroundColor: THEME.maroon }}>
+            <span className="text-[14px] font-bold text-white px-4 py-0.5 rounded uppercase tracking-wider mb-2 font-nunito-sans" style={{ backgroundColor: THEME.maroon }}>
               FINAL VERDICT
             </span>
             <div className="grid grid-cols-4 gap-2 w-full font-nunito-sans">
@@ -227,9 +227,9 @@ export default function Conclusion({ pageNumber = "14" }) {
               <div className="p-2.5 rounded-md flex flex-col items-center text-center font-nunito-sans" >
                 <div className="flex items-center gap-1 mb-1 text-amber-700 font-nunito-sans" >
                   <Award size={30} />
-                  <span className="text-[14px] font-bold uppercase tracking-wider">EXCELLENT</span>
+                  <span className="text-[14px] font-bold uppercase tracking-wider font-nunito-sans">EXCELLENT</span>
                 </div>
-                <p className="text-[12px] leading-relaxed text-gray-700" style={{ fontFamily: SERIF }}>
+                <p className="text-[12px] leading-relaxed text-gray-700 font-nunito-sans" style={{ fontFamily: SERIF }}>
                   Highly favorable for maximum business success and financial growth.
                 </p>
               </div>
@@ -238,9 +238,9 @@ export default function Conclusion({ pageNumber = "14" }) {
               <div className="p-2.5 rounded-md flex flex-col items-center text-center font-nunito-sans">
                 <div className="flex items-center gap-1 mb-1 text-amber-600 font-nunito-sans">
                   <ThumbsUp size={30} />
-                  <span className="text-[14px] font-semibold uppercase tracking-wider">GOOD</span>
+                  <span className="text-[14px] font-semibold uppercase tracking-wider font-nunito-sans">GOOD</span>
                 </div>
-                <p className="text-[12px] leading-relaxed text-gray-500" style={{ fontFamily: SERIF }}>
+                <p className="text-[12px] leading-relaxed text-gray-500 font-nunito-sans" style={{ fontFamily: SERIF }}>
                   Favorable with minor adjustments for better results.
                 </p>
               </div>
@@ -249,9 +249,9 @@ export default function Conclusion({ pageNumber = "14" }) {
               <div className="p-2.5 rounded-md flex flex-col items-center text-center font-nunito-sans">
                 <div className="flex items-center gap-1 mb-1 text-blue-800 font-nunito-sans">
                   <Scale size={30} />
-                  <span className="text-[14px] font-semibold uppercase tracking-wider">AVERAGE</span>
+                  <span className="text-[14px] font-semibold uppercase tracking-wider font-nunito-sans">AVERAGE</span>
                 </div>
-                <p className="text-[12px] leading-relaxed text-gray-500" style={{ fontFamily: SERIF }}>
+                <p className="text-[12px] leading-relaxed text-gray-500 font-nunito-sans" style={{ fontFamily: SERIF }}>
                   Moderate results expected. Some corrections recommended.
                 </p>
               </div>
@@ -260,9 +260,9 @@ export default function Conclusion({ pageNumber = "14" }) {
               <div className="p-2.5 rounded-md flex flex-col items-center text-center font-nunito-sans">
                 <div className="flex items-center gap-1 mb-1 text-red-700 font-nunito-sans">
                   <AlertTriangle size={30} />
-                  <span className="text-[14px] font-semibold uppercase tracking-wider">NEEDS CORRECTION</span>
+                  <span className="text-[14px] font-semibold uppercase tracking-wider font-nunito-sans">NEEDS CORRECTION</span>
                 </div>
-                <p className="text-[12px] leading-relaxed text-gray-500" style={{ fontFamily: SERIF }}>
+                <p className="text-[12px] leading-relaxed text-gray-500 font-nunito-sans" style={{ fontFamily: SERIF }}>
                   Significant changes required for better vibrations and outcomes.
                 </p>
               </div>
@@ -274,15 +274,15 @@ export default function Conclusion({ pageNumber = "14" }) {
             <div className="col-span-8 flex gap-2 items-start border-r pr-2 font-nunito-sans" style={{ borderColor: "rgba(0,0,0,0.1)" }}>
               <AlertTriangle className="text-amber-600 shrink-0 mt-0.5" size={28} />
               <div className="font-nunito-sans">
-                <p className="text-[16px] font-bold text-amber-900 tracking-wider uppercase mb-0.5">CAUTION / DISCLAIMER</p>
-                <p className="text-[11px] leading-relaxed text-gray-600" style={{ fontFamily: SERIF }}>
+                <p className="text-[16px] font-bold text-amber-900 tracking-wider uppercase mb-0.5 font-nunito-sans">CAUTION / DISCLAIMER</p>
+                <p className="text-[11px] leading-relaxed text-gray-600 font-nunito-sans" style={{ fontFamily: SERIF }}>
                   This report is based on numerology and vibration analysis for guidance purposes only. It is not a legal advice, financial advice, or a guarantee of any kind. Business outcomes depend on your planning, actions, market conditions and other factors. Use this report as a positive guidance tool for decision making.
                 </p>
               </div>
             </div>
             <div className="col-span-4 flex gap-2 items-center justify-center pl-1 font-nunito-sans">
               <CheckCircle className="text-amber-700 shrink-0" size={28} />
-              <p className="text-[12px] font-medium leading-relaxed text-stone-700" style={{ fontFamily: SERIF }}>
+              <p className="text-[12px] font-medium leading-relaxed text-stone-700 font-nunito-sans" style={{ fontFamily: SERIF }}>
                 Use this report as a positive guidance tool for decision making.
               </p>
             </div>

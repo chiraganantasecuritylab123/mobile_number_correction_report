@@ -70,7 +70,7 @@ export default function PartnerNumerologyDetails() {
       partnerEnergyScore: "86 / 100",
     },
     {
-      name: "JAY RAJPUT",
+      name: "JAY RAUT",
       designation: "Director",
       ownership: "30%",
       role: "Operations Head",
@@ -148,19 +148,19 @@ export default function PartnerNumerologyDetails() {
             priority
           />
           <h1
-            className="text-center text-[40px] font-bold leading-none"
+            className="text-center text-[40px] font-bold leading-none uppercase tracking-wide"
             style={{ color: COLORS.brown }}
           >
             ASTRO AARAMBH
           </h1>
           <h1
-            className={`${cinzel.className}  text-[26px] font-bold leading-tight tracking-wide`}
+            className={`${cinzel.className}  text-[26px] font-bold leading-tight tracking-wide uppercase`}
             style={{ color: SECTION_ORANGE }}
           >
             BUSINESS NAME OPTIMIZATION REPORT
           </h1>
           <h3
-            className="text-[18px] font-medium  tracking-[0.03em]"
+            className="text-[18px] font-medium  tracking-[0.03em] uppercase"
             style={{ color: REPORT_COLORS.black }}
           >
             PERSONALIZED BUSINESS NUMEROLOGY &amp; BRAND VIBRATION ANALYSIS
@@ -172,7 +172,7 @@ export default function PartnerNumerologyDetails() {
           <div className="flex items-center justify-between">
             <Pattern3 size={100} />
             <h2
-              className="text-[20px] font-bold tracking-[0.05em]"
+              className="text-[20px] font-bold tracking-[0.05em] uppercase"
               style={{ color: REPORT_COLORS.red }}
             >
               02. PARTNER NUMEROLOGY &amp; DETAILS
@@ -203,7 +203,7 @@ export default function PartnerNumerologyDetails() {
             <Building2 size={24} color="var(--cover-gold)" strokeWidth={1.5} />
             <div>
               <div
-                className="font-cinzel"
+                className="font-cinzel uppercase"
                 style={{ color: "var(--cover-brown)", fontWeight: "800", fontSize: "12px", letterSpacing: "0.08em" }}
               >
                 BUSINESS NAME
@@ -222,7 +222,7 @@ export default function PartnerNumerologyDetails() {
             <User size={24} color="var(--cover-gold)" strokeWidth={1.5} />
             <div>
               <div
-                className="font-cinzel"
+                className="font-cinzel uppercase"
                 style={{ color: "var(--cover-brown)", fontWeight: "800", fontSize: "12px", letterSpacing: "0.08em" }}
               >
                 BUSINESS OWNER
@@ -241,7 +241,7 @@ export default function PartnerNumerologyDetails() {
             <Briefcase size={24} color="var(--cover-gold)" strokeWidth={1.5} />
             <div>
               <div
-                className="font-cinzel"
+                className="font-cinzel uppercase"
                 style={{ color: "var(--cover-brown)", fontWeight: "800", fontSize: "10.5px", letterSpacing: "0.08em" }}
               >
                 BUSINESS CATEGORY
@@ -260,7 +260,7 @@ export default function PartnerNumerologyDetails() {
             <CalendarDays size={24} color="var(--cover-gold)" strokeWidth={1.5} />
             <div>
               <div
-                className="font-cinzel"
+                className="font-cinzel uppercase"
                 style={{ color: "var(--cover-brown)", fontWeight: "800", fontSize: "12px", letterSpacing: "0.08em" }}
               >
                 REPORT DATE
@@ -294,6 +294,7 @@ export default function PartnerNumerologyDetails() {
                 letterSpacing: "0.05em",
                 whiteSpace: "nowrap",
               }}
+              className="uppercase"
             >
               PARTNER WISE NUMEROLOGY OVERVIEW
             </span>
@@ -355,6 +356,7 @@ export default function PartnerNumerologyDetails() {
                           letterSpacing: "0.04em",
                           marginTop: "4px",
                         }}
+                        className="uppercase"
                       >
                         {partner.name}
                       </h4>
@@ -404,6 +406,7 @@ export default function PartnerNumerologyDetails() {
                             whiteSpace: "pre-line",
                             marginBottom: "3px",
                           }}
+                          className="uppercase"
                         >
                           {col.label}
                         </div>
@@ -431,7 +434,7 @@ export default function PartnerNumerologyDetails() {
                       <GoldIconCircle>
                         <User size={12} color="#4a2c00" strokeWidth={2} />
                       </GoldIconCircle>
-                      <span style={{ fontSize: "11px", fontWeight: "700", color: HEADER.tagline, letterSpacing: "0.04em" }}>
+                      <span style={{ fontSize: "11px", fontWeight: "700", color: HEADER.tagline, letterSpacing: "0.04em" }} className="uppercase">
                         PERSONAL VIBRATION
                       </span>
                       <span
@@ -441,7 +444,7 @@ export default function PartnerNumerologyDetails() {
                           color: REPORT_COLORS.red
                         }}
 
-                        className="font-nunito-sans mb-1"
+                        className="font-nunito-sans mb-1 uppercase"
                       >
                         {partner.personalVibration}
                       </span>
@@ -453,10 +456,10 @@ export default function PartnerNumerologyDetails() {
                       <GoldIconCircle>
                         <span style={{ fontSize: "11px", fontWeight: "900", color: "#4a2c00", lineHeight: 1 }}>₹</span>
                       </GoldIconCircle>
-                      <span style={{ fontSize: "9.5px", fontWeight: "700", color: HEADER.tagline, letterSpacing: "0.04em" }}>
+                      <span style={{ fontSize: "9.5px", fontWeight: "700", color: HEADER.tagline, letterSpacing: "0.04em" }} className="uppercase">
                         FINANCIAL CONTRIBUTION
                       </span>
-                      <span style={{ fontSize: "11px", fontWeight: "800", color: REPORT_COLORS.red }}>
+                      <span style={{ fontSize: "11px", fontWeight: "800", color: REPORT_COLORS.red }} className="uppercase">
                         {partner.financialContribution}
                       </span>
                     </div>
@@ -467,7 +470,7 @@ export default function PartnerNumerologyDetails() {
                       <GoldIconCircle>
                         <Star size={12} fill="#4a2c00" stroke="#4a2c00" />
                       </GoldIconCircle>
-                      <span style={{ fontSize: "9.5px", fontWeight: "700", color: HEADER.tagline, letterSpacing: "0.04em" }}>
+                      <span style={{ fontSize: "9.5px", fontWeight: "700", color: HEADER.tagline, letterSpacing: "0.04em" }} className="uppercase">
                         PARTNER ENERGY SCORE
                       </span>
                       <span
@@ -476,6 +479,7 @@ export default function PartnerNumerologyDetails() {
                           fontWeight: "800",
                           color: REPORT_COLORS.red,
                         }}
+                        className="uppercase"
                       >
                         {partner.partnerEnergyScore}
                       </span>
@@ -506,6 +510,7 @@ export default function PartnerNumerologyDetails() {
                   color: "var(--cover-brown)",
                   letterSpacing: "0.05em",
                 }}
+                className="uppercase"
               >
                 PARTNERSHIP NUMEROLOGY SUMMARY
               </span>
@@ -524,7 +529,7 @@ export default function PartnerNumerologyDetails() {
           >
             <div className="grid grid-cols-4 h-full">
 
-              <div className="flex items-center justify-center gap-3 px-4 py-3 border-r border-[#d9c7a2]">
+              <div className="flex items-center justify-center gap-3 px-4 py-3 ">
                 <Users size={40} color="#b97805" strokeWidth={1.6} />
 
                 <div className="text-center">
@@ -535,6 +540,7 @@ export default function PartnerNumerologyDetails() {
                       color: REPORT_COLORS.black,
 
                     }}
+                    className="uppercase"
                   >
                     TOTAL PARTNERS
                   </div>
@@ -552,7 +558,7 @@ export default function PartnerNumerologyDetails() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-3 px-4 py-2 border-r border-[#d9c7a2]">
+              <div className="flex items-center justify-center gap-3 px-4 py-2 ">
                 <Target size={40} color="#b97805" strokeWidth={1.6} />
 
                 <div className="text-center">
@@ -562,6 +568,7 @@ export default function PartnerNumerologyDetails() {
                       fontWeight: 700,
                       color: REPORT_COLORS.black,
                     }}
+                    className="uppercase"
                   >
                     PARTNERSHIP
                     <br />
@@ -574,6 +581,7 @@ export default function PartnerNumerologyDetails() {
                       fontWeight: 700,
                       color: REPORT_COLORS.red,
                     }}
+                    className="uppercase"
                   >
                     {partnershipSummary.harmonyScore}
                     <span style={{ fontSize: "18px" }}> / 100</span>
@@ -581,7 +589,7 @@ export default function PartnerNumerologyDetails() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-3 px-4 py-3 border-r border-[#d9c7a2]">
+              <div className="flex items-center justify-center gap-3 px-4 py-3 ">
                 <TrendingUp size={40} color="#b97805" strokeWidth={1.6} />
 
                 <div className="text-center">
@@ -591,6 +599,7 @@ export default function PartnerNumerologyDetails() {
                       fontWeight: 700,
                       color: REPORT_COLORS.black,
                     }}
+                    className="uppercase"
                   >
                     BUSINESS GROWTH
                     <br />
@@ -603,6 +612,7 @@ export default function PartnerNumerologyDetails() {
                       fontWeight: 700,
                       color: REPORT_COLORS.red,
                     }}
+                    className="uppercase"
                   >
                     {partnershipSummary.growthPotential}
                   </div>
@@ -619,6 +629,7 @@ export default function PartnerNumerologyDetails() {
                       fontWeight: 700,
                       color: REPORT_COLORS.black,
                     }}
+                    className="uppercase"
                   >
                     PARTNERSHIP
                     <br />
@@ -631,6 +642,7 @@ export default function PartnerNumerologyDetails() {
                       fontWeight: 700,
                       color: REPORT_COLORS.red,
                     }}
+                    className="uppercase"
                   >
                     {partnershipSummary.stability}
                   </div>

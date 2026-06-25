@@ -5,7 +5,6 @@ import BusinessNameDefectAnalysis from "@/Components/BusinessNameReport/Business
 import IndustryCompatibility from "@/Components/BusinessNameReport/IndustryCompatibility";
 import PartnerNumerologyDetails from "@/Components/BusinessNameReport/PartnerNumerologyDetails";
 import ExecutiveSummary from "@/Components/BusinessNameReport/ExecutiveSummary";
-import PartnerDetails from "@/Components/BusinessNameReport/PartnerDetails";
 import PartnerVsBusinessAlignment from "@/Components/BusinessNameReport/PartnerVsBusinessAlignment";
 import ReportHomeClient from "@/Components/ReportHomeClient";
 import FinancialFrequencyAnalysis from "@/Components/BusinessNameReport/FinancialFrequencyAnalysis";
@@ -24,7 +23,6 @@ export default function BusinessNameReportPage() {
       <BusinessReportPage /> {/* 1 */}
       <PartnerNumerologyDetails /> {/* 2 */}
       <ExecutiveSummary /> {/* 3 */}
-      {/* <PartnerDetails pageNumber="03" /> */}
       <ExistingBusinessNameBreakdown /> {/* 4 */}
       <PartnerVsBusinessAlignment /> {/* 5 */}
       <BusinessNameDefectAnalysis /> {/* 6 */}

@@ -39,8 +39,7 @@ export type BusinessNameReportPageProps = {
 
 function CompanyNameFrame() {
   return (
-    <div className="w-full flex flex-col items-center">
-      {/* <OrnamentDivider width={250} /> */}
+    <div className="w-full flex flex-col items-center font-nunito-sans">
       <div className="relative">
         <Image
           src="/assets/business-name-report/top-effect.png"
@@ -54,7 +53,7 @@ function CompanyNameFrame() {
         </div>
 
         <h2
-          className="absolute top-1/2 right-12 -translate-y-1/2 text-center text-[11px] font-bold tracking-[0.08em]"
+          className="absolute top-1/2 right-12 -translate-y-1/2 text-center text-[11px] font-bold tracking-[0.08em] uppercase"
           style={{ color: COLORS.brown }}
         >
           FINANCIAL FREQUENCY ANALYSIS
@@ -78,7 +77,7 @@ function ScoreHeaderSection({
 }) {
   return (
     <section
-      className="w-[697px] h-[140px] mx-auto grid grid-cols-3 items-center text-center font-cinzel bg-cover bg-no-repeat relative px-6 py-4"
+      className="w-[697px] h-[150px] mx-auto grid grid-cols-3 items-center text-center font-cinzel bg-cover bg-no-repeat relative px-6 py-4 font-nunito-sans"
       style={{ backgroundImage: `url('/assets/signaturePages/foooter-background.png')`, backgroundSize: "100% 100%" }}
     >
       {/* Current Business Name */}
@@ -87,7 +86,7 @@ function ScoreHeaderSection({
           <div className="w-7 h-7 rounded-full bg-[#4A0E17] flex items-center justify-center text-white text-[12px] shadow-sm">
             🏢
           </div>
-          <span className="text-[10px] font-bold tracking-wider" style={{ color: COLORS.brown }}>
+          <span className="text-[10px] font-bold tracking-wider uppercase" style={{ color: COLORS.brown }}>
             CURRENT BUSINESS NAME
           </span>
         </div>
@@ -102,7 +101,7 @@ function ScoreHeaderSection({
           <div className="w-7 h-7 rounded-full bg-[#4A0E17] flex items-center justify-center text-white text-[12px] shadow-sm">
             📈
           </div>
-          <span className="text-[10px] font-bold tracking-wider" style={{ color: COLORS.brown }}>
+          <span className="text-[10px] font-bold tracking-wider uppercase" style={{ color: COLORS.brown }}>
             TOTAL FINANCIAL SCORE
           </span>
         </div>
@@ -112,14 +111,14 @@ function ScoreHeaderSection({
           ))}
           <span className="text-amber-500 text-[18px] opacity-40">★</span>
         </div>
-        <span className="text-[13px] font-bold tracking-widest text-emerald-700">
+        <span className="text-[13px] font-bold tracking-widest text-emerald-700 uppercase">
           {totalFinancialScoreLabel}
         </span>
       </div>
 
       {/* Financial Frequency Score Gauge */}
       <div className="flex flex-col items-center justify-center px-4 relative">
-        <span className="text-[10px] font-bold tracking-wider mb-2" style={{ color: COLORS.brown }}>
+        <span className="text-[10px] font-bold tracking-wider mb-2 uppercase" style={{ color: COLORS.brown }}>
           FINANCIAL FREQUENCY SCORE
         </span>
 
@@ -128,7 +127,7 @@ function ScoreHeaderSection({
             <span className="text-[22px] font-bold block leading-none" style={{ color: COLORS.brown }}>
               {financialAlignmentScore}%
             </span>
-            <span className="text-[7.5px] font-bold tracking-tighter text-emerald-700 block mt-1 leading-tight uppercase font-sans">
+            <span className="text-[7.5px] font-bold tracking-tighter text-emerald-700 block mt-1 leading-tight uppercase font-nunito-sans">
               High Financial<br />Alignment
             </span>
           </div>
@@ -161,14 +160,14 @@ function getAnalysisIcon(label: string) {
 
 function FinancialVibrationBreakdown({ factors }: { factors: FinancialFactorItem[] }) {
   return (
-    <section className=" w-full border border-[#b8860b]/40 rounded-sm overflow-hidden bg-transparent">
+    <section className="w-full border border-[#b8860b]/40 rounded-sm overflow-hidden bg-transparent font-nunito-sans">
       {/* Table Header Section Accent */}
-      <div className="bg-[#4A0E17] text-white text-center text-[12px] font-bold tracking-widest font-cinzel shadow-sm relative">
+      <div className="bg-[#4A0E17] text-white text-center text-[12px] font-bold tracking-widest font-cinzel shadow-sm relative uppercase">
         FINANCIAL VIBRATION BREAKDOWN
       </div>
 
       {/* Table Columns Heading Sub-bar */}
-      <div className="grid grid-cols-12 border-b border-[#b8860b]/30 bg-[#f5efe2]/40 py-1.5 text-[10px] font-bold font-cinzel text-center text-[#4A0E17] tracking-widest">
+      <div className="grid grid-cols-12 border-b border-[#b8860b]/30 bg-[#f5efe2]/40 py-1.5 text-[10px] font-bold font-cinzel text-center text-[#4A0E17] tracking-widest uppercase">
         <div className="col-span-4 border-r border-[#b8860b]/25">FINANCIAL FACTOR</div>
         <div className="col-span-4 border-r border-[#b8860b]/25">SCORE</div>
         <div className="col-span-4">ANALYSIS</div>
@@ -201,7 +200,7 @@ function FinancialVibrationBreakdown({ factors }: { factors: FinancialFactorItem
                     style={{ width: `${factor.score}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-[7px] text-gray-500 mt-1 font-sans tracking-tight px-0.5">
+                <div className="flex justify-between text-[7px] text-gray-500 mt-1 font-nunito-sans tracking-tight px-0.5">
                   <span>0%</span>
                   <span>25%</span>
                   <span>50%</span>
@@ -219,7 +218,7 @@ function FinancialVibrationBreakdown({ factors }: { factors: FinancialFactorItem
             {/* 3. Analysis Column Segment */}
             <div className="col-span-4 pl-4 flex items-start gap-3 h-full justify-start py-1">
               {getAnalysisIcon(factor.label)}
-              <p className="text-[10px] leading-relaxed text-gray-700 font-sans tracking-normal max-w-[210px] font-nunito-sans">
+              <p className="text-[10px] leading-relaxed text-gray-700 font-nunito-sans tracking-normal max-w-[210px]">
                 {factor.analysis}
               </p>
             </div>
@@ -239,7 +238,7 @@ function SummaryAndStrengths({
   strengths: string[];
 }) {
   return (
-    <div className="grid grid-cols-2 gap-4 ">
+    <div className="grid grid-cols-2 gap-4 font-nunito-sans">
       {/* Financial Vibration Summary */}
       <div
         className="relative h-[180px]"
@@ -260,7 +259,7 @@ function SummaryAndStrengths({
           }}
         >
           <h4
-            className="text-center font-bold text-[10px] font-cinzel "
+            className="text-center font-bold text-[10px] font-cinzel uppercase"
             style={{ color: COLORS.brown }}
           >
             FINANCIAL VIBRATION SUMMARY
@@ -287,17 +286,17 @@ function SummaryAndStrengths({
         }}
       >
         <h4
-          className="text-center font-bold text-[12px] font-cinzel "
+          className="text-center font-bold text-[12px] font-cinzel uppercase"
           style={{ color: COLORS.brown }}
         >
           KEY FINANCIAL STRENGTHS
         </h4>
 
-        <ul className=" px-2">
+        <ul className="px-2">
           {strengths.map((strength, idx) => (
             <li
               key={idx}
-              className="flex items-start gap-2 text-[10px]"
+              className="flex items-start gap-2 text-[10px] font-nunito-sans"
               style={{ color: "#4b3a2a" }}
             >
               <span className="text-green-700 font-bold shrink-0 text-[12px]">
@@ -319,73 +318,71 @@ function MatrixFooterSection({
   metrics: NonNullable<BusinessNameReportPageProps["footerMetrics"]>
 }) {
   return (
-    // <section className="grid grid-cols-4 border border-[#b8860b]/30 rounded-sm divide-x divide-[#b8860b]/30 bg-[#fdfbf7]/50 text-center overflow-hidden font-cinzel">
     <div
-  className="relative h-[70px] rounded-md overflow-hidden"
-  style={{
-    backgroundImage:
-      "url('/assets/signaturePages/foooter-background.png')",
-    backgroundSize: "100% 100%",
-    backgroundRepeat: "no-repeat",
-  }}
->
-  <div className="grid grid-cols-4 h-full">
-    
-    <div className="flex items-center px-4 border-r border-[#d6b16c]">
-      <div className="w-10 h-10 rounded-full bg-green-800 flex items-center justify-center mr-3">
-        <IndianRupee size={18} className="text-white" />
-      </div>
+      className="relative h-[70px] rounded-md overflow-hidden font-nunito-sans"
+      style={{
+        backgroundImage:
+          "url('/assets/signaturePages/foooter-background.png')",
+        backgroundSize: "100% 100%",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="grid grid-cols-4 h-full">
+        
+        <div className="flex items-center px-4 border-r border-[#d6b16c]">
+          <div className="w-10 h-10 rounded-full bg-green-800 flex items-center justify-center mr-3">
+            <IndianRupee size={18} className="text-white" />
+          </div>
 
-      <div>
-        <p className="text-[8px] uppercase">WEALTH VIBRATION</p>
-        <p className="text-[14px] font-bold text-green-800">
-          {metrics.wealthVibration}
-        </p>
+          <div>
+            <p className="text-[8px] uppercase font-nunito-sans">WEALTH VIBRATION</p>
+            <p className="text-[14px] font-bold text-green-800 uppercase">
+              {metrics.wealthVibration}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center px-4 border-r border-[#d6b16c]">
+          <div className="w-10 h-10 rounded-full bg-[#c88b18] flex items-center justify-center mr-3">
+            <TrendingUp size={18} className="text-white" />
+          </div>
+
+          <div>
+            <p className="text-[8px] uppercase font-nunito-sans">MONEY ATTRACTION</p>
+            <p className="text-[14px] font-bold text-[#8c5b00] uppercase">
+              {metrics.moneyAttraction}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center px-4 border-r border-[#d6b16c]">
+          <div className="w-10 h-10 rounded-full bg-[#5a0f0f] flex items-center justify-center mr-3">
+            <Shield size={18} className="text-white" />
+          </div>
+
+          <div>
+            <p className="text-[8px] uppercase font-nunito-sans">FINANCIAL STABILITY</p>
+            <p className="text-[14px] font-bold text-[#5a0f0f] uppercase">
+              {metrics.financialStability}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center px-4">
+          <div className="w-10 h-10 rounded-full bg-purple-700 flex items-center justify-center mr-3">
+            <Rocket size={18} className="text-white" />
+          </div>
+
+          <div>
+            <p className="text-[8px] uppercase font-nunito-sans">GROWTH POTENTIAL</p>
+            <p className="text-[14px] font-bold text-purple-700 uppercase">
+              {metrics.growthPotential}
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <div className="flex items-center px-4 border-r border-[#d6b16c]">
-      <div className="w-10 h-10 rounded-full bg-[#c88b18] flex items-center justify-center mr-3">
-        <TrendingUp size={18} className="text-white" />
-      </div>
-
-      <div>
-        <p className="text-[8px] uppercase">MONEY ATTRACTION</p>
-        <p className="text-[14px] font-bold text-[#8c5b00]">
-          {metrics.moneyAttraction}
-        </p>
-      </div>
-    </div>
-
-    <div className="flex items-center px-4 border-r border-[#d6b16c]">
-      <div className="w-10 h-10 rounded-full bg-[#5a0f0f] flex items-center justify-center mr-3">
-        <Shield size={18} className="text-white" />
-      </div>
-
-      <div>
-        <p className="text-[8px] uppercase">FINANCIAL STABILITY</p>
-        <p className="text-[14px] font-bold text-[#5a0f0f]">
-          {metrics.financialStability}
-        </p>
-      </div>
-    </div>
-
-    <div className="flex items-center px-4">
-      <div className="w-10 h-10 rounded-full bg-purple-700 flex items-center justify-center mr-3">
-        <Rocket size={18} className="text-white" />
-      </div>
-
-      <div>
-        <p className="text-[8px] uppercase">GROWTH POTENTIAL</p>
-        <p className="text-[14px] font-bold text-purple-700">
-          {metrics.growthPotential}
-        </p>
-      </div>
-    </div>
-
-  </div>
-</div>
-    // </section>
   );
 }
 
@@ -452,10 +449,10 @@ export default function FinancialFrequencyAnalysis({
 }: BusinessNameReportPageProps) {
   return (
     <BusinessNameReportPageShell padding="18px 40px 20px" pageNumber={pageNumber}>
-      <div className="flex h-full flex-col justify-between">
+      <div className="flex h-full flex-col justify-between font-nunito-sans">
         <div>
           {/* Header */}
-          <BusinessReportHeader subtitle={subtitle} subtitle2={subtitle2} className=""/>
+          <BusinessReportHeader subtitle={subtitle} subtitle2={subtitle2} className="" />
 
           {/* Heading Framework */}
           <CompanyNameFrame />
