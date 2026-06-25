@@ -35,7 +35,6 @@ export type BusinessNameReportPageProps = {
 function CompanyNameFrame({ companyName }: { companyName: string }) {
   return (
     <section className="relative z-10 mt-3 flex flex-col items-center text-center">
-      <OrnamentDivider width={250} />
       <p
         className="text-[15px] font-semibold"
         style={{ color: COLORS.brown }}

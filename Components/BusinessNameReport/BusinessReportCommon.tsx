@@ -17,6 +17,9 @@ export const BUSINESS_ASSETS = {
   lotus: "/assets/cover/lotus.png",
   scoreCircle: "/assets/businessReport/score-circle.png",
   destinyMandala: "/assets/businessReport/bg.png",
+  secondCard: "/assets/businessReport/second-Card.png",
+  thirdCard: "/assets/businessReport/third-card.png",
+  forthCard: "/assets/businessReport/forth-card.png",
 } as const;
 
 export type BusinessReportHeaderProps = {
@@ -84,7 +87,7 @@ export function BusinessReportHeader({
         alt="Astro Aarambh"
         width={logoSize}
         height={logoSize}
-        className="mb-5"
+        className="mb-2"
         priority
       />
 
@@ -108,6 +111,7 @@ export function BusinessReportHeader({
         >
           {subtitle2}
         </p>
+        <OrnamentDivider width={250} />
       </div>
     </header>
   );
@@ -162,5 +166,89 @@ export function BusinessReportFooter({
         </div>
       </div>
     </footer>
+  );
+}
+
+// components/DecorativeFrame.tsx
+
+interface DecorativeFrameProps {
+  width?: string | number;
+  height?: string | number;
+  /** Size of the rounded "ticket" notch cut into each corner, in px (SVG units). */
+  cornerRadius?: number;
+  /** Stroke color of the frame line. */
+  strokeColor?: string;
+  /** Stroke width of the frame line, in px (SVG units). */
+  strokeWidth?: number;
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export default function DecorativeFrame({
+  width = "100%",
+  height = 240,
+  cornerRadius = 70,
+  strokeColor = "#caa153",
+  strokeWidth = 3,
+  className = "",
+  children,
+}: DecorativeFrameProps) {
+  // Fixed internal coordinate space — preserveAspectRatio="none" lets the
+  // viewBox stretch freely to any width/height the parent gives it, exactly
+  // like the reference image's long, thin ticket shape.
+  const VB_W = 1000;
+  const VB_H = 200;
+
+  const r = cornerRadius; // notch radius
+  const inset = strokeWidth / 2;
+
+  // Ticket-style outline: straight edges with a quarter-circle bite taken
+  // out of each corner (concave notch), matching the reference artwork.
+  const path = `
+    M ${inset + r} ${inset}
+    H ${VB_W - inset - r}
+    A ${r} ${r} 0 0 1 ${VB_W - inset} ${inset + r}
+    V ${VB_H - inset - r}
+    A ${r} ${r} 0 0 1 ${VB_W - inset - r} ${VB_H - inset}
+    H ${inset + r}
+    A ${r} ${r} 0 0 1 ${inset} ${VB_H - inset - r}
+    V ${inset + r}
+    A ${r} ${r} 0 0 1 ${inset + r} ${inset}
+    Z
+  `;
+
+  const gradientId = "decorative-frame-gold";
+
+  return (
+    <div className={`relative ${className}`} style={{ width, height }}>
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox={`0 0 ${VB_W} ${VB_H}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e3c068" />
+            <stop offset="25%" stopColor="#caa153" />
+            <stop offset="55%" stopColor="#b8862f" />
+            <stop offset="80%" stopColor="#caa153" />
+            <stop offset="100%" stopColor="#e3c068" />
+          </linearGradient>
+        </defs>
+
+        <path
+          d={path}
+          fill="none"
+          stroke={strokeColor === "#caa153" ? `url(#${gradientId})` : strokeColor}
+          strokeWidth={strokeWidth}
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
+      <div className="relative z-10 w-full h-full flex items-center justify-center p-6">
+        {children}
+      </div>
+    </div>
   );
 }
