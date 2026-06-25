@@ -11,6 +11,7 @@ import ReportHomeClient from "@/Components/ReportHomeClient";
 import FinancialFrequencyAnalysis from "@/Components/BusinessNameReport/FinancialFrequencyAnalysis";
 import RecommendedNameAnalysis from "@/Components/BusinessNameReport/RecommendedNameAnalysis";
 import ExistingBusinessNameBreakdown from "@/Components/BusinessNameReport/ExistingBusinessNameBreakdown";
+import LuckyBusinessElements from "@/Components/BusinessNameReport/LuckyBusinessElements";
 
 export default function BusinessNameReportPage() {
   return (
@@ -30,7 +31,7 @@ export default function BusinessNameReportPage() {
       <BrandingMarketingAnalysis /> {/* 9 */}
       <RecommendedCorrectedNames /> {/* 10 */}
       <RecommendedNameAnalysis /> {/* 11 */}
-
+      <LuckyBusinessElements /> {/* 12 */}
     </ReportHomeClient>
   );
 }

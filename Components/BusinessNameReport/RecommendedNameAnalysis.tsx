@@ -735,7 +735,7 @@ export default function RecommendedNameAnalysis({
         <WhyChosenSection items={whyChosenItems} />
         <ExpectedImprovementsSection items={expectedImprovements} />
         <BottomSection overallScore={overallScore} expertRecommendation={expertRecommendation} />
-        <BusinessReportFooter pageNumber={pageNumber} />
+  
       </div>
     </BusinessNameReportPageShell>
   );
