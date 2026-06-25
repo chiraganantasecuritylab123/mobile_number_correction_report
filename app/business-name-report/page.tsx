@@ -24,7 +24,7 @@ export default function BusinessNameReportPage() {
       <PartnerNumerologyDetails /> {/* 2 */}
       <ExecutiveSummary /> {/* 3 */}
       {/* <PartnerDetails pageNumber="03" /> */}
-      <ExistingBusinessNameBreakdown />
+      <ExistingBusinessNameBreakdown /> {/* 4 */}
       <PartnerVsBusinessAlignment /> {/* 5 */}
       <BusinessNameDefectAnalysis /> {/* 6 */}
       <IndustryCompatibility /> {/* 7 */}
