@@ -5,6 +5,7 @@ import PlanetWiseFinancialBlockages from "@/Components/RinnMuktiReport/PlanetWis
 import RinnMuktiCoverPage from "@/Components/RinnMuktiReport/CoverPage";
 import FinancialKarmaOverview from "@/Components/RinnMuktiReport/FinancialKarmaOverview";
 import CurrentDashaandTransitImpact from "@/Components/RinnMuktiReport/CurrentDashaandTransitImpact";
+import SourceOfFinancialProblems from "@/Components/RinnMuktiReport/SourceOfFinancialProblems";
 
 export default function RinnMuktiReportPage() {
   return (
@@ -18,7 +19,8 @@ export default function RinnMuktiReportPage() {
       <HouseAnalysisForWealth pageNumber="04" /> {/* 4 */}
       <PlanetWiseFinancialBlockages pageNumber="05" /> {/* 5 */}
 
-      <CurrentDashaandTransitImpact pageNumber="06" /> {/* 5 */}
+      <SourceOfFinancialProblems pageNumber="06" /> {/* 6 */}
+      <CurrentDashaandTransitImpact pageNumber="07" /> {/* 7 */}
     </ReportHomeClient>
   );
 }
