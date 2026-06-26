@@ -17,6 +17,7 @@ import {
 import { CornerFlourish } from "../CoverPageDecorations";
 import { OrnamentDivider } from "../BusinessNameReport/BusinessReportCommon";
 import BusinessNameReportPageShell from "../BusinessNameReport/BusinessNameReportPageShell";
+import HeaderCommun from "./HeaderCommun";
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -440,23 +441,7 @@ export default function DebtYogaAnalysis({
       <PageOrnamentalFrame />
 
       <div className="relative flex h-full min-h-0 flex-col">
-        <ReportTopBar pageNumber={pageNumber} />
-
-        <section className="relative z-10 mt-2 shrink-0 text-center">
-          <h2
-            className="font-cinzel text-[26px] font-bold leading-tight tracking-[0.05em]"
-            style={{ color: ASTRO.maroon }}
-          >
-            {sectionTitle}
-          </h2>
-          <p
-            className={`${libreBaskerville.className} mx-auto mt-1 max-w-[520px] text-[12px] italic leading-snug`}
-            style={{ color: ASTRO.navy }}
-          >
-            {sectionSubtitle}
-          </p>
-        </section>
-
+      <HeaderCommun reportName="RINN MUKTI REPORT" title={sectionTitle} description={sectionSubtitle} />
         <section
           className="relative z-10 mt-3 overflow-hidden rounded-md"
           style={{ border: `1.5px solid ${ASTRO.borderGold}` }}

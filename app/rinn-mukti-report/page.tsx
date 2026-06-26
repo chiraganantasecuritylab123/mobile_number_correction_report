@@ -3,6 +3,7 @@ import DebtYogaAnalysis from "@/Components/RinnMuktiReport/DebtYogaAnalysis";
 import HouseAnalysisForWealth from "@/Components/RinnMuktiReport/HouseAnalysisForWealth";
 import PlanetWiseFinancialBlockages from "@/Components/RinnMuktiReport/PlanetWiseFinancialBlockages";
 import RinnMuktiCoverPage from "@/Components/RinnMuktiReport/CoverPage";
+import SourceOfFinancialProblems from "@/Components/RinnMuktiReport/SourceOfFinancialProblems";
 
 export default function RinnMuktiReportPage() {
   return (
@@ -14,6 +15,7 @@ export default function RinnMuktiReportPage() {
       <DebtYogaAnalysis pageNumber="03" /> {/* 3 */}
       <HouseAnalysisForWealth pageNumber="04" /> {/* 4 */}
       <PlanetWiseFinancialBlockages pageNumber="05" /> {/* 5 */}
+      <SourceOfFinancialProblems pageNumber="06" /> {/* 6 */}
     </ReportHomeClient>
   );
 }
