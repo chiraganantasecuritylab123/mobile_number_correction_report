@@ -24,21 +24,6 @@ export default function ReportHomeClient({
 }) {
   const [language, setLanguage] = useState<"en" | "hi">("en");
 
-  // Language toggle button component
-  const LanguageToggle = () => (
-    <button
-      onClick={() => setLanguage(language === "en" ? "hi" : "en")}
-      className="fixed top-20 right-4 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-[#4a0e0e] text-white hover:bg-[#6b2c2c] transition-colors font-nunito-sans text-sm font-semibold shadow-lg"
-      style={{
-        border: "2px solid #b8860b",
-      }}
-    >
-      <span>{language === "en" ? "हिंदी" : "English"}</span>
-      <span className="text-[#b8860b]">|</span>
-      <span className="text-[#b8860b]">🌐</span>
-    </button>
-  );
-
   // Properly clone children and pass language prop
   const childrenWithProps = Children.map(children, (child) => {
     if (isValidElement(child)) {
@@ -52,8 +37,9 @@ export default function ReportHomeClient({
       <ReportPdfToolbar
         reportTitle={reportTitle}
         reportDescription={reportDescription}
+        language={language}
+        onToggleLanguage={() => setLanguage((current) => (current === "en" ? "hi" : "en"))}
       />
-      <LanguageToggle />
       <div className="flex min-h-full flex-col items-center gap-10 bg-[#d4cfc7] p-8 pt-6">
         {childrenWithProps}
       </div>
