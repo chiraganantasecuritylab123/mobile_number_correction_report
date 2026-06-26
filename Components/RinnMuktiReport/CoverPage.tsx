@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { Cormorant_Garamond, Great_Vibes, Libre_Baskerville } from "next/font/google";
-import { Calendar, Clock, Globe, MapPin, Phone, type LucideIcon } from "lucide-react";
-import { CoverLotus, Pattern3 } from "../CommunComponents";
-import { CornerFlourish } from "../CoverPageDecorations";
-import BusinessNameReportPageShell from "../BusinessNameReport/BusinessNameReportPageShell";
-import { OrnamentDivider } from "../BusinessNameReport/BusinessReportCommon";
+import { Globe, Phone, Clock, MapPin, Calendar } from "lucide-react";
+import { Great_Vibes } from "next/font/google";
+import type { ReactNode } from "react";
+import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
+import { Pattern3 } from "../CommunComponents";
 
 const signatureFont = Great_Vibes({
   subsets: ["latin"],
@@ -12,202 +11,157 @@ const signatureFont = Great_Vibes({
   display: "swap",
 });
 
-const libreBaskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
-
-const ASTRO = {
-  parchment: "#F8EEDC",
-  maroon: "#6E1F1F",
-  gold: "#B8860B",
-  borderGold: "#C89A2B",
-  darkBrown: "#5C2D1A",
-  body: "#6A5A4A",
-  value: "#3D2A20",
-} as const;
-
 const ASSETS = {
-  sunCompass: "/assets/cover/sun-compass.png",
-  horoscopeWheel: "/assets/cover/horoscope-wheel.png",
-  sunFace: "/assets/cover/sunLightImage.png",
+  cover: "/assets/signaturePages/coverPage1.png",
+  pattern2: "/assets/cover/pattern-2.png",
   nameBorder: "/assets/signaturePages/nameImageBorder.png",
-  penBg: "/assets/signatureReport/pen-bg.png",
-  bottomPattern: "/assets/bottom-pattern.png",
-  orbitDiagram: "/assets/cover/image.png",
 } as const;
 
-export type RinnMuktiCoverPageProps = {
-  pageNumber?: string;
+export type SignatureAnalysisReportProps = {
   clientName?: string;
   dateOfBirth?: string;
   timeOfBirth?: string;
   placeOfBirth?: string;
   reportDate?: string;
-  quote?: string;
-  servicesText?: string;
-  website?: string;
-  phone?: string;
-  instagram?: string;
 };
 
-function PageOrnamentalFrame() {
+function SignaturePageFrame({
+  children,
+  pageLabel,
+  pageNumber,
+}: {
+  children?: ReactNode;
+  pageLabel: string;
+  pageNumber: string;
+}) {
   return (
-    <>
-      <div
-        className="pointer-events-none absolute inset-[14px] rounded-sm"
-        style={{ border: `2px solid ${ASTRO.borderGold}` }}
+    <article
+      data-report-page
+      data-page-label={pageLabel}
+      data-report-page-number={pageNumber}
+      className="relative mx-auto overflow-hidden shadow-xl"
+      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
+    >
+      <Image
+        src={ASSETS.cover}
+        alt=""
+        fill
+        sizes={`${PAGE_WIDTH}px`}
+        className="pointer-events-none select-none object-fill"
+        priority={pageNumber === "01"}
         aria-hidden
       />
-      <CornerFlourish className="pointer-events-none absolute left-[10px] top-[10px] h-[52px] w-[52px]" />
-      <CornerFlourish className="pointer-events-none absolute right-[10px] top-[10px] h-[52px] w-[52px] -scale-x-100" />
-      <CornerFlourish className="pointer-events-none absolute bottom-[10px] left-[10px] h-[52px] w-[52px] -scale-y-100" />
-      <CornerFlourish className="pointer-events-none absolute bottom-[10px] right-[10px] h-[52px] w-[52px] scale-[-1]" />
-    </>
+      <div className="relative z-10 h-full">{children}</div>
+    </article>
   );
 }
 
-function CelestialHeaderRow() {
+function LotusGlyph({ size = 26 }: { size?: number }) {
   return (
-    <div className="relative flex items-end justify-center gap-8 px-2">
+    <svg
+      width={size}
+      height={size * 0.7}
+      viewBox="0 0 40 28"
+      fill="none"
+      aria-hidden
+    >
+      <path d="M20 26c0-9-4-14-4-18 0 4-4 9-4 18" stroke="var(--cover-gold)" strokeWidth="1.4" fill="none" />
+      <path d="M20 26c0-9 4-14 4-18 0 4 4 9 4 18" stroke="var(--cover-gold)" strokeWidth="1.4" fill="none" />
+      <path d="M20 26c0-11-7-15-12-16 2 5 4 11 12 16" stroke="var(--cover-gold)" strokeWidth="1.4" fill="none" />
+      <path d="M20 26c0-11 7-15 12-16-2 5-4 11-12 16" stroke="var(--cover-gold)" strokeWidth="1.4" fill="none" />
+      <path d="M20 26c0-7-2-11-2-13 0 2-2 6-2 13" stroke="var(--cover-gold)" strokeWidth="1.4" fill="none" />
+      <path d="M20 26c0-7 2-11 2-13 0 2 2 6 2 13" stroke="var(--cover-gold)" strokeWidth="1.4" fill="none" />
+    </svg>
+  );
+}
+
+function OrnamentDivider({
+  width = 220,
+  lotusSize = 0,
+}: {
+  width?: number;
+  lotusSize?: number;
+}) {
+  return (
+    <div className="relative flex items-center justify-center" style={{ width }}>
       <Image
-        src={ASSETS.sunCompass}
+        src={ASSETS.pattern2}
         alt=""
-        width={78}
-        height={78}
-        className="object-contain opacity-55"
+        width={width}
+        height={Math.round(width * 0.12)}
+        className="h-auto w-full object-contain"
         aria-hidden
       />
-      <Image
-        src={ASSETS.horoscopeWheel}
-        alt=""
-        width={128}
-        height={128}
-        className="-mt-1 object-contain"
-        priority
-        aria-hidden
-      />
-      <Image
-        src={ASSETS.sunFace}
-        alt=""
-        width={78}
-        height={78}
-        className="object-contain opacity-60"
-        aria-hidden
-      />
+      {lotusSize > 0 && (
+        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-[#f4e7c9] px-1">
+          <LotusGlyph size={lotusSize} />
+        </div>
+      )}
     </div>
   );
 }
 
-function TitleSection() {
+function InstagramIcon({ size = 11 }: { size?: number }) {
   return (
-    <header className="mt-1 flex flex-col items-center text-center">
-      <h1
-        className="font-cinzel text-[46px] font-bold leading-none tracking-[0.06em]"
-        style={{ color: ASTRO.maroon }}
-      >
-        ASTRO AARAMBH
-      </h1>
-
-      <div className="mt-2 flex w-full max-w-[640px] items-center justify-center gap-3">
-        <OrnamentDivider width={110} />
-        <p
-          className={`${cormorant.className} text-center text-[34px] font-bold leading-tight tracking-[0.04em]`}
-          style={{ color: ASTRO.gold }}
-        >
-          RINN MUKTI REPORT
-        </p>
-        <OrnamentDivider width={110} />
-      </div>
-
-      <p
-        className={`${libreBaskerville.className} mt-2 text-[12px] font-semibold tracking-[0.18em]`}
-        style={{ color: ASTRO.darkBrown }}
-      >
-        KARMIC DEBT &bull; FINANCIAL BLOCKAGES &bull; DEBT RELIEF ANALYSIS
-      </p>
-
-      <p
-        className={`${libreBaskerville.className} mt-2 max-w-[540px] text-[14px] italic leading-relaxed`}
-        style={{ color: ASTRO.body }}
-      >
-        Understand the Karmic Reasons Behind Debt &amp; Discover the Path to Financial Freedom
-      </p>
-    </header>
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--cover-gold-light)"
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <rect x="4.5" y="4.5" width="15" height="15" rx="4" />
+      <circle cx="12" cy="12" r="3.5" />
+      <circle cx="17.2" cy="6.8" r="0.8" fill="var(--cover-gold-light)" stroke="none" />
+    </svg>
   );
 }
 
-function PreparedForSection({ clientName }: { clientName: string }) {
-  return (
-    <section className="relative z-10 mt-3 flex flex-col items-center text-center">
-      <OrnamentDivider width={260} />
-      <p
-        className={`${libreBaskerville.className} mt-2 text-[12px] font-semibold tracking-[0.14em]`}
-        style={{ color: ASTRO.gold }}
-      >
-        PREPARED FOR
-      </p>
-
-      <div className="relative mt-1 flex w-full max-w-[540px] items-center justify-center">
-        <Image
-          src={ASSETS.nameBorder}
-          alt=""
-          width={540}
-          height={96}
-          className="h-auto w-full object-contain"
-          aria-hidden
-        />
-        <p
-          className={`absolute inset-x-0 px-6 text-center text-[46px] leading-none ${signatureFont.className}`}
-          style={{ color: ASTRO.maroon }}
-        >
-          {clientName}
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function DetailIconBadge({ icon: Icon }: { icon: LucideIcon }) {
+function IconBadge({
+  children,
+  size = 44,
+}: {
+  children: ReactNode;
+  size?: number;
+}) {
   return (
     <div
-      className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full"
-      style={{ border: `1.5px dotted ${ASTRO.gold}` }}
+      className="flex items-center justify-center rounded-full"
+      style={{
+        width: size,
+        height: size,
+        border: "1.5px dashed var(--cover-gold)",
+        flexShrink: 0,
+      }}
     >
-      <Icon size={18} strokeWidth={1.5} style={{ color: ASTRO.gold }} aria-hidden />
+      {children}
     </div>
   );
 }
 
-function DetailColumn({
+function DetailCol({
   icon,
   label,
   value,
 }: {
-  icon: LucideIcon;
+  icon: ReactNode;
   label: string;
   value: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1.5 px-1 text-center">
-      <DetailIconBadge icon={icon} />
+    <div className="flex flex-1 flex-col items-center gap-1.5 px-2 text-center">
+      <IconBadge size={44}>{icon}</IconBadge>
       <span
-        className={`${libreBaskerville.className} text-[12px] font-bold tracking-[0.12em]`}
-        style={{ color: ASTRO.darkBrown }}
+        className="text-[11px] font-bold tracking-[0.13em] font-nunito-sans"
+        style={{ color: "var(--cover-slate)" }}
       >
         {label}
       </span>
       <span
-        className={`${cormorant.className} text-[18px] font-semibold leading-snug`}
-        style={{ color: ASTRO.value }}
+        className="text-[15px] font-semibold leading-snug font-nunito-sans"
+        style={{ color: "var(--cover-brown)" }}
       >
         {value}
       </span>
@@ -215,11 +169,16 @@ function DetailColumn({
   );
 }
 
-function VerticalDivider() {
+function VDivider() {
   return (
-    <div className="flex min-h-[92px] items-center justify-center self-stretch">
-      <div className="h-full w-px" style={{ backgroundColor: "rgba(184,134,11,0.5)" }} />
-    </div>
+    <div
+      className="self-stretch"
+      style={{
+        width: 1,
+        backgroundColor: "rgba(184,134,11,0.45)",
+        margin: "4px 0",
+      }}
+    />
   );
 }
 
@@ -234,190 +193,186 @@ function BirthDetailsGrid({
   placeOfBirth: string;
   reportDate: string;
 }) {
+  const iconSize = 22;
+  const iconProps = {
+    size: iconSize,
+    strokeWidth: 1.6,
+    style: { color: "var(--cover-gold)" },
+  };
+
   return (
-    <section className="relative z-10 mt-3 px-2">
-      <div className="mx-auto flex max-w-[700px] items-start justify-center">
-        <div className="grid flex-1 grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-start gap-2">
-          <DetailColumn icon={Calendar} label="DATE OF BIRTH" value={dateOfBirth} />
-          <VerticalDivider />
-          <DetailColumn icon={Clock} label="TIME OF BIRTH" value={timeOfBirth} />
-          <VerticalDivider />
-          <DetailColumn icon={MapPin} label="PLACE OF BIRTH" value={placeOfBirth} />
-          <VerticalDivider />
-          <DetailColumn icon={Calendar} label="REPORT DATE" value={reportDate} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function QuoteSection({ quote }: { quote: string }) {
-  return (
-    <section className="relative z-10 mt-4 flex flex-col items-center px-6 text-center">
-      <OrnamentDivider width={220} />
-      <CoverLotus size={32} className="mt-2" />
-      <blockquote
-        className={`${libreBaskerville.className} mt-2 max-w-[500px] text-[15px] italic leading-relaxed`}
-        style={{ color: ASTRO.maroon }}
-      >
-        &ldquo;{quote}&rdquo;
-      </blockquote>
-      <div className="mt-2">
-        <OrnamentDivider width={220} />
-      </div>
-    </section>
-  );
-}
-
-function InstagramIcon({ size = 14 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={ASTRO.gold}
-      strokeWidth="1.8"
-      aria-hidden
-    >
-      <rect x="4.5" y="4.5" width="15" height="15" rx="4" />
-      <circle cx="12" cy="12" r="3.5" />
-      <circle cx="17.2" cy="6.8" r="0.8" fill={ASTRO.gold} stroke="none" />
-    </svg>
-  );
-}
-
-function ReportFooter({
-  brandDisplayName = "Astro Aarambh",
-  servicesText = "SIGNATURE ANALYSIS | KNOW YOURSELF BETTER",
-  website = "www.astroaarambh.com",
-  phone = "7405923555",
-  instagram = "astroaarambhofficial",
-}: {
-  brandDisplayName?: string;
-  servicesText?: string;
-  website?: string;
-  phone?: string;
-  instagram?: string;
-}) {
-  return (
-    <footer className="relative z-10 flex flex-col items-center text-center">
-      <div className="flex items-center justify-center gap-2">
-        <Pattern3 size={36} />
-        <p
-          className={`${cormorant.className} text-[26px] font-bold tracking-wide`}
-          style={{ color: ASTRO.maroon }}
-        >
-          {brandDisplayName}
-        </p>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
-
-      <p
-        className={`${libreBaskerville.className} mt-1 text-[11px] font-semibold tracking-[0.1em]`}
-        style={{ color: ASTRO.darkBrown }}
-      >
-        {servicesText}
-      </p>
-
-      <div
-        className={`${libreBaskerville.className} mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-[10px]`}
-        style={{ color: ASTRO.body }}
-      >
-        <div className="flex items-center gap-1.5">
-          <Globe size={14} strokeWidth={1.8} style={{ color: ASTRO.gold }} />
-          <span>{website}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <Phone size={14} strokeWidth={1.8} style={{ color: ASTRO.gold }} />
-          <span>{phone}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <InstagramIcon size={14} />
-          <span>{instagram}</span>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function BottomDecorations() {
-  return (
-    <>
-      <Image
-        src={ASSETS.penBg}
-        alt=""
-        width={170}
-        height={110}
-        className="pointer-events-none absolute bottom-14 left-1 object-contain opacity-85"
-        aria-hidden
+    <div className="mt-5 flex w-full items-stretch justify-center">
+      <DetailCol
+        icon={<Calendar {...iconProps} />}
+        label="DATE OF BIRTH"
+        value={dateOfBirth}
       />
-      <Image
-        src={ASSETS.orbitDiagram}
-        alt=""
-        width={96}
-        height={96}
-        className="pointer-events-none absolute bottom-16 right-3 object-contain opacity-30"
-        aria-hidden
+      <VDivider />
+      <DetailCol
+        icon={<Clock {...iconProps} />}
+        label="TIME OF BIRTH"
+        value={timeOfBirth}
       />
-      <Image
-        src={ASSETS.bottomPattern}
-        alt=""
-        width={794}
-        height={48}
-        className="pointer-events-none absolute bottom-0 left-0 w-full object-cover"
-        aria-hidden
+      <VDivider />
+      <DetailCol
+        icon={<MapPin {...iconProps} />}
+        label="PLACE OF BIRTH"
+        value={placeOfBirth}
       />
-    </>
+      <VDivider />
+      <DetailCol
+        icon={<Calendar {...iconProps} />}
+        label="REPORT DATE"
+        value={reportDate}
+      />
+    </div>
   );
 }
 
-export default function RinnMuktiCoverPage({
-  pageNumber = "01",
+function RinnMuktiCoverPage({
   clientName = "Bhargav Gujarati",
   dateOfBirth = "18 August 1994",
   timeOfBirth = "05:30 AM",
   placeOfBirth = "Jetpur, Gujarat, India",
   reportDate = "25 June 2026",
-  quote = "Financial freedom begins when karmic debts are understood, balanced, and consciously transformed.",
-  servicesText = "SIGNATURE ANALYSIS | KNOW YOURSELF BETTER",
-  website = "www.astroaarambh.com",
-  phone = "7405923555",
-  instagram = "astroaarambhofficial",
-}: RinnMuktiCoverPageProps) {
+}: SignatureAnalysisReportProps) {
   return (
-    <BusinessNameReportPageShell
-      padding="24px 34px 18px"
-      pageNumber={pageNumber}
-      style={{
-        backgroundColor: ASTRO.parchment,
-        boxShadow: "0 2px 12px rgba(184,134,11,0.08)",
-      }}
-    >
-      <PageOrnamentalFrame />
+    <SignaturePageFrame pageLabel="signature-cover-content" pageNumber="02">
+      <div
+        className="absolute inset-x-0 flex flex-col items-center px-14 pt-0 text-center font-cinzel"
+        style={{ top: "26%", bottom: "6%" }}
+      >
+        <div className="mt-8 flex items-center gap-2">
+          <Pattern3 size={100} />
+          <p
+            className="text-[38px] font-bold leading-none tracking-[0.04em]"
+            style={{ color: "var(--cover-brown)" }}
+          >
+            ASTRO AARAMBH
+          </p>
+          <Pattern3 size={100} className="rotate-180" />
+        </div>
 
-      <div className="relative flex h-full min-h-0 flex-col">
-        <CelestialHeaderRow />
-        <TitleSection />
-        <PreparedForSection clientName={clientName} />
+        <h1
+          className="mt-1 text-[35px] font-bold leading-tight tracking-wide"
+          style={{ color: "var(--cover-gold)" }}
+        >
+          RINN MUKTI REPORT
+        </h1>
+
+        <p
+          className="mt-1.5 text-[12px] font-semibold tracking-[0.16em]"
+          style={{ color: "var(--cover-slate)" }}
+        >
+          KARMIC DEBT ● FINANCIAL BLOCKAGES ● DEBT RELIEF ANALYSIS
+        </p>
+
+        <div className="mt-4">
+          <OrnamentDivider width={260} />
+        </div>
+
+        <div className="flex flex-col items-center">
+          <p
+            className="m-0 text-center text-[12px] font-semibold tracking-[0.16em] font-nunito-sans"
+            style={{ color: "var(--cover-maroon)" }}
+          >
+            Understand the Karmic Reasons Behind Debt &amp;
+            <br />
+            Discover the Path to Financial Freedom
+          </p>
+
+          <p
+            className="text-[14px] font-semibold tracking-[0.16em]"
+            style={{ color: "var(--cover-maroon)" }}
+          >
+            PREPARED FOR
+          </p>
+
+          <div className="relative inline-flex max-w-[400px] items-center justify-center -mt-4">
+            <img
+              src={ASSETS.nameBorder}
+              alt=""
+              className="block h-[120px] w-full select-none"
+              aria-hidden
+            />
+            <span
+              className={`absolute inset-0 flex items-center justify-center px-4 text-center text-[28px] ${signatureFont.className}`}
+              style={{ color: "var(--cover-maroon)" }}
+            >
+              {clientName}
+            </span>
+          </div>
+        </div>
+
         <BirthDetailsGrid
           dateOfBirth={dateOfBirth}
           timeOfBirth={timeOfBirth}
           placeOfBirth={placeOfBirth}
           reportDate={reportDate}
         />
-        <QuoteSection quote={quote} />
 
-        <div className="relative mt-auto pt-3">
-          <BottomDecorations />
-          <ReportFooter
-            servicesText={servicesText}
-            website={website}
-            phone={phone}
-            instagram={instagram}
-          />
+        <div className="mt-4">
+          <OrnamentDivider width={260} />
+        </div>
+
+        <blockquote
+          className=" max-w-[360px] text-[14.5px] italic leading-relaxed"
+          style={{ color: "var(--cover-maroon)", fontFamily: "Georgia, serif" }}
+        >
+          &ldquo;Financial freedom begins when karmic debts are understood, balanced, and consciously transformed.
+          &rdquo;
+        </blockquote>
+
+        <div className="">
+          <OrnamentDivider width={260} />
+        </div>
+
+        <div className="mt-3 flex items-center justify-center gap-2">
+          <OrnamentDivider width={160} />
+          <p
+            className="text-[26px] font-bold tracking-wide"
+            style={{ color: "var(--cover-brown)" }}
+          >
+            Astro Aarambh
+          </p>
+          <OrnamentDivider width={160} />
+        </div>
+
+        <p
+          className="mt-1 text-[14px] font-semibold tracking-[0.12em] font-nunito-sans"
+          style={{ color: "var(--cover-slate)" }}
+        >
+          SIGNATURE ANALYSIS&nbsp;&nbsp;|&nbsp;&nbsp;KNOW YOURSELF BETTER
+        </p>
+
+        <div className="mt-2.5 flex flex-col items-center gap-1 font-nunito-sans">
+          <div
+            className="flex items-center gap-2 text-[16px]"
+            style={{ color: "var(--cover-gray)" }}
+          >
+            <Globe size={20} strokeWidth={1.8} style={{ color: "var(--cover-gold-light)" }} />
+            <span>www.astroaarambh.com</span>
+          </div>
+          <div
+            className="flex items-center gap-2 text-[16px]"
+            style={{ color: "var(--cover-gray)" }}
+          >
+            <Phone size={20} strokeWidth={1.8} style={{ color: "var(--cover-gold-light)" }} />
+            <span>7405923555</span>
+          </div>
+          <div
+            className="flex items-center gap-2 text-[16px]"
+            style={{ color: "var(--cover-gray)" }}
+          >
+            <InstagramIcon size={20} />
+            <span>astroaarambhofficial</span>
+          </div>
         </div>
       </div>
-    </BusinessNameReportPageShell>
+    </SignaturePageFrame>
   );
+}
+
+export default function SignatureAnalysisReport(props: SignatureAnalysisReportProps) {
+  return <RinnMuktiCoverPage {...props} />;
 }

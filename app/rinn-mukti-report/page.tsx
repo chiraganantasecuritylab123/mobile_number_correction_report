@@ -7,7 +7,7 @@ export default function RinnMuktiReportPage() {
       reportTitle="Rinn Mukti Report"
       reportDescription="Karmic debt and financial blockage analysis report"
     >
-      <RinnMuktiCoverPage pageNumber="01" /> {/* 1 */}
+      <RinnMuktiCoverPage  /> {/* 1 */}
     </ReportHomeClient>
   );
 }
