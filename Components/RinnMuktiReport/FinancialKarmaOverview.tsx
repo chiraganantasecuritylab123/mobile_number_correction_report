@@ -5,7 +5,7 @@ import { Globe, Phone } from "lucide-react";
 import { Great_Vibes } from "next/font/google";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
-import { Pattern3 } from "../CommunComponents";
+import HeaderCommun from "./HeaderCommun";
 
 const signatureFont = Great_Vibes({
     subsets: ["latin"],
@@ -14,7 +14,7 @@ const signatureFont = Great_Vibes({
 });
 
 const ASSETS = {
-    cover: "/assets/signaturePages/coverPage2.png",
+    cover: "/assets/cover-bg.png",
     pattern2: "/assets/cover/pattern-2.png",
     nameBorder: "/assets/signaturePages/nameImageBorder.png",
 } as const;
@@ -259,7 +259,6 @@ function SeverityRow({
                         fontWeight: 700,
                         color: item.labelColor,
                         lineHeight: 1,
-                        marginBottom: 4,
                     }}
                 >
                     {language === "en" ? item.level : item.levelHi}
@@ -524,53 +523,16 @@ export default function FinancialKarmaOverview({
                     display: "flex",
                     flexDirection: "column",
                     padding: "28px 36px 20px",
-                    gap: 0,
-                    top: "10%",
-                    bottom: "6%"
+                    gap: 18,
+                
                 }}
                 className="font-nunito-sans"
             >
-                {/* ── HEADER ── */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 1 }}>
-                    <Pattern3 size={80} />
-                    <div style={{ textAlign: "center" }}>
-                        <p className="font-nunito-sans" style={{ fontWeight: 700, fontSize: 24, color: "var(--cover-brown)", letterSpacing: "0.06em" }}>
-                            ASTRO AARAMBH
-                        </p>
-                    </div>
-                    <Pattern3 size={80} className="rotate-180" />
-                </div>
-                <p className="font-nunito-sans" style={{ fontWeight: 600, fontSize: 18, color: "var(--cover-gold)", letterSpacing: "0.1em", textAlign: "center" }}>
-                    {language === "en" ? "RINN MUKTI REPORT" : "ऋण मुक्ति रिपोर्ट"}
-                </p>
-
-                {/* ── PAGE TITLE ── */}
-                <div style={{ textAlign: "center", marginBottom: 2 }}>
-                    <h1 className="font-nunito-sans" style={{
-                        fontWeight: 700,
-                        fontSize: 20,
-                        color: "#4a0e0e",
-                        letterSpacing: "0.04em",
-                        lineHeight: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 10,
-                    }}>
-                        <span style={{ color: "#b8860b", fontSize: 22 }}>✦</span>
-                        {language === "en" ? "FINANCIAL KARMA OVERVIEW" : "वित्तीय कर्म विश्लेषण"}
-                        <span style={{ color: "#b8860b", fontSize: 22 }}>✦</span>
-                    </h1>
-                    <p className="font-nunito-sans" style={{
-                        fontStyle: "italic",
-                        fontSize: 13,
-                        color: "#6b2c2c",
-                        marginTop: 3,
-                        letterSpacing: "0.04em",
-                    }}>
-                        {language === "en" ? "Your Current Financial Energy at a Glance" : "आपकी वर्तमान आर्थिक ऊर्जा एक नज़र में"}
-                    </p>
-                </div>
+                <HeaderCommun
+                    reportName={language === "en" ? "RINN MUKTI REPORT" : "ऋण मुक्ति रिपोर्ट"}
+                    title={language === "en" ? "FINANCIAL KARMA OVERVIEW" : "वित्तीय कर्म विश्लेषण"}
+                    description={language === "en" ? "Your Current Financial Energy at a Glance" : "आपकी वर्तमान आर्थिक ऊर्जा एक नज़र में"}
+                />
 
                 {/* ── MAIN CONTENT: Gauge + Severity ── */}
                 <div style={{ display: "flex", gap: 16, alignItems: "flex-start", flex: "0 0 auto" }}>
@@ -586,7 +548,6 @@ export default function FinancialKarmaOverview({
                             fontSize: 14,
                             color: "#4a0e0e",
                             letterSpacing: "0.1em",
-                            marginBottom: 6,
                             textAlign: "center",
                         }}>
                             {language === "en" ? "FINANCIAL DEBT SEVERITY" : "वित्तीय ऋण गंभीरता"}
@@ -600,7 +561,7 @@ export default function FinancialKarmaOverview({
                 </div>
 
                 {/* ── KEY FINDINGS HEADER ── */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "8px 0 6px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
                     <div>
                         <p className="font-nunito-sans" style={{
                             fontWeight: 700,
@@ -614,7 +575,7 @@ export default function FinancialKarmaOverview({
                 </div>
 
                 {/* ── KEY FINDINGS GRID ── */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                     <FindingCard
                         iconBg="#2e7d32"
                         icon={<TrendUpIcon />}
@@ -657,7 +618,6 @@ export default function FinancialKarmaOverview({
                 <div
                     style={{
                         position: "relative",
-                        marginTop: 2,
                         padding: "18px 24px",
                         display: "flex",
                         gap: 18,
@@ -725,10 +685,8 @@ export default function FinancialKarmaOverview({
                     alignItems: "center",
                     justifyContent: "center",
                     gap: 28,
-                    marginTop: "auto",
-                    paddingTop: 6,
                     color: "var(--cover-gray)",
-                    fontSize: 11,
+                    fontSize: 13,
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                         <Globe size={18} strokeWidth={1.8} style={{ color: "var(--cover-gold-light)" }} />

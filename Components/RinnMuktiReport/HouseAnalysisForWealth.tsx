@@ -20,6 +20,7 @@ import {
 import { CornerFlourish } from "../CoverPageDecorations";
 import { OrnamentDivider } from "../BusinessNameReport/BusinessReportCommon";
 import BusinessNameReportPageShell from "../BusinessNameReport/BusinessNameReportPageShell";
+import HeaderCommun from "./HeaderCommun";
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -48,7 +49,7 @@ const ASTRO = {
 } as const;
 
 const ASSETS = {
-  backgroundImage: "/assets/signaturePages/coverPage2.png",
+  backgroundImage: "/assets/cover-bg.png",
   penLogo: "/assets/signatureReport/logo-main.png",
   pageBadge: "/assets/signatureReport/roundCircleImage.png",
 } as const;
@@ -282,28 +283,6 @@ function InstagramIcon({ size = 14 }: { size?: number }) {
   );
 }
 
-function ReportTopBar({ pageNumber, language = "en" }: { pageNumber: string; language?: string }) {
-  return (
-    <div className="relative z-10 flex items-start justify-between gap-3 mt-24">
-      <header className="mt-5 flex flex-1 flex-col items-center pt-1 text-center">
-        <h1
-          className="font-cinzel text-[20px] font-bold leading-none tracking-[0.06em]"
-          style={{ color: ASTRO.maroon }}
-        >
-          ASTRO AARAMBH
-        </h1>
-        <div className="flex w-full max-w-[360px] items-center justify-center gap-2">
-          <p
-            className={`${cormorant.className} text-[14px] font-bold tracking-[0.05em]`}
-            style={{ color: ASTRO.gold }}
-          >
-            {language === "en" ? "RINN MUKTI REPORT" : "ऋण मुक्ति रिपोर्ट"}
-          </p>
-        </div>
-      </header>
-    </div>
-  );
-}
 
 function HouseEmblem({
   icon: Icon,
@@ -650,24 +629,13 @@ export default function HouseAnalysisForWealth({
       <PageBackground />
 
       <div className="relative z-10 flex h-full min-h-0 flex-col">
-        <ReportTopBar pageNumber={pageNumber} language={language} />
+        <HeaderCommun
+          reportName={language === "en" ? "RINN MUKTI REPORT" : "ऋण मुक्ति रिपोर्ट"}
+          title={language === "en" ? sectionTitle : sectionTitleHi}
+          description={language === "en" ? sectionSubtitle : sectionSubtitleHi}
+        />
 
-        <section className="relative z-10 shrink-0 text-center">
-          <h2
-            className="font-cinzel text-[18px] font-bold leading-tight tracking-[0.05em]"
-            style={{ color: ASTRO.maroon }}
-          >
-            {language === "en" ? sectionTitle : sectionTitleHi}
-          </h2>
-          <p
-            className={`${libreBaskerville.className} mx-auto max-w-[560px] text-[10px] italic leading-snug`}
-            style={{ color: ASTRO.navy }}
-          >
-            {language === "en" ? sectionSubtitle : sectionSubtitleHi}
-          </p>
-        </section>
-
-        <div className="relative z-10 flex flex-col gap-1">
+        <div className="relative z-10 flex flex-col gap-4">
           {sections.map((section) => (
             <HouseAnalysisCard key={section.id} section={section} language={language} />
           ))}

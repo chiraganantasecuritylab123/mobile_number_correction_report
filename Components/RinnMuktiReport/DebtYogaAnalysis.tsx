@@ -50,7 +50,7 @@ const ASTRO = {
 } as const;
 
 const ASSETS = {
-  backgroundImage: "/assets/signaturePages/coverPage2.png",
+  backgroundImage: "/assets/signaturePages/cover-bg.png",
   penLogo: "/assets/signatureReport/logo-main.png",
   pattern2: "/assets/cover/pattern-2.png",
   pageBadge: "/assets/signatureReport/roundCircleImage.png",
@@ -179,13 +179,13 @@ const defaultRows: DebtYogaRow[] = [
 function PageBackground() {
   return (
     <div className="absolute inset-0 z-0 h-full w-full">
-      <Image
+      {/* <Image
         src={ASSETS.backgroundImage}
-        alt="Report Background"
+        
         fill
         priority
         className="object-cover"
-      />
+      /> */}
     </div>
   );
 }
