@@ -234,8 +234,6 @@ function InstagramIcon({ size = 14 }: { size?: number }) {
 function ReportTopBar({ pageNumber }: { pageNumber: string }) {
   return (
     <div className="relative z-10 flex items-start justify-between gap-3">
-      <PageNumberBadge pageNumber={pageNumber} />
-
       <header className="mt-5 flex flex-1 flex-col items-center pt-1 text-center">
         <h1
           className="font-cinzel text-[28px] font-bold leading-none tracking-[0.06em]"
@@ -254,17 +252,6 @@ function ReportTopBar({ pageNumber }: { pageNumber: string }) {
           <OrnamentDivider width={72} />
         </div>
       </header>
-
-      <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center">
-        <Image
-          src={ASSETS.penLogo}
-          alt=""
-          width={48}
-          height={48}
-          className="object-contain"
-          aria-hidden
-        />
-      </div>
     </div>
   );
 }
