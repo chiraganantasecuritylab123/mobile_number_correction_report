@@ -12,7 +12,7 @@ export default function RinnMuktiReportPage() {
       reportDescription="Karmic debt and financial blockage analysis report"
     >
       <RinnMuktiCoverPage /> {/* 1 */}
-       <FinancialKarmaOverview  /> {/* 2 */}
+      <FinancialKarmaOverview /> {/* 2 */}
       <DebtYogaAnalysis pageNumber="03" /> {/* 3 */}
       <HouseAnalysisForWealth pageNumber="04" /> {/* 4 */}
       <PlanetWiseFinancialBlockages pageNumber="05" /> {/* 5 */}
