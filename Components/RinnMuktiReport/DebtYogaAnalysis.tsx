@@ -228,17 +228,6 @@ function ReportTopBar({ pageNumber, language = "en" }: { pageNumber: string; lan
           <OrnamentDivider width={72} />
         </div>
       </header>
-
-      <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center">
-        <Image
-          src={ASSETS.penLogo}
-          alt=""
-          width={48}
-          height={48}
-          className="object-contain"
-          aria-hidden
-        />
-      </div>
     </div>
   );
 }
