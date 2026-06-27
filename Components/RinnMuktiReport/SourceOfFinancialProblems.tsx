@@ -337,28 +337,28 @@ function ContactBar({
   const lightText = "#F5EDE0";
   
   return (
-    <footer className="relative z-10 mt-4 shrink-0 rounded-sm px-4 py-3" style={{ backgroundColor: ASTRO.darkBrown }}>
+    <footer className="relative z-10 mt-4 shrink-0 rounded-sm px-4 py-3" >
       <div
         className={`${libreBaskerville.className} flex flex-wrap items-center justify-center gap-x-4 gap-y-1`}
-        style={{ color: lightText }}
+
       >
         <div className="flex items-center gap-1.5">
-          <Globe size={16} strokeWidth={2} style={{ color: ASTRO.gold }} />
-          <span className="text-[12px] font-semibold">{website}</span>
+          <Globe size={18} strokeWidth={2} style={{ color: ASTRO.gold }} />
+          <span className="text-[14px] font-semibold">{website}</span>
         </div>
         <span style={{ color: ASTRO.gold, opacity: 0.7 }} aria-hidden>
           |
         </span>
         <div className="flex items-center gap-1.5">
-          <Phone size={16} strokeWidth={2} style={{ color: ASTRO.gold }} />
-          <span className="text-[12px] font-semibold">{phone}</span>
+          <Phone size={18} strokeWidth={2} style={{ color: ASTRO.gold }} />
+          <span className="text-[14px] font-semibold">{phone}</span>
         </div>
         <span style={{ color: ASTRO.gold, opacity: 0.7 }} aria-hidden>
           |
         </span>
         <div className="flex items-center gap-1.5">
-          <InstagramIcon size={16} color={ASTRO.gold} />
-          <span className="text-[12px] font-semibold">{instagram}</span>
+          <InstagramIcon size={18} color={ASTRO.gold} />
+          <span className="text-[14px] font-semibold">{instagram}</span>
         </div>
       </div>
     </footer>
