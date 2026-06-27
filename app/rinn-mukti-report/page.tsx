@@ -7,6 +7,7 @@ import FinancialKarmaOverview from "@/Components/RinnMuktiReport/FinancialKarmaO
 import CurrentDashaandTransitImpact from "@/Components/RinnMuktiReport/CurrentDashaandTransitImpact";
 import SourceOfFinancialProblems from "@/Components/RinnMuktiReport/SourceOfFinancialProblems";
 import CompleteSummary from "@/Components/RinnMuktiReport/CompleteSummary";
+import FinancialRecoveryTimeline from "@/Components/RinnMuktiReport/FinancialRecoveryTimeline";
 
 export default function RinnMuktiReportPage() {
   return (
@@ -22,6 +23,7 @@ export default function RinnMuktiReportPage() {
       <SourceOfFinancialProblems pageNumber="06" /> {/* 6 */}
       <CurrentDashaandTransitImpact pageNumber="07" /> {/* 7 */}
       <CompleteSummary pageNumber="08" /> {/* 8 */}
+      <FinancialRecoveryTimeline pageNumber="09" /> {/* 8 */}
     </ReportHomeClient>
   );
 }
