@@ -2,16 +2,10 @@
 
 import Image from "next/image";
 import { Globe, Phone } from "lucide-react";
-import { Great_Vibes } from "next/font/google";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
+import FinancialKarmaScore from "./FinancialKarmaScore";
 import HeaderCommun from "./HeaderCommun";
-
-const signatureFont = Great_Vibes({
-    subsets: ["latin"],
-    weight: "400",
-    display: "swap",
-});
 
 const ASSETS = {
     cover: "/assets/cover-bg.png",
@@ -82,81 +76,6 @@ function InstagramIcon({ size = 20 }: { size?: number }) {
     );
 }
 
-// ─── Gauge Meter ─────────────────────────────────────────────────────────
-
-function GaugeMeter({ score = 78, language = "en" }: { score?: number; language?: string }) {
-    const stars = Math.round((score / 100) * 5);
-
-    return (
-        <div className="relative w-[320px] h-[340px] mx-auto">
-            {/* Background Gauge */}
-            <Image
-                src="/assets/signaturePages/score.png"
-                alt="Financial Karma Score"
-                fill
-                className="object-contain"
-                priority
-            />
-
-            {/* Text Overlay */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                {/* Title */}
-                <div className="text-center mt-8">
-                    <p
-                        className="text-[#3b2a12] font-semibold tracking-wide leading-none font-nunito-sans"
-                        style={{
-                            fontSize: "14px",
-                        }}
-                    >
-                        {language === "en" ? "FINANCIAL" : "वित्तीय"}
-                    </p>
-                    <p
-                        className="text-[#3b2a12] font-semibold tracking-wide leading-none font-nunito-sans"
-                        style={{
-                            fontSize: "14px",
-                        }}
-                    >
-                        {language === "en" ? "KARMA SCORE" : "कर्म स्कोर"}
-                    </p>
-                </div>
-
-                {/* Score */}
-                <div className="text-center">
-                    <div
-                        className="text-[#053b1d] font-bold leading-none font-nunito-sans"
-                        style={{
-                            fontSize: "78px",
-                        }}
-                    >
-                        {score}
-                    </div>
-
-                    <div
-                        className="text-[#7a5a1b] font-semibold font-nunito-sans"
-                        style={{
-                            fontSize: "22px",
-                        }}
-                    >
-                        /100
-                    </div>
-                </div>
-
-                {/* Stars */}
-                <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                        <span
-                            key={i}
-                            className={`text-[22px] ${i < stars ? "text-[#c8960c]" : "text-[#d8c8a0]"
-                                }`}
-                        >
-                            ★
-                        </span>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-}
 
 // ─── Debt Severity Row ─────────────────────────────────────────────────────────
 
@@ -455,7 +374,7 @@ function LotusRupeeIcon({ className, size = 46 }: { className?: string; size?: n
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export default function FinancialKarmaOverview({
-    karmaScore = 50,
+    karmaScore = 78,
     language = "en",
     // English content
     overallSummary = "Your horoscope indicates a moderate financial karmic burden with strong potential for improvement through disciplined financial decisions and karmic balancing. While certain planetary influences may create recurring debt cycles or delays in wealth accumulation, supportive wealth yogas provide opportunities for long-term financial growth. By understanding these patterns and applying the recommended remedies, you can gradually reduce financial obstacles and strengthen your prosperity potential.",
@@ -538,7 +457,7 @@ export default function FinancialKarmaOverview({
                 <div style={{ display: "flex", gap: 16, alignItems: "flex-start", flex: "0 0 auto" }}>
                     {/* LEFT: Gauge */}
                     <div style={{ display: "flex", justifyContent: "center", flex: "0 0 260px" }}>
-                        <GaugeMeter language={language} />
+                        <FinancialKarmaScore value={karmaScore} language={language} />
                     </div>
 
                     {/* RIGHT: Debt Severity */}
