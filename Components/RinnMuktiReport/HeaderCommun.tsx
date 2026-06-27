@@ -112,7 +112,7 @@ function HeaderCommun({ reportName, title, description, breackWord = [] }: { rep
                 className="font-cinzel mx-auto text-[32px] font-bold l leading-tight tracking-[0.04em]"
                 style={{ color: ASTRO.navy }}
             />
-            <p className={`${libreBaskerville.className} mx-auto mt-1 max-w-[330px] text-[11px] italic leading-snug`}
+            <p className={`${libreBaskerville.className} mx-auto mt-1 max-w-[330px] text-[12px] italic leading-snug`}
                 style={{ color: ASTRO.navy }}
             >
                 {description}
