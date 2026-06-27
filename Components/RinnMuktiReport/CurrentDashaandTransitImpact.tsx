@@ -32,9 +32,6 @@ const ASTRO = {
   border:    "#C89A2B",
 } as const;
 
-const SERIF  = "Georgia, 'Times New Roman', serif";
-const CINZEL = "var(--font-cinzel), 'Cinzel', Georgia, serif";
-
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
 export type DashaRow = { label: string; labelHi: string; value: string; valueHi: string };
@@ -145,11 +142,11 @@ function JupiterSymbol({ size = 36 }: { size?: number }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function MercurySymbol({ size = 36 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 36 36" fill="none">
-      <text x="18" y="26" textAnchor="middle" fill={ASTRO.gold} fontSize="26" fontWeight="700"
-        fontFamily={SERIF}>☿</text>
+      <text x="18" y="26" textAnchor="middle" fill={ASTRO.gold} fontSize="26" fontWeight="700">☿</text>
     </svg>
   );
 }
@@ -223,7 +220,7 @@ function NumberBadge({ num }: { num: string }) {
       display: "flex", alignItems: "center", justifyContent: "center",
       flexShrink: 0,
     }}>
-      <span style={{ fontFamily: CINZEL, fontWeight: 700, fontSize: 16, color: "#fff" }}>
+      <span style={{ fontWeight: 700, fontSize: 16, color: "#fff" }}>
         {num}
       </span>
     </div>
@@ -249,7 +246,7 @@ function DashaCardUI({ card, language = "en" }: { card: DashaCard; language?: st
       </div>
 
       <p style={{
-        fontFamily: CINZEL, fontWeight: 700, fontSize: 12,
+        fontWeight: 700, fontSize: 12,
         color: ASTRO.maroon, letterSpacing: "0.08em",
         textAlign: "center", marginBottom: 6, padding: "0 8px",
       }}>
@@ -263,10 +260,10 @@ function DashaCardUI({ card, language = "en" }: { card: DashaCard; language?: st
               display: "flex", justifyContent: "space-between", alignItems: "flex-start",
               padding: "5px 0",
             }}>
-              <span style={{ fontFamily: SERIF, fontSize: 12, color: ASTRO.body }}>
+              <span style={{ fontSize: 12, color: ASTRO.body }}>
                 {language === "en" ? row.label : row.labelHi}
               </span>
-              <span style={{ fontFamily: SERIF, fontSize: 12, color: ASTRO.body, fontWeight: 700, textAlign: "right", maxWidth: "55%" }}>
+              <span style={{ fontSize: 12, color: ASTRO.body, fontWeight: 700, textAlign: "right", maxWidth: "55%" }}>
                 {language === "en" ? row.value : row.valueHi}
               </span>
             </div>
@@ -276,10 +273,10 @@ function DashaCardUI({ card, language = "en" }: { card: DashaCard; language?: st
 
         {card.remainingLabel && (
           <div style={{ marginTop: 6 }}>
-            <p style={{ fontFamily: SERIF, fontSize: 11, color: ASTRO.body, marginBottom: 1 }}>
+            <p style={{ fontSize: 11, color: ASTRO.body, marginBottom: 1 }}>
               {language === "en" ? card.remainingLabel : card.remainingLabelHi}
             </p>
-            <p style={{ fontFamily: SERIF, fontSize: 11, color: ASTRO.body, fontWeight: 700, textAlign: "center" }}>
+            <p style={{ fontSize: 11, color: ASTRO.body, fontWeight: 700, textAlign: "center" }}>
               {language === "en" ? card.remainingValue : card.remainingValueHi}
             </p>
           </div>
@@ -291,7 +288,7 @@ function DashaCardUI({ card, language = "en" }: { card: DashaCard; language?: st
 
 // ─── Analysis Item Row ─────────────────────────────────────────────────────────
 
-function AnalysisItem({ item, language = "en" }: { item: AnalysisItem; language?: string }) {
+function AnalysisItemRow({ item, language = "en" }: { item: AnalysisItem; language?: string }) {
   return (
     <div style={{
       display: "flex", alignItems: "flex-start", gap: 14,
@@ -302,13 +299,13 @@ function AnalysisItem({ item, language = "en" }: { item: AnalysisItem; language?
       <NumberBadge num={item.number} />
       <div style={{ flex: 1 }}>
         <p style={{
-          fontFamily: CINZEL, fontWeight: 700, fontSize: 14,
+          fontWeight: 700, fontSize: 14,
           color: ASTRO.maroon, letterSpacing: "0.04em", marginBottom: 3,
         }}>
           {language === "en" ? item.title : item.titleHi}
         </p>
         <p style={{
-          fontFamily: SERIF, fontSize: 12,
+          fontSize: 12,
           color: ASTRO.body, lineHeight: 1.6, margin: 0,
         }}>
           {language === "en" ? item.description : item.descriptionHi}
@@ -351,7 +348,7 @@ const defaultMahadasha: DashaCard = {
 const defaultAntardasha: DashaCard = {
   title: "CURRENT ANTARDASHA",
   titleHi: "वर्तमान अंतरदशा",
-  iconSymbol: <MercurySymbol />,
+  iconSymbol: <MercurySymbol size={36} />,
   rows: [
     { label: "Planet", labelHi: "ग्रह", value: "Mars", valueHi: "मंगल" },
     { label: "Start Date", labelHi: "प्रारंभित तिथि", value: "10 Aug 2023", valueHi: "10 अगस्त 2023" },
@@ -425,16 +422,16 @@ export default function CurrentDashaAndTransitImpact({
     >
       <PageOrnamentalFrame />
 
-      <div style={{ position: "relative", display: "flex", flexDirection: "column", height: "100%", gap: 0 }}>
+      <div className="font-nunito-sans" style={{ position: "relative", display: "flex", flexDirection: "column", height: "100%", gap: 0 }}>
 
         {/* ── TOP BAR ── */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 4 }}>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 4 }}>
-            <p style={{ fontFamily: CINZEL, fontWeight: 700, fontSize: 32, color: ASTRO.maroon, letterSpacing: "0.06em", lineHeight: 1.1, margin: "2px 0 0" }}>
+            <p style={{ fontWeight: 700, fontSize: 32, color: ASTRO.maroon, letterSpacing: "0.06em", lineHeight: 1.1, margin: "2px 0 0" }}>
               ASTRO AARAMBH
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 2 }}>
-              <p style={{ fontFamily: CINZEL, fontWeight: 600, fontSize: 22, color: ASTRO.gold, letterSpacing: "0.1em" }}>
+              <p style={{ fontWeight: 600, fontSize: 22, color: ASTRO.gold, letterSpacing: "0.1em" }}>
                 {language === "en" ? "RINN MUKTI REPORT" : "ऋण मुक्ति रिपोर्ट"}
               </p>
             </div>
@@ -449,7 +446,7 @@ export default function CurrentDashaAndTransitImpact({
         {/* ── PAGE TITLE ── */}
         <div style={{ textAlign: "center", marginBottom: 6 }}>
           <h1 style={{
-            fontFamily: CINZEL, fontWeight: 700,
+            fontWeight: 700,
             fontSize: 36, color: ASTRO.maroon,
             letterSpacing: "0.02em", lineHeight: 1.15, margin: 0,
           }}>
@@ -461,7 +458,7 @@ export default function CurrentDashaAndTransitImpact({
             <OrnamentDivider width={220} />
           </div>
           <p style={{
-            fontFamily: SERIF, fontStyle: "italic", fontSize: 12,
+            fontStyle: "italic", fontSize: 12,
             color: ASTRO.body, lineHeight: 1.65, whiteSpace: "pre-line",
           }}>
             {language === "en" ? subtitle : subtitleHi}
@@ -483,7 +480,7 @@ export default function CurrentDashaAndTransitImpact({
             padding: "6px 36px",
             border: `1.5px solid ${ASTRO.gold}`,
           }}>
-            <p style={{ fontFamily: CINZEL, fontWeight: 700, fontSize: 15, color: "#fff", letterSpacing: "0.14em", margin: 0 }}>
+            <p style={{ fontWeight: 700, fontSize: 15, color: "#fff", letterSpacing: "0.14em", margin: 0 }}>
               {language === "en" ? "ANALYSIS" : "विश्लेषण"}
             </p>
           </div>
@@ -497,14 +494,14 @@ export default function CurrentDashaAndTransitImpact({
           backgroundColor: "rgba(253,246,232,0.5)",
         }}>
           {analysisItems.map((item, i) => (
-            <AnalysisItem key={i} item={item} language={language} />
+            <AnalysisItemRow key={i} item={item} language={language} />
           ))}
         </div>
 
         {/* ── FOOTER ── */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "center", gap: 20,
-          color: ASTRO.body, fontFamily: SERIF, fontSize: 16, marginTop: 8,
+          color: ASTRO.body, fontSize: 16, marginTop: 8,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
             <Globe size={16} strokeWidth={1.8} style={{ color: ASTRO.gold }} />
