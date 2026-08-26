@@ -12,10 +12,12 @@ const signatureFont = Great_Vibes({
 });
 
 const ASSETS = {
-  cover: "/assets/signaturePages/coverPage1.png",
+  cover: "/assets/cover-bg.png",
+  logo: "/assets/ganesha-logo.png",
+  hand: "/assets/palm-reading-report/hand.png",
   pattern2: "/assets/cover/pattern-2.png",
   nameBorder: "/assets/signaturePages/nameImageBorder.png",
-} as const;
+} as const; 
 
 export type PalmReadingCoverPageProps = {
   clientName?: string;
@@ -48,6 +50,15 @@ function PalmReadingPageFrame({
         className="pointer-events-none select-none object-fill"
         priority={pageNumber === "01"}
         aria-hidden
+      />
+      <Image
+        src={ASSETS.logo}
+        alt="Astro Aarambh"
+        width={100} 
+        height={100}
+        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
+        style={{ top: 42 }}
+        priority
       />
       <div className="relative z-10 h-full">{children}</div>
     </article>
@@ -137,9 +148,9 @@ export default function PalmReadingCoverPage({
     <PalmReadingPageFrame pageLabel="palm-reading-cover" pageNumber="01">
       <div
         className="absolute inset-x-0 flex flex-col items-center px-14 pt-0 text-center font-cinzel"
-        style={{ top: "26%", bottom: "6%" }}
+        style={{ top: "13%", bottom: "6%" }}
       >
-        <div className="mt-8 flex items-center gap-2">
+        <div className="mt-8 flex items-center gap-2 pb-4">
           <Pattern3 size={100} />
           <p
             className="text-[38px] font-bold leading-none tracking-[0.04em]"
@@ -151,7 +162,7 @@ export default function PalmReadingCoverPage({
         </div>
 
         <h1
-          className="mt-1 text-[32px] font-bold leading-tight tracking-wide"
+          className="mt-1 text-[32px] font-bold leading-tight tracking-wide pb-4"
           style={{ color: "var(--cover-gold)" }}
         >
           PREMIUM PALM READING REPORT
@@ -221,6 +232,7 @@ export default function PalmReadingCoverPage({
           <OrnamentDivider width={260} />
         </div>
 
+
         <div className="mt-3 flex items-center justify-center gap-2">
           <OrnamentDivider width={160} />
           <p
@@ -262,6 +274,14 @@ export default function PalmReadingCoverPage({
             <span>astroaarambhofficial</span>
           </div>
         </div>
+        <Image
+            src={ASSETS.hand}
+            alt="Astro Aarambh"
+            width={200}
+            height={100}
+            className="absolute left-3 -bottom-10 z-20  object-contain"
+            priority
+          />
       </div>
     </PalmReadingPageFrame>
   );
