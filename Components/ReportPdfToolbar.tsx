@@ -26,10 +26,8 @@ export default function ReportPdfToolbar({
   useEffect(() => {
     void import("react-pdf").then(async (module) => {
       const { pdfjs } = module;
-      pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-        "pdfjs-dist/build/pdf.worker.min.mjs",
-        import.meta.url,
-      ).toString();
+      // Must match react-pdf's pdfjs API version (not a newer top-level pdfjs-dist).
+      pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
       setPdfPreview(module);
     });
   }, []);
