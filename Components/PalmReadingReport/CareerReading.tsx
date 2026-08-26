@@ -1,134 +1,89 @@
 import Image from "next/image";
-import {
-  BarChart3,
-  Briefcase,
-  Code,
-  Cog,
-  Compass,
-  Flag,
-  Lightbulb,
-  MessageCircle,
-  MessagesSquare,
-  Mountain,
-  Rocket,
-  Star,
-  Target,
-  Users,
-} from "lucide-react";
 import type { ReactNode } from "react";
-import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
+import PalmReadingReportPageShell, {
+  REPORT_COLORS,
+} from "./PalmReadingReportPageShell";
 
-const ASSETS = {
-  cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/head-line.png",
-  pattern2: "/assets/cover/pattern-2.png",
-  sunrise: "/assets/number-activations/sun-rising.png",
-} as const;
+const COLORS = REPORT_COLORS;
 
-const COLORS = {
-  maroon: "#5c1818",
-  maroonDeep: "#4a1010",
-  gold: "#b8860b",
-  goldLight: "#d4af37",
-  cream: "#f8edd8",
-  creamBox: "rgba(248, 232, 204, 0.72)",
-  body: "#3c2a21",
-  slate: "#4a4540",
+const HEADER = {
+  maroon: "#4a0e0e",
+  maroonDeep: "#3a0a0a",
+  gold: "#A96505",
+  goldBright: "#c9a227",
+  body: "#2c1810",
   red: "#c41e3a",
 } as const;
 
-const WORK_STYLES = [
+const ASSETS = {
+  logo: "/assets/ganesha-logo.png",
+  pattern2: "/assets/cover/pattern-2.png",
+  introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
+  palm: "/assets/palm-reading-report/career-reading/career-palm-clear.png",
+  careerPath: "/assets/palm-reading-report/career-reading/career-path-clear.png",
+  climbSuccess: "/assets/palm-reading-report/career-reading/climb-success-clear.png",
+  lightbulb: "/assets/palm-reading-report/icons/lightbulb-gold.png",
+  icons: {
+    management: "/assets/palm-reading-report/career-reading/icon-management-clear.png",
+    business: "/assets/palm-reading-report/career-reading/icon-business-clear.png",
+    consulting: "/assets/palm-reading-report/career-reading/icon-consulting-clear.png",
+    strategy: "/assets/palm-reading-report/career-reading/icon-strategy-clear.png",
+    technology: "/assets/palm-reading-report/career-reading/icon-technology-clear.png",
+    rocket: "/assets/palm-reading-report/career-reading/icon-rocket-clear.png",
+    communication: "/assets/palm-reading-report/career-reading/icon-communication-clear.png",
+    star: "/assets/palm-reading-report/career-reading/icon-star-clear.png",
+  },
+} as const;
+
+type WorkStyle = {
+  title: string;
+  text: string;
+  iconSrc: string;
+};
+
+const WORK_STYLES: WorkStyle[] = [
   {
     title: "MANAGEMENT",
     text: "टीम को दिशा देना और decisions लेना",
-    icon: Users,
+    iconSrc: ASSETS.icons.management,
   },
   {
     title: "TECHNOLOGY",
     text: "Analytical thinking और systems के साथ काम",
-    icon: Code,
+    iconSrc: ASSETS.icons.technology,
   },
   {
     title: "BUSINESS",
     text: "Practical outcomes और growth पर focus",
-    icon: Briefcase,
+    iconSrc: ASSETS.icons.business,
   },
   {
     title: "CONSULTING",
     text: "समस्या समझकर समाधान देना",
-    icon: MessagesSquare,
+    iconSrc: ASSETS.icons.consulting,
   },
   {
     title: "CREATIVE PROBLEM SOLVING",
     text: "नए तरीके से सोचकर solutions निकालना",
-    icon: Lightbulb,
+    iconSrc: ASSETS.lightbulb,
   },
   {
     title: "ENTREPRENEURSHIP",
     text: "अपनी vision को independently आगे बढ़ाना",
-    icon: Rocket,
+    iconSrc: ASSETS.icons.rocket,
   },
   {
     title: "STRATEGY",
     text: "Long-term planning और direction",
-    icon: Compass,
+    iconSrc: ASSETS.icons.strategy,
   },
   {
     title: "COMMUNICATION BASED ROLES",
     text: "Ideas को clearly express करना",
-    icon: MessageCircle,
+    iconSrc: ASSETS.icons.communication,
   },
-] as const;
-
-function PalmReadingPageFrame({
-  children,
-  pageLabel,
-  pageNumber,
-}: {
-  children?: ReactNode;
-  pageLabel: string;
-  pageNumber: string;
-}) {
-  return (
-    <article
-      data-report-page
-      data-page-label={pageLabel}
-      data-report-page-number={pageNumber}
-      className="relative mx-auto overflow-hidden shadow-xl"
-      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
-    >
-      <Image
-        src={ASSETS.cover}
-        alt=""
-        fill
-        sizes={`${PAGE_WIDTH}px`}
-        className="pointer-events-none select-none object-fill"
-        aria-hidden
-      />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
-      <div className="relative z-10 h-full">{children}</div>
-      <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
-    </article>
-  );
-}
+];
 
 function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
@@ -145,333 +100,347 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
   );
 }
 
+function IntroFrame({
+  children,
+  className = "",
+  minHeight = 58,
+}: {
+  children: ReactNode;
+  className?: string;
+  minHeight?: number;
+}) {
+  return (
+    <div
+      className={`relative flex w-full shrink-0 items-center ${className}`}
+      style={{
+        minHeight,
+        boxSizing: "border-box",
+        borderStyle: "solid",
+        borderColor: "transparent",
+        borderTopWidth: 14,
+        borderBottomWidth: 14,
+        borderLeftWidth: 20,
+        borderRightWidth: 20,
+        borderImageSource: `url(${ASSETS.introFrame})`,
+        borderImageSlice: "55 70 55 70",
+        borderImageWidth: "14px 20px",
+        borderImageRepeat: "stretch",
+      }}
+    >
+      <div className="relative z-10 flex w-full items-center gap-2 px-1 py-0.5">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
+      />
+    </div>
+  );
+}
+
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
+    <div className="relative mx-auto mt-2 flex w-full max-w-[640px] items-center justify-center">
+      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
       <div
         className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
           minWidth: 360,
         }}
       >
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <Briefcase size={16} strokeWidth={2} style={{ color: COLORS.maroonDeep }} />
+          <div className="relative h-[22px] w-[22px]">
+            <Image
+              src={ASSETS.icons.business}
+              alt=""
+              fill
+              sizes="22px"
+              className="object-contain"
+              unoptimized
+            />
+          </div>
         </div>
         <p className="text-[13px] font-bold tracking-[0.06em] text-[#f6e6c4]">
           10. CAREER READING
         </p>
       </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
+      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
     </div>
   );
 }
 
 function PointedBanner({ title }: { title: string }) {
   return (
-    <div className="flex justify-center">
+    <div className="-mb-6 flex justify-center">
       <div
         className="px-7 py-1.5 text-center"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
           clipPath:
             "polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%)",
-          minWidth: 470,
+          minWidth: 480,
         }}
       >
-        <p className="text-[10.5px] font-bold tracking-[0.07em] text-[#f6e6c4]">
-          {title}
-        </p>
+        <p className="text-[11px] font-bold tracking-[0.07em] text-[#f6e6c4]">{title}</p>
       </div>
     </div>
   );
 }
 
-function IconCircle({ children, size = 36 }: { children: ReactNode; size?: number }) {
+function WorkStyleCard({ item }: { item: WorkStyle }) {
   return (
-    <div
-      className="flex shrink-0 items-center justify-center rounded-full"
-      style={{
-        width: size,
-        height: size,
-        border: "1.3px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
-      }}
-    >
-      {children}
+    <div className="flex h-full min-h-0 flex-col items-center justify-center px-2 py-2.5 text-center">
+      <PngIcon src={item.iconSrc} size={48} />
+      <p
+        className="mt-2 text-[12.5px] font-bold leading-[1.2] tracking-[0.04em]"
+        style={{ color: HEADER.maroon }}
+      >
+        {item.title}
+      </p>
+      <p
+        className="mt-1.5 text-[13px] leading-[1.35] font-nunito-sans"
+        style={{ color: HEADER.body }}
+      >
+        {item.text}
+      </p>
     </div>
   );
 }
 
+export type CareerReadingProps = {
+  pageNumber?: string;
+  footerQuote?: string;
+};
+
 export default function CareerReading({
   pageNumber = "11",
-}: {
-  pageNumber?: string;
-}) {
+  footerQuote = "सही दिशा में किया गया काम, आपकी क्षमता को पहचान देता है और आपको आपकी मंज़िल तक पहुँचाता है।",
+}: CareerReadingProps) {
   return (
-    <PalmReadingPageFrame pageLabel="career-reading" pageNumber={pageNumber}>
-      <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 38 }}
-      >
-        <header className="flex flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
+    <PalmReadingReportPageShell
+      padding="12px 32px 18px"
+      pageNumber={pageNumber}
+      pageLabel="career-reading"
+    >
+      <div className="relative flex h-full min-h-0 flex-col font-cinzel">
+        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
+          <Image
+            src={ASSETS.logo}
+            alt="Astro Aarambh"
+            width={58}
+            height={58}
+            className="mb-0.5"
+            priority
+          />
+          <h1
+            className="text-[22px] font-bold leading-none tracking-[0.08em]"
+            style={{ color: HEADER.maroon }}
           >
             ASTRO AARAMBH
+          </h1>
+          <p
+            className="mt-0.5 text-[11px] font-bold tracking-[0.06em]"
+            style={{ color: HEADER.gold }}
+          >
+            PREMIUM PALM READING REPORT
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
+          <div className="mt-0.5">
+            <OrnamentDivider width={200} />
           </div>
         </header>
 
         <SectionBar />
 
-        <section className="mt-3 grid grid-cols-[1.08fr_0.92fr] items-center gap-3">
+        <section
+          className="mt-2.5 grid shrink-0 grid-cols-[1.08fr_0.92fr] items-center gap-3 rounded-[14px] px-3 py-2.5"
+          style={{
+            border: `1.4px solid rgba(169,101,5,0.55)`,
+            background: "rgba(248,232,204,0.35)",
+          }}
+        >
           <div className="flex items-start gap-2.5">
-            <div
-              className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px]"
-              style={{
-                border: "1.3px solid rgba(184,134,11,0.65)",
-                background: COLORS.cream,
-              }}
-            >
-              <Briefcase size={18} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-            </div>
-            <div className="space-y-1.5 font-nunito-sans">
-              <p className="text-[12.5px] leading-[1.5]" style={{ color: COLORS.body }}>
+            <PngIcon src={ASSETS.icons.business} size={48} alt="Career" />
+            <div className="min-w-0 space-y-1.5 font-nunito-sans">
+              <p className="text-[13px] leading-[1.45]" style={{ color: HEADER.body }}>
                 Career reading में <span className="font-bold">Head Line</span> और{" "}
                 <span className="font-bold">Fate Line</span> का combination सबसे interesting
                 हिस्सा है।
               </p>
-              <p className="text-[12.5px] leading-[1.5]" style={{ color: COLORS.body }}>
+              <p className="text-[13px] leading-[1.45]" style={{ color: HEADER.body }}>
                 आपकी हथेली बताती है कि आप repetitive work से ज़्यादा{" "}
                 <span className="font-bold">thinking, responsibility</span> और decision-making
                 वाले roles में बेहतर perform करते हैं।
               </p>
-              <p className="text-[12.5px] leading-[1.5]" style={{ color: COLORS.body }}>
+              <p className="text-[13px] leading-[1.45]" style={{ color: HEADER.body }}>
                 आप ऐसे environments में grow करते हैं जहाँ सीखने, बढ़ने और अपनी abilities का
                 उपयोग करने का मौका लगातार मिलता रहे।
               </p>
             </div>
           </div>
 
-          <div
-            className="relative h-[188px] overflow-hidden rounded-[16px]"
-            style={{
-              border: "1.4px solid rgba(184,134,11,0.55)",
-              background:
-                "radial-gradient(circle at 48% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
-            }}
-          >
+          <div className="relative h-[200px] overflow-hidden">
             <Image
-              src={ASSETS.hand}
-              alt="Head line and fate line"
+              src={ASSETS.palm}
+              alt="Head line and fate line on palm"
               fill
               sizes="300px"
-              className="object-contain mix-blend-screen"
-              style={{ transform: "scale(1.06) translateY(8px)" }}
-            />
-            <svg
-              className="pointer-events-none absolute inset-0 h-full w-full"
-              viewBox="0 0 320 188"
-              aria-hidden
-            >
-              <path
-                d="M88 92 C148 102, 198 114, 248 128"
-                fill="none"
-                stroke={COLORS.red}
-                strokeWidth="3.2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M162 48 L162 168"
-                fill="none"
-                stroke={COLORS.gold}
-                strokeWidth="2"
-                strokeDasharray="5 4"
-                strokeLinecap="round"
-              />
-            </svg>
-            <Cog
-              size={14}
-              className="absolute left-3 top-3"
-              style={{ color: COLORS.gold }}
-            />
-            <BarChart3
-              size={14}
-              className="absolute right-3 top-3"
-              style={{ color: COLORS.gold }}
-            />
-            <Target
-              size={14}
-              className="absolute bottom-3 right-3"
-              style={{ color: COLORS.gold }}
+              className="object-contain object-center"
+              priority
+              unoptimized
             />
             <div
-              className="absolute left-2 top-8 max-w-[118px] rounded-[8px] px-1.5 py-1"
+              className="absolute left-2 top-3 max-w-[124px] rounded-[8px] px-1.5 py-1"
               style={{
                 background: "rgba(255,248,232,0.92)",
-                border: "1px solid rgba(184,134,11,0.4)",
+                border: `1px solid rgba(169,101,5,0.4)`,
               }}
             >
-              <p className="text-[8.5px] font-bold leading-tight" style={{ color: COLORS.red }}>
+              <p className="text-[9px] font-bold leading-tight" style={{ color: HEADER.red }}>
                 Head Line
               </p>
-              <p className="text-[8px] leading-tight font-nunito-sans" style={{ color: COLORS.slate }}>
+              <p
+                className="text-[8.5px] leading-tight font-nunito-sans"
+                style={{ color: HEADER.body }}
+              >
                 Thinking, Intelligence &amp; Decision Style
               </p>
             </div>
             <div
-              className="absolute bottom-8 left-2 max-w-[118px] rounded-[8px] px-1.5 py-1"
+              className="absolute bottom-3 left-2 max-w-[124px] rounded-[8px] px-1.5 py-1"
               style={{
                 background: "rgba(255,248,232,0.92)",
-                border: "1px solid rgba(184,134,11,0.4)",
+                border: `1px solid rgba(169,101,5,0.4)`,
               }}
             >
-              <p className="text-[8.5px] font-bold leading-tight" style={{ color: COLORS.gold }}>
+              <p className="text-[9px] font-bold leading-tight" style={{ color: HEADER.gold }}>
                 Fate Line
               </p>
-              <p className="text-[8px] leading-tight font-nunito-sans" style={{ color: COLORS.slate }}>
+              <p
+                className="text-[8.5px] leading-tight font-nunito-sans"
+                style={{ color: HEADER.body }}
+              >
                 Career Path, Direction &amp; Growth
               </p>
             </div>
           </div>
         </section>
 
-        <section
-          className="mt-2.5 flex items-center gap-2.5 rounded-[12px] px-3 py-2"
-          style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.4)",
-          }}
-        >
-          <IconCircle size={32}>
-            <Star size={14} fill={COLORS.goldLight} stroke={COLORS.gold} />
-          </IconCircle>
-          <p className="flex-1 text-[11.5px] leading-[1.4] font-nunito-sans" style={{ color: COLORS.body }}>
+        <IntroFrame className="mt-2" minHeight={64}>
+          <PngIcon src={ASSETS.icons.star} size={36} />
+          <p
+            className="min-w-0 flex-1 text-center text-[12.5px] leading-[1.4] font-nunito-sans"
+            style={{ color: HEADER.body }}
+          >
             ये <span className="font-bold">work-style tendencies</span> हैं — traditional
             interpretation के आधार पर। Fixed profession predictions नहीं।
           </p>
-          <Mountain size={22} strokeWidth={1.6} style={{ color: COLORS.gold }} />
-        </section>
+          <div className="relative h-[56px] w-[120px] shrink-0">
+            <Image
+              src={ASSETS.careerPath}
+              alt=""
+              fill
+              sizes="120px"
+              className="object-contain object-center"
+              unoptimized
+            />
+          </div>
+        </IntroFrame>
 
-        <div className="mt-2.5">
+        <div className="mt-2.5 shrink-0">
           <PointedBanner title="SUITABLE WORK ENVIRONMENT / WORK STYLE TENDENCIES" />
         </div>
 
         <section
-          className="mt-2 grid grid-cols-4 gap-1.5 rounded-[14px] p-2"
+          className="mt-2 grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-2 rounded-[14px] px-3 py-2.5"
           style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.4)",
+            background: "rgba(248,232,204,0.45)",
+            border: `1px solid rgba(169,101,5,0.4)`,
           }}
         >
-          {WORK_STYLES.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                className="flex flex-col items-center px-1.5 py-2 text-center"
-              >
-                <IconCircle size={34}>
-                  <Icon size={15} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                </IconCircle>
-                <p
-                  className="mt-1.5 text-[9px] font-bold leading-tight tracking-[0.04em]"
-                  style={{ color: COLORS.maroon }}
-                >
-                  {item.title}
-                </p>
-                <p
-                  className="mt-0.5 text-[10px] leading-[1.3] font-nunito-sans"
-                  style={{ color: COLORS.body }}
-                >
-                  {item.text}
-                </p>
-              </div>
-            );
-          })}
+          {WORK_STYLES.map((item) => (
+            <WorkStyleCard key={item.title} item={item} />
+          ))}
         </section>
 
-        <section className="mt-2.5 flex items-center gap-3">
-          <div
-            className="flex flex-1 items-start gap-2.5 rounded-[12px] px-3 py-2.5"
-            style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.5)",
-            }}
-          >
-            <IconCircle size={36}>
-              <Target size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-            </IconCircle>
-            <div>
-              <p
-                className="text-[11px] font-bold tracking-[0.08em]"
-                style={{ color: COLORS.maroon }}
-              >
-                IMPORTANT ADVICE
-              </p>
-              <p
-                className="mt-0.5 text-[11.5px] leading-[1.4] font-nunito-sans"
-                style={{ color: COLORS.body }}
-              >
-                ऐसे कार्य चुनें जहाँ सीखने, बढ़ने, निर्णय लेने और अपनी क्षमताओं का उपयोग करने
-                का अवसर लगातार मिलता रहे।
-              </p>
-            </div>
-          </div>
-          <div
-            className="relative h-[72px] w-[96px] shrink-0 overflow-hidden rounded-[10px]"
-            style={{
-              border: "1px solid rgba(184,134,11,0.45)",
-              background: "rgba(255,248,232,0.9)",
-            }}
-          >
-            <Image
-              src={ASSETS.sunrise}
-              alt=""
-              fill
-              sizes="96px"
-              className="object-contain p-1 opacity-80"
-            />
-            <div className="absolute inset-0 flex items-end justify-center gap-1 pb-1.5">
-              <Mountain size={16} style={{ color: COLORS.maroon }} />
-              <Flag size={14} style={{ color: COLORS.gold }} />
-            </div>
-          </div>
-        </section>
-
-        <footer className="mt-auto flex flex-col items-center pt-2">
-          <OrnamentDivider width={200} />
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <CoverLotus size={24} />
-            <blockquote
-              className="max-w-[500px] text-center text-[12px] italic leading-relaxed"
-              style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
+        <IntroFrame className="mt-2.5" minHeight={78}>
+          <PngIcon src={ASSETS.icons.business} size={40} />
+          <div className="min-w-0 flex-1">
+            <p
+              className="text-center text-[12px] font-bold tracking-[0.08em]"
+              style={{ color: HEADER.maroon }}
             >
-              &ldquo;सही दिशा में किया गया काम, आपकी क्षमता को पहचान देता है और आपको आपकी
-              मंज़िल तक पहुँचाता है।&rdquo;
-            </blockquote>
-            <CoverLotus size={24} />
+              IMPORTANT ADVICE
+            </p>
+            <p
+              className="mt-1 text-center text-[13px] leading-[1.4] font-nunito-sans"
+              style={{ color: HEADER.body }}
+            >
+              ऐसे कार्य चुनें जहाँ सीखने, बढ़ने, निर्णय लेने और अपनी क्षमताओं का उपयोग करने
+              का अवसर लगातार मिलता रहे।
+            </p>
+          </div>
+          <div className="relative h-[64px] w-[110px] shrink-0">
+            <Image
+              src={ASSETS.climbSuccess}
+              alt="Career growth path"
+              fill
+              sizes="110px"
+              className="object-contain object-center"
+              unoptimized
+            />
+          </div>
+        </IntroFrame>
+
+        <footer className="mt-auto flex shrink-0 flex-col items-center pt-2">
+          <div className="flex w-full items-center justify-center gap-2">
+            <CoverLotus size={22} />
+            <p
+              className="max-w-[520px] text-center text-[12px] leading-[1.4] font-nunito-sans"
+              style={{ color: HEADER.maroon }}
+            >
+              “{footerQuote}”
+            </p>
+            <CoverLotus size={22} />
+          </div>
+
+          <div className="mt-1.5 flex w-full items-center justify-end gap-2 pr-1">
+            <Pattern3 size={28} />
+            <p
+              className="text-[11px] font-bold tracking-[0.14em]"
+              style={{ color: COLORS.brown }}
+            >
+              PAGE {pageNumber}
+            </p>
+            <Pattern3 size={28} className="rotate-180" />
           </div>
         </footer>
       </div>
-    </PalmReadingPageFrame>
+    </PalmReadingReportPageShell>
   );
 }

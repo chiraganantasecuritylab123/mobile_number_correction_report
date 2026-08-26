@@ -27,7 +27,6 @@ const ASSETS = {
   palmDiagram: "/assets/palm-reading-report/life-line/life-line-palm-clear.png",
   palmInset: "/assets/palm-reading-report/life-line/life-branch-inset-clear.png",
   introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
-  overviewFrame: "/assets/palm-reading-report/life-line/overview-frame-clear.png",
   indicatesFrame: "/assets/palm-reading-report/marriage/pattern-frame-v3-clear.png",
   icons: {
     runner: "/assets/palm-reading-report/life-line/icon-runner-clear.png",
@@ -308,58 +307,26 @@ function QuoteFrame({ children }: { children: ReactNode }) {
   );
 }
 
-function LifePalmDiagram() {
-  return (
-    <div className="relative mx-auto h-full min-h-[210px] w-full max-w-[210px]">
-      <Image
-        src={ASSETS.palmDiagram}
-        alt="Life line on palm"
-        fill
-        sizes="210px"
-        className="object-contain object-center"
-        priority
-        unoptimized
-      />
-      <span className="absolute right-[18%] top-[8%]">
-        <GoldDiamond size={8} />
-      </span>
-      <span className="absolute right-[8%] top-[22%]">
-        <GoldDiamond size={7} />
-      </span>
-      <span className="absolute left-[12%] top-[18%]">
-        <GoldDiamond size={6} />
-      </span>
-    </div>
-  );
-}
-
 function FramedCard({
   children,
   className = "",
-  minHeight = 380,
-  sizes = "420px",
-  contentClassName = "px-4 pt-8 pb-6",
+  minHeight = 0,
+  contentClassName = "px-4 py-3.5",
 }: {
   children: ReactNode;
   className?: string;
   minHeight?: number;
-  sizes?: string;
   contentClassName?: string;
 }) {
   return (
     <div
-      className={`relative flex h-full min-h-0 min-w-0 flex-col ${className}`}
-      style={{ minHeight }}
+      className={`relative flex h-full min-h-0 min-w-0 flex-col rounded-[14px] ${className}`}
+      style={{
+        minHeight,
+        border: `1.5px solid rgba(93,46,23,0.55)`,
+        boxShadow: `inset 0 0 0 1.2px rgba(201,162,39,0.32)`,
+      }}
     >
-      <Image
-        src={ASSETS.overviewFrame}
-        alt=""
-        fill
-        sizes={sizes}
-        className="pointer-events-none z-0 select-none object-fill"
-        aria-hidden
-        unoptimized
-      />
       <div className={`relative z-10 flex h-full min-h-0 flex-col ${contentClassName}`}>
         {children}
       </div>
@@ -377,34 +344,35 @@ function OverviewPalmFrame({
   observationText: string;
 }) {
   return (
-    <FramedCard className="min-w-0 flex-1" minHeight={380} sizes="500px">
-      <div className="grid min-h-0 flex-1 grid-cols-[1.05fr_1fr] items-stretch gap-2">
-        <div className="flex min-h-0 flex-col">
-          <div className="mb-2.5 flex w-full shrink-0 items-center justify-center gap-1.5">
-            <GoldDiamond size={9} />
-            <p
-              className="shrink-0 whitespace-nowrap text-center text-[13px] font-bold tracking-[0.06em] font-cinzel"
-              style={{ color: HEADER.maroon }}
-            >
-              {title}
-            </p>
-            <GoldDiamond size={9} />
-          </div>
+    <FramedCard className="min-w-0 flex-[1.75]" contentClassName="px-4 pb-3.5 pt-3">
+      <div className="mb-2.5 flex w-full shrink-0 items-center justify-center gap-2">
+        <GoldDiamond size={10} />
+        <p
+          className="min-w-0 text-center text-[15px] font-bold tracking-[0.06em] font-cinzel"
+          style={{ color: HEADER.maroon }}
+        >
+          {title}
+        </p>
+        <GoldDiamond size={10} />
+      </div>
 
-          <div className="flex min-h-0 flex-1 flex-col justify-center">
+      {/* Relative canvas so palm → inset connectors span the whole frame */}
+      <div className="relative flex min-h-0 flex-1 flex-col">
+        <div className="grid min-h-0 flex-1 grid-cols-[1.12fr_0.98fr] items-stretch gap-3">
+          <div className="flex min-h-0 flex-col justify-center gap-0 py-1">
             {points.map((point, index) => (
               <div key={point.text} className="shrink-0">
                 {index > 0 ? (
                   <div
                     className="my-2.5 border-t border-dashed"
-                    style={{ borderColor: "rgba(169, 101, 5, 0.45)" }}
+                    style={{ borderColor: "rgba(169, 101, 5, 0.5)" }}
                     aria-hidden
                   />
                 ) : null}
-                <div className="flex items-start gap-2">
-                  <IconBadge icon={point.icon} iconSrc={point.iconSrc} size={24} />
+                <div className="flex items-start gap-2.5">
+                  <IconBadge icon={point.icon} iconSrc={point.iconSrc} size={28} />
                   <p
-                    className="min-w-0 flex-1 pt-0.5 text-[12px] leading-[1.45] font-nunito-sans"
+                    className="min-w-0 flex-1 pt-0.5 text-[14.5px] leading-[1.4] font-nunito-sans"
                     style={{ color: HEADER.body }}
                   >
                     {point.text}
@@ -413,54 +381,58 @@ function OverviewPalmFrame({
               </div>
             ))}
           </div>
+
+          <div className="relative min-h-0 min-w-0">
+            <Image
+              src={ASSETS.palmDiagram}
+              alt="Life line on palm"
+              fill
+              sizes="240px"
+              className="object-contain object-center"
+              priority
+              unoptimized
+            />
+            <span className="absolute right-[14%] top-[6%]">
+              <GoldDiamond size={8} />
+            </span>
+            <span className="absolute right-[4%] top-[18%]">
+              <GoldDiamond size={7} />
+            </span>
+            <span className="absolute left-[8%] top-[14%]">
+              <GoldDiamond size={6} />
+            </span>
+          </div>
         </div>
 
-        <div className="relative min-h-0 min-w-0">
-          <LifePalmDiagram />
-        </div>
-      </div>
+        <div className="relative z-[2] mt-2 grid h-[96px] shrink-0 grid-cols-[96px_1fr] items-center gap-3">
+          <div className="relative h-[96px] w-[96px] shrink-0">
+            <Image
+              src={ASSETS.palmInset}
+              alt="Life line outward branching zoom"
+              fill
+              sizes="96px"
+              className="object-contain object-center"
+              unoptimized
+            />
+          </div>
 
-      <div className="mt-2 grid shrink-0 grid-cols-[88px_1fr] items-end gap-2">
-        <div className="relative h-[88px] w-[88px] shrink-0">
-          <Image
-            src={ASSETS.palmInset}
-            alt=""
-            fill
-            sizes="88px"
-            className="object-contain"
-            aria-hidden
-            unoptimized
-          />
-        </div>
-
-        <div
-          className="relative min-w-0"
-          style={{
-            minHeight: 70,
-            boxSizing: "border-box",
-            borderStyle: "solid",
-            borderColor: "transparent",
-            borderTopWidth: 12,
-            borderBottomWidth: 12,
-            borderLeftWidth: 16,
-            borderRightWidth: 16,
-            borderImageSource: `url(${ASSETS.introFrame})`,
-            borderImageSlice: "55 70 55 70",
-            borderImageWidth: "12px 16px",
-            borderImageRepeat: "stretch",
-          }}
-        >
-          <div className="relative z-10 flex items-start gap-1.5 px-0.5 py-0.5">
-            <CoverLotus size={22} className="mt-0.5 shrink-0" />
-            <div className="min-w-0 flex-1 text-center">
+          <div
+            className="relative flex h-full min-w-0 items-center justify-center rounded-[12px] px-3.5 py-2.5"
+            style={{
+              border: `1.4px solid ${HEADER.goldBright}`,
+              boxShadow: `inset 0 0 0 1px rgba(201,162,39,0.28)`,
+            }}
+          >
+            <div className="flex w-full flex-col items-center justify-center gap-1 text-center">
+              <CoverLotus size={22} className="shrink-0" />
               <p
-                className="text-[10.5px] font-bold tracking-wide font-cinzel"
+                className="text-[12px] font-bold tracking-[0.05em] font-cinzel"
                 style={{ color: HEADER.maroon }}
               >
                 IMPORTANT OBSERVATION
               </p>
               <p
-                className="mt-1 text-[10px] leading-[1.35] font-nunito-sans"
+                className="text-[13.5px] font-semibold leading-[1.35] font-nunito-sans"
                 style={{ color: HEADER.body }}
               >
                 {observationText}
@@ -468,6 +440,39 @@ function OverviewPalmFrame({
             </div>
           </div>
         </div>
+
+        {/* Dashed zoom connectors: palm hotspot → inset circle */}
+        <svg
+          className="pointer-events-none absolute inset-0 z-[1] h-full w-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <line
+            x1="68"
+            y1="52"
+            x2="12"
+            y2="78"
+            stroke={HEADER.gold}
+            strokeWidth="0.45"
+            strokeDasharray="1.2 0.9"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            opacity={0.95}
+          />
+          <line
+            x1="74"
+            y1="56"
+            x2="22"
+            y2="78"
+            stroke={HEADER.gold}
+            strokeWidth="0.45"
+            strokeDasharray="1.2 0.9"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            opacity={0.95}
+          />
+        </svg>
       </div>
     </FramedCard>
   );
@@ -485,43 +490,39 @@ function BranchingFrame({
   note: string;
 }) {
   return (
-    <FramedCard
-      className="w-[248px] shrink-0"
-      minHeight={380}
-      sizes="248px"
-    >
-      <div className="mb-2 flex shrink-0 items-center justify-center gap-1">
-        <GoldDiamond size={8} />
+    <FramedCard className="min-w-0 flex-1" contentClassName="px-4 py-3.5">
+      <div className="mb-2 flex shrink-0 items-center justify-center gap-1.5">
+        <GoldDiamond size={9} />
         <p
-          className="text-center text-[11px] font-bold leading-[1.2] tracking-[0.03em] font-cinzel"
+          className="min-w-0 text-center text-[14px] font-bold leading-[1.2] tracking-[0.03em] font-cinzel"
           style={{ color: HEADER.maroon }}
         >
           {title}
         </p>
-        <GoldDiamond size={8} />
+        <GoldDiamond size={9} />
       </div>
 
       <p
-        className="mb-2.5 shrink-0 text-center text-[10px] leading-[1.4] font-nunito-sans"
+        className="mb-2.5 shrink-0 text-center text-[13px] leading-[1.35] font-nunito-sans"
         style={{ color: HEADER.body }}
       >
         {intro}
       </p>
 
-      <div className="flex min-h-0 flex-1 flex-col justify-center">
+      <div className="flex min-h-0 flex-1 flex-col justify-evenly gap-0 py-0.5">
         {items.map((item, index) => (
           <div key={item.text} className="shrink-0">
             {index > 0 ? (
               <div
-                className="my-1.5 border-t border-dashed"
-                style={{ borderColor: "rgba(169, 101, 5, 0.35)" }}
+                className="mb-2 border-t border-dashed"
+                style={{ borderColor: "rgba(169, 101, 5, 0.45)" }}
                 aria-hidden
               />
             ) : null}
-            <div className="flex items-center gap-2">
-              <IconBadge icon={item.icon} iconSrc={item.iconSrc} size={28} />
+            <div className="flex items-center gap-3">
+              <IconBadge icon={item.icon} iconSrc={item.iconSrc} size={32} />
               <p
-                className="min-w-0 flex-1 text-[11px] font-semibold leading-[1.25] font-nunito-sans"
+                className="min-w-0 flex-1 text-[15px] font-semibold leading-[1.3] font-nunito-sans"
                 style={{ color: HEADER.maroon }}
               >
                 {item.text}
@@ -532,29 +533,23 @@ function BranchingFrame({
       </div>
 
       <div
-        className="mt-2 flex shrink-0 items-start gap-1.5"
+        className="mt-2.5 flex h-[96px] shrink-0 items-center gap-2.5 rounded-[12px] px-3.5 py-2.5"
         style={{
-          boxSizing: "border-box",
-          borderStyle: "solid",
-          borderColor: "transparent",
-          borderWidth: "10px 12px",
-          borderImageSource: `url(${ASSETS.introFrame})`,
-          borderImageSlice: "55 70 55 70",
-          borderImageWidth: "10px 12px",
-          borderImageRepeat: "stretch",
+          border: `1.4px solid ${HEADER.goldBright}`,
+          boxShadow: `inset 0 0 0 1px rgba(201,162,39,0.28)`,
         }}
       >
         <Image
           src={ASSETS.icons.globe}
           alt=""
-          width={22}
-          height={22}
-          className="mt-0.5 h-[22px] w-[22px] shrink-0 object-contain"
+          width={28}
+          height={28}
+          className="h-[28px] w-[28px] shrink-0 object-contain"
           aria-hidden
           unoptimized
         />
         <p
-          className="min-w-0 flex-1 text-[9.5px] leading-[1.35] font-nunito-sans"
+          className="min-w-0 flex-1 text-[13px] leading-[1.4] font-nunito-sans"
           style={{ color: HEADER.body }}
         >
           {note}
