@@ -3,7 +3,6 @@ import {
   AlertTriangle,
   BookOpen,
   Clock,
-  Compass,
   Flag,
   HeartHandshake,
   Lightbulb,
@@ -22,9 +21,8 @@ import { CoverLotus, Pattern3 } from "../CommunComponents";
 const ASSETS = {
   cover: "/assets/cover-bg.png",
   logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/hand.png",
+  hand: "/assets/palm-reading-report/conclusion-hand.png",
   pattern2: "/assets/cover/pattern-2.png",
-  compass: "/assets/signatureReport/Compass.png",
 } as const;
 
 const COLORS = {
@@ -143,29 +141,29 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[560px] items-center justify-center">
+    <div className="relative mx-auto mt-2.5 flex w-full max-w-[560px] items-center justify-center">
       <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
       <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-1.5 shadow-sm"
+        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2 shadow-sm"
         style={{
           background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 320,
+          minWidth: 340,
         }}
       >
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <Star size={16} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
+          <Star size={20} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
         </div>
         <div className="text-center">
-          <p className="text-[13px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
+          <p className="text-[14px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
             CONCLUSION
           </p>
-          <p className="mt-0.5 text-[10px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
+          <p className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
             समापन संदेश
           </p>
         </div>
@@ -175,14 +173,14 @@ function SectionBar() {
   );
 }
 
-function IconCircle({ children, size = 34 }: { children: ReactNode; size?: number }) {
+function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
   return (
     <div
       className="flex shrink-0 items-center justify-center rounded-full"
       style={{
         width: size,
         height: size,
-        border: "1.3px solid rgba(184,134,11,0.7)",
+        border: "1.5px solid rgba(184,134,11,0.7)",
         background: "#fff8e8",
       }}
     >
@@ -193,20 +191,20 @@ function IconCircle({ children, size = 34 }: { children: ReactNode; size?: numbe
 
 function PointedBanner({ title }: { title: string }) {
   return (
-    <div className="relative mx-auto flex w-full max-w-[560px] items-center justify-center">
-      <Pattern3 size={56} className="absolute left-[-4px] opacity-90" />
+    <div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center">
+      <Pattern3 size={60} className="absolute left-[-4px] opacity-90" />
       <div
-        className="relative z-10 rounded-full px-5 py-1.5"
+        className="relative z-10 rounded-full px-6 py-1.5"
         style={{
           background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 280,
+          minWidth: 360,
         }}
       >
-        <p className="text-center text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">
+        <p className="text-center text-[13px] font-bold tracking-[0.08em] text-[#f6e6c4]">
           {title}
         </p>
       </div>
-      <Pattern3 size={56} className="absolute right-[-4px] rotate-180 opacity-90" />
+      <Pattern3 size={60} className="absolute right-[-4px] rotate-180 opacity-90" />
     </div>
   );
 }
@@ -219,17 +217,17 @@ export default function Conclusion({
   return (
     <PalmReadingPageFrame pageLabel="conclusion" pageNumber={pageNumber}>
       <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 38 }}
+        className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
+        style={{ top: 110, bottom: 34 }}
       >
-        <header className="flex flex-col items-center text-center">
+        <header className="flex shrink-0 flex-col items-center text-center">
           <p
             className="text-[26px] font-bold leading-none tracking-[0.06em]"
             style={{ color: COLORS.maroon }}
           >
             ASTRO AARAMBH
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
+          <div className="mt-1 flex items-center justify-center gap-2">
             <OrnamentDivider width={72} />
             <h1
               className="text-[13px] font-bold tracking-[0.12em]"
@@ -243,9 +241,9 @@ export default function Conclusion({
 
         <SectionBar />
 
-        <section className="mt-3 grid grid-cols-[1.15fr_0.85fr] items-stretch gap-2.5">
+        <section className="mt-2.5 grid min-h-0 flex-[1.25] grid-cols-[1.15fr_0.85fr] items-stretch gap-3">
           <div
-            className="flex flex-col justify-between gap-2 rounded-[14px] px-2.5 py-2.5"
+            className="flex h-full min-h-0 flex-col justify-between gap-2.5 rounded-[14px] px-3 py-3"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
@@ -254,12 +252,12 @@ export default function Conclusion({
             {INSIGHTS.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.text} className="flex items-start gap-2">
-                  <IconCircle size={32}>
-                    <Icon size={14} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+                <div key={item.text} className="flex items-start gap-2.5">
+                  <IconCircle size={42}>
+                    <Icon size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />
                   </IconCircle>
                   <p
-                    className="text-[11px] leading-[1.4] font-nunito-sans"
+                    className="pt-0.5 text-[13.5px] leading-[1.5] font-nunito-sans"
                     style={{ color: COLORS.body }}
                   >
                     {item.text}
@@ -269,50 +267,43 @@ export default function Conclusion({
             })}
           </div>
 
-          <div className="flex flex-col">
-            <div
-              className="relative flex-1 overflow-hidden rounded-[16px]"
-              style={{
-                minHeight: 168,
-                border: "1.4px solid rgba(184,134,11,0.55)",
-                background:
-                  "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
-              }}
-            >
+          <div className="flex h-full min-h-0 flex-col">
+            <div className="relative min-h-0 flex-1 overflow-hidden">
               <Image
                 src={ASSETS.hand}
                 alt="Destiny in your hands"
                 fill
                 sizes="280px"
-                className="object-contain mix-blend-screen"
-                style={{ transform: "scale(1.08) translateY(4px)" }}
-              />
-              <Image
-                src={ASSETS.compass}
-                alt=""
-                width={78}
-                height={78}
-                className="pointer-events-none absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen opacity-90"
-              />
-              <Compass
-                size={18}
-                className="absolute right-3 top-3"
-                style={{ color: COLORS.gold }}
+                className="object-contain object-center mix-blend-screen"
               />
             </div>
             <blockquote
-              className="mt-2 text-center text-[11px] italic leading-relaxed"
+              className="relative mt-1 shrink-0 px-6 text-center text-[13px] italic leading-relaxed"
               style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
             >
-              &ldquo;आपकी किस्मत आपके हाथों में है, लेकिन इसे संवारना आपके कर्मों पर निर्भर है।&rdquo;
+              <span
+                className="absolute left-0 top-[-6px] text-[42px] leading-none"
+                style={{ color: COLORS.maroonDeep }}
+                aria-hidden
+              >
+                &ldquo;
+              </span>
+              आपकी किस्मत आपके हाथों में है, लेकिन इसे संवारना आपके कर्मों पर निर्भर है।
+              <span
+                className="absolute bottom-[-18px] right-0 text-[42px] leading-none"
+                style={{ color: COLORS.maroonDeep }}
+                aria-hidden
+              >
+                &rdquo;
+              </span>
             </blockquote>
           </div>
         </section>
 
-        <section className="mt-2.5">
+        <section className="mt-2.5 shrink-0">
           <PointedBanner title="KEY TAKEAWAY" />
           <div
-            className="mt-2 grid grid-cols-6 gap-1 rounded-[14px] px-1.5 py-2"
+            className="mt-2 grid grid-cols-6 gap-1 rounded-[14px] px-2 py-2.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
@@ -331,11 +322,11 @@ export default function Conclusion({
                         : "none",
                   }}
                 >
-                  <IconCircle size={30}>
-                    <Icon size={13} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+                  <IconCircle size={40}>
+                    <Icon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
                   </IconCircle>
                   <p
-                    className="mt-1 text-[9px] leading-[1.3] font-nunito-sans"
+                    className="mt-1.5 text-[12px] leading-[1.35] font-nunito-sans"
                     style={{ color: COLORS.body }}
                   >
                     {item.title}
@@ -346,64 +337,56 @@ export default function Conclusion({
           </div>
         </section>
 
-        <section className="mt-2.5">
+        <section className="mt-2.5 min-h-0 flex-1">
           <PointedBanner title="महत्वपूर्ण चेतावनी (WARNING)" />
           <div
-            className="mt-2 flex items-start gap-2.5 rounded-[14px] px-3 py-2.5"
+            className="mt-2 flex h-full min-h-0 items-center gap-3 rounded-[14px] px-3.5 py-3"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.45)",
             }}
           >
-            <IconCircle size={40}>
-              <AlertTriangle size={18} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+            <IconCircle size={46}>
+              <AlertTriangle size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
             </IconCircle>
-            <div className="flex-1 space-y-1">
+            <div className="flex-1 space-y-1.5">
               {WARNINGS.map((text) => (
                 <p
                   key={text}
-                  className="text-[10.5px] leading-[1.35] font-nunito-sans"
+                  className="text-[13px] leading-[1.45] font-nunito-sans"
                   style={{ color: COLORS.body }}
                 >
                   • {text}
                 </p>
               ))}
             </div>
-            <div className="flex flex-col items-center pt-1">
-              <Flag size={16} style={{ color: COLORS.maroon }} />
-              <AlertTriangle size={14} className="mt-1" style={{ color: COLORS.gold }} />
+            <div className="flex flex-col items-center gap-1 pt-1">
+              <Flag size={20} style={{ color: COLORS.maroon }} />
+              <AlertTriangle size={18} style={{ color: COLORS.gold }} />
             </div>
           </div>
         </section>
 
-        <p
-          className="mt-2.5 text-center text-[11.5px] leading-[1.45] font-nunito-sans"
-          style={{ color: COLORS.body }}
-        >
-          ईश्वर करें कि आपको सदैव सफलता, स्वास्थ्य, समृद्धि और मान-सम्मान प्राप्त हो और आपका जीवन
-          सुखमय एवं संतुलित रहे।
-        </p>
 
-        <div className="mt-2 flex justify-center">
+        <div className="mt-10 flex flex-col items-center gap-2.5 shrink-0 justify-center">
+            <p
+              className="mt-2.5 shrink-0 text-center text-[14px] leading-[1.5] font-nunito-sans"
+              style={{ color: COLORS.body }}
+            >
+              ईश्वर करें कि आपको सदैव सफलता, स्वास्थ्य, समृद्धि और मान-सम्मान प्राप्त हो और आपका जीवन
+              सुखमय एवं संतुलित रहे।
+            </p>
           <div
-            className="rounded-full px-5 py-1.5"
+            className="rounded-full px-5 py-2"
             style={{
               background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
             }}
           >
-            <p className="text-center text-[11px] font-bold tracking-[0.04em] text-[#f6e6c4]">
+            <p className="text-center text-[13px] font-bold tracking-[0.04em] text-[#f6e6c4]">
               आपके उज्ज्वल भविष्य की शुभकामनाओं के साथ
             </p>
           </div>
         </div>
-
-        <footer className="mt-auto flex flex-col items-center pt-1.5">
-          <div className="flex items-center justify-center gap-2">
-            <CoverLotus size={22} />
-            <OrnamentDivider width={140} />
-            <CoverLotus size={22} />
-          </div>
-        </footer>
       </div>
     </PalmReadingPageFrame>
   );

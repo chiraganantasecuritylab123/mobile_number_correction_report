@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {
   Briefcase,
-  CircleCheck,
+  Check,
   Compass,
   Flag,
   GitBranch,
@@ -9,12 +9,9 @@ import {
   GraduationCap,
   Handshake,
   Heart,
-  MapPin,
   Moon,
-  Mountain,
   Plane,
   Star,
-  Users,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
@@ -23,8 +20,10 @@ import { CoverLotus, Pattern3 } from "../CommunComponents";
 const ASSETS = {
   cover: "/assets/cover-bg.png",
   logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/hand.png",
+  travelHand: "/assets/palm-reading-report/travel-hand.png",
   pattern2: "/assets/cover/pattern-2.png",
+  travelMap: "/assets/palm-reading-report/image-1.png",
+  traveler: "/assets/palm-reading-report/image-2.png",
 } as const;
 
 const COLORS = {
@@ -73,6 +72,12 @@ const TRAVEL_PATTERN = [
   "बार-बार short trips और कुछ लंबी journeys दोनों संभव हैं।",
   "Travel आपके perspective, knowledge और opportunities को expand करेगा।",
   "Water (Moon) influence के कारण दूर की यात्राओं से सीख और inspiration मिल सकती हैं।",
+] as const;
+
+const FOREIGN_POINTS = [
+  "Foreign connection की possibility को completely reject नहीं किया जा सकता।",
+  "आपके work, business, studies या relationships के माध्यम से foreign people/places से जुड़ाव बन सकता है।",
+  "यह जुड़ाव opportunities, growth और exposure लाने वाला हो सकता है।",
 ] as const;
 
 const MOON_KEYWORDS = [
@@ -214,12 +219,26 @@ function PointedBanner({ title }: { title: string }) {
 function ColumnTitle({ title }: { title: string }) {
   return (
     <div
-      className="mb-2 rounded-full px-3 py-1 text-center"
+      className="mb-2 rounded-full px-3 py-1.5 text-center"
       style={{
         background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
       }}
     >
-      <p className="text-[10px] font-bold tracking-[0.08em] text-[#f6e6c4]">{title}</p>
+      <p className="text-[12px] font-bold tracking-[0.08em] text-[#f6e6c4]">{title}</p>
+    </div>
+  );
+}
+
+function GoldCheck() {
+  return (
+    <div
+      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
+      style={{
+        background: "linear-gradient(180deg, #e0c265 0%, #b8860b 100%)",
+        boxShadow: "0 0 0 1px rgba(184,134,11,0.35)",
+      }}
+    >
+      <Check size={13} strokeWidth={3.2} color="#fff8e8" />
     </div>
   );
 }
@@ -256,20 +275,21 @@ export default function TravelForeignConnection({
 
         <SectionBar />
 
-        <section className="mt-3 grid grid-cols-[1fr_0.95fr_0.9fr] items-center gap-2.5">
-          <div
-            className="flex flex-col gap-2.5 rounded-[14px] px-2.5 py-2.5"
-            style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
-            }}
-          >
-            <div className="flex items-start gap-2">
-              <IconCircle size={32}>
-                <Globe2 size={14} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+        <section
+          className="mt-3 grid min-h-[250px] grid-cols-[1.08fr_1fr_0.82fr] items-center gap-3 rounded-[16px] px-3.5 py-3"
+          style={{
+            background: COLORS.creamBox,
+            border: "1.5px solid rgba(92,24,24,0.42)",
+            boxShadow: "inset 0 0 0 1px rgba(184,134,11,0.22)",
+          }}
+        >
+          <div className="flex h-full flex-col justify-center gap-3.5 pr-1">
+            <div className="flex items-start gap-2.5">
+              <IconCircle size={44}>
+                <Globe2 size={20} strokeWidth={1.8} style={{ color: COLORS.gold }} />
               </IconCircle>
               <p
-                className="text-[11px] leading-[1.4] font-nunito-sans"
+                className="pt-0.5 text-[13px] leading-[1.5] font-nunito-sans"
                 style={{ color: COLORS.body }}
               >
                 <span className="font-bold">Moon area</span> की moderate prominence और{" "}
@@ -279,14 +299,14 @@ export default function TravelForeignConnection({
             </div>
             <div
               className="border-t border-dashed"
-              style={{ borderColor: "rgba(184,134,11,0.4)" }}
+              style={{ borderColor: "rgba(166,97,40,0.55)" }}
             />
-            <div className="flex items-start gap-2">
-              <IconCircle size={32}>
-                <GitBranch size={14} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+            <div className="flex items-start gap-2.5">
+              <IconCircle size={44}>
+                <GitBranch size={20} strokeWidth={1.8} style={{ color: COLORS.gold }} />
               </IconCircle>
               <p
-                className="text-[11px] leading-[1.4] font-nunito-sans"
+                className="pt-0.5 text-[13px] leading-[1.5] font-nunito-sans"
                 style={{ color: COLORS.body }}
               >
                 Life Line के middle section में हल्की outward branching दिखाई देती है, जो travel,
@@ -295,74 +315,50 @@ export default function TravelForeignConnection({
             </div>
           </div>
 
-          <div
-            className="relative h-[210px] overflow-hidden rounded-[16px]"
-            style={{
-              border: "1.4px solid rgba(184,134,11,0.55)",
-              background:
-                "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
-            }}
-          >
+          <div className="relative h-[220px] min-w-0">
             <Image
-              src={ASSETS.hand}
-              alt="Moon area and life line"
+              src={ASSETS.travelHand}
+              alt="Travel hand — Moon area and Life Line"
               fill
-              sizes="240px"
-              className="object-contain mix-blend-screen"
-              style={{ transform: "scale(1.1) translateY(4px)" }}
+              sizes="260px"
+              className="object-contain object-center mix-blend-screen"
+              priority
             />
-            <svg
-              className="pointer-events-none absolute inset-0 h-full w-full"
-              viewBox="0 0 240 210"
-              aria-hidden
-            >
-              <ellipse
-                cx="168"
-                cy="148"
-                rx="28"
-                ry="34"
-                fill="rgba(217,119,6,0.28)"
-                stroke={COLORS.orange}
-                strokeWidth="1.5"
-              />
-              <path
-                d="M98 78 C112 108, 128 132, 152 148"
-                fill="none"
-                stroke={COLORS.red}
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              <path
-                d="M196 130 C210 118, 220 108, 228 98"
-                fill="none"
-                stroke={COLORS.gold}
-                strokeWidth="1.4"
-                strokeDasharray="4 3"
-              />
-            </svg>
           </div>
 
-          <div
-            className="flex flex-col items-center rounded-[14px] px-2.5 py-3 text-center"
-            style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
-            }}
-          >
-            <IconCircle size={40}>
-              <Moon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-            </IconCircle>
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <div className="relative flex h-12 w-12 items-center justify-center">
+              <Moon size={38} strokeWidth={1.55} style={{ color: COLORS.gold }} />
+              <Star
+                size={9}
+                className="absolute -right-0.5 top-0"
+                fill={COLORS.gold}
+                stroke={COLORS.gold}
+              />
+              <Star
+                size={7}
+                className="absolute -left-1 top-2.5"
+                fill={COLORS.goldLight}
+                stroke={COLORS.goldLight}
+              />
+              <Star
+                size={7}
+                className="absolute bottom-0.5 right-0"
+                fill={COLORS.gold}
+                stroke={COLORS.gold}
+              />
+            </div>
             <p
-              className="mt-2 text-[12px] font-bold tracking-[0.08em]"
+              className="mt-2 text-[14px] font-bold tracking-[0.1em]"
               style={{ color: COLORS.maroon }}
             >
               MOON AREA
             </p>
-            <div className="mt-2 flex flex-col gap-1">
+            <div className="mt-2 flex flex-col gap-1.5">
               {MOON_KEYWORDS.map((word) => (
                 <p
                   key={word}
-                  className="text-[11px] leading-tight font-nunito-sans"
+                  className="text-[12.5px] leading-snug font-nunito-sans"
                   style={{ color: COLORS.body }}
                 >
                   {word}
@@ -417,24 +413,19 @@ export default function TravelForeignConnection({
 
         <section className="mt-2.5 grid flex-1 grid-cols-2 items-stretch gap-2.5">
           <div
-            className="flex flex-col rounded-[14px] px-2.5 py-2.5"
+            className="flex h-full min-h-0 flex-col overflow-hidden rounded-[14px] px-3 py-2.5"
             style={{
               background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              border: "1.4px solid rgba(184,134,11,0.5)",
             }}
           >
             <ColumnTitle title="TRAVEL PATTERN" />
-            <div className="flex flex-1 flex-col justify-between gap-1.5">
+            <div className="flex flex-1 flex-col justify-center gap-2">
               {TRAVEL_PATTERN.map((text) => (
-                <div key={text} className="flex items-start gap-2">
-                  <CircleCheck
-                    size={14}
-                    strokeWidth={2}
-                    className="mt-0.5 shrink-0"
-                    style={{ color: COLORS.gold }}
-                  />
+                <div key={text} className="flex items-start gap-2.5">
+                  <GoldCheck />
                   <p
-                    className="text-[10.5px] leading-[1.35] font-nunito-sans"
+                    className="text-[13px] leading-[1.45] font-nunito-sans"
                     style={{ color: COLORS.body }}
                   >
                     {text}
@@ -442,59 +433,76 @@ export default function TravelForeignConnection({
                 </div>
               ))}
             </div>
-            <div className="mt-2 flex items-center justify-center gap-2">
-              <Plane size={16} style={{ color: COLORS.gold }} />
-              <Globe2 size={16} style={{ color: COLORS.maroon }} />
-              <MapPin size={14} style={{ color: COLORS.orange }} />
+            <div className="relative mt-1 h-[78px] w-full shrink-0">
+              <Image
+                src={ASSETS.travelMap}
+                alt=""
+                fill
+                sizes="340px"
+                className="object-contain object-bottom mix-blend-screen"
+                aria-hidden
+              />
             </div>
           </div>
 
           <div
-            className="flex flex-col rounded-[14px] px-2.5 py-2.5"
+            className="flex h-full min-h-0 flex-col overflow-hidden rounded-[14px] px-3 py-2.5"
             style={{
               background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              border: "1.4px solid rgba(184,134,11,0.5)",
             }}
           >
             <ColumnTitle title="FOREIGN CONNECTION INDICATION" />
-            <div className="flex items-start gap-2">
-              <IconCircle size={32}>
-                <Globe2 size={14} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-              </IconCircle>
-              <p
-                className="text-[11px] leading-[1.4] font-nunito-sans"
-                style={{ color: COLORS.body }}
-              >
-                Work, business, studies या relationships के माध्यम से{" "}
-                <span className="font-bold">foreign connection</span> की संभावना दिखती है — जिससे
-                नए experiences और opportunities खुल सकते हैं।
-              </p>
-            </div>
-            <div
-              className="mt-2 flex items-start gap-2 rounded-[10px] px-2.5 py-2"
-              style={{
-                background: "rgba(255,248,232,0.9)",
-                border: "1px solid rgba(184,134,11,0.45)",
-              }}
-            >
-              <Star
-                size={13}
-                className="mt-0.5 shrink-0"
-                fill={COLORS.goldLight}
-                stroke={COLORS.gold}
-              />
-              <p
-                className="text-[10.5px] leading-[1.35] font-nunito-sans"
-                style={{ color: COLORS.body }}
-              >
-                लेकिन palm के आधार पर permanent foreign settlement की certainty claim करना उचित
-                नहीं होगा।
-              </p>
-            </div>
-            <div className="mt-auto flex items-center justify-center gap-2 pt-2">
-              <Users size={15} style={{ color: COLORS.maroon }} />
-              <Plane size={15} style={{ color: COLORS.gold }} />
-              <Mountain size={15} style={{ color: COLORS.maroon }} />
+            <div className="flex min-h-0 flex-1 items-stretch gap-2">
+              <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex items-start gap-2.5">
+                  <IconCircle size={38}>
+                    <Globe2 size={18} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                  </IconCircle>
+                  <div className="min-w-0 space-y-1.5 font-nunito-sans">
+                    {FOREIGN_POINTS.map((text) => (
+                      <p
+                        key={text}
+                        className="text-[13px] leading-[1.45]"
+                        style={{ color: COLORS.body }}
+                      >
+                        {text}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                <div
+                  className="mt-auto flex items-start gap-2 rounded-[10px] px-2.5 py-2"
+                  style={{
+                    background: "rgba(232, 196, 122, 0.28)",
+                    border: "1px solid rgba(184,134,11,0.4)",
+                  }}
+                >
+                  <Star
+                    size={16}
+                    className="mt-0.5 shrink-0"
+                    fill={COLORS.gold}
+                    stroke={COLORS.gold}
+                  />
+                  <p
+                    className="text-[12.5px] leading-[1.4] font-nunito-sans"
+                    style={{ color: COLORS.body }}
+                  >
+                    लेकिन palm के आधार पर permanent foreign settlement की certainty claim करना उचित
+                    नहीं होगा।
+                  </p>
+                </div>
+              </div>
+              <div className="relative w-[92px] shrink-0 self-end" style={{ height: "118px" }}>
+                <Image
+                  src={ASSETS.traveler}
+                  alt=""
+                  fill
+                  sizes="92px"
+                  className="object-contain object-bottom mix-blend-screen"
+                  aria-hidden
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -521,7 +529,6 @@ export default function TravelForeignConnection({
         </section>
 
         <footer className="mt-auto flex flex-col items-center pt-1.5">
-          <OrnamentDivider width={180} />
           <div className="mt-1.5 flex items-center justify-center gap-2">
             <CoverLotus size={22} />
             <blockquote

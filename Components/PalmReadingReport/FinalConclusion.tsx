@@ -3,7 +3,6 @@ import {
   AlertTriangle,
   BookOpen,
   Clock,
-  Compass,
   Crown,
   Flag,
   HeartHandshake,
@@ -24,9 +23,8 @@ import { CoverLotus, Pattern3 } from "../CommunComponents";
 const ASSETS = {
   cover: "/assets/cover-bg.png",
   logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/hand.png",
+  hand: "/assets/palm-reading-report/conclusion-hand.png",
   pattern2: "/assets/cover/pattern-2.png",
-  compass: "/assets/signatureReport/Compass.png",
 } as const;
 
 const COLORS = {
@@ -95,9 +93,6 @@ const ADVANCED_FEATURES = [
   "धन और संपत्ति विश्लेषण",
   "रिश्ते व भावनात्मक पैटर्न",
   "यात्रा और विदेशी संकेत",
-  "समय व बदलाव की संभावनाएँ",
-  "विस्तृत मार्गदर्शन",
-  "20+ पेज की विस्तृत रिपोर्ट",
 ] as const;
 
 function PalmReadingPageFrame({
@@ -165,29 +160,29 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-2 flex w-full max-w-[560px] items-center justify-center">
+    <div className="relative mx-auto mt-2.5 flex w-full max-w-[560px] items-center justify-center">
       <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
       <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-1.5 shadow-sm"
+        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2 shadow-sm"
         style={{
           background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 340,
+          minWidth: 360,
         }}
       >
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <Star size={16} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
+          <Star size={20} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
         </div>
         <div className="text-center">
-          <p className="text-[13px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
+          <p className="text-[14px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
             FINAL CONCLUSION
           </p>
-          <p className="mt-0.5 text-[10px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
+          <p className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
             अंतिम निष्कर्ष
           </p>
         </div>
@@ -197,14 +192,14 @@ function SectionBar() {
   );
 }
 
-function IconCircle({ children, size = 34 }: { children: ReactNode; size?: number }) {
+function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
   return (
     <div
       className="flex shrink-0 items-center justify-center rounded-full"
       style={{
         width: size,
         height: size,
-        border: "1.3px solid rgba(184,134,11,0.7)",
+        border: "1.5px solid rgba(184,134,11,0.7)",
         background: "#fff8e8",
       }}
     >
@@ -215,20 +210,20 @@ function IconCircle({ children, size = 34 }: { children: ReactNode; size?: numbe
 
 function PointedBanner({ title }: { title: string }) {
   return (
-    <div className="relative mx-auto flex w-full max-w-[600px] items-center justify-center">
-      <Pattern3 size={52} className="absolute left-[-4px] opacity-90" />
+    <div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center">
+      <Pattern3 size={60} className="absolute left-[-4px] opacity-90" />
       <div
-        className="relative z-10 rounded-full px-5 py-1"
+        className="relative z-10 rounded-full px-6 py-1.5"
         style={{
           background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 280,
+          minWidth: 360,
         }}
       >
-        <p className="text-center text-[10.5px] font-bold tracking-[0.08em] text-[#f6e6c4]">
+        <p className="text-center text-[13px] font-bold tracking-[0.08em] text-[#f6e6c4]">
           {title}
         </p>
       </div>
-      <Pattern3 size={52} className="absolute right-[-4px] rotate-180 opacity-90" />
+      <Pattern3 size={60} className="absolute right-[-4px] rotate-180 opacity-90" />
     </div>
   );
 }
@@ -246,33 +241,33 @@ function ReportCard({
 }) {
   return (
     <div
-      className="flex flex-col overflow-hidden rounded-[14px]"
+      className="flex h-full min-h-0 flex-col overflow-hidden rounded-[14px]"
       style={{
         border: "1.4px solid rgba(184,134,11,0.55)",
         background: COLORS.creamBox,
       }}
     >
-      <div className="flex flex-col items-center px-2.5 pt-2 pb-1.5">
-        <IconCircle size={36}>{icon}</IconCircle>
+      <div className="flex shrink-0 flex-col items-center px-3 pt-2 pb-1.5">
+        <IconCircle size={38}>{icon}</IconCircle>
         <p
-          className="mt-1.5 text-center text-[10px] font-bold leading-tight tracking-[0.04em]"
+          className="mt-1 text-center text-[12px] font-bold leading-tight tracking-[0.04em]"
           style={{ color: COLORS.maroon }}
         >
           {title}
         </p>
         <div
-          className="mt-1.5 rounded-full px-3 py-0.5"
+          className="mt-1 rounded-full px-3.5 py-0.5"
           style={{
             background: `linear-gradient(180deg, ${COLORS.goldLight} 0%, ${COLORS.gold} 100%)`,
           }}
         >
-          <p className="text-[11px] font-bold tracking-[0.04em]" style={{ color: COLORS.maroonDeep }}>
+          <p className="text-[12.5px] font-bold tracking-[0.04em]" style={{ color: COLORS.maroonDeep }}>
             {price}
           </p>
         </div>
       </div>
       <div
-        className="mx-2 mb-2 flex-1 space-y-0.5 rounded-[10px] px-2 py-1.5"
+        className="mx-2.5 mb-2 flex min-h-0 flex-1 flex-col justify-center space-y-0 rounded-[10px] px-2.5 py-1"
         style={{
           background: "rgba(255,250,240,0.7)",
           border: "1px solid rgba(184,134,11,0.28)",
@@ -281,7 +276,7 @@ function ReportCard({
         {features.map((feature) => (
           <p
             key={feature}
-            className="text-[9.5px] leading-[1.35] font-nunito-sans"
+            className="text-[11px] leading-[1.25] font-nunito-sans"
             style={{ color: COLORS.body }}
           >
             • {feature}
@@ -300,10 +295,10 @@ export default function FinalConclusion({
   return (
     <PalmReadingPageFrame pageLabel="final-conclusion" pageNumber={pageNumber}>
       <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 36 }}
+        className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
+        style={{ top: 110, bottom: 34 }}
       >
-        <header className="flex flex-col items-center text-center">
+        <header className="flex shrink-0 flex-col items-center text-center">
           <p
             className="text-[26px] font-bold leading-none tracking-[0.06em]"
             style={{ color: COLORS.maroon }}
@@ -324,9 +319,9 @@ export default function FinalConclusion({
 
         <SectionBar />
 
-        <section className="mt-2 grid grid-cols-[1.15fr_0.85fr] items-stretch gap-2">
+        <section className="mt-2 grid min-h-0 flex-[1.2] grid-cols-[1.15fr_0.85fr] items-stretch gap-3">
           <div
-            className="flex flex-col justify-between gap-1.5 rounded-[14px] px-2.5 py-2"
+            className="flex h-full min-h-0 flex-col justify-between gap-2 rounded-[14px] px-3 py-2.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
@@ -335,12 +330,12 @@ export default function FinalConclusion({
             {INSIGHTS.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.text} className="flex items-start gap-2">
-                  <IconCircle size={28}>
-                    <Icon size={12} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+                <div key={item.text} className="flex items-start gap-2.5">
+                  <IconCircle size={38}>
+                    <Icon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
                   </IconCircle>
                   <p
-                    className="text-[10.5px] leading-[1.35] font-nunito-sans"
+                    className="pt-0.5 text-[12.5px] leading-[1.4] font-nunito-sans"
                     style={{ color: COLORS.body }}
                   >
                     {item.text}
@@ -350,50 +345,43 @@ export default function FinalConclusion({
             })}
           </div>
 
-          <div className="flex flex-col">
-            <div
-              className="relative flex-1 overflow-hidden rounded-[14px]"
-              style={{
-                minHeight: 128,
-                border: "1.4px solid rgba(184,134,11,0.55)",
-                background:
-                  "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
-              }}
-            >
+          <div className="flex h-full min-h-0 flex-col">
+            <div className="relative min-h-0 flex-1 overflow-hidden">
               <Image
                 src={ASSETS.hand}
                 alt="Destiny in your hands"
                 fill
-                sizes="260px"
-                className="object-contain mix-blend-screen"
-                style={{ transform: "scale(1.06) translateY(2px)" }}
-              />
-              <Image
-                src={ASSETS.compass}
-                alt=""
-                width={64}
-                height={64}
-                className="pointer-events-none absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen opacity-90"
-              />
-              <Compass
-                size={16}
-                className="absolute right-2.5 top-2.5"
-                style={{ color: COLORS.gold }}
+                sizes="280px"
+                className="object-contain object-center mix-blend-screen"
               />
             </div>
             <blockquote
-              className="mt-1.5 text-center text-[10px] italic leading-snug"
+              className="relative mt-1 shrink-0 px-5 text-center text-[12.5px] italic leading-relaxed"
               style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
             >
-              &ldquo;आपकी किस्मत आपके हाथों में है, लेकिन इसे संवारना आपके कर्मों पर निर्भर है।&rdquo;
+              <span
+                className="absolute left-0 top-[-6px] text-[36px] leading-none"
+                style={{ color: COLORS.maroonDeep }}
+                aria-hidden
+              >
+                &ldquo;
+              </span>
+              आपकी किस्मत आपके हाथों में है, लेकिन इसे संवारना आपके कर्मों पर निर्भर है।
+              <span
+                className="absolute bottom-[-16px] right-0 text-[36px] leading-none"
+                style={{ color: COLORS.maroonDeep }}
+                aria-hidden
+              >
+                &rdquo;
+              </span>
             </blockquote>
           </div>
         </section>
 
-        <section className="mt-2">
+        <section className="mt-2 shrink-0">
           <PointedBanner title="WHAT THIS REPORT HELPS YOU" />
           <div
-            className="mt-1.5 grid grid-cols-6 gap-1 rounded-[12px] px-1.5 py-1.5"
+            className="mt-1.5 grid grid-cols-6 gap-1 rounded-[14px] px-2 py-2"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
@@ -404,7 +392,7 @@ export default function FinalConclusion({
               return (
                 <div
                   key={item.title}
-                  className="flex flex-col items-center px-0.5 text-center"
+                  className="flex flex-col items-center px-1 text-center"
                   style={{
                     borderRight:
                       index < HELPS_YOU.length - 1
@@ -412,11 +400,11 @@ export default function FinalConclusion({
                         : "none",
                   }}
                 >
-                  <IconCircle size={28}>
-                    <Icon size={12} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+                  <IconCircle size={38}>
+                    <Icon size={17} strokeWidth={1.7} style={{ color: COLORS.gold }} />
                   </IconCircle>
                   <p
-                    className="mt-1 text-[8.5px] leading-[1.25] font-nunito-sans"
+                    className="mt-1.5 text-[11.5px] leading-[1.3] font-nunito-sans"
                     style={{ color: COLORS.body }}
                   >
                     {item.title}
@@ -427,67 +415,62 @@ export default function FinalConclusion({
           </div>
         </section>
 
-        <section className="mt-2">
+        <section className="mt-2 shrink-0">
           <PointedBanner title="महत्वपूर्ण चेतावनी (WARNING)" />
           <div
-            className="mt-1.5 flex items-start gap-2 rounded-[12px] px-2.5 py-2"
+            className="mt-1.5 flex items-center gap-3 rounded-[14px] px-3 py-2"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.45)",
             }}
           >
-            <IconCircle size={36}>
-              <AlertTriangle size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+            <IconCircle size={44}>
+              <AlertTriangle size={20} strokeWidth={1.8} style={{ color: COLORS.gold }} />
             </IconCircle>
             <div className="flex-1 space-y-0.5">
               {WARNINGS.map((text) => (
                 <p
                   key={text}
-                  className="text-[9.5px] leading-[1.3] font-nunito-sans"
+                  className="text-[12px] leading-[1.35] font-nunito-sans"
                   style={{ color: COLORS.body }}
                 >
                   • {text}
                 </p>
               ))}
             </div>
-            <div className="flex flex-col items-center pt-0.5">
-              <Flag size={14} style={{ color: COLORS.maroon }} />
-              <AlertTriangle size={12} className="mt-1" style={{ color: COLORS.gold }} />
+            <div className="flex flex-col items-center gap-1">
+              <Flag size={18} style={{ color: COLORS.maroon }} />
+              <AlertTriangle size={16} style={{ color: COLORS.gold }} />
             </div>
           </div>
         </section>
 
-        <section className="mt-2">
+        <section className="mt-2 flex min-h-0 flex-[1.25] flex-col">
           <PointedBanner title="OUR OTHER PALM READING REPORTS" />
-          <div className="mt-1.5 grid grid-cols-2 gap-2.5">
+          <div className="mt-1.5 grid min-h-0 flex-1 grid-cols-2 items-stretch gap-2.5">
             <ReportCard
               title="INTERMEDIATE PALM READING REPORT"
               price="₹151/-"
-              icon={<ScanSearch size={15} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
+              icon={<ScanSearch size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
               features={INTERMEDIATE_FEATURES}
             />
             <ReportCard
               title="ADVANCED LEVEL PALM READING REPORT"
               price="₹251/-"
-              icon={<Crown size={15} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
+              icon={<Crown size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
               features={ADVANCED_FEATURES}
             />
           </div>
         </section>
 
-        <footer className="mt-auto flex flex-col items-center pt-1.5">
+        <footer className="mt-2 flex shrink-0 flex-col items-center">
           <p
-            className="text-center text-[10.5px] leading-[1.4] font-nunito-sans"
+            className="text-center text-[13.5px] leading-[1.45] font-nunito-sans"
             style={{ color: COLORS.body }}
           >
             ईश्वर करें कि आपको सदैव सफलता, स्वास्थ्य, समृद्धि और मान-सम्मान प्राप्त हो और आपका जीवन
             सुखमय एवं संतुलित रहे।
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <CoverLotus size={20} />
-            <OrnamentDivider width={130} />
-            <CoverLotus size={20} />
-          </div>
         </footer>
       </div>
     </PalmReadingPageFrame>

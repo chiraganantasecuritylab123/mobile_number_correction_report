@@ -17,7 +17,7 @@ import { CoverLotus, Pattern3 } from "../CommunComponents";
 const ASSETS = {
   cover: "/assets/cover-bg.png",
   logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/hand.png",
+  hand: "/assets/palm-reading-report/variable-hand.png",
   pattern2: "/assets/cover/pattern-2.png",
 } as const;
 
@@ -131,25 +131,25 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[660px] items-center justify-center">
+    <div className="relative mx-auto mt-2.5 flex w-full max-w-[680px] items-center justify-center">
       <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
       <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
+        className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-2 shadow-sm"
         style={{
           background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 480,
+          minWidth: 500,
         }}
       >
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <Search size={16} strokeWidth={2} style={{ color: COLORS.maroonDeep }} />
+          <Search size={20} strokeWidth={2} style={{ color: COLORS.maroonDeep }} />
         </div>
-        <p className="text-[13px] font-bold tracking-[0.04em] text-[#f6e6c4]">
+        <p className="text-[14px] font-bold tracking-[0.04em] text-[#f6e6c4]">
           18. आपकी हथेली के 10 विशेष संकेत
         </p>
       </div>
@@ -158,14 +158,14 @@ function SectionBar() {
   );
 }
 
-function IconCircle({ children, size = 34 }: { children: ReactNode; size?: number }) {
+function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
   return (
     <div
       className="flex shrink-0 items-center justify-center rounded-full"
       style={{
         width: size,
         height: size,
-        border: "1.3px solid rgba(184,134,11,0.7)",
+        border: "1.5px solid rgba(184,134,11,0.7)",
         background: "#fff8e8",
       }}
     >
@@ -177,12 +177,12 @@ function IconCircle({ children, size = 34 }: { children: ReactNode; size?: numbe
 function NumberBadge({ num }: { num: string }) {
   return (
     <div
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
       style={{
         background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
       }}
     >
-      <span className="text-[11px] font-bold tracking-[0.04em] text-[#f6e6c4]">{num}</span>
+      <span className="text-[13px] font-bold tracking-[0.04em] text-[#f6e6c4]">{num}</span>
     </div>
   );
 }
@@ -195,17 +195,17 @@ export default function TenSpecialSignsPart2({
   return (
     <PalmReadingPageFrame pageLabel="ten-special-signs-part-2" pageNumber={pageNumber}>
       <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 38 }}
+        className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
+        style={{ top: 110, bottom: 34 }}
       >
-        <header className="flex flex-col items-center text-center">
+        <header className="flex shrink-0 flex-col items-center text-center">
           <p
             className="text-[26px] font-bold leading-none tracking-[0.06em]"
             style={{ color: COLORS.maroon }}
           >
             ASTRO AARAMBH
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
+          <div className="mt-1 flex items-center justify-center gap-2">
             <OrnamentDivider width={72} />
             <h1
               className="text-[13px] font-bold tracking-[0.12em]"
@@ -220,7 +220,7 @@ export default function TenSpecialSignsPart2({
         <SectionBar />
 
         <p
-          className="mt-3 text-center text-[12.5px] leading-[1.5] font-nunito-sans"
+          className="mt-2.5 shrink-0 text-center text-[14.5px] leading-[1.5] font-nunito-sans"
           style={{ color: COLORS.body }}
         >
           आपकी हथेली पर ये संकेत particularly{" "}
@@ -228,116 +228,33 @@ export default function TenSpecialSignsPart2({
           और life direction को समझने में मदद करते हैं।
         </p>
 
-        <section className="mt-3 grid flex-1 grid-cols-[0.85fr_1.15fr] items-stretch gap-3">
+        <section className="mt-2.5 grid min-h-0 flex-1 grid-cols-[0.85fr_1.15fr] items-stretch gap-3">
           <div
-            className="relative overflow-hidden rounded-[16px]"
+            className="relative h-full min-h-0 overflow-hidden rounded-[16px]"
             style={{
               border: "1.4px solid rgba(184,134,11,0.55)",
               background:
                 "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
             }}
           >
-            <Image
-              src={ASSETS.hand}
-              alt="Special palm signs 06 to 10"
-              fill
-              sizes="280px"
-              className="object-contain mix-blend-screen"
-              style={{ transform: "scale(1.1) translateY(4px)" }}
-            />
-            <svg
-              className="pointer-events-none absolute inset-0 h-full w-full"
-              viewBox="0 0 280 420"
-              aria-hidden
-            >
-              {/* Fate line */}
-              <path
-                d="M142 90 L138 300"
-                fill="none"
-                stroke={COLORS.gold}
-                strokeWidth="2.2"
-                strokeDasharray="5 4"
-                strokeLinecap="round"
+            <div className="absolute inset-x-0 -bottom-2 aspect-[280/420]">
+              <Image
+                src={ASSETS.hand}
+                alt="Special palm signs 06 to 10"
+                fill
+                sizes="280px"
+                className="object-contain object-bottom mix-blend-screen"
               />
-              {/* Venus mount highlight */}
-              <ellipse
-                cx="92"
-                cy="250"
-                rx="28"
-                ry="36"
-                fill="rgba(217,119,6,0.22)"
-                stroke={COLORS.orange}
-                strokeWidth="1.3"
-              />
-              {/* Moon mount highlight */}
-              <ellipse
-                cx="188"
-                cy="268"
-                rx="26"
-                ry="34"
-                fill="rgba(217,119,6,0.2)"
-                stroke={COLORS.orange}
-                strokeWidth="1.3"
-              />
-              {/* Thumb / Venus area accent */}
-              <ellipse
-                cx="78"
-                cy="170"
-                rx="16"
-                ry="22"
-                fill="rgba(217,119,6,0.16)"
-                stroke={COLORS.gold}
-                strokeWidth="1.2"
-                strokeDasharray="3 2"
-              />
-              {/* Wrist / clear palm zone */}
-              <ellipse
-                cx="140"
-                cy="330"
-                rx="42"
-                ry="16"
-                fill="rgba(184,134,11,0.12)"
-                stroke={COLORS.gold}
-                strokeWidth="1.2"
-                strokeDasharray="3 2"
-              />
-
-              {/* Callout leaders */}
-              <path d="M138 160 L72 120" stroke={COLORS.gold} strokeWidth="1.2" strokeDasharray="3 2" />
-              <path d="M92 230 L48 200" stroke={COLORS.gold} strokeWidth="1.2" strokeDasharray="3 2" />
-              <path d="M188 268 L236 250" stroke={COLORS.gold} strokeWidth="1.2" strokeDasharray="3 2" />
-              <path d="M78 170 L42 150" stroke={COLORS.gold} strokeWidth="1.2" strokeDasharray="3 2" />
-              <path d="M140 330 L140 370" stroke={COLORS.gold} strokeWidth="1.2" strokeDasharray="3 2" />
-            </svg>
-
-            {[
-              { num: "06", style: { top: 108, left: 18 } },
-              { num: "07", style: { top: 188, left: 10 } },
-              { num: "08", style: { top: 236, right: 14 } },
-              { num: "09", style: { top: 138, left: 8 } },
-              { num: "10", style: { bottom: 36, left: "50%", transform: "translateX(-50%)" } },
-            ].map((badge) => (
-              <div
-                key={badge.num}
-                className="absolute flex h-6 w-6 items-center justify-center rounded-full"
-                style={{
-                  ...badge.style,
-                  background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-                  boxShadow: "0 0 0 1.5px rgba(212,175,55,0.55)",
-                }}
-              >
-                <span className="text-[9px] font-bold text-[#f6e6c4]">{badge.num}</span>
-              </div>
-            ))}
+            </div>
           </div>
 
-          <div className="flex flex-col justify-between gap-2">
+          <div className="flex h-full min-h-0 flex-col justify-between gap-2">
             {SIGNS.map((sign) => {
               const Icon = sign.icon;
               return (
                 <div
                   key={sign.num}
-                  className="flex items-center gap-2.5 rounded-[12px] px-2.5 py-2"
+                  className="flex min-h-0 flex-1 items-center gap-3 rounded-[12px] px-3 py-2.5"
                   style={{
                     background: COLORS.creamBox,
                     border: "1px solid rgba(184,134,11,0.45)",
@@ -346,20 +263,20 @@ export default function TenSpecialSignsPart2({
                   <NumberBadge num={sign.num} />
                   <div className="min-w-0 flex-1">
                     <p
-                      className="text-[11px] font-bold tracking-[0.05em]"
+                      className="text-[13.5px] font-bold tracking-[0.05em]"
                       style={{ color: COLORS.maroon }}
                     >
                       {sign.title}
                     </p>
                     <p
-                      className="mt-0.5 text-[10.5px] leading-[1.35] font-nunito-sans"
+                      className="mt-0.5 text-[13px] leading-[1.45] font-nunito-sans"
                       style={{ color: COLORS.body }}
                     >
                       {sign.text}
                     </p>
                   </div>
-                  <IconCircle size={32}>
-                    <Icon size={14} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+                  <IconCircle size={42}>
+                    <Icon size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />
                   </IconCircle>
                 </div>
               );
@@ -368,39 +285,39 @@ export default function TenSpecialSignsPart2({
         </section>
 
         <section
-          className="mt-3 flex items-center gap-3 rounded-[14px] px-3 py-2.5"
+          className="mt-2.5 flex shrink-0 items-center gap-3 rounded-[14px] px-3.5 py-2.5"
           style={{
             background: COLORS.creamBox,
             border: "1px solid rgba(184,134,11,0.5)",
           }}
         >
-          <IconCircle size={40}>
-            <Trophy size={17} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+          <IconCircle size={46}>
+            <Trophy size={22} strokeWidth={1.7} style={{ color: COLORS.gold }} />
           </IconCircle>
           <p
-            className="flex-1 text-[12px] leading-[1.45] font-nunito-sans"
+            className="flex-1 text-[14px] leading-[1.5] font-nunito-sans"
             style={{ color: COLORS.body }}
           >
             ये संकेत आपके{" "}
             <span className="font-bold">thought, emotion, health</span> और life changes को
             reflect करते हैं। आगे के pages में इनका detailed explanation दिया गया है।
           </p>
-          <IconCircle size={40}>
-            <Target size={17} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+          <IconCircle size={46}>
+            <Target size={22} strokeWidth={1.7} style={{ color: COLORS.gold }} />
           </IconCircle>
         </section>
 
-        <footer className="mt-auto flex flex-col items-center pt-2">
+        <footer className="mt-2 flex shrink-0 flex-col items-center">
           <OrnamentDivider width={180} />
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <CoverLotus size={22} />
+          <div className="mt-1 flex items-center justify-center gap-2">
+            <CoverLotus size={26} />
             <p
-              className="text-[11px] font-bold tracking-[0.08em]"
+              className="text-[13.5px] font-bold tracking-[0.08em]"
               style={{ color: COLORS.gold }}
             >
               SIGNS 06 — 10
             </p>
-            <CoverLotus size={22} />
+            <CoverLotus size={26} />
           </div>
         </footer>
       </div>

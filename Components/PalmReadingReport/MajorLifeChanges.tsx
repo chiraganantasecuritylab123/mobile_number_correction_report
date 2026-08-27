@@ -37,12 +37,14 @@ type LifeStage = {
   description: string;
   bullets: string[];
   icon: ReactNode;
+  image: string;
 };
 
 const STAGES: LifeStage[] = [
   {
     number: "1",
     title: "EARLY 20s",
+    image: '/assets/palm-reading-report/traditional-1.png',
     subtitle: "Learning and Identity Formation",
     description:
       "इस चरण में आप सीखने, अपनी identity समझने और नई दिशाएँ explore करने पर focused रहते हैं।",
@@ -56,6 +58,7 @@ const STAGES: LifeStage[] = [
   {
     number: "2",
     title: "MID TO LATE 20s",
+    image: '/assets/palm-reading-report/traditional-2.png',
     subtitle: "Career Building & Practical Decisions",
     description:
       "अब focus career, finances और serious relationships की ओर बढ़ता है।",
@@ -69,6 +72,7 @@ const STAGES: LifeStage[] = [
   {
     number: "3",
     title: "EARLY 30s",
+    image: '/assets/palm-reading-report/traditional-3.png',
     subtitle: "Direction & Major Decisions",
     description:
       "यह चरण life goals को define करने और बड़े निर्णय लेने का समय होता है।",
@@ -82,6 +86,7 @@ const STAGES: LifeStage[] = [
   {
     number: "4",
     title: "MID 30s ONWARD",
+    image: '/assets/palm-reading-report/traditional-4.png',
     subtitle: "Experience, Stability & Long-term Growth",
     description:
       "अनुभव से मिली समझ के साथ आप stability और long-term success की नींव रखते हैं।",
@@ -210,10 +215,11 @@ function PointedBanner({ title }: { title: string }) {
 function IconCircle({ children, size = 40 }: { children: ReactNode; size?: number }) {
   return (
     <div
-      className="flex shrink-0 items-center justify-center rounded-full"
+      className="relative flex shrink-0 items-center justify-center overflow-hidden rounded-full"
       style={{
         width: size,
         height: size,
+        aspectRatio: "1 / 1",
         border: "1.4px solid rgba(184,134,11,0.7)",
         background: "#fff8e8",
       }}
@@ -240,7 +246,15 @@ function StageRow({ stage, isLast }: { stage: LifeStage; isLast?: boolean }) {
       >
         {stage.number}
       </div>
-      <IconCircle size={40}>{stage.icon}</IconCircle>
+      <IconCircle size={50}>
+        <Image
+          src={stage.image}
+          alt={stage.title}
+          fill
+          sizes="50px"
+          className="object-cover"
+        />
+      </IconCircle>
       <div className="min-w-0 pr-1">
         <p
           className="text-[13px] font-bold leading-none tracking-[0.04em]"
@@ -331,7 +345,13 @@ export default function MajorLifeChanges({
           }}
         >
           <IconCircle size={48}>
-            <Sprout size={22} strokeWidth={1.7} style={{ color: COLORS.gold }} />
+            <Image
+              src='/assets/palm-reading-report/OIG3.png'
+              alt=""
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
           </IconCircle>
           <p
             className="flex-1 text-[12.5px] leading-[1.5] font-nunito-sans"
@@ -349,15 +369,12 @@ export default function MajorLifeChanges({
             }}
           >
             <Image
-              src={ASSETS.sunrise}
+              src='/assets/palm-reading-report/nature.png'
               alt=""
               fill
               sizes="108px"
               className="object-contain p-1"
             />
-            <div className="absolute inset-0 flex items-end justify-center pb-1.5">
-              <Signpost size={18} strokeWidth={1.8} style={{ color: COLORS.maroon }} />
-            </div>
           </div>
         </section>
 

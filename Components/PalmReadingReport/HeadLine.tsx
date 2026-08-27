@@ -100,45 +100,47 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[680px] items-center justify-center">
-      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
+    <div className="relative mx-auto mt-4 flex w-full max-w-[720px] items-center justify-center">
+      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
       <div
-        className="relative z-10 flex max-w-[560px] items-center gap-2 rounded-full px-3 py-1.5 shadow-sm"
+        className="relative z-10 flex max-w-[600px] items-center gap-2.5 rounded-full px-4 py-2 shadow-sm"
         style={{
           background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
         }}
       >
         <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <CoverLotus size={18} className="opacity-100" />
+          <CoverLotus size={22} className="opacity-100" />
         </div>
         <span
-          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[13px] font-bold"
           style={{ background: COLORS.goldLight, color: COLORS.maroonDeep }}
         >
           4
         </span>
-        <p className="flex items-center gap-1 text-[11px] font-bold leading-tight tracking-[0.03em] text-[#f6e6c4]">
-          <Brain size={14} strokeWidth={2.2} />
+        <p className="flex items-center gap-1.5 text-[13px] font-bold leading-tight tracking-[0.03em] text-[#f6e6c4]">
+          <Brain size={18} strokeWidth={2.2} />
           <span>HEAD LINE — THINKING, INTELLIGENCE और DECISION STYLE</span>
         </p>
       </div>
-      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
+      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
     </div>
   );
 }
 
-function IconCircle({ children }: { children: ReactNode }) {
+function IconCircle({ children, size = 44 }: { children: ReactNode; size?: number }) {
   return (
     <div
-      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+      className="mt-0.5 flex shrink-0 items-center justify-center rounded-full"
       style={{
-        border: "1.3px solid rgba(184,134,11,0.7)",
+        width: size,
+        height: size,
+        border: "1.5px solid rgba(184,134,11,0.7)",
         background: COLORS.cream,
       }}
     >
@@ -150,20 +152,20 @@ function IconCircle({ children }: { children: ReactNode }) {
 function BlockTitle({ title }: { title: string }) {
   return (
     <div
-      className="flex items-center justify-center gap-2 rounded-full px-3 py-1.5"
+      className="flex items-center justify-center gap-2 rounded-full px-4 py-2"
       style={{
         background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
       }}
     >
       <span
-        className="h-1.5 w-1.5 rotate-45"
+        className="h-2 w-2 rotate-45"
         style={{ background: COLORS.goldLight }}
       />
-      <p className="text-center text-[11px] font-bold leading-tight tracking-[0.04em] text-[#f6e6c4]">
+      <p className="text-center text-[13px] font-bold leading-tight tracking-[0.04em] text-[#f6e6c4]">
         {title}
       </p>
       <span
-        className="h-1.5 w-1.5 rotate-45"
+        className="h-2 w-2 rotate-45"
         style={{ background: COLORS.goldLight }}
       />
     </div>
@@ -180,16 +182,16 @@ function CycleStep({
   return (
     <div className="flex min-w-0 flex-1 flex-col items-center text-center">
       <div
-        className="flex h-8 w-8 items-center justify-center rounded-full"
+        className="flex h-12 w-12 items-center justify-center rounded-full"
         style={{
-          border: "1.3px solid rgba(184,134,11,0.7)",
+          border: "1.5px solid rgba(184,134,11,0.7)",
           background: "#fff8e8",
         }}
       >
         {icon}
       </div>
       <p
-        className="mt-1 text-[8.5px] font-bold leading-tight tracking-[0.04em]"
+        className="mt-1.5 text-[11px] font-bold leading-tight tracking-[0.04em]"
         style={{ color: COLORS.maroon }}
       >
         {label}
@@ -202,10 +204,10 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
   return (
     <PalmReadingPageFrame pageLabel="head-line" pageNumber={pageNumber}>
       <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 38 }}
+        className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
+        style={{ top: 114, bottom: 36 }}
       >
-        <header className="flex flex-col items-center text-center">
+        <header className="flex shrink-0 flex-col items-center text-center">
           <p
             className="text-[26px] font-bold leading-none tracking-[0.06em]"
             style={{ color: COLORS.maroon }}
@@ -226,23 +228,23 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
 
         <SectionBar />
 
-        <section className="mt-3 grid grid-cols-[1.08fr_0.92fr] items-center gap-3">
-          <div className="flex flex-col gap-2.5 font-nunito-sans">
-            <div className="flex items-start gap-2.5">
+        <section className="mt-4 grid min-h-0 flex-[1.05] grid-cols-[1.08fr_0.92fr] items-stretch gap-3.5">
+          <div className="flex h-full min-w-0 flex-col justify-center gap-5 font-nunito-sans">
+            <div className="flex items-start gap-3">
               <IconCircle>
-                <Hand size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                <Hand size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
               </IconCircle>
-              <p className="text-[12.5px] leading-[1.5]" style={{ color: COLORS.body }}>
+              <p className="pt-1 text-[15px] leading-[1.55]" style={{ color: COLORS.body }}>
                 आपकी Head Line comparatively <span className="font-bold">long, clear</span> और{" "}
                 <span className="font-bold">slightly downward sloping</span> है।
               </p>
             </div>
 
-            <div className="flex items-start gap-2.5">
+            <div className="flex items-start gap-3">
               <IconCircle>
-                <BookOpen size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                <BookOpen size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
               </IconCircle>
-              <p className="text-[12.5px] leading-[1.5]" style={{ color: COLORS.body }}>
+              <p className="pt-1 text-[15px] leading-[1.55]" style={{ color: COLORS.body }}>
                 Traditional palmistry में long Head Line{" "}
                 <span className="font-bold">analytical thinking</span> से जुड़ी होती है, जबकि
                 downward slope <span className="font-bold">imagination</span> और visualization
@@ -250,11 +252,11 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
               </p>
             </div>
 
-            <div className="flex items-start gap-2.5">
+            <div className="flex items-start gap-3">
               <IconCircle>
-                <Lightbulb size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                <Lightbulb size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
               </IconCircle>
-              <p className="text-[12.5px] leading-[1.5]" style={{ color: COLORS.body }}>
+              <p className="pt-1 text-[15px] leading-[1.55]" style={{ color: COLORS.body }}>
                 यह इस report के लिए एक बहुत <span className="font-bold">important indicator</span>{" "}
                 है — आपकी thinking style और decision-making यहीं से पढ़ी जाती है।
               </p>
@@ -262,7 +264,7 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
           </div>
 
           <div
-            className="flex h-[200px] overflow-hidden rounded-[18px]"
+            className="flex h-full min-h-0 overflow-hidden rounded-[18px]"
             style={{
               border: "1.4px solid rgba(184,134,11,0.55)",
               background:
@@ -274,26 +276,26 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
                 src={ASSETS.hand}
                 alt="Head line on palm"
                 fill
-                sizes="220px"
+                sizes="280px"
                 className="object-contain mix-blend-screen"
-                style={{ transform: "scale(1.08) translateY(4px)" }}
+                style={{ transform: "scale(1.12) translateY(6px)" }}
               />
             </div>
             <div
-              className="m-2.5 flex w-[138px] shrink-0 flex-col justify-center rounded-[10px] px-2.5 py-2"
+              className="my-3 mr-3 flex w-[148px] shrink-0 flex-col justify-center rounded-[12px] px-3 py-3"
               style={{
                 background: "rgba(255,248,232,0.92)",
                 border: "1px solid rgba(184,134,11,0.45)",
               }}
             >
               <p
-                className="text-[11px] font-bold tracking-[0.08em]"
+                className="text-[13px] font-bold tracking-[0.08em]"
                 style={{ color: COLORS.maroon }}
               >
                 HEAD LINE
               </p>
               <ul
-                className="mt-1 list-disc pl-3.5 text-[10px] leading-[1.55] font-nunito-sans"
+                className="mt-2 list-disc pl-4 text-[12.5px] leading-[1.6] font-nunito-sans"
                 style={{ color: COLORS.slate }}
               >
                 <li>Long</li>
@@ -304,9 +306,9 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
           </div>
         </section>
 
-        <section className="mt-3 grid flex-1 grid-cols-2 gap-3">
+        <section className="mt-4 grid min-h-0 flex-[1.2] grid-cols-2 items-stretch gap-3.5">
           <div
-            className="flex h-full flex-col rounded-[14px] p-2.5"
+            className="flex h-full min-h-0 flex-col rounded-[14px] p-3.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
@@ -314,44 +316,46 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
           >
             <BlockTitle title="दो अलग TENDENCIES" />
             <p
-              className="mt-2 px-1 text-[12px] leading-[1.45] font-nunito-sans"
+              className="mt-3 px-1 text-[14px] leading-[1.5] font-nunito-sans"
               style={{ color: COLORS.body }}
             >
               आपकी Head Line में दो tendencies एक साथ काम करती हैं:
             </p>
 
-            <div className="mt-2 flex items-start gap-2 px-1">
-              <IconCircle>
-                <Brain size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-              </IconCircle>
-              <div className="font-nunito-sans">
-                <p className="text-[11px] font-bold" style={{ color: COLORS.maroon }}>
-                  LOGICAL MIND
-                </p>
-                <p className="text-[12px] leading-[1.4]" style={{ color: COLORS.body }}>
-                  आप facts, information और practical outcomes को महत्व देते हैं।
-                </p>
+            <div className="mt-3 flex flex-1 flex-col justify-evenly gap-3">
+              <div className="flex items-start gap-3 px-1">
+                <IconCircle>
+                  <Brain size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                </IconCircle>
+                <div className="min-w-0 pt-0.5 font-nunito-sans">
+                  <p className="text-[13px] font-bold" style={{ color: COLORS.maroon }}>
+                    LOGICAL MIND
+                  </p>
+                  <p className="mt-0.5 text-[14px] leading-[1.5]" style={{ color: COLORS.body }}>
+                    आप facts, information और practical outcomes को महत्व देते हैं।
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 px-1">
+                <IconCircle>
+                  <MessageCircle size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                </IconCircle>
+                <div className="min-w-0 pt-0.5 font-nunito-sans">
+                  <p className="text-[13px] font-bold" style={{ color: COLORS.maroon }}>
+                    IMAGINATIVE MIND
+                  </p>
+                  <p className="mt-0.5 text-[14px] leading-[1.5]" style={{ color: COLORS.body }}>
+                    आप &ldquo;what if&rdquo; situations और possibilities के बारे में भी सोचते हैं।
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="mt-2 flex items-start gap-2 px-1">
-              <IconCircle>
-                <MessageCircle size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-              </IconCircle>
-              <div className="font-nunito-sans">
-                <p className="text-[11px] font-bold" style={{ color: COLORS.maroon }}>
-                  IMAGINATIVE MIND
-                </p>
-                <p className="text-[12px] leading-[1.4]" style={{ color: COLORS.body }}>
-                  आप &ldquo;what if&rdquo; situations और possibilities के बारे में भी सोचते हैं।
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-auto flex items-start gap-2 px-1 pt-2">
-              <Sparkles size={14} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+            <div className="mt-3 flex items-start gap-2.5 rounded-[10px] px-2.5 py-2.5" style={{ background: "rgba(255,248,232,0.7)" }}>
+              <Sparkles size={18} strokeWidth={1.8} className="mt-0.5 shrink-0" style={{ color: COLORS.gold }} />
               <p
-                className="text-[11.5px] leading-[1.4] font-nunito-sans"
+                className="text-[13.5px] leading-[1.45] font-nunito-sans"
                 style={{ color: COLORS.body }}
               >
                 यही combination आपको problem-solving में useful advantage दे सकता है।
@@ -360,7 +364,7 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
           </div>
 
           <div
-            className="flex h-full flex-col rounded-[14px] p-2.5"
+            className="flex h-full min-h-0 flex-col rounded-[14px] p-3.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
@@ -368,12 +372,12 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
           >
             <BlockTitle title="लेकिन यही आपकी WEAKNESS भी बन सकती हैं" />
 
-            <div className="mt-2 flex items-start gap-2 px-1">
+            <div className="mt-3 flex items-start gap-3 px-1">
               <IconCircle>
-                <Brain size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
+                <Brain size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
               </IconCircle>
               <p
-                className="text-[12px] leading-[1.4] font-nunito-sans"
+                className="pt-0.5 text-[14px] leading-[1.5] font-nunito-sans"
                 style={{ color: COLORS.body }}
               >
                 Emotionally important decisions में mind बहुत सारे possible outcomes create कर
@@ -382,65 +386,65 @@ export default function HeadLine({ pageNumber = "05" }: { pageNumber?: string })
             </div>
 
             <p
-              className="mt-2 text-center text-[11px] font-bold"
+              className="mt-4 text-center text-[13px] font-bold tracking-[0.02em]"
               style={{ color: COLORS.maroon }}
             >
               इससे एक CYCLE बन सकता है
             </p>
 
-            <div className="mt-1.5 flex items-center px-0.5">
+            <div className="mt-3 flex flex-1 items-center px-0.5">
               <CycleStep
-                icon={<ScanSearch size={16} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
+                icon={<ScanSearch size={22} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
                 label="ANALYSIS"
               />
-              <ArrowRight size={12} style={{ color: COLORS.gold, flexShrink: 0 }} />
+              <ArrowRight size={16} style={{ color: COLORS.gold, flexShrink: 0 }} />
               <CycleStep
-                icon={<BarChart3 size={16} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
+                icon={<BarChart3 size={22} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
                 label="MORE ANALYSIS"
               />
-              <ArrowRight size={12} style={{ color: COLORS.gold, flexShrink: 0 }} />
+              <ArrowRight size={16} style={{ color: COLORS.gold, flexShrink: 0 }} />
               <CycleStep
-                icon={<HelpCircle size={16} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
+                icon={<HelpCircle size={22} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
                 label="DOUBT"
               />
-              <ArrowRight size={12} style={{ color: COLORS.gold, flexShrink: 0 }} />
+              <ArrowRight size={16} style={{ color: COLORS.gold, flexShrink: 0 }} />
               <CycleStep
-                icon={<Clock size={16} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
+                icon={<Clock size={22} strokeWidth={1.7} style={{ color: COLORS.maroon }} />}
                 label="DELAY"
               />
             </div>
 
             <div
-              className="mt-auto flex items-center gap-2 rounded-[10px] px-2 py-1.5"
+              className="mt-3 flex items-center gap-2.5 rounded-[10px] px-2.5 py-2.5"
               style={{
                 background: "rgba(255,248,232,0.85)",
                 border: "1px solid rgba(184,134,11,0.45)",
               }}
             >
-              <CoverLotus size={22} />
+              <CoverLotus size={26} />
               <p
-                className="flex-1 text-center text-[11px] leading-[1.35] font-nunito-sans"
+                className="flex-1 text-center text-[13px] leading-[1.45] font-nunito-sans"
                 style={{ color: COLORS.body }}
               >
                 अगर इसे manage किया जाए, तो यही analytical nature आपकी बड़ी strength बन जाती है।
               </p>
-              <CoverLotus size={22} />
+              <CoverLotus size={26} />
             </div>
           </div>
         </section>
 
-        <footer className="mt-3 flex flex-col items-center pb-0">
+        <footer className="mt-3 flex shrink-0 flex-col items-center">
           <OrnamentDivider width={220} />
           <div className="mt-2 flex items-center justify-center gap-2.5">
-            <CoverLotus size={28} />
+            <CoverLotus size={30} />
             <blockquote
-              className="max-w-[480px] text-center text-[13px] italic leading-relaxed"
+              className="max-w-[520px] text-center text-[14.5px] italic leading-relaxed"
               style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
             >
               &ldquo;आपका mind जितना गहराई से सोचता है, उतनी ही clarity के साथ action की
               ज़रूरत होती है।&rdquo;
             </blockquote>
-            <CoverLotus size={28} />
+            <CoverLotus size={30} />
           </div>
         </footer>
       </div>
