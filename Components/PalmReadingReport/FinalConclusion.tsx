@@ -1,74 +1,74 @@
 import Image from "next/image";
-import {
-  AlertTriangle,
-  BookOpen,
-  Clock,
-  Crown,
-  Flag,
-  HeartHandshake,
-  Lightbulb,
-  Mountain,
-  Plane,
-  Scale,
-  ScanSearch,
-  Star,
-  Target,
-  TrendingUp,
-  User,
-} from "lucide-react";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
-import { CoverLotus, Pattern3 } from "../CommunComponents";
+import { Pattern3 } from "../CommunComponents";
+import { PalmReadingPageHeader, PalmReadingSectionBar } from "./PalmReadingReportPageShell";
 
 const ASSETS = {
   cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
   hand: "/assets/palm-reading-report/conclusion-hand.png",
-  pattern2: "/assets/cover/pattern-2.png",
+  icons: {
+    star: "/assets/palm-reading-report/conclusion/icon-star-clear.png",
+    mountain: "/assets/palm-reading-report/conclusion/icon-mountain-clear.png",
+    lightbulb: "/assets/palm-reading-report/conclusion/icon-lightbulb-clear.png",
+    travel: "/assets/palm-reading-report/conclusion/icon-travel-clear.png",
+    handsHeart: "/assets/palm-reading-report/conclusion/icon-hands-heart-clear.png",
+    target: "/assets/palm-reading-report/conclusion/icon-target-clear.png",
+    scale: "/assets/palm-reading-report/conclusion/icon-scale-clear.png",
+    meditation: "/assets/palm-reading-report/conclusion/icon-meditation-clear.png",
+    chart: "/assets/palm-reading-report/conclusion/ref-chart-clear.png",
+    hand: "/assets/palm-reading-report/conclusion/icon-hand-clear.png",
+  },
 } as const;
 
 const COLORS = {
   maroon: "#5c1818",
   maroonDeep: "#4a1010",
-  gold: "#b8860b",
+  gold: "#A96505",
   goldLight: "#d4af37",
   cream: "#f8edd8",
   creamBox: "rgba(248, 232, 204, 0.72)",
   body: "#3c2a21",
-  slate: "#4a4540",
 } as const;
 
 const INSIGHTS = [
   {
     text: "आपकी हथेली Potential, Practicality और Self-effort का संतुलन दिखाती है।",
-    icon: Star,
+    iconSrc: ASSETS.icons.star,
+    iconSize: 22,
   },
   {
     text: "आप मेहनती, जिम्मेदार और goal-oriented व्यक्तित्व रखते हैं।",
-    icon: Mountain,
+    iconSrc: ASSETS.icons.mountain,
+    iconSize: 26,
   },
   {
     text: "समय के साथ stability, Recognition और Financial Growth संभव है।",
-    icon: Lightbulb,
+    iconSrc: ASSETS.icons.lightbulb,
+    iconSize: 22,
   },
   {
     text: "Travel, Learning और New Experiences — Comfort Zone से बाहर निकलना आपके लिए महत्वपूर्ण है।",
-    icon: Plane,
+    iconSrc: ASSETS.icons.travel,
+    iconSize: 22,
   },
   {
     text: "यह report आपकी Strengths और weaknesses को समझने के लिए है — ताकि सही दिशा में कर्म हो सकें।",
-    icon: HeartHandshake,
+    iconSrc: ASSETS.icons.handsHeart,
+    iconSize: 26,
   },
 ] as const;
 
-const HELPS_YOU = [
-  { title: "सही लक्ष्य चुनने में", icon: Target },
-  { title: "निर्णय में स्पष्टता लाने में", icon: Clock },
-  { title: "खुद को बेहतर समझने में", icon: BookOpen },
-  { title: "जीवन में संतुलन लाने में", icon: Scale },
-  { title: "स्वास्थ्य के प्रति जागरूकता", icon: User },
-  { title: "दीर्घकालिक योजना बनाने में", icon: TrendingUp },
-] as const;
+type HelpKey = "target" | "clock" | "book" | "scale" | "meditation" | "chart";
+
+const HELPS_YOU: { title: string; key: HelpKey; iconSrc?: string }[] = [
+  { title: "सही लक्ष्य चुनने में", key: "target", iconSrc: ASSETS.icons.target },
+  { title: "निर्णय में स्पष्टता लाने में", key: "clock" },
+  { title: "खुद को बेहतर समझने में", key: "book" },
+  { title: "जीवन में संतुलन लाने में", key: "scale", iconSrc: ASSETS.icons.scale },
+  { title: "स्वास्थ्य के प्रति जागरूकता", key: "meditation", iconSrc: ASSETS.icons.meditation },
+  { title: "दीर्घकालिक योजना बनाने में", key: "chart", iconSrc: ASSETS.icons.chart },
+];
 
 const WARNINGS = [
   "यह report observation और traditional palmistry ज्ञान पर आधारित है।",
@@ -120,14 +120,6 @@ function PalmReadingPageFrame({
         className="pointer-events-none select-none object-fill"
         aria-hidden
       />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
       <div className="relative z-10 h-full">{children}</div>
       <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
         <Pattern3 size={36} />
@@ -135,7 +127,7 @@ function PalmReadingPageFrame({
           className="text-[11px] font-bold tracking-[0.16em]"
           style={{ color: COLORS.maroon }}
         >
-          PAGE {pageNumber}
+          {pageNumber}
         </span>
         <Pattern3 size={36} className="rotate-180" />
       </div>
@@ -143,68 +135,168 @@ function PalmReadingPageFrame({
   );
 }
 
-function OrnamentDivider({ width = 220 }: { width?: number }) {
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
   return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
       <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
       />
     </div>
   );
 }
 
-function SectionBar() {
-  return (
-    <div className="relative mx-auto mt-2.5 flex w-full max-w-[560px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 360,
-        }}
-      >
-        <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <Star size={20} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
-        </div>
-        <div className="text-center">
-          <p className="text-[14px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
-            FINAL CONCLUSION
-          </p>
-          <p className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
-            अंतिम निष्कर्ष
-          </p>
-        </div>
-      </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
-    </div>
-  );
-}
-
-function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
+/** Cream disc + gold ring so gold icons stay sharp on parchment. */
+function IconBadge({
+  children,
+  size = 42,
+}: {
+  children: ReactNode;
+  size?: number;
+}) {
   return (
     <div
-      className="flex shrink-0 items-center justify-center rounded-full"
+      className="relative flex shrink-0 items-center justify-center rounded-full"
       style={{
         width: size,
         height: size,
-        border: "1.5px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
+        background: "linear-gradient(180deg, #fff9ef 0%, #f3e4c4 100%)",
+        boxShadow:
+          "0 0 0 1.5px rgba(169,101,5,0.55), inset 0 1px 0 rgba(255,255,255,0.65)",
       }}
     >
       {children}
     </div>
+  );
+}
+
+function HelpSvg({ name, size = 20 }: { name: "clock" | "book"; size?: number }) {
+  const c = COLORS.gold;
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 48 48",
+    fill: "none" as const,
+    "aria-hidden": true as const,
+  };
+
+  if (name === "clock") {
+    return (
+      <svg {...common}>
+        <circle cx="24" cy="24" r="14" stroke={c} strokeWidth="2.6" />
+        <path
+          d="M24 16v9l6 4"
+          stroke={c}
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M38 24a14 14 0 0 1-14 14"
+          stroke={c}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeDasharray="3.5 3.2"
+        />
+        <path d="M36 34l3 4M39 31l4 2" stroke={c} strokeWidth="2.2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...common}>
+      <path
+        d="M10 12h12c2.5 0 4.5 1.5 4.5 4v22c0-2-2-3.5-4.5-3.5H10V12z"
+        stroke={c}
+        strokeWidth="2.4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M38 12H26c-2.5 0-4.5 1.5-4.5 4v22c0-2 2-3.5 4.5-3.5H38V12z"
+        stroke={c}
+        strokeWidth="2.4"
+        strokeLinejoin="round"
+      />
+      <path d="M24 16v18.5" stroke={c} strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function MagnifyHandSvg({ size = 22 }: { size?: number }) {
+  const c = COLORS.gold;
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <path
+        d="M14 28c0-5.5 4-10 9-10s9 4.5 9 10v8H14v-8z"
+        stroke={c}
+        strokeWidth="2.3"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M18 18c0-3.2 2.5-5.8 5.5-5.8S29 14.8 29 18"
+        stroke={c}
+        strokeWidth="2.3"
+        strokeLinecap="round"
+      />
+      <circle cx="33" cy="16" r="7" stroke={c} strokeWidth="2.4" />
+      <path d="M38 21l5.5 5.5" stroke={c} strokeWidth="2.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CrownSvg({ size = 22 }: { size?: number }) {
+  const c = COLORS.gold;
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <path
+        d="M8 34l4-18 8 10 4-14 4 14 8-10 4 18H8z"
+        stroke={c}
+        strokeWidth="2.4"
+        strokeLinejoin="round"
+      />
+      <path d="M10 34h28v4H10z" fill={c} />
+      <circle cx="12" cy="14" r="2.2" fill={c} />
+      <circle cx="24" cy="10" r="2.2" fill={c} />
+      <circle cx="36" cy="14" r="2.2" fill={c} />
+    </svg>
+  );
+}
+
+function WarningMark({ size = 36 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <path
+        d="M24 6L44 40H4L24 6z"
+        fill={COLORS.maroon}
+        stroke={COLORS.gold}
+        strokeWidth="2.2"
+        strokeLinejoin="round"
+      />
+      <path d="M24 18v12" stroke="#f6e6c4" strokeWidth="3.2" strokeLinecap="round" />
+      <circle cx="24" cy="35" r="2.2" fill="#f6e6c4" />
+    </svg>
+  );
+}
+
+function SectionBar() {
+  return (
+    <PalmReadingSectionBar
+      title="FINAL CONCLUSION"
+      subtitle="अंतिम निष्कर्ष"
+      icon={<PngIcon src={ASSETS.icons.star} size={18} />}
+    />
   );
 }
 
@@ -248,7 +340,7 @@ function ReportCard({
       }}
     >
       <div className="flex shrink-0 flex-col items-center px-3 pt-2 pb-1.5">
-        <IconCircle size={38}>{icon}</IconCircle>
+        <IconBadge size={38}>{icon}</IconBadge>
         <p
           className="mt-1 text-center text-[12px] font-bold leading-tight tracking-[0.04em]"
           style={{ color: COLORS.maroon }}
@@ -296,26 +388,9 @@ export default function FinalConclusion({
     <PalmReadingPageFrame pageLabel="final-conclusion" pageNumber={pageNumber}>
       <div
         className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
-        style={{ top: 110, bottom: 34 }}
+        style={{ top: 18, bottom: 34 }}
       >
-        <header className="flex shrink-0 flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
-          >
-            ASTRO AARAMBH
-          </p>
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
@@ -327,22 +402,19 @@ export default function FinalConclusion({
               border: "1px solid rgba(184,134,11,0.4)",
             }}
           >
-            {INSIGHTS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.text} className="flex items-start gap-2.5">
-                  <IconCircle size={38}>
-                    <Icon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="pt-0.5 text-[12.5px] leading-[1.4] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
+            {INSIGHTS.map((item) => (
+              <div key={item.text} className="flex items-start gap-2.5">
+                <IconBadge size={38}>
+                  <PngIcon src={item.iconSrc} size={item.iconSize} />
+                </IconBadge>
+                <p
+                  className="pt-0.5 text-[12.5px] leading-[1.4] font-nunito-sans"
+                  style={{ color: COLORS.body }}
+                >
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="flex h-full min-h-0 flex-col">
@@ -387,31 +459,35 @@ export default function FinalConclusion({
               border: "1px solid rgba(184,134,11,0.4)",
             }}
           >
-            {HELPS_YOU.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="flex flex-col items-center px-1 text-center"
-                  style={{
-                    borderRight:
-                      index < HELPS_YOU.length - 1
-                        ? "1px dashed rgba(184,134,11,0.35)"
-                        : "none",
-                  }}
+            {HELPS_YOU.map((item, index) => (
+              <div
+                key={item.title}
+                className="flex flex-col items-center px-1 text-center"
+                style={{
+                  borderRight:
+                    index < HELPS_YOU.length - 1
+                      ? "1px dashed rgba(184,134,11,0.35)"
+                      : "none",
+                }}
+              >
+                <IconBadge size={38}>
+                  {item.iconSrc ? (
+                    <PngIcon
+                      src={item.iconSrc}
+                      size={item.key === "meditation" || item.key === "chart" ? 22 : 20}
+                    />
+                  ) : (
+                    <HelpSvg name={item.key as "clock" | "book"} size={20} />
+                  )}
+                </IconBadge>
+                <p
+                  className="mt-1.5 text-[11.5px] leading-[1.3] font-nunito-sans"
+                  style={{ color: COLORS.body }}
                 >
-                  <IconCircle size={38}>
-                    <Icon size={17} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="mt-1.5 text-[11.5px] leading-[1.3] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.title}
-                  </p>
-                </div>
-              );
-            })}
+                  {item.title}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -424,9 +500,9 @@ export default function FinalConclusion({
               border: "1px solid rgba(184,134,11,0.45)",
             }}
           >
-            <IconCircle size={44}>
-              <AlertTriangle size={20} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-            </IconCircle>
+            <IconBadge size={44}>
+              <WarningMark size={28} />
+            </IconBadge>
             <div className="flex-1 space-y-0.5">
               {WARNINGS.map((text) => (
                 <p
@@ -438,10 +514,9 @@ export default function FinalConclusion({
                 </p>
               ))}
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <Flag size={18} style={{ color: COLORS.maroon }} />
-              <AlertTriangle size={16} style={{ color: COLORS.gold }} />
-            </div>
+            <IconBadge size={42}>
+              <PngIcon src={ASSETS.icons.hand} size={26} />
+            </IconBadge>
           </div>
         </section>
 
@@ -451,13 +526,13 @@ export default function FinalConclusion({
             <ReportCard
               title="INTERMEDIATE PALM READING REPORT"
               price="₹151/-"
-              icon={<ScanSearch size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
+              icon={<MagnifyHandSvg size={20} />}
               features={INTERMEDIATE_FEATURES}
             />
             <ReportCard
               title="ADVANCED LEVEL PALM READING REPORT"
               price="₹251/-"
-              icon={<Crown size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
+              icon={<CrownSvg size={20} />}
               features={ADVANCED_FEATURES}
             />
           </div>

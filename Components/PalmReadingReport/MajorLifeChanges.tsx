@@ -2,6 +2,8 @@ import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
 import PalmReadingReportPageShell, {
+  PalmReadingPageHeader,
+  PalmReadingSectionBar,
   REPORT_COLORS,
 } from "./PalmReadingReportPageShell";
 
@@ -16,8 +18,6 @@ const HEADER = {
 } as const;
 
 const ASSETS = {
-  logo: "/assets/ganesha-logo.png",
-  pattern2: "/assets/cover/pattern-2.png",
   introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
   crossroads: "/assets/palm-reading-report/major-life-changes/crossroads-clear.png",
   icons: {
@@ -93,20 +93,6 @@ const STAGES: LifeStage[] = [
   },
 ];
 
-function OrnamentDivider({ width = 220 }: { width?: number }) {
-  return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
-      <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
-      />
-    </div>
-  );
-}
 
 function GoldDiamond({ size = 8 }: { size?: number }) {
   return (
@@ -123,31 +109,13 @@ function GoldDiamond({ size = 8 }: { size?: number }) {
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-2 flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
-          minWidth: 390,
-        }}
-      >
-        <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <RefreshCw size={16} strokeWidth={2.2} style={{ color: HEADER.maroonDeep }} />
-        </div>
-        <p className="flex items-center gap-1.5 text-[13px] font-bold tracking-[0.06em] text-[#f6e6c4]">
-          <span>9.</span>
-          <span>MAJOR LIFE CHANGES</span>
-        </p>
-      </div>
-      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
-    </div>
+    <PalmReadingSectionBar
+      title="9. MAJOR LIFE CHANGES"
+      icon={
+        <RefreshCw size={16} strokeWidth={2.2} style={{ color: HEADER.maroonDeep }} />
+      }
+      minWidth={390}
+    />
   );
 }
 
@@ -276,31 +244,7 @@ export default function MajorLifeChanges({
       pageLabel="major-life-changes"
     >
       <div className="relative flex h-full min-h-0 flex-col font-cinzel">
-        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
-          <Image
-            src={ASSETS.logo}
-            alt="Astro Aarambh"
-            width={58}
-            height={58}
-            className="mb-0.5"
-            priority
-          />
-          <h1
-            className="text-[22px] font-bold leading-none tracking-[0.08em]"
-            style={{ color: HEADER.maroon }}
-          >
-            ASTRO AARAMBH
-          </h1>
-          <p
-            className="mt-0.5 text-[11px] font-bold tracking-[0.06em]"
-            style={{ color: HEADER.gold }}
-          >
-            PREMIUM PALM READING REPORT
-          </p>
-          <div className="mt-0.5">
-            <OrnamentDivider width={200} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
@@ -365,24 +309,25 @@ export default function MajorLifeChanges({
           </div>
         </div>
 
-        <div className="mt-2.5 shrink-0">
-          <PointedBanner title="TRADITIONAL AGE-PHASE INTERPRETATION" />
-        </div>
-
-        <section
-          className="mt-2 flex min-h-0 flex-1 flex-col justify-evenly rounded-[14px] px-3.5 py-2"
-          style={{
-            background: "rgba(248,232,204,0.45)",
-            border: `1px solid rgba(169,101,5,0.4)`,
-          }}
-        >
-          {STAGES.map((stage, index) => (
-            <StageRow
-              key={stage.number}
-              stage={stage}
-              isLast={index === STAGES.length - 1}
-            />
-          ))}
+        <section className="relative mt-3 min-h-0 flex-1 pt-3">
+          <div className="mt-3 pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+            <PointedBanner title="TRADITIONAL AGE-PHASE INTERPRETATION" />
+          </div>
+          <div
+            className="flex h-full min-h-0 flex-col justify-evenly rounded-[14px] px-3.5 pb-2 pt-5"
+            style={{
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
+            }}
+          >
+            {STAGES.map((stage, index) => (
+              <StageRow
+                key={stage.number}
+                stage={stage}
+                isLast={index === STAGES.length - 1}
+              />
+            ))}
+          </div>
         </section>
 
         <footer className="mt-auto flex shrink-0 flex-col items-center pt-2">
@@ -403,7 +348,7 @@ export default function MajorLifeChanges({
               className="text-[11px] font-bold tracking-[0.14em]"
               style={{ color: COLORS.brown }}
             >
-              PAGE {pageNumber}
+              {pageNumber}
             </p>
             <Pattern3 size={28} className="rotate-180" />
           </div>

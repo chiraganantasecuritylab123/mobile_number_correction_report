@@ -2,6 +2,8 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
 import PalmReadingReportPageShell, {
+  PalmReadingPageHeader,
+  PalmReadingSectionBar,
   REPORT_COLORS,
 } from "./PalmReadingReportPageShell";
 
@@ -17,8 +19,6 @@ const HEADER = {
 } as const;
 
 const ASSETS = {
-  logo: "/assets/ganesha-logo.png",
-  pattern2: "/assets/cover/pattern-2.png",
   introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
   palm: "/assets/palm-reading-report/recognition-success/palm-apollo-clear.png",
   podiumArt: "/assets/palm-reading-report/recognition-success/art-podium-clear.png",
@@ -29,7 +29,10 @@ const ASSETS = {
     trophy: "/assets/palm-reading-report/recognition-success/ref-trophy-clear.png",
     personStar: "/assets/palm-reading-report/recognition-success/ref-person-star-clear.png",
     lightbulb: "/assets/palm-reading-report/recognition-success/ref-lightbulb-clear.png",
+    lightbulbGold: "/assets/palm-reading-report/recognition-success/icon-lightbulb-clear.png",
     palette: "/assets/palm-reading-report/recognition-success/ref-palette-clear.png",
+    thumbs: "/assets/palm-reading-report/recognition-success/icon-thumbs-clear.png",
+    star: "/assets/palm-reading-report/recognition-success/icon-star-clear.png",
     target: "/assets/palm-reading-report/recognition-success/icon-target-clear.png",
     megaphone: "/assets/palm-reading-report/recognition-success/ref-megaphone-clear.png",
     people: "/assets/palm-reading-report/recognition-success/ref-people-clear.png",
@@ -39,24 +42,25 @@ const ASSETS = {
     management: "/assets/palm-reading-report/recognition-success/icon-management-clear.png",
     trophyGold: "/assets/palm-reading-report/recognition-success/icon-trophy-clear.png",
     growth: "/assets/palm-reading-report/recognition-success/icon-growth-clear.png",
-    star: "/assets/palm-reading-report/recognition-success/icon-star-clear.png",
   },
 } as const;
 
-const INDICATIONS = [
+type IndicationKey = "recognition" | "motivation" | "creative";
+
+const INDICATIONS: { text: string; key: IndicationKey }[] = [
   {
     text: "आपके लिए recognition और appreciation सिर्फ money से कम महत्वपूर्ण नहीं है — काम की पहचान भी मायने रखती है।",
-    iconSrc: ASSETS.icons.personStar,
+    key: "recognition",
   },
   {
     text: "जब आपके efforts को acknowledge किया जाता है, तो आपकी motivation और energy दोनों बढ़ते हैं।",
-    iconSrc: ASSETS.icons.lightbulb,
+    key: "motivation",
   },
   {
     text: "Creative work, public-facing roles या personal branding वाली दिशाएँ आपके Sun influence को support कर सकती हैं।",
-    iconSrc: ASSETS.icons.palette,
+    key: "creative",
   },
-] as const;
+];
 
 const ENERGY_ACTIONS = [
   {
@@ -77,29 +81,15 @@ const ENERGY_ACTIONS = [
   {
     title: "BE CONSISTENT",
     text: "Consistency से recognition बढ़ती है।",
-    iconSrc: ASSETS.icons.medal,
+    iconSrc: ASSETS.icons.star,
   },
   {
     title: "NURTURE YOUR TALENT",
     text: "अपनी talent को लगातार विकसित करें।",
-    iconSrc: ASSETS.icons.sprout,
+    iconSrc: ASSETS.icons.growth,
   },
 ] as const;
 
-function OrnamentDivider({ width = 220 }: { width?: number }) {
-  return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
-      <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
-      />
-    </div>
-  );
-}
 
 function PngIcon({
   src,
@@ -121,6 +111,97 @@ function PngIcon({
         unoptimized
       />
     </div>
+  );
+}
+
+/** Cream disc + gold ring so icons stay sharp on parchment. */
+function IconBadge({
+  children,
+  size = 48,
+}: {
+  children: ReactNode;
+  size?: number;
+}) {
+  return (
+    <div
+      className="relative flex shrink-0 items-center justify-center rounded-full"
+      style={{
+        width: size,
+        height: size,
+        background: "linear-gradient(180deg, #fff9ef 0%, #f3e4c4 100%)",
+        boxShadow: "0 0 0 1.5px rgba(169,101,5,0.55), inset 0 1px 0 rgba(255,255,255,0.65)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Crisp bronze glyphs for the indications list (full shape, no crop). */
+function IndicationSvg({ name, size = 28 }: { name: IndicationKey; size?: number }) {
+  const c = HEADER.gold;
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 48 48",
+    fill: "none" as const,
+    "aria-hidden": true as const,
+  };
+
+  if (name === "recognition") {
+    return (
+      <svg {...common}>
+        <circle cx="18" cy="14" r="7" stroke={c} strokeWidth="2.4" />
+        <path
+          d="M7 38c1.5-8 6-12 11-12s9.5 4 11 12"
+          stroke={c}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+        />
+        <path
+          d="M33 12l1.6 3.4 3.7.4-2.8 2.5.8 3.6L33 20.2 29.7 22l.8-3.6-2.8-2.5 3.7-.4L33 12z"
+          fill={c}
+        />
+      </svg>
+    );
+  }
+
+  if (name === "motivation") {
+    return (
+      <svg {...common}>
+        <path
+          d="M24 6c-6.2 0-11 4.8-11 10.8 0 4.2 2.3 7.8 5.7 9.7V32h10.6v-5.5c3.4-1.9 5.7-5.5 5.7-9.7C35 10.8 30.2 6 24 6z"
+          stroke={c}
+          strokeWidth="2.4"
+          strokeLinejoin="round"
+        />
+        <path d="M20 35h8M21 39h6" stroke={c} strokeWidth="2.4" strokeLinecap="round" />
+        <path d="M24 14v6M20.5 17.5h7" stroke={c} strokeWidth="2.2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  // creative — palette + brush
+  return (
+    <svg {...common}>
+      <path
+        d="M24 8c-8.8 0-16 6.3-16 14.2 0 5.2 3.2 9.7 8 12.1 1.2.6 2.5-.4 2.3-1.7-.2-1.4.8-2.6 2.2-2.6H28c6.6 0 12-5.4 12-12C40 13.4 32.8 8 24 8z"
+        stroke={c}
+        strokeWidth="2.3"
+        strokeLinejoin="round"
+      />
+      <circle cx="16" cy="18" r="2" fill={c} />
+      <circle cx="22" cy="15" r="2" fill={c} />
+      <circle cx="29" cy="16" r="2" fill={c} />
+      <circle cx="32" cy="22" r="2" fill={c} />
+      <path
+        d="M30 30l8 10"
+        stroke={c}
+        strokeWidth="2.6"
+        strokeLinecap="round"
+      />
+      <path d="M36 36l4 2-2 3-3-1 1-4z" fill={c} />
+    </svg>
   );
 }
 
@@ -160,39 +241,11 @@ function IntroFrame({
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-2 flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
-          minWidth: 400,
-        }}
-      >
-        <div
-          className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <div className="relative h-[22px] w-[22px]">
-            <Image
-              src={ASSETS.icons.sun}
-              alt=""
-              fill
-              sizes="22px"
-              className="object-contain"
-              unoptimized
-            />
-          </div>
-        </div>
-        <p className="text-[13px] font-bold tracking-[0.06em] text-[#f6e6c4]">
-          14. RECOGNITION &amp; SUCCESS
-        </p>
-      </div>
-      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
-    </div>
+    <PalmReadingSectionBar
+      title="14. RECOGNITION & SUCCESS"
+      iconSrc={ASSETS.icons.sun}
+      minWidth={400}
+    />
   );
 }
 
@@ -226,31 +279,7 @@ export default function RecognitionSuccess({
       pageLabel="recognition-success"
     >
       <div className="relative flex h-full min-h-0 flex-col font-cinzel">
-        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
-          <Image
-            src={ASSETS.logo}
-            alt="Astro Aarambh"
-            width={58}
-            height={58}
-            className="mb-0.5"
-            priority
-          />
-          <h1
-            className="text-[22px] font-bold leading-none tracking-[0.08em]"
-            style={{ color: HEADER.maroon }}
-          >
-            ASTRO AARAMBH
-          </h1>
-          <p
-            className="mt-0.5 text-[11px] font-bold tracking-[0.06em]"
-            style={{ color: HEADER.gold }}
-          >
-            PREMIUM PALM READING REPORT
-          </p>
-          <div className="mt-0.5">
-            <OrnamentDivider width={200} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
@@ -317,8 +346,10 @@ export default function RecognitionSuccess({
             <div className="flex min-h-0 flex-col justify-evenly gap-2">
               {INDICATIONS.map((item, index) => (
                 <div key={item.text}>
-                  <div className="flex items-start gap-2.5">
-                    <PngIcon src={item.iconSrc} size={42} />
+                  <div className="flex items-center gap-3">
+                    <IconBadge size={50}>
+                      <IndicationSvg name={item.key} size={28} />
+                    </IconBadge>
                     <p
                       className="min-w-0 text-[12.5px] leading-[1.4] font-nunito-sans"
                       style={{ color: HEADER.body }}
@@ -328,7 +359,7 @@ export default function RecognitionSuccess({
                   </div>
                   {index < INDICATIONS.length - 1 ? (
                     <div
-                      className="my-2 border-t border-dashed"
+                      className="my-2 ml-[62px] border-t border-dashed"
                       style={{ borderColor: "rgba(169,101,5,0.4)" }}
                     />
                   ) : null}
@@ -361,8 +392,8 @@ export default function RecognitionSuccess({
           </div>
         </section>
 
-        <section className=" relative mt-3 shrink-0 pt-3">
-          <div className="mt-3 pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+        <section className="relative mt-3 shrink-0 pt-3">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
             <PointedBanner title="HOW YOU CAN MAKE THE MOST OF THIS ENERGY" />
           </div>
           <div
@@ -384,15 +415,9 @@ export default function RecognitionSuccess({
                     aria-hidden
                   />
                 ) : null}
-                <div
-                  className="relative flex h-[52px] w-[52px] items-center justify-center rounded-full"
-                  style={{
-                    background: "linear-gradient(180deg, #f3e2b8 0%, #e4c77a 100%)",
-                    boxShadow: "0 0 0 1.5px rgba(169,101,5,0.35)",
-                  }}
-                >
+                <IconBadge size={56}>
                   <PngIcon src={item.iconSrc} size={40} />
-                </div>
+                </IconBadge>
                 <p
                   className="mt-1.5 text-[10.5px] font-bold leading-tight tracking-[0.03em]"
                   style={{ color: HEADER.maroon }}
@@ -448,7 +473,7 @@ export default function RecognitionSuccess({
               className="text-[11px] font-bold tracking-[0.14em]"
               style={{ color: COLORS.brown }}
             >
-              PAGE {pageNumber}
+              {pageNumber}
             </p>
             <Pattern3 size={28} className="rotate-180" />
           </div>

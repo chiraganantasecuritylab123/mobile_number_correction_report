@@ -1,195 +1,129 @@
 import Image from "next/image";
-import {
-  Brain,
-  CircleCheck,
-  ClipboardList,
-  Clock,
-  Cloud,
-  Cog,
-  HelpCircle,
-  Lightbulb,
-  MessageCircle,
-  PersonStanding,
-  Smartphone,
-  Target,
-  TrendingUp,
-  UserX,
-} from "lucide-react";
 import type { ReactNode } from "react";
-import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
+import PalmReadingReportPageShell, {
+  PalmReadingPageHeader,
+  PalmReadingSectionBar,
+  REPORT_COLORS,
+} from "./PalmReadingReportPageShell";
 
-const ASSETS = {
-  cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/emotional-hand.png",
-  pattern2: "/assets/cover/pattern-2.png",
+const COLORS = REPORT_COLORS;
+
+const HEADER = {
+  maroon: "#4a0e0e",
+  maroonDeep: "#3a0a0a",
+  gold: "#A96505",
+  goldBright: "#c9a227",
+  bronze: "#8B5A2B",
+  body: "#2c1810",
 } as const;
 
-const COLORS = {
-  maroon: "#5c1818",
-  maroonDeep: "#4a1010",
-  gold: "#b8860b",
-  goldLight: "#d4af37",
-  cream: "#f8edd8",
-  creamBox: "rgba(248, 232, 204, 0.72)",
-  body: "#3c2a21",
-  slate: "#4a4540",
-  red: "#c41e3a",
+const ASSETS = {
+  introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
+  palm: "/assets/palm-reading-report/mental-emotional/palm-head-line-clear.png",
+  mindArt: "/assets/palm-reading-report/mental-emotional/art-mind-brain-clear.png",
+  meditationArt: "/assets/palm-reading-report/mental-emotional/art-meditation-clear.png",
+  icons: {
+    meditation: "/assets/palm-reading-report/mental-emotional/icon-meditation-clear.png",
+    brain: "/assets/palm-reading-report/mental-emotional/icon-brain-clear.png",
+    brainGear: "/assets/palm-reading-report/mental-emotional/icon-brain-gear-clear.png",
+    thought: "/assets/palm-reading-report/mental-emotional/icon-lightbulb-clear.png",
+    chart: "/assets/palm-reading-report/mental-emotional/icon-growth-clear.png",
+  },
 } as const;
 
 const LEFT_POINTS = [
   {
     text: "Head Line strong होने के कारण mental activity high रहने की tendency दिखाई देती है।",
-    icon: Brain,
+    iconSrc: ASSETS.icons.brain,
   },
   {
     text: "आपका mind खाली रहने की बजाय लगातार किसी problem, plan या future possibility के बारे में सोच सकता है।",
-    icon: MessageCircle,
+    iconSrc: ASSETS.icons.thought,
   },
   {
     text: "इससे productivity बढ़ सकती है लेकिन excessive thinking mental fatigue भी पैदा कर सकती है।",
-    icon: TrendingUp,
+    iconSrc: ASSETS.icons.chart,
   },
 ] as const;
 
-const HABITS = [
+type HabitKey = "clipboard" | "runner" | "screen" | "target" | "compare";
+
+const HABITS: { title: string; text: string; key: HabitKey }[] = [
   {
     title: "STRUCTURED PLANNING",
-    text: "दिन को structured तरीके से plan करें।",
-    icon: ClipboardList,
+    text: "दिनचर्या और योजनाओं को व्यवस्थित रखें।",
+    key: "clipboard",
   },
   {
     title: "REGULAR PHYSICAL ACTIVITY",
-    text: "Regular physical activity से mind हल्का रहे।",
-    icon: PersonStanding,
+    text: "नियमित व्यायाम मानसिक ऊर्जा को संतुलित रखता है।",
+    key: "runner",
   },
   {
     title: "SCREEN BREAKS",
-    text: "Screen breaks लेकर mental rest दें।",
-    icon: Smartphone,
+    text: "स्क्रीन से समय-समय पर ब्रेक लें।",
+    key: "screen",
   },
   {
     title: "CLEAR PRIORITIES",
-    text: "Clear priorities से confusion कम होगा।",
-    icon: Target,
+    text: "स्पष्ट प्राथमिकताएं रखने से मन भटकता नहीं है।",
+    key: "target",
   },
   {
-    title: "UNNECESSARY COMPARISON",
-    text: "Unnecessary comparison से बचें।",
-    icon: UserX,
+    title: "UNNECESSARY COMPARISON से बचना",
+    text: "दूसरों से तुलना मानसिक तनाव बढ़ाती है।",
+    key: "compare",
   },
-] as const;
+];
 
 const MENTAL_PATTERN = [
-  "आप deep thinker हैं — बातों को surface से आगे समझते हैं।",
-  "Future planning पर आपका focus naturally मजबूत रहता है।",
-  "Overthinking कभी-कभी decisions को delay कर सकता है।",
+  "आप naturally deep thinker हो सकते हैं।",
+  "आप future की planning और possibilities पर ज्यादा focus करते हैं।",
+  "कभी-कभी overthinking से energy drain हो सकती है।",
   "Solitude में आपको clarity मिल सकती है।",
-  "Creative thinking आपकी बड़ी mental strength है।",
+  "Creative thinking और problem solving आपकी strength हैं।",
 ] as const;
 
-function PalmReadingPageFrame({
-  children,
-  pageLabel,
-  pageNumber,
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
 }: {
-  children?: ReactNode;
-  pageLabel: string;
-  pageNumber: string;
+  src: string;
+  size?: number;
+  alt?: string;
 }) {
   return (
-    <article
-      data-report-page
-      data-page-label={pageLabel}
-      data-report-page-number={pageNumber}
-      className="relative mx-auto overflow-hidden shadow-xl"
-      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
-    >
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
       <Image
-        src={ASSETS.cover}
-        alt=""
+        src={src}
+        alt={alt}
         fill
-        sizes={`${PAGE_WIDTH}px`}
-        className="pointer-events-none select-none object-fill"
-        aria-hidden
-      />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
-      <div className="relative z-10 h-full">{children}</div>
-      <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
-    </article>
-  );
-}
-
-function OrnamentDivider({ width = 220 }: { width?: number }) {
-  return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
-      <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
       />
     </div>
   );
 }
 
-function SectionBar() {
-  return (
-    <div className="relative mx-auto mt-2.5 flex w-full max-w-[680px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-2 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 460,
-        }}
-      >
-        <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <Brain size={20} strokeWidth={2} style={{ color: COLORS.maroonDeep }} />
-        </div>
-        <p className="text-[14px] font-bold tracking-[0.06em] text-[#f6e6c4]">
-          17. MENTAL &amp; EMOTIONAL BALANCE
-        </p>
-      </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
-    </div>
-  );
-}
-
-function IconCircle({ children, size = 40 }: { children: ReactNode; size?: number }) {
+/** Soft cream disc + thin gold ring — icons stay sharp (no gold-on-gold wash). */
+function IconBadge({
+  children,
+  size = 54,
+}: {
+  children: ReactNode;
+  size?: number;
+}) {
   return (
     <div
-      className="flex shrink-0 items-center justify-center rounded-full"
+      className="relative flex shrink-0 items-center justify-center rounded-full"
       style={{
         width: size,
         height: size,
-        border: "1.5px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
+        background: "linear-gradient(180deg, #fff9ef 0%, #f3e4c4 100%)",
+        boxShadow: `0 0 0 1.5px rgba(169,101,5,0.55), inset 0 1px 0 rgba(255,255,255,0.65)`,
       }}
     >
       {children}
@@ -197,22 +131,145 @@ function IconCircle({ children, size = 40 }: { children: ReactNode; size?: numbe
   );
 }
 
-function PointedBanner({ title }: { title: string }) {
+function HabitSvg({ name, size = 30 }: { name: HabitKey; size?: number }) {
+  const stroke = HEADER.bronze;
+  const fill = HEADER.bronze;
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 48 48",
+    fill: "none",
+    "aria-hidden": true as const,
+  };
+
+  if (name === "clipboard") {
+    return (
+      <svg {...common}>
+        <rect x="12" y="10" width="24" height="30" rx="3" stroke={stroke} strokeWidth="2.4" />
+        <rect x="17" y="6" width="14" height="7" rx="2" fill={fill} />
+        <circle cx="18" cy="22" r="1.6" fill={fill} />
+        <circle cx="18" cy="29" r="1.6" fill={fill} />
+        <circle cx="18" cy="36" r="1.6" fill={fill} />
+        <path d="M23 22h10M23 29h10M23 36h8" stroke={stroke} strokeWidth="2.2" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "runner") {
+    return (
+      <svg {...common}>
+        <circle cx="29" cy="10" r="3.4" fill={fill} />
+        <path
+          d="M18 44l5-10 6 3 5-9M23 34l-6-6 8-5 7 3"
+          stroke={stroke}
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path d="M32 22l6-3M20 28l-7 2" stroke={stroke} strokeWidth="2.6" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "screen") {
+    return (
+      <svg {...common}>
+        <rect x="15" y="8" width="18" height="30" rx="3" stroke={stroke} strokeWidth="2.4" />
+        <path d="M21 12h6" stroke={stroke} strokeWidth="2" strokeLinecap="round" />
+        <circle cx="24" cy="33" r="1.5" fill={fill} />
+        <circle cx="24" cy="24" r="10" stroke={stroke} strokeWidth="2.4" />
+        <path d="M17 17l14 14" stroke={stroke} strokeWidth="2.6" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "target") {
+    return (
+      <svg {...common}>
+        <circle cx="22" cy="26" r="14" stroke={stroke} strokeWidth="2.4" />
+        <circle cx="22" cy="26" r="8" stroke={stroke} strokeWidth="2.2" />
+        <circle cx="22" cy="26" r="3" fill={fill} />
+        <path
+          d="M30 10l6-4 1 7-7 5-4-2 4-6z"
+          fill={fill}
+          stroke={stroke}
+          strokeWidth="1.2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  // compare
   return (
-    <div className="relative mx-auto flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={60} className="absolute left-[-4px] opacity-90" />
+    <svg {...common}>
+      <circle cx="16" cy="30" r="7" stroke={stroke} strokeWidth="2.3" />
+      <circle cx="32" cy="30" r="7" stroke={stroke} strokeWidth="2.3" />
+      <path d="M16 24v-3M32 24v-3" stroke={stroke} strokeWidth="2.2" strokeLinecap="round" />
+      <circle cx="24" cy="14" r="6.5" stroke={stroke} strokeWidth="2.2" />
+      <path d="M21 11l6 6M27 11l-6 6" stroke={stroke} strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function IntroFrame({
+  children,
+  className = "",
+  minHeight = 58,
+}: {
+  children: ReactNode;
+  className?: string;
+  minHeight?: number;
+}) {
+  return (
+    <div
+      className={`relative flex w-full shrink-0 items-center ${className}`}
+      style={{
+        minHeight,
+        boxSizing: "border-box",
+        borderStyle: "solid",
+        borderColor: "transparent",
+        borderTopWidth: 14,
+        borderBottomWidth: 14,
+        borderLeftWidth: 20,
+        borderRightWidth: 20,
+        borderImageSource: `url(${ASSETS.introFrame})`,
+        borderImageSlice: "55 70 55 70",
+        borderImageWidth: "14px 20px",
+        borderImageRepeat: "stretch",
+      }}
+    >
+      <div className="relative z-10 flex w-full items-center gap-2 px-1 py-0.5">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function SectionBar() {
+  return (
+    <PalmReadingSectionBar
+      title="17. MENTAL & EMOTIONAL BALANCE"
+      iconSrc={ASSETS.icons.meditation}
+      minWidth={460}
+    />
+  );
+}
+
+function PointedBanner({ title, minWidth = 400 }: { title: string; minWidth?: number }) {
+  return (
+    <div className="flex justify-center">
       <div
-        className="relative z-10 rounded-full px-6 py-1.5"
+        className="px-7 py-1.5 text-center"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 400,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
+          clipPath:
+            "polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%)",
+          minWidth,
         }}
       >
-        <p className="text-center text-[13px] font-bold tracking-[0.08em] text-[#f6e6c4]">
-          {title}
-        </p>
+        <p className="text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">{title}</p>
       </div>
-      <Pattern3 size={60} className="absolute right-[-4px] rotate-180 opacity-90" />
     </div>
   );
 }
@@ -223,230 +280,163 @@ export default function MentalEmotionalBalance({
   pageNumber?: string;
 }) {
   return (
-    <PalmReadingPageFrame pageLabel="mental-emotional-balance" pageNumber={pageNumber}>
-      <div
-        className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
-        style={{ top: 110, bottom: 34 }}
-      >
-        <header className="flex shrink-0 flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
-          >
-            ASTRO AARAMBH
-          </p>
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
-          </div>
-        </header>
+    <PalmReadingReportPageShell
+      padding="12px 32px 18px"
+      pageNumber={pageNumber}
+      pageLabel="mental-emotional-balance"
+    >
+      <div className="relative flex h-full min-h-0 flex-col font-cinzel">
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
-        <section className="mt-2.5 grid min-h-0 flex-[1.1] grid-cols-[1fr_0.95fr_0.85fr] items-stretch gap-3">
-          <div className="flex h-full flex-col justify-center gap-4 py-1">
-            {LEFT_POINTS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.text} className="flex items-start gap-2.5">
-                  <IconCircle size={42}>
-                    <Icon size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="pt-0.5 text-[13.5px] leading-[1.5] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
+        <section
+          className="mt-2.5 grid min-h-0 flex-[1.05] grid-cols-[1.05fr_0.9fr_0.95fr] items-stretch gap-3 rounded-[14px] px-3 py-3"
+          style={{
+            background: "rgba(248,232,204,0.45)",
+            border: `1px solid rgba(169,101,5,0.4)`,
+          }}
+        >
+          <div className="flex min-h-0 flex-col justify-evenly gap-3 py-1">
+            {LEFT_POINTS.map((item) => (
+              <div key={item.text} className="flex items-start gap-2.5">
+                <IconBadge size={48}>
+                  <PngIcon src={item.iconSrc} size={34} />
+                </IconBadge>
+                <p
+                  className="min-w-0 text-[13px] leading-[1.45] font-nunito-sans"
+                  style={{ color: HEADER.body }}
+                >
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
 
-          <div
-            className="relative h-full min-h-0 overflow-hidden rounded-[16px]"
-            style={{
-              border: "1.4px solid rgba(184,134,11,0.55)",
-              background:
-                "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
-            }}
-          >
+          <div className="relative min-h-0 overflow-hidden">
             <Image
-              src={ASSETS.hand}
-              alt="Head line mental pattern"
+              src={ASSETS.palm}
+              alt="Head line on palm"
               fill
-              sizes="260px"
-              className="object-contain mix-blend-screen"
-              style={{ transform: "scale(1.12) translateY(4px)" }}
+              sizes="240px"
+              className="object-contain object-center"
+              unoptimized
             />
           </div>
 
-          <div
-            className="relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[14px] px-2.5 py-3"
-            style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
-            }}
-          >
-            <div
-              className="relative flex h-[84px] w-[84px] items-center justify-center rounded-full"
-              style={{
-                border: "1.5px solid rgba(184,134,11,0.55)",
-                background:
-                  "radial-gradient(circle at 40% 35%, rgba(212,175,55,0.35) 0%, rgba(255,248,232,0.95) 70%)",
-              }}
-            >
-              <Brain size={40} strokeWidth={1.5} style={{ color: COLORS.maroon }} />
-            </div>
-            <Cloud size={22} className="mt-2.5" style={{ color: COLORS.gold }} />
-            <p
-              className="mt-2 text-center text-[13px] font-bold tracking-[0.06em]"
-              style={{ color: COLORS.maroon }}
-            >
-              ACTIVE MIND
-            </p>
-            <p
-              className="mt-1 text-center text-[12px] leading-snug font-nunito-sans"
-              style={{ color: COLORS.slate }}
-            >
-              Thinking · Planning · Analysis
-            </p>
+          <div className="relative min-h-0 overflow-hidden">
+            <Image
+              src={ASSETS.mindArt}
+              alt="Active mind"
+              fill
+              sizes="220px"
+              className="object-contain object-center"
+              unoptimized
+            />
           </div>
         </section>
 
-        <section className="mt-2 shrink-0">
-          <PointedBanner title="USEFUL HABITS FOR MENTAL BALANCE" />
-          <div
-            className="mt-2 grid grid-cols-5 gap-1.5 rounded-[14px] px-2 py-2.5"
-            style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
-            }}
-          >
-            {HABITS.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="flex flex-col items-center px-1.5 text-center"
-                  style={{
-                    borderRight:
-                      index < HABITS.length - 1
-                        ? "1px dashed rgba(184,134,11,0.35)"
-                        : "none",
-                  }}
-                >
-                  <IconCircle size={40}>
-                    <Icon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="mt-1.5 text-[11.5px] font-bold leading-tight tracking-[0.03em]"
-                    style={{ color: COLORS.maroon }}
-                  >
-                    {item.title}
-                  </p>
-                  <p
-                    className="mt-1 text-[11.5px] leading-[1.4] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
+        <section className="relative mt-3 shrink-0 pt-3">
+          <div className="mt-3 pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+            <PointedBanner title="USEFUL HABITS FOR MENTAL BALANCE" minWidth={420} />
           </div>
-        </section>
-
-        <section className="mt-2 flex min-h-0 flex-[1.2] flex-col">
-          <PointedBanner title="YOUR MENTAL PATTERN" />
           <div
-            className="mt-2 grid min-h-0 flex-1 grid-cols-[0.85fr_1.15fr] items-stretch gap-2.5 rounded-[14px] p-2.5"
+            className="grid grid-cols-5 gap-0 rounded-[14px] px-1.5 pb-2.5 pt-5"
             style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
             }}
           >
-            <div
-              className="relative flex h-full flex-col items-center justify-center overflow-hidden rounded-[12px] px-2 py-3"
-              style={{
-                border: "1px solid rgba(184,134,11,0.4)",
-                background:
-                  "radial-gradient(circle at 50% 40%, rgba(212,175,55,0.22) 0%, rgba(255,248,232,0.9) 75%)",
-              }}
-            >
-              <div className="absolute left-3 top-4">
-                <IconCircle size={32}>
-                  <Lightbulb size={15} style={{ color: COLORS.gold }} />
-                </IconCircle>
-              </div>
-              <div className="absolute right-3 top-6">
-                <IconCircle size={32}>
-                  <Cog size={15} style={{ color: COLORS.gold }} />
-                </IconCircle>
-              </div>
-              <div className="absolute bottom-10 left-4">
-                <IconCircle size={32}>
-                  <TrendingUp size={15} style={{ color: COLORS.gold }} />
-                </IconCircle>
-              </div>
-              <div className="absolute bottom-10 right-4">
-                <IconCircle size={32}>
-                  <Clock size={15} style={{ color: COLORS.gold }} />
-                </IconCircle>
-              </div>
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                <IconCircle size={32}>
-                  <HelpCircle size={15} style={{ color: COLORS.gold }} />
-                </IconCircle>
-              </div>
-              <Brain size={48} strokeWidth={1.4} style={{ color: COLORS.maroon }} />
-              <p
-                className="mt-2 text-center text-[13px] font-bold tracking-[0.06em]"
-                style={{ color: COLORS.maroon }}
+            {HABITS.map((item, index) => (
+              <div
+                key={item.title}
+                className="relative flex flex-col items-center px-1.5 text-center"
               >
-                INNER MIND MAP
-              </p>
+                {index > 0 ? (
+                  <div
+                    className="absolute bottom-2 left-0 top-2 w-px"
+                    style={{ background: "rgba(169,101,5,0.28)" }}
+                    aria-hidden
+                  />
+                ) : null}
+                <IconBadge size={56}>
+                  <HabitSvg name={item.key} size={32} />
+                </IconBadge>
+                <p
+                  className="mt-1.5 text-[10px] font-bold leading-tight tracking-[0.03em]"
+                  style={{ color: HEADER.maroon }}
+                >
+                  {item.title}
+                </p>
+                <p
+                  className="mt-1 text-[10.5px] leading-[1.3] font-nunito-sans"
+                  style={{ color: HEADER.body }}
+                >
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="relative mt-3 min-h-0 flex-1 pt-3">
+          <div className="mt-3 pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+            <PointedBanner title="YOUR MENTAL PATTERN" minWidth={340} />
+          </div>
+          <div
+            className="grid h-full min-h-0 grid-cols-[1fr_1.05fr] items-stretch gap-2.5 rounded-[14px] px-2.5 pb-2.5 pt-5"
+            style={{
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
+            }}
+          >
+            <div className="relative flex min-h-[210px] items-center justify-center overflow-hidden px-1">
+              <Image
+                src={ASSETS.meditationArt}
+                alt="Mental pattern meditation"
+                width={420}
+                height={280}
+                className="h-full max-h-[240px] w-auto max-w-full object-contain object-center"
+                unoptimized
+              />
             </div>
 
-            <div className="flex h-full min-h-0 flex-col justify-center gap-2">
+            <div className="flex min-h-0 flex-col justify-evenly gap-1.5">
               {MENTAL_PATTERN.map((text) => (
-                <div key={text} className="flex items-start gap-2.5">
-                  <CircleCheck
-                    size={18}
-                    strokeWidth={2}
-                    className="mt-0.5 shrink-0"
-                    style={{ color: COLORS.gold }}
-                  />
+                <div key={text} className="flex items-start gap-2">
+                  <div
+                    className="mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full"
+                    style={{
+                      background: `linear-gradient(180deg, ${HEADER.goldBright} 0%, ${HEADER.gold} 100%)`,
+                    }}
+                  >
+                    <span className="text-[10px] font-bold text-[#3a0a0a]">✓</span>
+                  </div>
                   <p
-                    className="text-[13.5px] leading-[1.45] font-nunito-sans"
-                    style={{ color: COLORS.body }}
+                    className="min-w-0 text-[12.5px] leading-[1.4] font-nunito-sans"
+                    style={{ color: HEADER.body }}
                   >
                     {text}
                   </p>
                 </div>
               ))}
+
               <div
-                className="mt-1 flex items-center gap-2.5 rounded-[10px] px-2.5 py-2.5"
+                className="mt-1 flex items-center gap-2.5 rounded-[10px] px-2.5 py-2"
                 style={{
-                  background: "rgba(255,248,232,0.95)",
-                  border: "1px solid rgba(184,134,11,0.5)",
+                  background: "rgba(255,248,232,0.9)",
+                  border: `1px solid rgba(169,101,5,0.45)`,
                 }}
               >
-                <IconCircle size={38}>
-                  <Brain size={18} strokeWidth={1.8} style={{ color: COLORS.maroon }} />
-                </IconCircle>
+                <IconBadge size={44}>
+                  <PngIcon src={ASSETS.icons.brainGear} size={32} />
+                </IconBadge>
                 <p
-                  className="text-[13.5px] leading-[1.45] font-nunito-sans"
-                  style={{ color: COLORS.body }}
+                  className="min-w-0 text-[12.5px] leading-[1.4] font-nunito-sans"
+                  style={{ color: HEADER.body }}
                 >
                   Traditional palmistry perspective से आपकी biggest mental challenge{" "}
-                  <span className="font-bold font-cinzel tracking-[0.04em]" style={{ color: COLORS.maroon }}>
+                  <span className="font-bold tracking-[0.04em]" style={{ color: HEADER.maroon }}>
                     OVER-ANALYSIS
                   </span>{" "}
                   है।
@@ -456,19 +446,30 @@ export default function MentalEmotionalBalance({
           </div>
         </section>
 
-        <footer className="mt-2 flex shrink-0 flex-col items-center">
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <CoverLotus size={26} />
-            <blockquote
-              className="max-w-[520px] text-center text-[14px] italic leading-relaxed"
-              style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
+        <IntroFrame className="mt-2.5" minHeight={58}>
+          <CoverLotus size={24} />
+          <p
+            className="min-w-0 flex-1 text-center text-[12.5px] leading-[1.4] font-nunito-sans"
+            style={{ color: HEADER.maroon }}
+          >
+            “शांत मन, स्पष्ट सोच और संतुलित दिनचर्या ही सच्ची मानसिक शक्ति है।”
+          </p>
+          <CoverLotus size={24} />
+        </IntroFrame>
+
+        <footer className="mt-auto flex shrink-0 flex-col items-center pt-2">
+          <div className="flex w-full items-center justify-end gap-2 pr-1">
+            <Pattern3 size={28} />
+            <p
+              className="text-[11px] font-bold tracking-[0.14em]"
+              style={{ color: COLORS.brown }}
             >
-              &ldquo;शांत मन, स्पष्ट सोच और संतुलित दिनचर्या ही सच्ची मानसिक शक्ति है।&rdquo;
-            </blockquote>
-            <CoverLotus size={26} />
+              {pageNumber}
+            </p>
+            <Pattern3 size={28} className="rotate-180" />
           </div>
         </footer>
       </div>
-    </PalmReadingPageFrame>
+    </PalmReadingReportPageShell>
   );
 }

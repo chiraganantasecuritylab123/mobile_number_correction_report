@@ -1,25 +1,23 @@
 import Image from "next/image";
-import {
-  Brain,
-  Heart,
-  Lightbulb,
-  MapPin,
-  Plane,
-  Search,
-  Shield,
-  Sparkles,
-  Star,
-  Trophy,
-} from "lucide-react";
+import { Search } from "lucide-react";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
-import { CoverLotus, Pattern3 } from "../CommunComponents";
+import { Pattern3 } from "../CommunComponents";
+import { PalmReadingPageHeader, PalmReadingSectionBar } from "./PalmReadingReportPageShell";
 
 const ASSETS = {
   cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
   hand: "/assets/palm-reading-report/particularly-hand.png",
   pattern2: "/assets/cover/pattern-2.png",
+  icons: {
+    brain: "/assets/palm-reading-report/ten-special-signs/icon-brain-clear.png",
+    lightbulb: "/assets/palm-reading-report/ten-special-signs/icon-lightbulb-clear.png",
+    heart: "/assets/palm-reading-report/ten-special-signs/icon-heart-clear.png",
+    shield: "/assets/palm-reading-report/ten-special-signs/icon-shield-clear.png",
+    travel: "/assets/palm-reading-report/ten-special-signs/icon-travel-clear.png",
+    trophy: "/assets/palm-reading-report/ten-special-signs/icon-trophy-clear.png",
+    star: "/assets/palm-reading-report/ten-special-signs/icon-star-clear.png",
+  },
 } as const;
 
 const COLORS = {
@@ -30,8 +28,6 @@ const COLORS = {
   cream: "#f8edd8",
   creamBox: "rgba(248, 232, 204, 0.72)",
   body: "#3c2a21",
-  slate: "#4a4540",
-  red: "#c41e3a",
 } as const;
 
 const SIGNS = [
@@ -39,31 +35,31 @@ const SIGNS = [
     num: "01",
     title: "LONG HEAD LINE",
     text: "Deep thinking और analytical ability का traditional indicator.",
-    icon: Brain,
+    iconSrc: ASSETS.icons.brain,
   },
   {
     num: "02",
     title: "SLIGHT DOWNWARD HEAD LINE",
-    text: "Imagination और creative visualization की ओर संकेत करता है.",
-    icon: Lightbulb,
+    text: "Imagination और intuitive thinking से जुड़ा संकेत.",
+    iconSrc: ASSETS.icons.lightbulb,
   },
   {
     num: "03",
     title: "CLEAR HEART LINE",
-    text: "Emotional clarity और sincere affection का indicator.",
-    icon: Heart,
+    text: "Emotional stability और relationship seriousness का संकेत.",
+    iconSrc: ASSETS.icons.heart,
   },
   {
     num: "04",
     title: "STRONG LIFE LINE",
-    text: "Vitality, health awareness और life energy का traditional sign.",
-    icon: Shield,
+    text: "Persistence और vitality का traditional indication.",
+    iconSrc: ASSETS.icons.shield,
   },
   {
     num: "05",
     title: "LIFE LINE BRANCH",
-    text: "Travel, relocation या environment change की संभावना दिखाता है.",
-    icon: Plane,
+    text: "Travel/change या environment shift की possibility.",
+    iconSrc: ASSETS.icons.travel,
   },
 ] as const;
 
@@ -92,14 +88,6 @@ function PalmReadingPageFrame({
         className="pointer-events-none select-none object-fill"
         aria-hidden
       />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
       <div className="relative z-10 h-full">{children}</div>
       <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
         <Pattern3 size={36} />
@@ -107,7 +95,7 @@ function PalmReadingPageFrame({
           className="text-[11px] font-bold tracking-[0.16em]"
           style={{ color: COLORS.maroon }}
         >
-          PAGE {pageNumber}
+          {pageNumber}
         </span>
         <Pattern3 size={36} className="rotate-180" />
       </div>
@@ -132,42 +120,53 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-2.5 flex w-full max-w-[680px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-2 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 500,
-        }}
-      >
-        <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <Search size={20} strokeWidth={2} style={{ color: COLORS.maroonDeep }} />
-        </div>
-        <p className="text-[14px] font-bold tracking-[0.04em] text-[#f6e6c4]">
-          18. आपकी हथेली के 10 विशेष संकेत
-        </p>
-      </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
+    <PalmReadingSectionBar
+      title="18. आपकी हथेली के 10 विशेष संकेत"
+      iconSrc={ASSETS.icons.star}
+      minWidth={500}
+    />
+  );
+}
+
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
+      />
     </div>
   );
 }
 
-function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
+function IconBadge({
+  children,
+  size = 48,
+}: {
+  children: ReactNode;
+  size?: number;
+}) {
   return (
     <div
-      className="flex shrink-0 items-center justify-center rounded-full"
+      className="relative flex shrink-0 items-center justify-center rounded-full"
       style={{
         width: size,
         height: size,
-        border: "1.5px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
+        background: "linear-gradient(180deg, #fff9ef 0%, #f3e4c4 100%)",
+        boxShadow:
+          "0 0 0 1.5px rgba(169,101,5,0.55), inset 0 1px 0 rgba(255,255,255,0.65)",
       }}
     >
       {children}
@@ -197,26 +196,9 @@ export default function TenSpecialSigns({
     <PalmReadingPageFrame pageLabel="ten-special-signs" pageNumber={pageNumber}>
       <div
         className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
-        style={{ top: 110, bottom: 34 }}
+        style={{ top: 18, bottom: 34 }}
       >
-        <header className="flex shrink-0 flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
-          >
-            ASTRO AARAMBH
-          </p>
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
@@ -231,45 +213,35 @@ export default function TenSpecialSigns({
 
         <section className="mt-2.5 grid min-h-0 flex-1 grid-cols-[1.15fr_0.85fr] items-stretch gap-3">
           <div className="flex h-full min-h-0 flex-col justify-between gap-2">
-            {SIGNS.map((sign) => {
-              const Icon = sign.icon;
-              return (
-                <div
-                  key={sign.num}
-                  className="flex min-h-0 flex-1 items-center gap-3 rounded-[12px] px-3 py-2.5"
-                  style={{
-                    background: COLORS.creamBox,
-                    border: "1px solid rgba(184,134,11,0.45)",
-                  }}
-                >
-                  <NumberBadge num={sign.num} />
-                  <div className="min-w-0 flex-1">
-                    <p
-                      className="text-[13.5px] font-bold tracking-[0.05em]"
-                      style={{ color: COLORS.maroon }}
-                    >
-                      {sign.title}
-                    </p>
-                    <p
-                      className="mt-0.5 text-[13px] leading-[1.45] font-nunito-sans"
-                      style={{ color: COLORS.body }}
-                    >
-                      {sign.text}
-                    </p>
-                  </div>
-                  <IconCircle size={42}>
-                    {sign.num === "05" ? (
-                      <div className="flex items-center gap-0.5">
-                        <Plane size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-                        <MapPin size={14} strokeWidth={1.8} style={{ color: COLORS.maroon }} />
-                      </div>
-                    ) : (
-                      <Icon size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                    )}
-                  </IconCircle>
+            {SIGNS.map((sign) => (
+              <div
+                key={sign.num}
+                className="flex min-h-0 flex-1 items-center gap-3 rounded-[12px] px-3 py-2.5"
+                style={{
+                  background: COLORS.creamBox,
+                  border: "1px solid rgba(184,134,11,0.45)",
+                }}
+              >
+                <NumberBadge num={sign.num} />
+                <div className="min-w-0 flex-1">
+                  <p
+                    className="text-[13.5px] font-bold tracking-[0.05em]"
+                    style={{ color: COLORS.maroon }}
+                  >
+                    {sign.title}
+                  </p>
+                  <p
+                    className="mt-0.5 text-[13px] leading-[1.45] font-nunito-sans"
+                    style={{ color: COLORS.body }}
+                  >
+                    {sign.text}
+                  </p>
                 </div>
-              );
-            })}
+                <IconBadge size={48}>
+                  <PngIcon src={sign.iconSrc} size={34} />
+                </IconBadge>
+              </div>
+            ))}
           </div>
 
           <div
@@ -299,9 +271,9 @@ export default function TenSpecialSigns({
             border: "1px solid rgba(184,134,11,0.5)",
           }}
         >
-          <IconCircle size={46}>
-            <Trophy size={22} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-          </IconCircle>
+          <IconBadge size={50}>
+            <PngIcon src={ASSETS.icons.trophy} size={36} />
+          </IconBadge>
           <p
             className="flex-1 text-[14px] leading-[1.5] font-nunito-sans"
             style={{ color: COLORS.body }}
@@ -310,34 +282,14 @@ export default function TenSpecialSigns({
             <span className="font-bold">thought, emotion, health</span> और life changes को
             reflect करते हैं। आगे के pages में इनका detailed explanation दिया गया है।
           </p>
-          <div className="relative flex h-[52px] w-[60px] shrink-0 items-center justify-center">
-            <Search size={24} style={{ color: COLORS.gold }} />
-            <Star
-              size={14}
-              className="absolute right-0 top-0"
-              fill={COLORS.goldLight}
-              stroke={COLORS.gold}
-            />
-            <Sparkles
-              size={14}
-              className="absolute bottom-0 left-0"
-              style={{ color: COLORS.maroon }}
-            />
+          <div className="relative flex h-[52px] w-[72px] shrink-0 items-center justify-center gap-1">
+            <Search size={22} strokeWidth={2} style={{ color: COLORS.gold }} />
+            <PngIcon src={ASSETS.icons.star} size={28} />
           </div>
         </section>
 
         <footer className="mt-2 flex shrink-0 flex-col items-center">
           <OrnamentDivider width={180} />
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <CoverLotus size={26} />
-            <p
-              className="text-[13.5px] font-bold tracking-[0.08em]"
-              style={{ color: COLORS.gold }}
-            >
-              SIGNS 01 — 05
-            </p>
-            <CoverLotus size={26} />
-          </div>
         </footer>
       </div>
     </PalmReadingPageFrame>
