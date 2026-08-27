@@ -1,86 +1,48 @@
 import Image from "next/image";
-import {
-  Brain,
-  Eye,
-  Hand,
-  Heart,
-  RefreshCw,
-  ScanSearch,
-  Target,
-  User,
-} from "lucide-react";
 import type { ReactNode } from "react";
-import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
+import PalmReadingReportPageShell, {
+  REPORT_COLORS,
+} from "./PalmReadingReportPageShell";
+
+const COLORS = REPORT_COLORS;
+
+const HEADER = {
+  maroon: "#4a0e0e",
+  maroonDeep: "#3a0a0a",
+  gold: "#A96505",
+  goldBright: "#c9a227",
+  body: "#2c1810",
+} as const;
 
 const ASSETS = {
-  cover: "/assets/cover-bg.png",
   logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/hand.png",
   pattern2: "/assets/cover/pattern-2.png",
-  lotus: "/assets/cover/lotus.png",
+  introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
+  palm: "/assets/palm-reading-report/palm-shape/palm-diagram-clear.png",
+  icons: {
+    observation: "/assets/palm-reading-report/palm-shape/icon-observation-clear.png",
+    brain: "/assets/palm-reading-report/palm-shape/icon-brain-clear.png",
+    adaptability: "/assets/palm-reading-report/life-line/icon-environment-clear.png",
+    heart: "/assets/palm-reading-report/palm-shape/icon-heart-clear.png",
+    independence: "/assets/palm-reading-report/palm-shape/icon-independence-clear.png",
+    eye: "/assets/palm-reading-report/palm-shape/icon-eye-clear.png",
+    personality: "/assets/palm-reading-report/palm-shape/icon-personality-clear.png",
+    target: "/assets/palm-reading-report/palm-shape/icon-target-clear.png",
+  },
 } as const;
 
-const COLORS = {
-  maroon: "#5c1818",
-  maroonDeep: "#4a1010",
-  gold: "#b8860b",
-  goldLight: "#d4af37",
-  cream: "#f8edd8",
-  creamBox: "rgba(248, 232, 204, 0.72)",
-  body: "#3c2a21",
-  slate: "#4a4540",
-} as const;
-
-function PalmReadingPageFrame({
-  children,
-  pageLabel,
-  pageNumber,
-}: {
-  children?: ReactNode;
-  pageLabel: string;
-  pageNumber: string;
-}) {
-  return (
-    <article
-      data-report-page
-      data-page-label={pageLabel}
-      data-report-page-number={pageNumber}
-      className="relative mx-auto overflow-hidden shadow-xl"
-      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
-    >
-      <Image
-        src={ASSETS.cover}
-        alt=""
-        fill
-        sizes={`${PAGE_WIDTH}px`}
-        className="pointer-events-none select-none object-fill"
-        aria-hidden
-      />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
-      <div className="relative z-10 h-full">{children}</div>
-      <div
-        className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel"
-      >
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
-    </article>
-  );
-}
+const TENDENCIES = [
+  { title: "Observation", value: "Strong", iconSrc: ASSETS.icons.observation },
+  { title: "Thinking", value: "Analytical", iconSrc: ASSETS.icons.brain },
+  { title: "Adaptability", value: "Good", iconSrc: ASSETS.icons.adaptability },
+  {
+    title: "Emotional Sensitivity",
+    value: "Moderate to High",
+    iconSrc: ASSETS.icons.heart,
+  },
+  { title: "Independence", value: "Strong", iconSrc: ASSETS.icons.independence },
+] as const;
 
 function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
@@ -97,14 +59,71 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
   );
 }
 
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
+      />
+    </div>
+  );
+}
+
+function IntroFrame({
+  children,
+  className = "",
+  minHeight = 58,
+}: {
+  children: ReactNode;
+  className?: string;
+  minHeight?: number;
+}) {
+  return (
+    <div
+      className={`relative flex w-full shrink-0 items-center ${className}`}
+      style={{
+        minHeight,
+        boxSizing: "border-box",
+        borderStyle: "solid",
+        borderColor: "transparent",
+        borderTopWidth: 14,
+        borderBottomWidth: 14,
+        borderLeftWidth: 20,
+        borderRightWidth: 20,
+        borderImageSource: `url(${ASSETS.introFrame})`,
+        borderImageSlice: "55 70 55 70",
+        borderImageWidth: "14px 20px",
+        borderImageRepeat: "stretch",
+      }}
+    >
+      <div className="relative z-10 flex w-full items-center gap-2 px-1 py-0.5">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
+    <div className="relative mx-auto mt-2 flex w-full max-w-[640px] items-center justify-center">
+      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
       <div
         className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
           minWidth: 430,
         }}
       >
@@ -117,26 +136,23 @@ function SectionBar() {
         >
           <CoverLotus size={22} className="opacity-100" />
         </div>
-        <p
-          className="flex items-center gap-1.5 text-[13px] font-bold tracking-[0.04em] text-[#f6e6c4]"
-        >
+        <p className="flex items-center gap-1.5 text-[13px] font-bold tracking-[0.04em] text-[#f6e6c4]">
           <span>2.</span>
-          <Hand size={15} strokeWidth={2.1} />
           <span>PALM SHAPE — आपकी मूल प्रकृति</span>
         </p>
       </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
+      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
     </div>
   );
 }
 
 function TendencyItem({
-  icon,
+  iconSrc,
   title,
   value,
   showDivider,
 }: {
-  icon: ReactNode;
+  iconSrc: string;
   title: string;
   value: string;
   showDivider?: boolean;
@@ -145,27 +161,19 @@ function TendencyItem({
     <div
       className="flex flex-1 flex-col items-center px-1.5 py-2 text-center"
       style={{
-        borderRight: showDivider ? "1px solid rgba(184,134,11,0.35)" : "none",
+        borderRight: showDivider ? "1px solid rgba(169,101,5,0.35)" : "none",
       }}
     >
-      <div
-        className="mb-1.5 flex h-11 w-11 items-center justify-center rounded-full"
-        style={{
-          border: "1.4px solid rgba(184,134,11,0.7)",
-          background: "rgba(255,248,230,0.7)",
-        }}
-      >
-        {icon}
-      </div>
+      <PngIcon src={iconSrc} size={44} />
       <p
-        className="text-[11px] font-bold tracking-[0.04em]"
-        style={{ color: COLORS.maroon }}
+        className="mt-1.5 text-[11.5px] font-bold tracking-[0.04em]"
+        style={{ color: HEADER.maroon }}
       >
         {title}
       </p>
       <p
-        className="mt-0.5 text-[11px] font-semibold font-nunito-sans"
-        style={{ color: COLORS.gold }}
+        className="mt-0.5 text-[11.5px] font-semibold font-nunito-sans"
+        style={{ color: HEADER.gold }}
       >
         {value}
       </p>
@@ -174,111 +182,98 @@ function TendencyItem({
 }
 
 export default function PalmShape({ pageNumber = "03" }: { pageNumber?: string }) {
-  const iconProps = {
-    size: 20,
-    strokeWidth: 1.7,
-    style: { color: COLORS.maroon },
-  };
-
   return (
-    <PalmReadingPageFrame pageLabel="palm-shape" pageNumber={pageNumber}>
-      <div
-        className="absolute inset-x-0 flex flex-col px-12 font-cinzel"
-        style={{ top: 118, bottom: 42 }}
-      >
-        <header className="flex flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
+    <PalmReadingReportPageShell
+      padding="12px 32px 18px"
+      pageNumber={pageNumber}
+      pageLabel="palm-shape"
+    >
+      <div className="relative flex h-full min-h-0 flex-col font-cinzel">
+        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
+          <Image
+            src={ASSETS.logo}
+            alt="Astro Aarambh"
+            width={58}
+            height={58}
+            className="mb-0.5"
+            priority
+          />
+          <h1
+            className="text-[22px] font-bold leading-none tracking-[0.08em]"
+            style={{ color: HEADER.maroon }}
           >
             ASTRO AARAMBH
+          </h1>
+          <p
+            className="mt-0.5 text-[11px] font-bold tracking-[0.06em]"
+            style={{ color: HEADER.gold }}
+          >
+            PREMIUM PALM READING REPORT
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
+          <div className="mt-0.5">
+            <OrnamentDivider width={200} />
           </div>
         </header>
 
         <SectionBar />
 
-        <section className="mt-4 grid grid-cols-[1.08fr_0.92fr] items-center gap-4">
+        <section
+          className="mt-2.5 grid shrink-0 grid-cols-[1.08fr_0.92fr] items-center gap-3 rounded-[14px] px-3 py-2.5"
+          style={{
+            border: `1.4px solid rgba(169,101,5,0.55)`,
+            background: "rgba(248,232,204,0.35)",
+          }}
+        >
           <div className="flex flex-col gap-3 font-nunito-sans">
-            <p
-              className="text-[13px] leading-[1.55]"
-              style={{ color: COLORS.body }}
-            >
+            <p className="text-[13px] leading-[1.5]" style={{ color: HEADER.body }}>
               आपकी हथेली का आकार <span className="font-bold">आयताकार (Rectangular)</span> है
               और उँगलियाँ अपेक्षाकृत लंबी हैं। यह संरचना दर्शाती है कि आप outwardly practical
               और grounded दिखते हैं, लेकिन internally एक thoughtful observer हैं।
             </p>
 
             <div className="flex items-start gap-2.5">
-              <div
-                className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-                style={{
-                  border: "1.3px solid rgba(184,134,11,0.65)",
-                  background: COLORS.cream,
-                }}
-              >
-                <Eye size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-              </div>
-              <p
-                className="text-[13px] leading-[1.55]"
-                style={{ color: COLORS.body }}
-              >
+              <PngIcon src={ASSETS.icons.eye} size={36} alt="Observation" />
+              <p className="text-[13px] leading-[1.5]" style={{ color: HEADER.body }}>
                 लंबी उँगलियाँ observation और internal evaluation की क्षमता बढ़ाती हैं। आप किसी
                 भी स्थिति को जल्दी absorb करते हैं और निर्णय से पहले कई कोणों से सोचते हैं।
               </p>
             </div>
           </div>
 
-          <div
-            className="relative h-[250px] overflow-hidden rounded-[18px]"
-            style={{
-              border: "1.4px solid rgba(184,134,11,0.55)",
-              background: "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.22) 0%, rgba(248,237,216,0.55) 70%)",
-            }}
-          >
+          <div className="relative h-[220px] overflow-hidden">
             <Image
-              src={ASSETS.hand}
-              alt="Palm shape"
+              src={ASSETS.palm}
+              alt="Palm shape diagram"
               fill
-              sizes="320px"
-              className="object-contain mix-blend-screen"
-              style={{ transform: "scale(1.08) translateY(6px)" }}
+              sizes="300px"
+              className="object-contain object-center"
+              priority
+              unoptimized
             />
-
-            <div className="absolute bottom-7 left-3 max-w-[128px] text-left">
+            <div className="absolute bottom-4 left-2 max-w-[130px] text-left">
               <p
                 className="text-[11px] font-bold leading-tight"
-                style={{ color: COLORS.maroon }}
+                style={{ color: HEADER.maroon }}
               >
                 आयताकार हथेली
               </p>
               <p
                 className="mt-0.5 text-[10px] font-nunito-sans"
-                style={{ color: COLORS.slate }}
+                style={{ color: HEADER.body }}
               >
                 (Rectangular Palm)
               </p>
             </div>
-
-            <div className="absolute right-3 top-6 max-w-[138px] text-right">
+            <div className="absolute right-2 top-4 max-w-[138px] text-right">
               <p
                 className="text-[11px] font-bold leading-tight"
-                style={{ color: COLORS.maroon }}
+                style={{ color: HEADER.maroon }}
               >
                 लंबी उँगलियाँ
               </p>
               <p
                 className="mt-0.5 text-[10px] font-nunito-sans"
-                style={{ color: COLORS.slate }}
+                style={{ color: HEADER.body }}
               >
                 (Thoughtful &amp; Observant)
               </p>
@@ -286,79 +281,50 @@ export default function PalmShape({ pageNumber = "03" }: { pageNumber?: string }
           </div>
         </section>
 
-        <section className="mt-4">
-          <div className="flex justify-center">
+        <section className="relative mt-3 shrink-0 pt-3">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
             <div
               className="rounded-full px-5 py-1"
               style={{
-                background: COLORS.maroon,
+                background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
                 boxShadow: "0 1px 0 rgba(212,175,55,0.35)",
               }}
             >
-              <p className="text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">
+              <p className="whitespace-nowrap text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">
                 आपकी NATURAL TENDENCIES
               </p>
             </div>
           </div>
-
           <div
-            className="mt-2.5 flex items-stretch rounded-[14px] px-1 py-1"
+            className="flex items-stretch rounded-[14px] px-1 pb-1 pt-4"
             style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
             }}
           >
-            <TendencyItem
-              icon={<ScanSearch {...iconProps} />}
-              title="Observation"
-              value="Strong"
-              showDivider
-            />
-            <TendencyItem
-              icon={<Brain {...iconProps} />}
-              title="Thinking"
-              value="Analytical"
-              showDivider
-            />
-            <TendencyItem
-              icon={<RefreshCw {...iconProps} />}
-              title="Adaptability"
-              value="Good"
-              showDivider
-            />
-            <TendencyItem
-              icon={<Heart {...iconProps} />}
-              title="Emotional Sensitivity"
-              value="Moderate to High"
-              showDivider
-            />
-            <TendencyItem
-              icon={<User {...iconProps} />}
-              title="Independence"
-              value="Strong"
-            />
+            {TENDENCIES.map((item, index) => (
+              <TendencyItem
+                key={item.title}
+                iconSrc={item.iconSrc}
+                title={item.title}
+                value={item.value}
+                showDivider={index < TENDENCIES.length - 1}
+              />
+            ))}
           </div>
         </section>
 
         <section
-          className="mt-3.5 flex items-center gap-3 rounded-[14px] px-4 py-3"
+          className="mt-3 flex shrink-0 items-center gap-3 rounded-[14px] px-4 py-3"
           style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.45)",
+            background: "rgba(248,232,204,0.55)",
+            border: `1px solid rgba(169,101,5,0.45)`,
           }}
         >
-          <div
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
-            style={{
-              border: "1.4px solid rgba(184,134,11,0.7)",
-              background: "#fff8e8",
-            }}
-          >
-            <Brain size={22} strokeWidth={1.6} style={{ color: COLORS.maroon }} />
-          </div>
+          <PngIcon src={ASSETS.icons.personality} size={52} alt="Personality" />
           <p
-            className="text-[13px] leading-[1.5] font-nunito-sans"
-            style={{ color: COLORS.body }}
+            className="min-w-0 flex-1 text-[13px] leading-[1.5] font-nunito-sans"
+            style={{ color: HEADER.body }}
           >
             यह एक interesting combination है — बाहर से practical और grounded व्यक्तित्व, अंदर
             से deep processing और sensitive analysis। आप सोच-समझकर चलते हैं, इसलिए आपकी
@@ -366,51 +332,54 @@ export default function PalmShape({ pageNumber = "03" }: { pageNumber?: string }
           </p>
         </section>
 
-        <section className="mt-3.5 flex items-start gap-3 px-1">
-          <div className="flex-1">
-            <div className="mb-1.5 flex items-center gap-2">
-              <span
-                className="inline-block h-2.5 w-2.5 rotate-45"
-                style={{ background: COLORS.goldLight }}
-              />
-              <h2
-                className="text-[14px] font-bold tracking-[0.04em]"
-                style={{ color: COLORS.maroon }}
-              >
-                आपके लिए महत्वपूर्ण सीख
-              </h2>
-            </div>
+        <IntroFrame className="mt-3" minHeight={78}>
+          <span
+            className="inline-block h-2.5 w-2.5 shrink-0 rotate-45"
+            style={{ background: HEADER.goldBright }}
+          />
+          <div className="min-w-0 flex-1">
             <p
-              className="text-[13px] leading-[1.55] font-nunito-sans"
-              style={{ color: COLORS.body }}
+              className="text-center text-[13px] font-bold tracking-[0.04em]"
+              style={{ color: HEADER.maroon }}
+            >
+              आपके लिए महत्वपूर्ण सीख
+            </p>
+            <p
+              className="mt-1 text-center text-[13px] leading-[1.45] font-nunito-sans"
+              style={{ color: HEADER.body }}
             >
               Decision लेने में Perfect Clarity का इंतज़ार आपको धीमा कर सकता है। Observation
               आपकी ताकत है — लेकिन overthinking को सही समय पर action में बदलना आपकी अगली
               growth है।
             </p>
           </div>
-          <div
-            className="mt-1 flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
-            style={{
-              border: "1.4px dashed rgba(184,134,11,0.75)",
-              background: "#fff8e8",
-            }}
-          >
-            <Target size={26} strokeWidth={1.6} style={{ color: COLORS.gold }} />
-          </div>
-        </section>
+          <PngIcon src={ASSETS.icons.target} size={48} alt="Focus" />
+        </IntroFrame>
 
-        <footer className="mt-auto flex flex-col items-center pb-1">
-          <OrnamentDivider width={220} />
-          <blockquote
-            className="mt-2 max-w-[520px] text-center text-[14px] italic leading-relaxed"
-            style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
-          >
-            &ldquo;Perfect Clarity का इंतज़ार करने से अच्छा है – Right Time पर सही कदम
-            उठाना।&rdquo;
-          </blockquote>
+        <footer className="mt-auto flex shrink-0 flex-col items-center pt-2">
+          <div className="flex w-full items-center justify-center gap-2">
+            <CoverLotus size={22} />
+            <p
+              className="max-w-[520px] text-center text-[12.5px] leading-[1.4] font-nunito-sans"
+              style={{ color: HEADER.maroon }}
+            >
+              “Perfect Clarity का इंतज़ार करने से अच्छा है — Right Time पर सही कदम उठाना।”
+            </p>
+            <CoverLotus size={22} />
+          </div>
+
+          <div className="mt-1.5 flex w-full items-center justify-end gap-2 pr-1">
+            <Pattern3 size={28} />
+            <p
+              className="text-[11px] font-bold tracking-[0.14em]"
+              style={{ color: COLORS.brown }}
+            >
+              PAGE {pageNumber}
+            </p>
+            <Pattern3 size={28} className="rotate-180" />
+          </div>
         </footer>
       </div>
-    </PalmReadingPageFrame>
+    </PalmReadingReportPageShell>
   );
 }

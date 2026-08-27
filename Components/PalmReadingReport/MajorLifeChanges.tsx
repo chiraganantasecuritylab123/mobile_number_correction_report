@@ -1,33 +1,32 @@
 import Image from "next/image";
-import {
-  BookOpen,
-  Briefcase,
-  RefreshCw,
-  Signpost,
-  Sprout,
-  Star,
-  TrendingUp,
-} from "lucide-react";
-import type { ReactNode } from "react";
-import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
+import { RefreshCw } from "lucide-react";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
+import PalmReadingReportPageShell, {
+  REPORT_COLORS,
+} from "./PalmReadingReportPageShell";
 
-const ASSETS = {
-  cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
-  pattern2: "/assets/cover/pattern-2.png",
-  sunrise: "/assets/number-activations/sun-rising.png",
+const COLORS = REPORT_COLORS;
+
+const HEADER = {
+  maroon: "#4a0e0e",
+  maroonDeep: "#3a0a0a",
+  gold: "#A96505",
+  goldBright: "#c9a227",
+  body: "#2c1810",
 } as const;
 
-const COLORS = {
-  maroon: "#5c1818",
-  maroonDeep: "#4a1010",
-  gold: "#b8860b",
-  goldLight: "#d4af37",
-  cream: "#f8edd8",
-  creamBox: "rgba(248, 232, 204, 0.72)",
-  body: "#3c2a21",
-  slate: "#4a4540",
+const ASSETS = {
+  logo: "/assets/ganesha-logo.png",
+  pattern2: "/assets/cover/pattern-2.png",
+  introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
+  crossroads: "/assets/palm-reading-report/major-life-changes/crossroads-clear.png",
+  icons: {
+    growth: "/assets/palm-reading-report/major-life-changes/icon-growth-clear.png",
+    learning: "/assets/palm-reading-report/major-life-changes/icon-learning-clear.png",
+    career: "/assets/palm-reading-report/major-life-changes/icon-career-clear.png",
+    signpost: "/assets/palm-reading-report/major-life-changes/icon-signpost-clear.png",
+    climb: "/assets/palm-reading-report/major-life-changes/icon-climb-clear.png",
+  },
 } as const;
 
 type LifeStage = {
@@ -36,16 +35,14 @@ type LifeStage = {
   subtitle: string;
   description: string;
   bullets: string[];
-  icon: ReactNode;
-  image: string;
+  iconSrc: string;
 };
 
 const STAGES: LifeStage[] = [
   {
     number: "1",
     title: "EARLY 20s",
-    image: '/assets/palm-reading-report/traditional-1.png',
-    subtitle: "Learning and Identity Formation",
+    subtitle: "Learning और Identity Formation",
     description:
       "इस चरण में आप सीखने, अपनी identity समझने और नई दिशाएँ explore करने पर focused रहते हैं।",
     bullets: [
@@ -53,13 +50,12 @@ const STAGES: LifeStage[] = [
       "Education और learning",
       "अपनी interests पहचानना",
     ],
-    icon: <BookOpen size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />,
+    iconSrc: ASSETS.icons.learning,
   },
   {
     number: "2",
-    title: "MID TO LATE 20s",
-    image: '/assets/palm-reading-report/traditional-2.png',
-    subtitle: "Career Building & Practical Decisions",
+    title: "MID-TO-LATE 20s",
+    subtitle: "Career और Personal Responsibility में बढ़ोतरी",
     description:
       "अब focus career, finances और serious relationships की ओर बढ़ता है।",
     bullets: [
@@ -67,13 +63,12 @@ const STAGES: LifeStage[] = [
       "Financial planning",
       "Relationship में गंभीरता",
     ],
-    icon: <Briefcase size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />,
+    iconSrc: ASSETS.icons.career,
   },
   {
     number: "3",
     title: "EARLY 30s",
-    image: '/assets/palm-reading-report/traditional-3.png',
-    subtitle: "Direction & Major Decisions",
+    subtitle: "Direction Consolidation और Important Decisions",
     description:
       "यह चरण life goals को define करने और बड़े निर्णय लेने का समय होता है।",
     bullets: [
@@ -81,71 +76,22 @@ const STAGES: LifeStage[] = [
       "Career / business के बड़े निर्णय",
       "महत्वपूर्ण personal choices",
     ],
-    icon: <Signpost size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />,
+    iconSrc: ASSETS.icons.signpost,
   },
   {
     number: "4",
     title: "MID 30s ONWARD",
-    image: '/assets/palm-reading-report/traditional-4.png',
-    subtitle: "Experience, Stability & Long-term Growth",
+    subtitle: "Experience का Financial और Professional Benefit",
     description:
       "अनुभव से मिली समझ के साथ आप stability और long-term success की नींव रखते हैं।",
     bullets: [
       "Experience से growth",
-      "Financial stability",
+      "Wealth creation",
       "Long-term success की foundation",
     ],
-    icon: <TrendingUp size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />,
+    iconSrc: ASSETS.icons.climb,
   },
 ];
-
-function PalmReadingPageFrame({
-  children,
-  pageLabel,
-  pageNumber,
-}: {
-  children?: ReactNode;
-  pageLabel: string;
-  pageNumber: string;
-}) {
-  return (
-    <article
-      data-report-page
-      data-page-label={pageLabel}
-      data-report-page-number={pageNumber}
-      className="relative mx-auto overflow-hidden shadow-xl"
-      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
-    >
-      <Image
-        src={ASSETS.cover}
-        alt=""
-        fill
-        sizes={`${PAGE_WIDTH}px`}
-        className="pointer-events-none select-none object-fill"
-        aria-hidden
-      />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
-      <div className="relative z-10 h-full">{children}</div>
-      <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
-    </article>
-  );
-}
 
 function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
@@ -162,14 +108,27 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
   );
 }
 
+function GoldDiamond({ size = 8 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 10 10" aria-hidden className="shrink-0">
+      <path
+        d="M5 0.6 L9.4 5 L5 9.4 L0.6 5 Z"
+        fill={HEADER.goldBright}
+        stroke={HEADER.gold}
+        strokeWidth="0.6"
+      />
+    </svg>
+  );
+}
+
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
+    <div className="relative mx-auto mt-2 flex w-full max-w-[640px] items-center justify-center">
+      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
       <div
         className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
           minWidth: 390,
         }}
       >
@@ -180,14 +139,14 @@ function SectionBar() {
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <RefreshCw size={16} strokeWidth={2.2} style={{ color: COLORS.maroonDeep }} />
+          <RefreshCw size={16} strokeWidth={2.2} style={{ color: HEADER.maroonDeep }} />
         </div>
         <p className="flex items-center gap-1.5 text-[13px] font-bold tracking-[0.06em] text-[#f6e6c4]">
           <span>9.</span>
           <span>MAJOR LIFE CHANGES</span>
         </p>
       </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
+      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
     </div>
   );
 }
@@ -198,104 +157,96 @@ function PointedBanner({ title }: { title: string }) {
       <div
         className="px-8 py-1.5 text-center"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
           clipPath:
             "polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%)",
-          minWidth: 420,
+          minWidth: 440,
         }}
       >
-        <p className="text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">
-          {title}
-        </p>
+        <p className="text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">{title}</p>
       </div>
     </div>
   );
 }
 
-function IconCircle({ children, size = 40 }: { children: ReactNode; size?: number }) {
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
   return (
-    <div
-      className="relative flex shrink-0 items-center justify-center overflow-hidden rounded-full"
-      style={{
-        width: size,
-        height: size,
-        aspectRatio: "1 / 1",
-        border: "1.4px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
-      }}
-    >
-      {children}
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
+      />
     </div>
   );
 }
 
 function StageRow({ stage, isLast }: { stage: LifeStage; isLast?: boolean }) {
   return (
-    <div className="relative grid grid-cols-[28px_44px_1fr_210px] items-center gap-2.5 py-2.5">
+    <div className="relative grid min-h-0 flex-1 grid-cols-[32px_54px_1fr_230px] items-center gap-3 py-1.5">
       {!isLast && (
         <div
-          className="absolute bottom-0 left-[13px] top-8 w-px"
-          style={{ borderLeft: "1.5px dashed rgba(184,134,11,0.55)" }}
+          className="absolute bottom-0 left-[15px] top-9 w-px"
+          style={{ borderLeft: "1.5px dashed rgba(169,101,5,0.55)" }}
         />
       )}
       <div
-        className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold text-[#f6e6c4]"
+        className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-[12px] font-bold text-[#f6e6c4]"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
         }}
       >
         {stage.number}
       </div>
-      <IconCircle size={50}>
-        <Image
-          src={stage.image}
-          alt={stage.title}
-          fill
-          sizes="50px"
-          className="object-cover"
-        />
-      </IconCircle>
+      <PngIcon src={stage.iconSrc} size={52} />
       <div className="min-w-0 pr-1">
         <p
-          className="text-[13px] font-bold leading-none tracking-[0.04em]"
-          style={{ color: COLORS.maroon }}
+          className="text-[15px] font-bold leading-none tracking-[0.04em]"
+          style={{ color: HEADER.maroon }}
         >
           {stage.title}
         </p>
         <p
-          className="mt-0.5 text-[10px] font-semibold tracking-[0.02em]"
-          style={{ color: COLORS.gold }}
+          className="mt-1 text-[12px] font-semibold leading-[1.3] tracking-[0.02em]"
+          style={{ color: HEADER.gold }}
         >
           {stage.subtitle}
         </p>
         <p
-          className="mt-1 text-[11px] leading-[1.4] font-nunito-sans"
-          style={{ color: COLORS.body }}
+          className="mt-1.5 text-[13px] leading-[1.4] font-nunito-sans"
+          style={{ color: HEADER.body }}
         >
           {stage.description}
         </p>
       </div>
       <div
-        className="rounded-[10px] px-2.5 py-2"
+        className="rounded-[12px] px-3 py-2.5"
         style={{
           background: "rgba(255,248,232,0.88)",
-          border: "1px solid rgba(184,134,11,0.45)",
+          border: `1px solid rgba(169,101,5,0.45)`,
         }}
       >
-        <ul className="space-y-1">
+        <ul className="space-y-2">
           {stage.bullets.map((bullet) => (
             <li
               key={bullet}
-              className="flex items-start gap-1.5 text-[10.5px] leading-[1.35] font-nunito-sans"
-              style={{ color: COLORS.body }}
+              className="flex items-start gap-2 text-[12.5px] leading-[1.35] font-nunito-sans"
+              style={{ color: HEADER.body }}
             >
-              <Star
-                size={9}
-                className="mt-[3px] shrink-0"
-                fill={COLORS.goldLight}
-                stroke={COLORS.gold}
-                strokeWidth={1.2}
-              />
+              <span className="mt-[4px]">
+                <GoldDiamond size={9} />
+              </span>
               <span>{bullet}</span>
             </li>
           ))}
@@ -305,100 +256,124 @@ function StageRow({ stage, isLast }: { stage: LifeStage; isLast?: boolean }) {
   );
 }
 
+export type MajorLifeChangesProps = {
+  pageNumber?: string;
+  introText?: string;
+  transitionText?: string;
+  footerQuote?: string;
+};
+
 export default function MajorLifeChanges({
   pageNumber = "10",
-}: {
-  pageNumber?: string;
-}) {
+  introText = "आपकी हथेली का pattern एक static life नहीं, बल्कि phases of change को दिखाता है। हर चरण में आपकी thinking, decisions और life direction एक नई दिशा ले सकते हैं।",
+  transitionText = "इन changes को negative नहीं माना जाना चाहिए — आपके मामले में change अक्सर growth का माध्यम बनता है।",
+  footerQuote = "परिवर्तन जीवन का हिस्सा है, लेकिन सही दिशा में किया गया परिवर्तन आपको आपकी highest potential तक ले जा सकता है।",
+}: MajorLifeChangesProps) {
   return (
-    <PalmReadingPageFrame pageLabel="major-life-changes" pageNumber={pageNumber}>
-      <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 38 }}
-      >
-        <header className="flex flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
+    <PalmReadingReportPageShell
+      padding="12px 32px 18px"
+      pageNumber={pageNumber}
+      pageLabel="major-life-changes"
+    >
+      <div className="relative flex h-full min-h-0 flex-col font-cinzel">
+        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
+          <Image
+            src={ASSETS.logo}
+            alt="Astro Aarambh"
+            width={58}
+            height={58}
+            className="mb-0.5"
+            priority
+          />
+          <h1
+            className="text-[22px] font-bold leading-none tracking-[0.08em]"
+            style={{ color: HEADER.maroon }}
           >
             ASTRO AARAMBH
+          </h1>
+          <p
+            className="mt-0.5 text-[11px] font-bold tracking-[0.06em]"
+            style={{ color: HEADER.gold }}
+          >
+            PREMIUM PALM READING REPORT
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
+          <div className="mt-0.5">
+            <OrnamentDivider width={200} />
           </div>
         </header>
 
         <SectionBar />
 
         <section
-          className="mt-3 flex items-center gap-3 rounded-[14px] px-3 py-2.5"
+          className="mt-2.5 flex shrink-0 items-center gap-3 rounded-[14px] px-3 py-2.5"
           style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.45)",
+            background: "rgba(248,232,204,0.55)",
+            border: `1px solid rgba(169,101,5,0.45)`,
           }}
         >
-          <IconCircle size={48}>
-            <Image
-              src='/assets/palm-reading-report/OIG3.png'
-              alt=""
-              fill
-              sizes="48px"
-              className="object-cover"
-            />
-          </IconCircle>
+          <PngIcon src={ASSETS.icons.growth} size={52} alt="Growth" />
           <p
-            className="flex-1 text-[12.5px] leading-[1.5] font-nunito-sans"
-            style={{ color: COLORS.body }}
+            className="min-w-0 flex-1 text-[12.5px] leading-[1.5] font-nunito-sans"
+            style={{ color: HEADER.body }}
           >
-            आपकी हथेली का pattern एक <span className="font-bold">static life</span> नहीं, बल्कि{" "}
-            <span className="font-bold">phases of change</span> को दिखाता है। हर चरण में आपकी
-            thinking, decisions और life direction एक नई दिशा ले सकते हैं।
+            {introText}
           </p>
           <div
-            className="relative h-[78px] w-[108px] shrink-0 overflow-hidden rounded-[10px]"
+            className="relative h-[86px] w-[128px] shrink-0 overflow-hidden rounded-[10px]"
             style={{
-              border: "1px solid rgba(184,134,11,0.45)",
-              background: "rgba(255,248,232,0.9)",
+              border: `1px solid rgba(169,101,5,0.45)`,
+              background: "rgba(255,248,232,0.65)",
             }}
           >
             <Image
-              src='/assets/palm-reading-report/nature.png'
-              alt=""
+              src={ASSETS.crossroads}
+              alt="Major life crossroads"
               fill
-              sizes="108px"
-              className="object-contain p-1"
+              sizes="128px"
+              className="object-contain object-center p-1"
+              unoptimized
             />
           </div>
         </section>
 
-        <div className="mt-2.5 flex items-center justify-center gap-2 px-4">
-          <CoverLotus size={24} />
-          <p
-            className="max-w-[520px] text-center text-[12px] leading-[1.45] font-nunito-sans"
-            style={{ color: COLORS.maroon }}
-          >
-            इन changes को negative नहीं माना जाना चाहिए — आपके मामले में change अक्सर growth का
-            माध्यम बनता है।
-          </p>
-          <CoverLotus size={24} />
+        <div
+          className="relative mt-2 flex w-full shrink-0 items-center"
+          style={{
+            minHeight: 58,
+            boxSizing: "border-box",
+            borderStyle: "solid",
+            borderColor: "transparent",
+            borderTopWidth: 14,
+            borderBottomWidth: 14,
+            borderLeftWidth: 20,
+            borderRightWidth: 20,
+            borderImageSource: `url(${ASSETS.introFrame})`,
+            borderImageSlice: "55 70 55 70",
+            borderImageWidth: "14px 20px",
+            borderImageRepeat: "stretch",
+          }}
+        >
+          <div className="relative z-10 flex w-full items-center gap-2 px-1 py-0.5">
+            <CoverLotus size={40} className="shrink-0" />
+            <p
+              className="min-w-0 flex-1 text-center text-[12px] leading-[1.4] font-nunito-sans"
+              style={{ color: HEADER.body }}
+            >
+              {transitionText}
+            </p>
+            <CoverLotus size={40} className="shrink-0" />
+          </div>
         </div>
 
-        <div className="mt-3">
+        <div className="mt-2.5 shrink-0">
           <PointedBanner title="TRADITIONAL AGE-PHASE INTERPRETATION" />
         </div>
 
         <section
-          className="mt-2 flex-1 rounded-[14px] px-3 py-1"
+          className="mt-2 flex min-h-0 flex-1 flex-col justify-evenly rounded-[14px] px-3.5 py-2"
           style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.4)",
+            background: "rgba(248,232,204,0.45)",
+            border: `1px solid rgba(169,101,5,0.4)`,
           }}
         >
           {STAGES.map((stage, index) => (
@@ -410,21 +385,30 @@ export default function MajorLifeChanges({
           ))}
         </section>
 
-        <footer className="mt-2.5 flex flex-col items-center">
-          <OrnamentDivider width={200} />
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <CoverLotus size={26} />
-            <blockquote
-              className="max-w-[500px] text-center text-[12.5px] italic leading-relaxed"
-              style={{ color: COLORS.maroon, fontFamily: "Georgia, 'Nirmala UI', serif" }}
+        <footer className="mt-auto flex shrink-0 flex-col items-center pt-2">
+          <div className="flex w-full items-center justify-center gap-2">
+            <CoverLotus size={22} />
+            <p
+              className="max-w-[520px] text-center text-[12px] leading-[1.4] font-nunito-sans"
+              style={{ color: HEADER.maroon }}
             >
-              &ldquo;Change जीवन का हिस्सा है, लेकिन सही दिशा में किया गया change आपको आपके
-              highest potential तक ले जा सकता है।&rdquo;
-            </blockquote>
-            <CoverLotus size={26} />
+              “{footerQuote}”
+            </p>
+            <CoverLotus size={22} />
+          </div>
+
+          <div className="mt-1.5 flex w-full items-center justify-end gap-2 pr-1">
+            <Pattern3 size={28} />
+            <p
+              className="text-[11px] font-bold tracking-[0.14em]"
+              style={{ color: COLORS.brown }}
+            >
+              PAGE {pageNumber}
+            </p>
+            <Pattern3 size={28} className="rotate-180" />
           </div>
         </footer>
       </div>
-    </PalmReadingPageFrame>
+    </PalmReadingReportPageShell>
   );
 }

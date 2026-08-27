@@ -1,41 +1,45 @@
 import Image from "next/image";
 import {
   ArrowRight,
-  BookOpen,
   CircleAlert,
   CircleCheck,
-  ClipboardCheck,
-  Coins,
-  HandCoins,
-  IndianRupee,
-  Lightbulb,
-  PiggyBank,
-  Sprout,
-  TrendingUp,
-  Wallet,
-  Zap,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
+import PalmReadingReportPageShell, {
+  REPORT_COLORS,
+} from "./PalmReadingReportPageShell";
 
-const ASSETS = {
-  cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
-  hand: "/assets/palm-reading-report/hand.png",
-  pattern2: "/assets/cover/pattern-2.png",
-  rupeeTree: "/assets/signaturePages/rupeetree.png",
+const COLORS = REPORT_COLORS;
+
+const HEADER = {
+  maroon: "#4a0e0e",
+  maroonDeep: "#3a0a0a",
+  gold: "#A96505",
+  goldBright: "#c9a227",
+  body: "#2c1810",
 } as const;
 
-const COLORS = {
-  maroon: "#5c1818",
-  maroonDeep: "#4a1010",
-  gold: "#b8860b",
-  goldLight: "#d4af37",
-  cream: "#f8edd8",
-  creamBox: "rgba(248, 232, 204, 0.72)",
-  body: "#3c2a21",
-  slate: "#4a4540",
+const ASSETS = {
+  logo: "/assets/ganesha-logo.png",
+  pattern2: "/assets/cover/pattern-2.png",
+  introFrame: "/assets/palm-reading-report/marriage/intro-frame-clear.png",
+  palm: "/assets/palm-reading-report/career-reading/career-palm-clear.png",
+  moneyTree: "/assets/palm-reading-report/money-wealth/money-bag-tree-clear.png",
+  rupeeTree: "/assets/palm-reading-report/money-wealth/rupee-tree-clear.png",
+  icons: {
+    coins: "/assets/palm-reading-report/money-wealth/icon-coins-clear.png",
+    moneyBag: "/assets/palm-reading-report/money-wealth/icon-money-bag-clear.png",
+    strengthIdea: "/assets/palm-reading-report/money-wealth/icon-strength-idea-clear.png",
+    challengeStorm: "/assets/palm-reading-report/money-wealth/icon-challenge-storm-clear.png",
+    lightbulb: "/assets/palm-reading-report/icons/lightbulb-gold.png",
+    career: "/assets/palm-reading-report/major-life-changes/icon-career-clear.png",
+    growth: "/assets/palm-reading-report/major-life-changes/icon-growth-clear.png",
+    learning: "/assets/palm-reading-report/major-life-changes/icon-learning-clear.png",
+    shield: "/assets/palm-reading-report/life-line/icon-shield-clear.png",
+    scale: "/assets/palm-reading-report/icons/scale.png",
+    business: "/assets/palm-reading-report/career-reading/icon-business-clear.png",
+  },
 } as const;
 
 const STRENGTHS = [
@@ -56,72 +60,24 @@ const FORMULA = [
   {
     title: "EARN",
     text: "Skills और effort से income बढ़ाना",
-    icon: Wallet,
+    iconSrc: ASSETS.icons.business,
   },
   {
     title: "SAVE",
     text: "Regular saving की आदत बनाना",
-    icon: PiggyBank,
+    iconSrc: ASSETS.icons.growth,
   },
   {
     title: "INVEST",
     text: "Long-term और smart investments",
-    icon: TrendingUp,
+    iconSrc: ASSETS.icons.career,
   },
   {
     title: "REVIEW",
     text: "समय-समय पर financial review करना",
-    icon: ClipboardCheck,
+    iconSrc: ASSETS.icons.scale,
   },
 ] as const;
-
-function PalmReadingPageFrame({
-  children,
-  pageLabel,
-  pageNumber,
-}: {
-  children?: ReactNode;
-  pageLabel: string;
-  pageNumber: string;
-}) {
-  return (
-    <article
-      data-report-page
-      data-page-label={pageLabel}
-      data-report-page-number={pageNumber}
-      className="relative mx-auto overflow-hidden shadow-xl"
-      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
-    >
-      <Image
-        src={ASSETS.cover}
-        alt=""
-        fill
-        sizes={`${PAGE_WIDTH}px`}
-        className="pointer-events-none select-none object-fill"
-        aria-hidden
-      />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
-      <div className="relative z-10 h-full">{children}</div>
-      <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
-    </article>
-  );
-}
 
 function OrnamentDivider({ width = 220 }: { width?: number }) {
   return (
@@ -138,47 +94,97 @@ function OrnamentDivider({ width = 220 }: { width?: number }) {
   );
 }
 
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
+      />
+    </div>
+  );
+}
+
+function IntroFrame({
+  children,
+  className = "",
+  minHeight = 58,
+}: {
+  children: ReactNode;
+  className?: string;
+  minHeight?: number;
+}) {
+  return (
+    <div
+      className={`relative flex w-full shrink-0 items-center ${className}`}
+      style={{
+        minHeight,
+        boxSizing: "border-box",
+        borderStyle: "solid",
+        borderColor: "transparent",
+        borderTopWidth: 14,
+        borderBottomWidth: 14,
+        borderLeftWidth: 20,
+        borderRightWidth: 20,
+        borderImageSource: `url(${ASSETS.introFrame})`,
+        borderImageSlice: "55 70 55 70",
+        borderImageWidth: "14px 20px",
+        borderImageRepeat: "stretch",
+      }}
+    >
+      <div className="relative z-10 flex w-full items-center gap-2 px-1 py-0.5">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-3 flex w-full max-w-[640px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
+    <div className="relative mx-auto mt-2 flex w-full max-w-[640px] items-center justify-center">
+      <Pattern3 size={72} className="absolute left-[-6px] opacity-90" />
       <div
         className="relative z-10 flex items-center gap-2.5 rounded-full px-4 py-1.5 shadow-sm"
         style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+          background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
           minWidth: 360,
         }}
       >
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
             boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
           }}
         >
-          <Coins size={16} strokeWidth={2} style={{ color: COLORS.maroonDeep }} />
+          <div className="relative h-[22px] w-[22px]">
+            <Image
+              src={ASSETS.icons.moneyBag}
+              alt=""
+              fill
+              sizes="22px"
+              className="object-contain"
+              unoptimized
+            />
+          </div>
         </div>
         <p className="text-[13px] font-bold tracking-[0.06em] text-[#f6e6c4]">
           12. MONEY &amp; WEALTH
         </p>
       </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
-    </div>
-  );
-}
-
-function IconCircle({ children, size = 34 }: { children: ReactNode; size?: number }) {
-  return (
-    <div
-      className="flex shrink-0 items-center justify-center rounded-full"
-      style={{
-        width: size,
-        height: size,
-        border: "1.3px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
-      }}
-    >
-      {children}
+      <Pattern3 size={72} className="absolute right-[-6px] rotate-180 opacity-90" />
     </div>
   );
 }
@@ -186,46 +192,12 @@ function IconCircle({ children, size = 34 }: { children: ReactNode; size?: numbe
 function ColumnTitle({ title }: { title: string }) {
   return (
     <div
-      className="mb-2 rounded-full px-3 py-1 text-center"
+      className="mb-2.5 shrink-0 rounded-full px-3 py-1.5 text-center"
       style={{
-        background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+        background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
       }}
     >
-      <p className="text-[10px] font-bold tracking-[0.08em] text-[#f6e6c4]">{title}</p>
-    </div>
-  );
-}
-
-function CoinChart() {
-  return (
-    <div
-      className="relative flex h-[72px] w-[108px] shrink-0 items-end justify-center gap-1 overflow-hidden rounded-[10px] pb-2"
-      style={{
-        border: "1px solid rgba(184,134,11,0.45)",
-        background:
-          "radial-gradient(circle at 50% 80%, rgba(212,175,55,0.28) 0%, rgba(248,237,216,0.95) 72%)",
-      }}
-    >
-      {[18, 28, 38, 48].map((h, i) => (
-        <div
-          key={h}
-          className="flex w-[14px] flex-col items-center justify-end rounded-t-[3px]"
-          style={{
-            height: h,
-            background: `linear-gradient(180deg, ${COLORS.goldLight} 0%, ${COLORS.gold} 100%)`,
-            boxShadow: "0 1px 2px rgba(92,24,24,0.18)",
-          }}
-        >
-          {i === 3 && (
-            <IndianRupee size={9} strokeWidth={2.4} style={{ color: COLORS.maroonDeep, marginBottom: 2 }} />
-          )}
-        </div>
-      ))}
-      <TrendingUp
-        size={16}
-        className="absolute right-1.5 top-1.5"
-        style={{ color: COLORS.maroon }}
-      />
+      <p className="text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">{title}</p>
     </div>
   );
 }
@@ -236,97 +208,122 @@ export default function MoneyWealth({
   pageNumber?: string;
 }) {
   return (
-    <PalmReadingPageFrame pageLabel="money-wealth" pageNumber={pageNumber}>
-      <div
-        className="absolute inset-x-0 flex flex-col px-11 font-cinzel"
-        style={{ top: 114, bottom: 38 }}
-      >
-        <header className="flex flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
+    <PalmReadingReportPageShell
+      padding="12px 32px 18px"
+      pageNumber={pageNumber}
+      pageLabel="money-wealth"
+    >
+      <div className="relative flex h-full min-h-0 flex-col font-cinzel">
+        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
+          <Image
+            src={ASSETS.logo}
+            alt="Astro Aarambh"
+            width={58}
+            height={58}
+            className="mb-0.5"
+            priority
+          />
+          <h1
+            className="text-[22px] font-bold leading-none tracking-[0.08em]"
+            style={{ color: HEADER.maroon }}
           >
             ASTRO AARAMBH
+          </h1>
+          <p
+            className="mt-0.5 text-[11px] font-bold tracking-[0.06em]"
+            style={{ color: HEADER.gold }}
+          >
+            PREMIUM PALM READING REPORT
           </p>
-          <div className="mt-1.5 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
+          <div className="mt-0.5">
+            <OrnamentDivider width={200} />
           </div>
         </header>
 
         <SectionBar />
 
         <section
-          className="mt-3 flex items-center gap-3 rounded-[14px] px-3 py-2.5"
+          className="mt-2.5 flex shrink-0 items-center gap-3 rounded-[14px] px-3 py-2.5"
           style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.45)",
+            background: "rgba(248,232,204,0.55)",
+            border: `1px solid rgba(169,101,5,0.45)`,
           }}
         >
-          <IconCircle size={44}>
-            <HandCoins size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-          </IconCircle>
+          <div className="relative h-[64px] w-[72px] shrink-0">
+            <Image
+              src={ASSETS.icons.moneyBag}
+              alt="Wealth"
+              fill
+              sizes="72px"
+              className="object-contain object-center"
+              unoptimized
+            />
+          </div>
           <p
-            className="flex-1 text-[12.5px] leading-[1.5] font-nunito-sans"
-            style={{ color: COLORS.body }}
+            className="min-w-0 flex-1 text-[13px] leading-[1.45] font-nunito-sans"
+            style={{ color: HEADER.body }}
           >
             आपकी हथेली एक <span className="font-bold">steady-building pattern</span> दिखाती है।
             Financial success sudden luck से नहीं, बल्कि skill, consistency और smart decisions से
             धीरे-धीरे बनती है।
           </p>
-          <CoinChart />
+          <div className="relative h-[64px] w-[100px] shrink-0">
+            <Image
+              src={ASSETS.icons.career}
+              alt="Growth chart"
+              fill
+              sizes="100px"
+              className="object-contain object-center"
+              unoptimized
+            />
+          </div>
         </section>
 
-        <section className="mt-2.5 flex items-center justify-center gap-2 px-2">
-          <CoverLotus size={22} />
+        <IntroFrame className="mt-2" minHeight={54}>
+          <CoverLotus size={36} className="shrink-0" />
           <p
-            className="max-w-[520px] text-center text-[12px] leading-[1.45] font-nunito-sans"
-            style={{ color: COLORS.body }}
+            className="min-w-0 flex-1 text-center text-[12.5px] leading-[1.4] font-nunito-sans"
+            style={{ color: HEADER.body }}
           >
             आपके लिए wealth का strongest source:{" "}
-            <span className="font-bold font-cinzel tracking-[0.03em]" style={{ color: COLORS.maroon }}>
+            <span className="font-bold font-cinzel tracking-[0.03em]" style={{ color: HEADER.maroon }}>
               SKILL + CONSISTENCY + SMART DECISIONS
             </span>
           </p>
-          <CoverLotus size={22} />
-        </section>
+          <CoverLotus size={36} className="shrink-0" />
+        </IntroFrame>
         <p
-          className="mt-1 text-center text-[11px] leading-[1.4] font-nunito-sans"
-          style={{ color: COLORS.slate }}
+          className="mt-1 shrink-0 text-center text-[12px] leading-[1.4] font-nunito-sans"
+          style={{ color: HEADER.body }}
         >
           Accumulated wealth और long-term savings आपकी financial security की नींव बन सकते हैं।
         </p>
 
-        <section className="mt-2.5 grid flex-1 grid-cols-[1fr_0.92fr_1fr] items-stretch gap-2.5">
+        <section className="mt-2.5 grid min-h-0 flex-1 grid-cols-[1fr_0.95fr_1fr] items-stretch gap-2.5">
           <div
-            className="flex flex-col rounded-[14px] px-2.5 py-2.5"
+            className="flex min-h-0 flex-col rounded-[14px] px-3 py-3"
             style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
             }}
           >
             <ColumnTitle title="FINANCIAL STRENGTH" />
             <div className="mb-2 flex justify-center">
-              <IconCircle size={36}>
-                <Lightbulb size={16} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-              </IconCircle>
+              <PngIcon src={ASSETS.icons.strengthIdea} size={46} />
             </div>
-            <div className="flex flex-1 flex-col justify-between gap-2">
+            <div className="flex min-h-0 flex-1 flex-col justify-evenly gap-1.5">
               {STRENGTHS.map((text) => (
                 <div key={text} className="flex items-start gap-2">
                   <CircleCheck
-                    size={15}
+                    size={16}
                     strokeWidth={2}
                     className="mt-0.5 shrink-0"
-                    style={{ color: COLORS.gold }}
+                    style={{ color: HEADER.gold }}
                   />
-                  <p className="text-[10.5px] leading-[1.35] font-nunito-sans" style={{ color: COLORS.body }}>
+                  <p
+                    className="text-[12px] leading-[1.35] font-nunito-sans"
+                    style={{ color: HEADER.body }}
+                  >
                     {text}
                   </p>
                 </div>
@@ -334,55 +331,46 @@ export default function MoneyWealth({
             </div>
           </div>
 
-          <div
-            className="relative overflow-hidden rounded-[16px]"
-            style={{
-              border: "1.4px solid rgba(184,134,11,0.55)",
-              background:
-                "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
-            }}
-          >
+          <div className="relative min-h-0 overflow-hidden">
             <Image
-              src={ASSETS.hand}
+              src={ASSETS.palm}
               alt="Palm wealth reading"
               fill
               sizes="240px"
-              className="object-contain mix-blend-screen"
-              style={{ transform: "scale(1.12) translateY(4px)" }}
+              className="object-contain object-center"
+              unoptimized
             />
-            <div className="absolute bottom-2 left-0 right-0 flex items-end justify-center gap-1">
-              <CoverLotus size={28} />
-              <div className="mb-0.5 flex flex-col items-center">
-                <Coins size={16} style={{ color: COLORS.gold }} />
-                <IndianRupee size={11} strokeWidth={2.4} style={{ color: COLORS.maroon }} />
-              </div>
-              <CoverLotus size={28} />
+            <div className="absolute bottom-2 left-0 right-0 flex items-end justify-center gap-1.5">
+              <CoverLotus size={26} />
+              <PngIcon src={ASSETS.icons.coins} size={28} />
+              <CoverLotus size={26} />
             </div>
           </div>
 
           <div
-            className="flex flex-col rounded-[14px] px-2.5 py-2.5"
+            className="flex min-h-0 flex-col rounded-[14px] px-3 py-3"
             style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
             }}
           >
             <ColumnTitle title="FINANCIAL CHALLENGE" />
-            <div className="mb-2 flex justify-center">
-              <IconCircle size={36}>
-                <Zap size={16} strokeWidth={1.8} style={{ color: COLORS.maroon }} />
-              </IconCircle>
+            <div className="mb-2 flex shrink-0 justify-center">
+              <PngIcon src={ASSETS.icons.challengeStorm} size={46} />
             </div>
-            <div className="flex flex-1 flex-col justify-between gap-2">
+            <div className="flex min-h-0 flex-1 flex-col justify-evenly gap-1.5">
               {CHALLENGES.map((text) => (
                 <div key={text} className="flex items-start gap-2">
                   <CircleAlert
-                    size={15}
+                    size={16}
                     strokeWidth={2}
                     className="mt-0.5 shrink-0"
-                    style={{ color: COLORS.maroon }}
+                    style={{ color: HEADER.maroon }}
                   />
-                  <p className="text-[10.5px] leading-[1.35] font-nunito-sans" style={{ color: COLORS.body }}>
+                  <p
+                    className="text-[12px] leading-[1.35] font-nunito-sans"
+                    style={{ color: HEADER.body }}
+                  >
                     {text}
                   </p>
                 </div>
@@ -391,84 +379,90 @@ export default function MoneyWealth({
           </div>
         </section>
 
-        <section className="mt-2.5">
-          <p
-            className="mb-2 text-center text-[12px] font-bold tracking-[0.08em]"
-            style={{ color: COLORS.maroon }}
-          >
-            FINANCIAL SUCCESS FORMULA
-          </p>
+        <section className="relative mt-3 shrink-0 pt-3">
+          <div className="pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-1/2">
+            <div
+              className="rounded-full px-5 py-1"
+              style={{
+                background: `linear-gradient(180deg, ${HEADER.maroon} 0%, ${HEADER.maroonDeep} 100%)`,
+              }}
+            >
+              <p className="whitespace-nowrap text-[11px] font-bold tracking-[0.08em] text-[#f6e6c4]">
+                FINANCIAL SUCCESS FORMULA
+              </p>
+            </div>
+          </div>
           <div
-            className="flex items-stretch gap-1.5 rounded-[14px] px-2.5 py-2.5"
+            className="flex items-stretch gap-1.5 rounded-[14px] px-2.5 pb-2.5 pt-4"
             style={{
-              background: COLORS.creamBox,
-              border: "1px solid rgba(184,134,11,0.4)",
+              background: "rgba(248,232,204,0.45)",
+              border: `1px solid rgba(169,101,5,0.4)`,
             }}
           >
-            {FORMULA.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <div key={step.title} className="flex flex-1 items-center">
-                  <div className="flex flex-1 flex-col items-center px-1 text-center">
-                    <IconCircle size={36}>
-                      <Icon size={16} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                    </IconCircle>
-                    <p
-                      className="mt-1.5 text-[11px] font-bold tracking-[0.06em]"
-                      style={{ color: COLORS.maroon }}
-                    >
-                      {step.title}
-                    </p>
-                    <p
-                      className="mt-0.5 text-[10px] leading-[1.3] font-nunito-sans"
-                      style={{ color: COLORS.body }}
-                    >
-                      {step.text}
-                    </p>
-                  </div>
-                  {index < FORMULA.length - 1 && (
-                    <ArrowRight size={14} className="shrink-0" style={{ color: COLORS.gold }} />
-                  )}
+            {FORMULA.map((step, index) => (
+              <div key={step.title} className="flex flex-1 items-center">
+                <div className="flex flex-1 flex-col items-center px-1 text-center">
+                  <PngIcon src={step.iconSrc} size={40} />
+                  <p
+                    className="mt-1.5 text-[12px] font-bold tracking-[0.06em]"
+                    style={{ color: HEADER.maroon }}
+                  >
+                    {step.title}
+                  </p>
+                  <p
+                    className="mt-1 text-[11.5px] leading-[1.3] font-nunito-sans"
+                    style={{ color: HEADER.body }}
+                  >
+                    {step.text}
+                  </p>
                 </div>
-              );
-            })}
+                {index < FORMULA.length - 1 ? (
+                  <ArrowRight size={14} className="shrink-0" style={{ color: HEADER.gold }} />
+                ) : null}
+              </div>
+            ))}
           </div>
         </section>
 
-        <section
-          className="mt-2.5 flex items-center gap-2.5 rounded-[12px] px-3 py-2"
-          style={{
-            background: COLORS.creamBox,
-            border: "1px solid rgba(184,134,11,0.5)",
-          }}
-        >
-          <IconCircle size={34}>
-            <BookOpen size={15} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-          </IconCircle>
-          <div className="flex-1">
-            <p className="text-[11px] font-bold tracking-[0.08em]" style={{ color: COLORS.maroon }}>
+        <IntroFrame className="mt-2.5" minHeight={68}>
+          <PngIcon src={ASSETS.icons.learning} size={36} />
+          <div className="min-w-0 flex-1">
+            <p
+              className="text-center text-[12px] font-bold tracking-[0.08em]"
+              style={{ color: HEADER.maroon }}
+            >
               FINANCIAL WISDOM
             </p>
-            <p className="text-[11.5px] leading-[1.4] font-nunito-sans" style={{ color: COLORS.body }}>
+            <p
+              className="mt-1 text-center text-[12.5px] leading-[1.4] font-nunito-sans"
+              style={{ color: HEADER.body }}
+            >
               कमाई तभी संपत्ति बनती है जब बचत, निवेश और सही निर्णय साथ चलें।
             </p>
           </div>
-          <div className="relative h-[46px] w-[52px] shrink-0">
+          <div className="relative h-[52px] w-[56px] shrink-0">
             <Image
               src={ASSETS.rupeeTree}
               alt=""
               fill
-              sizes="52px"
-              className="object-contain mix-blend-screen"
-            />
-            <Sprout
-              size={14}
-              className="absolute -right-0.5 -top-0.5"
-              style={{ color: COLORS.gold }}
+              sizes="56px"
+              className="object-contain object-center"
+              unoptimized
             />
           </div>
-        </section>
+        </IntroFrame>
+
+        <footer className="mt-auto flex shrink-0 items-center justify-end gap-2 pt-2 pr-1">
+          <Pattern3 size={28} />
+          <p
+            className="text-[11px] font-bold tracking-[0.14em]"
+            style={{ color: COLORS.brown }}
+          >
+            PAGE {pageNumber}
+          </p>
+          <Pattern3 size={28} className="rotate-180" />
+        </footer>
       </div>
-    </PalmReadingPageFrame>
+    </PalmReadingReportPageShell>
   );
 }
