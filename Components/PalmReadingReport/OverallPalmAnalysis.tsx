@@ -11,7 +11,9 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
 import PalmReadingReportPageShell, {
+  PalmReadingPageHeader,
   REPORT_COLORS,
+  PalmReadingSectionBar,
 } from "./PalmReadingReportPageShell";
 
 const COLORS = REPORT_COLORS;
@@ -25,8 +27,6 @@ const HEADER = {
 } as const;
 
 const ASSETS = {
-  logo: "/assets/ganesha-logo.png",
-  pattern2: "/assets/cover/pattern-2.png",
   palm: "/assets/palm-reading-report/palm-lines.png",
   icons: {
     hand: "/assets/palm-reading-report/icons/hand.png",
@@ -105,20 +105,6 @@ const defaultIndications = [
   "Experience Based Success",
 ];
 
-function OrnamentDivider({ width = 220 }: { width?: number }) {
-  return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
-      <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
-      />
-    </div>
-  );
-}
 
 function GoldDiamond({ size = 10 }: { size?: number }) {
   return (
@@ -128,38 +114,6 @@ function GoldDiamond({ size = 10 }: { size?: number }) {
         fill={HEADER.goldBright}
       />
     </svg>
-  );
-}
-
-function SectionTitleBar({ title }: { title: string }) {
-  return (
-    <div className="flex w-fit max-w-full items-center gap-2">
-      <Pattern3 size={40} />
-      <div
-        className="relative flex h-[42px] shrink-0 items-center rounded-full pl-[48px] pr-6"
-        style={{
-          background: `linear-gradient(180deg, #6b1f1f 0%, ${HEADER.maroon} 50%, ${HEADER.maroonDeep} 100%)`,
-          boxShadow: `inset 0 0 0 1.5px ${HEADER.goldBright}`,
-        }}
-      >
-        <div
-          className="absolute left-[4px] top-1/2 flex h-[34px] w-[34px] -translate-y-1/2 items-center justify-center rounded-full"
-          style={{
-            background: `linear-gradient(180deg, #7a2424 0%, ${HEADER.maroon} 100%)`,
-            boxShadow: `0 0 0 2px ${HEADER.goldBright}`,
-          }}
-        >
-          <CoverLotus size={22} className="opacity-100 brightness-125" />
-        </div>
-        <p
-          className="whitespace-nowrap text-[15px] font-bold tracking-wide text-white font-nunito-sans"
-          style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
-        >
-          {title}
-        </p>
-      </div>
-      <Pattern3 size={40} className="rotate-180" />
-    </div>
   );
 }
 
@@ -314,34 +268,14 @@ export default function OverallPalmAnalysis({
       pageLabel="palm-overall-analysis"
     >
       <div className="relative flex h-full min-h-0 flex-col">
-        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
-          <Image
-            src={ASSETS.logo}
-            alt="Astro Aarambh"
-            width={70}
-            height={70}
-            className="mb-1"
-            priority
-          />
-          <h1
-            className="text-[26px] font-bold leading-none tracking-[0.08em]"
-            style={{ color: HEADER.maroon }}
-          >
-            ASTRO AARAMBH
-          </h1>
-          <p
-            className="mt-1 text-[13px] font-bold tracking-[0.06em]"
-            style={{ color: HEADER.gold }}
-          >
-            PREMIUM PALM READING REPORT
-          </p>
-          <div className="mt-1">
-            <OrnamentDivider width={240} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <div className="mt-3 shrink-0">
-          <SectionTitleBar title={sectionTitle} />
+          <PalmReadingSectionBar
+            title={sectionTitle}
+            icon={<CoverLotus size={22} />}
+            minWidth={460}
+          />
         </div>
 
         <div className="relative z-10 mt-3 grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_14px_minmax(0,1fr)] items-stretch gap-x-3">
@@ -411,7 +345,7 @@ export default function OverallPalmAnalysis({
               className="text-[12px] font-bold tracking-[0.14em]"
               style={{ color: COLORS.brown }}
             >
-              PAGE {pageNumber}
+              {pageNumber}
             </p>
             <Pattern3 size={16} className="rotate-180" />
           </div>

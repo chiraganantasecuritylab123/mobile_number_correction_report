@@ -1,71 +1,73 @@
 import Image from "next/image";
-import {
-  AlertTriangle,
-  BookOpen,
-  Clock,
-  Flag,
-  HeartHandshake,
-  Lightbulb,
-  Mountain,
-  Plane,
-  Scale,
-  Star,
-  Target,
-  TrendingUp,
-  User,
-} from "lucide-react";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
-import { CoverLotus, Pattern3 } from "../CommunComponents";
+import { Pattern3 } from "../CommunComponents";
+import { PalmReadingPageHeader, PalmReadingSectionBar } from "./PalmReadingReportPageShell";
 
 const ASSETS = {
   cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
   hand: "/assets/palm-reading-report/conclusion-hand.png",
-  pattern2: "/assets/cover/pattern-2.png",
+  icons: {
+    star: "/assets/palm-reading-report/final-conclusion/icon-star-clear.png",
+    mountain: "/assets/palm-reading-report/final-conclusion/icon-mountain-clear.png",
+    lightbulb: "/assets/palm-reading-report/final-conclusion/icon-lightbulb-clear.png",
+    travel: "/assets/palm-reading-report/final-conclusion/icon-travel-clear.png",
+    handsHeart: "/assets/palm-reading-report/final-conclusion/icon-hands-heart-clear.png",
+    target: "/assets/palm-reading-report/final-conclusion/icon-target-clear.png",
+    clock: "/assets/palm-reading-report/final-conclusion/icon-clock-clear.png",
+    book: "/assets/palm-reading-report/final-conclusion/icon-book-clear.png",
+    scale: "/assets/palm-reading-report/final-conclusion/icon-scale-clear.png",
+    meditation: "/assets/palm-reading-report/final-conclusion/icon-meditation-clear.png",
+    chart: "/assets/palm-reading-report/final-conclusion/icon-chart-clear.png",
+    warning: "/assets/palm-reading-report/final-conclusion/icon-warning-clear.png",
+    palmWarning: "/assets/palm-reading-report/final-conclusion/icon-palm-warning-clear.png",
+  },
 } as const;
 
 const COLORS = {
   maroon: "#5c1818",
   maroonDeep: "#4a1010",
-  gold: "#b8860b",
-  goldLight: "#d4af37",
+  gold: "#A96505",
   cream: "#f8edd8",
   creamBox: "rgba(248, 232, 204, 0.72)",
   body: "#3c2a21",
-  slate: "#4a4540",
 } as const;
 
 const INSIGHTS = [
   {
     text: "आपकी हथेली Potential, Practicality और Self-effort का संतुलन दिखाती है।",
-    icon: Star,
+    iconSrc: ASSETS.icons.star,
+    iconSize: 34,
   },
   {
     text: "आप मेहनती, जिम्मेदार और goal-oriented व्यक्तित्व रखते हैं।",
-    icon: Mountain,
+    iconSrc: ASSETS.icons.mountain,
+    iconSize: 34,
   },
   {
     text: "समय के साथ stability, Recognition और Financial Growth संभव है।",
-    icon: Lightbulb,
+    iconSrc: ASSETS.icons.lightbulb,
+    iconSize: 34,
   },
   {
     text: "Travel, Learning और New Experiences — Comfort Zone से बाहर निकलना आपके लिए महत्वपूर्ण है।",
-    icon: Plane,
+    iconSrc: ASSETS.icons.travel,
+    iconSize: 34,
   },
   {
     text: "यह report आपकी Strengths और weaknesses को समझने के लिए है — ताकि सही दिशा में कर्म हो सकें।",
-    icon: HeartHandshake,
+    iconSrc: ASSETS.icons.handsHeart,
+    iconSize: 34,
   },
 ] as const;
 
 const TAKEAWAYS = [
-  { title: "स्पष्ट लक्ष्य बनाएँ", icon: Target },
-  { title: "नियमितता और धैर्य रखें", icon: Clock },
-  { title: "सीखते रहें, खुद को विकसित करें", icon: BookOpen },
-  { title: "भावनात्मक संतुलन बनाए रखें", icon: Scale },
-  { title: "स्वास्थ्य और मन का ध्यान रखें", icon: User },
-  { title: "दीर्घकालिक सोच, छोटे कदम", icon: TrendingUp },
+  { title: "स्पष्ट लक्ष्य बनाएँ", iconSrc: ASSETS.icons.target, iconSize: 30 },
+  { title: "नियमितता और धैर्य रखें", iconSrc: ASSETS.icons.clock, iconSize: 30 },
+  { title: "सीखते रहें, खुद को विकसित करें", iconSrc: ASSETS.icons.book, iconSize: 30 },
+  { title: "भावनात्मक संतुलन बनाए रखें", iconSrc: ASSETS.icons.scale, iconSize: 30 },
+  { title: "स्वास्थ्य और मन का ध्यान रखें", iconSrc: ASSETS.icons.meditation, iconSize: 30 },
+  { title: "दीर्घकालिक सोच, छोटे कदम", iconSrc: ASSETS.icons.chart, iconSize: 30 },
 ] as const;
 
 const WARNINGS = [
@@ -101,91 +103,49 @@ function PalmReadingPageFrame({
         className="pointer-events-none select-none object-fill"
         aria-hidden
       />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
       <div className="relative z-10 h-full">{children}</div>
-      <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
     </article>
   );
 }
 
-function OrnamentDivider({ width = 220 }: { width?: number }) {
+function PngIcon({
+  src,
+  size = 40,
+  width,
+  height,
+  alt = "",
+  className = "",
+}: {
+  src: string;
+  size?: number;
+  width?: number;
+  height?: number;
+  alt?: string;
+  className?: string;
+}) {
+  const w = width ?? size;
+  const h = height ?? size;
+
   return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
-      <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
-      />
-    </div>
+    <Image
+      src={src}
+      alt={alt}
+      width={w}
+      height={h}
+      unoptimized
+      className={`shrink-0 object-contain object-center ${className}`}
+      style={{ width: w, height: h, maxWidth: w, maxHeight: h }}
+    />
   );
 }
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-2.5 flex w-full max-w-[560px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 340,
-        }}
-      >
-        <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <Star size={20} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
-        </div>
-        <div className="text-center">
-          <p className="text-[14px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
-            CONCLUSION
-          </p>
-          <p className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
-            समापन संदेश
-          </p>
-        </div>
-      </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
-    </div>
-  );
-}
-
-function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
-  return (
-    <div
-      className="flex shrink-0 items-center justify-center rounded-full"
-      style={{
-        width: size,
-        height: size,
-        border: "1.5px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
-      }}
-    >
-      {children}
-    </div>
+    <PalmReadingSectionBar
+      title="CONCLUSION"
+      subtitle="समापन संदेश"
+      icon={<PngIcon src={ASSETS.icons.star} width={18} height={18} />}
+    />
   );
 }
 
@@ -218,53 +178,36 @@ export default function Conclusion({
     <PalmReadingPageFrame pageLabel="conclusion" pageNumber={pageNumber}>
       <div
         className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
-        style={{ top: 110, bottom: 34 }}
+        style={{ top: 18, bottom: 34 }}
       >
-        <header className="flex shrink-0 flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
-          >
-            ASTRO AARAMBH
-          </p>
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
         <section className="mt-2.5 grid min-h-0 flex-[1.25] grid-cols-[1.15fr_0.85fr] items-stretch gap-3">
           <div
-            className="flex h-full min-h-0 flex-col justify-between gap-2.5 rounded-[14px] px-3 py-3"
+            className="flex h-full min-h-0 flex-col justify-between gap-2 rounded-[14px] px-3 py-2.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.4)",
             }}
           >
-            {INSIGHTS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.text} className="flex items-start gap-2.5">
-                  <IconCircle size={42}>
-                    <Icon size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="pt-0.5 text-[13.5px] leading-[1.5] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
+            {INSIGHTS.map((item) => (
+              <div key={item.text} className="flex items-start gap-2.5">
+                <PngIcon
+                  src={item.iconSrc}
+                  width={item.iconSize}
+                  height={item.iconSize}
+                  alt=""
+                />
+                <p
+                  className="pt-0.5 text-[13.5px] leading-[1.5] font-nunito-sans"
+                  style={{ color: COLORS.body }}
+                >
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="flex h-full min-h-0 flex-col">
@@ -309,47 +252,45 @@ export default function Conclusion({
               border: "1px solid rgba(184,134,11,0.4)",
             }}
           >
-            {TAKEAWAYS.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="flex flex-col items-center px-1 text-center"
-                  style={{
-                    borderRight:
-                      index < TAKEAWAYS.length - 1
-                        ? "1px dashed rgba(184,134,11,0.35)"
-                        : "none",
-                  }}
+            {TAKEAWAYS.map((item, index) => (
+              <div
+                key={item.title}
+                className="flex flex-col items-center px-1 text-center"
+                style={{
+                  borderRight:
+                    index < TAKEAWAYS.length - 1
+                      ? "1px dashed rgba(184,134,11,0.35)"
+                      : "none",
+                }}
+              >
+                <PngIcon
+                  src={item.iconSrc}
+                  width={item.iconSize}
+                  height={item.iconSize}
+                  alt=""
+                />
+                <p
+                  className="mt-1.5 text-[12px] leading-[1.35] font-nunito-sans"
+                  style={{ color: COLORS.body }}
                 >
-                  <IconCircle size={40}>
-                    <Icon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="mt-1.5 text-[12px] leading-[1.35] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.title}
-                  </p>
-                </div>
-              );
-            })}
+                  {item.title}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="mt-2.5 min-h-0 flex-1">
           <PointedBanner title="महत्वपूर्ण चेतावनी (WARNING)" />
           <div
-            className="mt-2 flex h-full min-h-0 items-center gap-3 rounded-[14px] px-3.5 py-3"
+            className="mt-2 flex min-h-0 items-center gap-3 rounded-[14px] px-3.5 py-2.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.45)",
             }}
           >
-            <IconCircle size={46}>
-              <AlertTriangle size={22} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-            </IconCircle>
-            <div className="flex-1 space-y-1.5">
+            <PngIcon src={ASSETS.icons.warning} width={50} height={50} alt="Warning" />
+            <div className="min-w-0 flex-1 space-y-1">
               {WARNINGS.map((text) => (
                 <p
                   key={text}
@@ -360,22 +301,23 @@ export default function Conclusion({
                 </p>
               ))}
             </div>
-            <div className="flex flex-col items-center gap-1 pt-1">
-              <Flag size={20} style={{ color: COLORS.maroon }} />
-              <AlertTriangle size={18} style={{ color: COLORS.gold }} />
-            </div>
+            <PngIcon
+              src={ASSETS.icons.palmWarning}
+              width={62}
+              height={76}
+              alt="Palm warning"
+            />
           </div>
         </section>
 
-
-        <div className="mt-10 flex flex-col items-center gap-2.5 shrink-0 justify-center">
-            <p
-              className="mt-2.5 shrink-0 text-center text-[14px] leading-[1.5] font-nunito-sans"
-              style={{ color: COLORS.body }}
-            >
-              ईश्वर करें कि आपको सदैव सफलता, स्वास्थ्य, समृद्धि और मान-सम्मान प्राप्त हो और आपका जीवन
-              सुखमय एवं संतुलित रहे।
-            </p>
+        <div className="mt-6 flex shrink-0 flex-col items-center gap-2.5 justify-center">
+          <p
+            className="text-center text-[14px] leading-[1.5] font-nunito-sans"
+            style={{ color: COLORS.body }}
+          >
+            ईश्वर करें कि आपको सदैव सफलता, स्वास्थ्य, समृद्धि और मान-सम्मान प्राप्त हो और आपका जीवन
+            सुखमय एवं संतुलित रहे।
+          </p>
           <div
             className="rounded-full px-5 py-2"
             style={{

@@ -238,8 +238,24 @@ const defaultSections: HouseAnalysisSection[] = [
   },
 ];
 
+type HouseFieldKey = keyof HouseAnalysisFields;
+type HouseFieldsRecord = HouseAnalysisSection["fields"];
+type HindiFieldKey<K extends HouseFieldKey> = `${K}Hi`;
+
+function getLocalizedFieldValue(
+  fields: HouseFieldsRecord,
+  fieldKey: HouseFieldKey,
+  language: string,
+): string {
+  if (language === "en") {
+    return fields[fieldKey];
+  }
+  const hiKey = `${fieldKey}Hi` as HindiFieldKey<HouseFieldKey>;
+  return fields[hiKey] ?? fields[fieldKey];
+}
+
 const TABLE_ROWS: {
-  key: keyof HouseAnalysisFields;
+  key: HouseFieldKey;
   label: string;
   labelHi: string;
   icon: LucideIcon;
@@ -427,17 +443,11 @@ function HouseDataTable({
     <div className="px-2">
       <table className="w-full border-collapse">
         <tbody>
-          {TABLE_ROWS.map((row, index) => {
+          {TABLE_ROWS.map((row) => {
             const RowIcon = row.icon;
             const fieldKey = row.key;
             const value = fields[fieldKey];
-            
-            // Get the appropriate value based on language
-            const displayValue = language === "en" 
-              ? value 
-              : value + "Hi" in fields 
-                ? (fields as any)[fieldKey + "Hi"] 
-                : value;
+            const displayValue = getLocalizedFieldValue(fields, fieldKey, language);
 
             return (
               <tr
@@ -469,7 +479,7 @@ function HouseDataTable({
                     borderLeft: `1px solid ${ASTRO.cardBorder}`,
                   }}
                 >
-                  {language === "en" ? value : (fields as any)[fieldKey + "Hi"] || value}
+                  {displayValue}
                 </td>
               </tr>
             );

@@ -1,73 +1,76 @@
 import Image from "next/image";
-import {
-  AlertTriangle,
-  BookOpen,
-  Clock,
-  Crown,
-  Flag,
-  HeartHandshake,
-  Lightbulb,
-  Mountain,
-  Plane,
-  Scale,
-  ScanSearch,
-  Star,
-  Target,
-  TrendingUp,
-  User,
-} from "lucide-react";
 import type { ReactNode } from "react";
 import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
-import { CoverLotus, Pattern3 } from "../CommunComponents";
+import { Pattern3 } from "../CommunComponents";
+import { PalmReadingPageHeader, PalmReadingSectionBar } from "./PalmReadingReportPageShell";
 
 const ASSETS = {
   cover: "/assets/cover-bg.png",
-  logo: "/assets/ganesha-logo.png",
   hand: "/assets/palm-reading-report/conclusion-hand.png",
-  pattern2: "/assets/cover/pattern-2.png",
+  icons: {
+    star: "/assets/palm-reading-report/final-conclusion/icon-star-clear.png",
+    mountain: "/assets/palm-reading-report/final-conclusion/icon-mountain-clear.png",
+    lightbulb: "/assets/palm-reading-report/final-conclusion/icon-lightbulb-clear.png",
+    travel: "/assets/palm-reading-report/final-conclusion/icon-travel-clear.png",
+    handsHeart: "/assets/palm-reading-report/final-conclusion/icon-hands-heart-clear.png",
+    target: "/assets/palm-reading-report/final-conclusion/icon-target-clear.png",
+    clock: "/assets/palm-reading-report/final-conclusion/icon-clock-clear.png",
+    book: "/assets/palm-reading-report/final-conclusion/icon-book-clear.png",
+    scale: "/assets/palm-reading-report/final-conclusion/icon-scale-clear.png",
+    meditation: "/assets/palm-reading-report/final-conclusion/icon-meditation-clear.png",
+    chart: "/assets/palm-reading-report/final-conclusion/icon-chart-clear.png",
+    warning: "/assets/palm-reading-report/final-conclusion/icon-warning-clear.png",
+    palmWarning: "/assets/palm-reading-report/final-conclusion/icon-palm-warning-clear.png",
+    magnifyHand: "/assets/palm-reading-report/final-conclusion/icon-magnify-hand-clear.png",
+    crown: "/assets/palm-reading-report/final-conclusion/icon-crown-clear.png",
+  },
 } as const;
 
 const COLORS = {
   maroon: "#5c1818",
   maroonDeep: "#4a1010",
-  gold: "#b8860b",
+  gold: "#A96505",
   goldLight: "#d4af37",
   cream: "#f8edd8",
   creamBox: "rgba(248, 232, 204, 0.72)",
   body: "#3c2a21",
-  slate: "#4a4540",
 } as const;
 
 const INSIGHTS = [
   {
     text: "आपकी हथेली Potential, Practicality और Self-effort का संतुलन दिखाती है।",
-    icon: Star,
+    iconSrc: ASSETS.icons.star,
+    iconSize: 34,
   },
   {
     text: "आप मेहनती, जिम्मेदार और goal-oriented व्यक्तित्व रखते हैं।",
-    icon: Mountain,
+    iconSrc: ASSETS.icons.mountain,
+    iconSize: 34,
   },
   {
     text: "समय के साथ stability, Recognition और Financial Growth संभव है।",
-    icon: Lightbulb,
+    iconSrc: ASSETS.icons.lightbulb,
+    iconSize: 34,
   },
   {
     text: "Travel, Learning और New Experiences — Comfort Zone से बाहर निकलना आपके लिए महत्वपूर्ण है।",
-    icon: Plane,
+    iconSrc: ASSETS.icons.travel,
+    iconSize: 34,
   },
   {
     text: "यह report आपकी Strengths और weaknesses को समझने के लिए है — ताकि सही दिशा में कर्म हो सकें।",
-    icon: HeartHandshake,
+    iconSrc: ASSETS.icons.handsHeart,
+    iconSize: 34,
   },
 ] as const;
 
 const HELPS_YOU = [
-  { title: "सही लक्ष्य चुनने में", icon: Target },
-  { title: "निर्णय में स्पष्टता लाने में", icon: Clock },
-  { title: "खुद को बेहतर समझने में", icon: BookOpen },
-  { title: "जीवन में संतुलन लाने में", icon: Scale },
-  { title: "स्वास्थ्य के प्रति जागरूकता", icon: User },
-  { title: "दीर्घकालिक योजना बनाने में", icon: TrendingUp },
+  { title: "सही लक्ष्य चुनने में", iconSrc: ASSETS.icons.target, iconSize: 30 },
+  { title: "निर्णय में स्पष्टता लाने में", iconSrc: ASSETS.icons.clock, iconSize: 30 },
+  { title: "खुद को बेहतर समझने में", iconSrc: ASSETS.icons.book, iconSize: 30 },
+  { title: "जीवन में संतुलन लाने में", iconSrc: ASSETS.icons.scale, iconSize: 30 },
+  { title: "स्वास्थ्य के प्रति जागरूकता", iconSrc: ASSETS.icons.meditation, iconSize: 30 },
+  { title: "दीर्घकालिक योजना बनाने में", iconSrc: ASSETS.icons.chart, iconSize: 30 },
 ] as const;
 
 const WARNINGS = [
@@ -120,91 +123,49 @@ function PalmReadingPageFrame({
         className="pointer-events-none select-none object-fill"
         aria-hidden
       />
-      <Image
-        src={ASSETS.logo}
-        alt="Astro Aarambh"
-        width={88}
-        height={88}
-        className="absolute left-1/2 z-20 -translate-x-1/2 object-contain"
-        style={{ top: 28 }}
-      />
       <div className="relative z-10 h-full">{children}</div>
-      <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
-        <Pattern3 size={36} />
-        <span
-          className="text-[11px] font-bold tracking-[0.16em]"
-          style={{ color: COLORS.maroon }}
-        >
-          PAGE {pageNumber}
-        </span>
-        <Pattern3 size={36} className="rotate-180" />
-      </div>
     </article>
   );
 }
 
-function OrnamentDivider({ width = 220 }: { width?: number }) {
+function PngIcon({
+  src,
+  size = 40,
+  width,
+  height,
+  alt = "",
+  className = "",
+}: {
+  src: string;
+  size?: number;
+  width?: number;
+  height?: number;
+  alt?: string;
+  className?: string;
+}) {
+  const w = width ?? size;
+  const h = height ?? size;
+
   return (
-    <div className="relative flex items-center justify-center" style={{ width }}>
-      <Image
-        src={ASSETS.pattern2}
-        alt=""
-        width={width}
-        height={Math.round(width * 0.12)}
-        className="h-auto w-full object-contain"
-        aria-hidden
-      />
-    </div>
+    <Image
+      src={src}
+      alt={alt}
+      width={w}
+      height={h}
+      unoptimized
+      className={`shrink-0 object-contain object-center ${className}`}
+      style={{ width: w, height: h, maxWidth: w, maxHeight: h }}
+    />
   );
 }
 
 function SectionBar() {
   return (
-    <div className="relative mx-auto mt-2.5 flex w-full max-w-[560px] items-center justify-center">
-      <Pattern3 size={78} className="absolute left-[-8px] opacity-90" />
-      <div
-        className="relative z-10 flex items-center gap-2.5 rounded-full px-5 py-2 shadow-sm"
-        style={{
-          background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
-          minWidth: 360,
-        }}
-      >
-        <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
-          style={{
-            background: "linear-gradient(180deg, #e8c76a 0%, #c9a227 100%)",
-            boxShadow: "0 0 0 2px rgba(255,245,210,0.35)",
-          }}
-        >
-          <Star size={20} strokeWidth={2} fill={COLORS.maroonDeep} style={{ color: COLORS.maroonDeep }} />
-        </div>
-        <div className="text-center">
-          <p className="text-[14px] font-bold leading-none tracking-[0.1em] text-[#f6e6c4]">
-            FINAL CONCLUSION
-          </p>
-          <p className="mt-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#f6e6c4]/85">
-            अंतिम निष्कर्ष
-          </p>
-        </div>
-      </div>
-      <Pattern3 size={78} className="absolute right-[-8px] rotate-180 opacity-90" />
-    </div>
-  );
-}
-
-function IconCircle({ children, size = 42 }: { children: ReactNode; size?: number }) {
-  return (
-    <div
-      className="flex shrink-0 items-center justify-center rounded-full"
-      style={{
-        width: size,
-        height: size,
-        border: "1.5px solid rgba(184,134,11,0.7)",
-        background: "#fff8e8",
-      }}
-    >
-      {children}
-    </div>
+    <PalmReadingSectionBar
+      title="FINAL CONCLUSION"
+      subtitle="अंतिम निष्कर्ष"
+      icon={<PngIcon src={ASSETS.icons.star} size={18} />}
+    />
   );
 }
 
@@ -231,12 +192,12 @@ function PointedBanner({ title }: { title: string }) {
 function ReportCard({
   title,
   price,
-  icon,
+  iconSrc,
   features,
 }: {
   title: string;
   price: string;
-  icon: ReactNode;
+  iconSrc: string;
   features: readonly string[];
 }) {
   return (
@@ -247,16 +208,16 @@ function ReportCard({
         background: COLORS.creamBox,
       }}
     >
-      <div className="flex shrink-0 flex-col items-center px-3 pt-2 pb-1.5">
-        <IconCircle size={38}>{icon}</IconCircle>
+      <div className="flex shrink-0 flex-col items-center gap-1 px-3 pt-2.5 pb-2">
+        <PngIcon src={iconSrc} size={42} alt="" />
         <p
-          className="mt-1 text-center text-[12px] font-bold leading-tight tracking-[0.04em]"
+          className="text-center text-[11.5px] font-bold leading-tight tracking-[0.04em]"
           style={{ color: COLORS.maroon }}
         >
           {title}
         </p>
         <div
-          className="mt-1 rounded-full px-3.5 py-0.5"
+          className="rounded-full px-3.5 py-0.5"
           style={{
             background: `linear-gradient(180deg, ${COLORS.goldLight} 0%, ${COLORS.gold} 100%)`,
           }}
@@ -267,7 +228,7 @@ function ReportCard({
         </div>
       </div>
       <div
-        className="mx-2.5 mb-2 flex min-h-0 flex-1 flex-col justify-center space-y-0 rounded-[10px] px-2.5 py-1"
+        className="mx-2.5 mb-2.5 flex min-h-0 flex-1 flex-col justify-center gap-0 rounded-[10px] px-2.5 py-1.5"
         style={{
           background: "rgba(255,250,240,0.7)",
           border: "1px solid rgba(184,134,11,0.28)",
@@ -276,7 +237,7 @@ function ReportCard({
         {features.map((feature) => (
           <p
             key={feature}
-            className="text-[11px] leading-[1.25] font-nunito-sans"
+            className="text-[11px] leading-[1.3] font-nunito-sans"
             style={{ color: COLORS.body }}
           >
             • {feature}
@@ -296,26 +257,9 @@ export default function FinalConclusion({
     <PalmReadingPageFrame pageLabel="final-conclusion" pageNumber={pageNumber}>
       <div
         className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
-        style={{ top: 110, bottom: 34 }}
+        style={{ top: 18, bottom: 34 }}
       >
-        <header className="flex shrink-0 flex-col items-center text-center">
-          <p
-            className="text-[26px] font-bold leading-none tracking-[0.06em]"
-            style={{ color: COLORS.maroon }}
-          >
-            ASTRO AARAMBH
-          </p>
-          <div className="mt-1 flex items-center justify-center gap-2">
-            <OrnamentDivider width={72} />
-            <h1
-              className="text-[13px] font-bold tracking-[0.12em]"
-              style={{ color: COLORS.gold }}
-            >
-              PREMIUM PALM READING REPORT
-            </h1>
-            <OrnamentDivider width={72} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <SectionBar />
 
@@ -327,22 +271,17 @@ export default function FinalConclusion({
               border: "1px solid rgba(184,134,11,0.4)",
             }}
           >
-            {INSIGHTS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.text} className="flex items-start gap-2.5">
-                  <IconCircle size={38}>
-                    <Icon size={18} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="pt-0.5 text-[12.5px] leading-[1.4] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.text}
-                  </p>
-                </div>
-              );
-            })}
+            {INSIGHTS.map((item) => (
+              <div key={item.text} className="flex items-start gap-2.5">
+                <PngIcon src={item.iconSrc} size={item.iconSize} />
+                <p
+                  className="pt-0.5 text-[12.5px] leading-[1.4] font-nunito-sans"
+                  style={{ color: COLORS.body }}
+                >
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="flex h-full min-h-0 flex-col">
@@ -387,83 +326,78 @@ export default function FinalConclusion({
               border: "1px solid rgba(184,134,11,0.4)",
             }}
           >
-            {HELPS_YOU.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="flex flex-col items-center px-1 text-center"
-                  style={{
-                    borderRight:
-                      index < HELPS_YOU.length - 1
-                        ? "1px dashed rgba(184,134,11,0.35)"
-                        : "none",
-                  }}
+            {HELPS_YOU.map((item, index) => (
+              <div
+                key={item.title}
+                className="flex flex-col items-center px-1 text-center"
+                style={{
+                  borderRight:
+                    index < HELPS_YOU.length - 1
+                      ? "1px dashed rgba(184,134,11,0.35)"
+                      : "none",
+                }}
+              >
+                <PngIcon src={item.iconSrc} size={item.iconSize} />
+                <p
+                  className="mt-1.5 text-[11.5px] leading-[1.3] font-nunito-sans"
+                  style={{ color: COLORS.body }}
                 >
-                  <IconCircle size={38}>
-                    <Icon size={17} strokeWidth={1.7} style={{ color: COLORS.gold }} />
-                  </IconCircle>
-                  <p
-                    className="mt-1.5 text-[11.5px] leading-[1.3] font-nunito-sans"
-                    style={{ color: COLORS.body }}
-                  >
-                    {item.title}
-                  </p>
-                </div>
-              );
-            })}
+                  {item.title}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="mt-2 shrink-0">
           <PointedBanner title="महत्वपूर्ण चेतावनी (WARNING)" />
           <div
-            className="mt-1.5 flex items-center gap-3 rounded-[14px] px-3 py-2"
+            className="mt-1.5 flex items-center gap-3 rounded-[14px] px-3 py-2.5"
             style={{
               background: COLORS.creamBox,
               border: "1px solid rgba(184,134,11,0.45)",
             }}
           >
-            <IconCircle size={44}>
-              <AlertTriangle size={20} strokeWidth={1.8} style={{ color: COLORS.gold }} />
-            </IconCircle>
-            <div className="flex-1 space-y-0.5">
+            <PngIcon src={ASSETS.icons.warning} width={50} height={50} alt="Warning" />
+            <div className="min-w-0 flex-1 space-y-0.5">
               {WARNINGS.map((text) => (
                 <p
                   key={text}
-                  className="text-[12px] leading-[1.35] font-nunito-sans"
+                  className="text-[11.5px] leading-[1.32] font-nunito-sans"
                   style={{ color: COLORS.body }}
                 >
                   • {text}
                 </p>
               ))}
             </div>
-            <div className="flex flex-col items-center gap-1">
-              <Flag size={18} style={{ color: COLORS.maroon }} />
-              <AlertTriangle size={16} style={{ color: COLORS.gold }} />
-            </div>
+            <PngIcon
+              src={ASSETS.icons.palmWarning}
+              width={62}
+              height={76}
+              alt="Palm warning"
+            />
           </div>
         </section>
 
-        <section className="mt-2 flex min-h-0 flex-[1.25] flex-col">
+        <section className="mt-2 flex min-h-0 flex-[1.15] flex-col">
           <PointedBanner title="OUR OTHER PALM READING REPORTS" />
-          <div className="mt-1.5 grid min-h-0 flex-1 grid-cols-2 items-stretch gap-2.5">
+          <div className="mt-1.5 grid min-h-0 flex-1 grid-cols-2 items-stretch gap-3">
             <ReportCard
               title="INTERMEDIATE PALM READING REPORT"
               price="₹151/-"
-              icon={<ScanSearch size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
+              iconSrc={ASSETS.icons.magnifyHand}
               features={INTERMEDIATE_FEATURES}
             />
             <ReportCard
               title="ADVANCED LEVEL PALM READING REPORT"
               price="₹251/-"
-              icon={<Crown size={20} strokeWidth={1.7} style={{ color: COLORS.gold }} />}
+              iconSrc={ASSETS.icons.crown}
               features={ADVANCED_FEATURES}
             />
           </div>
         </section>
 
-        <footer className="mt-2 flex shrink-0 flex-col items-center">
+        <footer className="mt-1.5 flex shrink-0 flex-col items-center">
           <p
             className="text-center text-[13.5px] leading-[1.45] font-nunito-sans"
             style={{ color: COLORS.body }}

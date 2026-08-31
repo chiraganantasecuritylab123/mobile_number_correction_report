@@ -10,6 +10,8 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { CoverLotus, Pattern3 } from "../CommunComponents";
 import PalmReadingReportPageShell, {
+  PalmReadingPageHeader,
+  PalmReadingSectionBar,
   REPORT_COLORS,
 } from "./PalmReadingReportPageShell";
 
@@ -25,7 +27,6 @@ const HEADER = {
 } as const;
 
 const ASSETS = {
-  logo: "/assets/ganesha-logo.png",
   pattern2: "/assets/cover/pattern-2.png",
   lovePalmCouple: "/assets/palm-reading-report/love-relationship/love-palm-couple-clear.png",
   summaryFrame: "/assets/palm-reading-report/love-relationship/summary-frame-clear.png",
@@ -117,43 +118,12 @@ function SectionTitleBar({
   titleIconSrc?: string;
 }) {
   return (
-    <div className="flex w-full max-w-full items-center gap-2">
-      <Pattern3 size={36} />
-      <div
-        className="relative flex h-[42px] min-w-0 flex-1 items-center rounded-full pl-[48px] pr-5"
-        style={{
-          background: `linear-gradient(180deg, #6b1f1f 0%, ${HEADER.maroon} 50%, ${HEADER.maroonDeep} 100%)`,
-          boxShadow: `inset 0 0 0 1.5px ${HEADER.goldBright}`,
-        }}
-      >
-        <div
-          className="absolute left-[4px] top-1/2 flex h-[34px] w-[34px] -translate-y-1/2 items-center justify-center rounded-full"
-          style={{
-            background: `linear-gradient(180deg, #7a2424 0%, ${HEADER.maroon} 100%)`,
-            boxShadow: `0 0 0 2px ${HEADER.goldBright}`,
-          }}
-        >
-          <CoverLotus size={22} className="opacity-100 brightness-125" />
-        </div>
-        <p
-          className="flex items-center gap-1.5 truncate text-[13px] font-bold tracking-wide text-white font-nunito-sans"
-          style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
-        >
-          {titleIconSrc ? (
-            <Image
-              src={titleIconSrc}
-              alt=""
-              width={18}
-              height={18}
-              className="h-[18px] w-[18px] shrink-0 object-contain"
-              aria-hidden
-            />
-          ) : null}
-          {title}
-        </p>
-      </div>
-      <Pattern3 size={36} className="rotate-180" />
-    </div>
+    <PalmReadingSectionBar
+      title={title}
+      iconSrc={titleIconSrc}
+      icon={!titleIconSrc ? <CoverLotus size={22} /> : undefined}
+      minWidth={420}
+    />
   );
 }
 
@@ -207,8 +177,6 @@ function SummaryBannerFrame({ children }: { children: ReactNode }) {
         borderImageSlice: "70 90 70 90",
         borderImageWidth: "18px 24px",
         borderImageRepeat: "stretch",
-        background:
-          "linear-gradient(180deg, rgba(255,252,245,0.55) 0%, rgba(255,248,235,0.35) 100%)",
       }}
     >
       <div className="relative z-10 flex w-full items-center gap-2.5 px-1 py-1.5">
@@ -348,31 +316,7 @@ export default function LoveRelationshipReading({
       pageLabel="palm-love-relationship"
     >
       <div className="relative flex h-full min-h-0 flex-col">
-        <header className="relative z-10 flex shrink-0 flex-col items-center text-center">
-          <Image
-            src={ASSETS.logo}
-            alt="Astro Aarambh"
-            width={64}
-            height={64}
-            className="mb-1"
-            priority
-          />
-          <h1
-            className="text-[24px] font-bold leading-none tracking-[0.08em]"
-            style={{ color: HEADER.maroon }}
-          >
-            ASTRO AARAMBH
-          </h1>
-          <p
-            className="mt-1 text-[12px] font-bold tracking-[0.06em]"
-            style={{ color: HEADER.gold }}
-          >
-            PREMIUM PALM READING REPORT
-          </p>
-          <div className="mt-1">
-            <OrnamentDivider width={220} />
-          </div>
-        </header>
+        <PalmReadingPageHeader />
 
         <div className="mt-2 shrink-0">
           <SectionTitleBar title={sectionTitle} titleIconSrc={ASSETS.icons.heart} />
@@ -608,7 +552,7 @@ export default function LoveRelationshipReading({
                 className="text-[12px] font-bold tracking-[0.14em]"
                 style={{ color: COLORS.brown }}
               >
-                PAGE {pageNumber}
+                {pageNumber}
               </p>
               <Pattern3 size={16} className="rotate-180" />
             </div>

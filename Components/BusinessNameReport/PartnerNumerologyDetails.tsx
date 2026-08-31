@@ -53,6 +53,21 @@ const ASSETS = {
   footerBg: "/assets/signatureReport/foooter-background.png",
 } as const;
 
+function OrnamentDivider({ width = 220 }: { width?: number }) {
+  return (
+    <div className="relative flex items-center justify-center" style={{ width }}>
+      <Image
+        src={ASSETS.pattern2}
+        alt=""
+        width={width}
+        height={Math.round(width * 0.12)}
+        className="h-auto w-full object-contain"
+        aria-hidden
+      />
+    </div>
+  );
+}
+
 export default function PartnerNumerologyDetails() {
   const partners: Partner[] = [
     {
@@ -105,21 +120,6 @@ export default function PartnerNumerologyDetails() {
     growthPotential: "High",
     stability: "Good",
   };
-
-  function OrnamentDivider({ width = 220 }: { width?: number }) {
-    return (
-      <div className="relative flex items-center justify-center" style={{ width }}>
-        <Image
-          src={ASSETS.pattern2}
-          alt=""
-          width={width}
-          height={Math.round(width * 0.12)}
-          className="h-auto w-full object-contain"
-          aria-hidden
-        />
-      </div>
-    );
-  }
 
   const GoldIconCircle = ({ children }: { children: React.ReactNode }) => (
     <div
