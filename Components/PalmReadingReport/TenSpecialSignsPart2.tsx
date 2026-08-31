@@ -1,0 +1,295 @@
+import Image from "next/image";
+import type { ReactNode } from "react";
+import { PAGE_HEIGHT, PAGE_WIDTH } from "../ReportPageShell";
+import { Pattern3 } from "../CommunComponents";
+import { PalmReadingPageHeader, PalmReadingSectionBar } from "./PalmReadingReportPageShell";
+
+const ASSETS = {
+  cover: "/assets/cover-bg.png",
+  hand: "/assets/palm-reading-report/variable-hand.png",
+  pattern2: "/assets/cover/pattern-2.png",
+  icons: {
+    signpost: "/assets/palm-reading-report/ten-special-signs/icon-signpost-clear.png",
+    heart: "/assets/palm-reading-report/ten-special-signs/icon-heart-clear.png",
+    venus: "/assets/palm-reading-report/ten-special-signs/icon-venus-clear.png",
+    moon: "/assets/palm-reading-report/ten-special-signs/icon-moon-clear.png",
+    scale: "/assets/palm-reading-report/ten-special-signs/icon-scale-clear.png",
+    hand: "/assets/palm-reading-report/ten-special-signs/icon-hand-clear.png",
+    trophy: "/assets/palm-reading-report/ten-special-signs/icon-trophy-clear.png",
+    target: "/assets/palm-reading-report/ten-special-signs/icon-target-clear.png",
+    star: "/assets/palm-reading-report/ten-special-signs/icon-star-clear.png",
+  },
+} as const;
+
+const COLORS = {
+  maroon: "#5c1818",
+  maroonDeep: "#4a1010",
+  gold: "#b8860b",
+  creamBox: "rgba(248, 232, 204, 0.72)",
+  body: "#3c2a21",
+} as const;
+
+const SIGNS = [
+  {
+    num: "06",
+    title: "VARIABLE FATE LINE",
+    text: "Career में changes या self-directed decisions का संकेत.",
+    iconSrc: ASSETS.icons.signpost,
+  },
+  {
+    num: "07",
+    title: "DEVELOPED VENUS MOUNT",
+    text: "Warmth, attachment और social/emotional energy का संकेत.",
+    iconSrc: ASSETS.icons.heart,
+  },
+  {
+    num: "08",
+    title: "MODERATE MOON MOUNT",
+    text: "Imagination, travel और new experiences का संकेत.",
+    iconSrc: ASSETS.icons.moon,
+  },
+  {
+    num: "09",
+    title: "BALANCED THUMB",
+    text: "Willpower और reasoning का balance का संकेत.",
+    iconSrc: ASSETS.icons.scale,
+  },
+  {
+    num: "10",
+    title: "OVERALL CLEAR PALM",
+    text: "Life में structure और direction develop करने की tendency का संकेत.",
+    iconSrc: ASSETS.icons.hand,
+  },
+] as const;
+
+function PalmReadingPageFrame({
+  children,
+  pageLabel,
+  pageNumber,
+}: {
+  children?: ReactNode;
+  pageLabel: string;
+  pageNumber: string;
+}) {
+  return (
+    <article
+      data-report-page
+      data-page-label={pageLabel}
+      data-report-page-number={pageNumber}
+      className="relative mx-auto overflow-hidden shadow-xl"
+      style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
+    >
+      <Image
+        src={ASSETS.cover}
+        alt=""
+        fill
+        sizes={`${PAGE_WIDTH}px`}
+        className="pointer-events-none select-none object-fill"
+        aria-hidden
+      />
+      <div className="relative z-10 h-full">{children}</div>
+      {/* <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
+        <Pattern3 size={36} />
+        <span
+          className="text-[11px] font-bold tracking-[0.16em]"
+          style={{ color: COLORS.maroon }}
+        >
+          {pageNumber}
+        </span>
+        <Pattern3 size={36} className="rotate-180" />
+      </div> */}
+    </article>
+  );
+}
+
+function OrnamentDivider({ width = 220 }: { width?: number }) {
+  return (
+    <div className="relative flex items-center justify-center" style={{ width }}>
+      <Image
+        src={ASSETS.pattern2}
+        alt=""
+        width={width}
+        height={Math.round(width * 0.12)}
+        className="h-auto w-full object-contain"
+        aria-hidden
+      />
+    </div>
+  );
+}
+
+function SectionBar() {
+  return (
+    <PalmReadingSectionBar
+      title="18. आपकी हथेली के 10 विशेष संकेत"
+      iconSrc={ASSETS.icons.star}
+      minWidth={500}
+    />
+  );
+}
+
+function PngIcon({
+  src,
+  size = 40,
+  alt = "",
+}: {
+  src: string;
+  size?: number;
+  alt?: string;
+}) {
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={`${size}px`}
+        className="object-contain object-center"
+        unoptimized
+      />
+    </div>
+  );
+}
+
+function IconBadge({
+  children,
+  size = 48,
+}: {
+  children: ReactNode;
+  size?: number;
+}) {
+  return (
+    <div
+      className="relative flex shrink-0 items-center justify-center rounded-full"
+      style={{
+        width: size,
+        height: size,
+        background: "linear-gradient(180deg, #fff9ef 0%, #f3e4c4 100%)",
+        boxShadow:
+          "0 0 0 1.5px rgba(169,101,5,0.55), inset 0 1px 0 rgba(255,255,255,0.65)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function NumberBadge({ num }: { num: string }) {
+  return (
+    <div
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+      style={{
+        background: `linear-gradient(180deg, ${COLORS.maroon} 0%, ${COLORS.maroonDeep} 100%)`,
+      }}
+    >
+      <span className="text-[13px] font-bold tracking-[0.04em] text-[#f6e6c4]">{num}</span>
+    </div>
+  );
+}
+
+export default function TenSpecialSignsPart2({
+  pageNumber = "20",
+}: {
+  pageNumber?: string;
+}) {
+  return (
+    <PalmReadingPageFrame pageLabel="ten-special-signs-part-2" pageNumber={pageNumber}>
+      <div
+        className="absolute inset-x-0 flex min-h-0 flex-col px-10 font-cinzel"
+        style={{ top: 18, bottom: 34 }}
+      >
+        <PalmReadingPageHeader />
+
+        <SectionBar />
+
+        <p
+          className="mt-2.5 shrink-0 text-center text-[14.5px] leading-[1.5] font-nunito-sans"
+          style={{ color: COLORS.body }}
+        >
+          आपकी हथेली पर ये संकेत particularly{" "}
+          <span className="font-bold">strong और clear</span> दिखाई देते हैं — ये आपके personality
+          और life direction को समझने में मदद करते हैं।
+        </p>
+
+        <section className="mt-2.5 grid min-h-0 flex-1 grid-cols-[0.85fr_1.15fr] items-stretch gap-3">
+          <div
+            className="relative h-full min-h-0 overflow-hidden rounded-[16px]"
+            style={{
+              border: "1.4px solid rgba(184,134,11,0.55)",
+              background:
+                "radial-gradient(circle at 50% 45%, rgba(212,175,55,0.2) 0%, rgba(248,237,216,0.55) 72%)",
+            }}
+          >
+            <div className="absolute inset-x-0 -bottom-2 aspect-[280/420]">
+              <Image
+                src={ASSETS.hand}
+                alt="Special palm signs 06 to 10"
+                fill
+                sizes="280px"
+                className="object-contain object-bottom mix-blend-screen"
+              />
+            </div>
+          </div>
+
+          <div className="flex h-full min-h-0 flex-col justify-between gap-2">
+            {SIGNS.map((sign) => (
+              <div
+                key={sign.num}
+                className="flex min-h-0 flex-1 items-center gap-3 rounded-[12px] px-3 py-2.5"
+                style={{
+                  background: COLORS.creamBox,
+                  border: "1px solid rgba(184,134,11,0.45)",
+                }}
+              >
+                <NumberBadge num={sign.num} />
+                <div className="min-w-0 flex-1">
+                  <p
+                    className="text-[13.5px] font-bold tracking-[0.05em]"
+                    style={{ color: COLORS.maroon }}
+                  >
+                    {sign.title}
+                  </p>
+                  <p
+                    className="mt-0.5 text-[13px] leading-[1.45] font-nunito-sans"
+                    style={{ color: COLORS.body }}
+                  >
+                    {sign.text}
+                  </p>
+                </div>
+                <IconBadge size={48}>
+                  <PngIcon src={sign.iconSrc} size={34} />
+                </IconBadge>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          className="mt-2.5 flex shrink-0 items-center gap-3 rounded-[14px] px-3.5 py-2.5"
+          style={{
+            background: COLORS.creamBox,
+            border: "1px solid rgba(184,134,11,0.5)",
+          }}
+        >
+          <IconBadge size={50}>
+            <PngIcon src={ASSETS.icons.trophy} size={36} />
+          </IconBadge>
+          <p
+            className="flex-1 text-[14px] leading-[1.5] font-nunito-sans"
+            style={{ color: COLORS.body }}
+          >
+            ये संकेत आपके{" "}
+            <span className="font-bold">thought, emotion, health</span> और life changes को
+            reflect करते हैं। आगे के pages में इनका detailed explanation दिया गया है।
+          </p>
+          <IconBadge size={50}>
+            <PngIcon src={ASSETS.icons.target} size={36} />
+          </IconBadge>
+        </section>
+
+        <footer className="mt-2 flex shrink-0 flex-col items-center">
+          <OrnamentDivider width={180} />
+        </footer>
+      </div>
+    </PalmReadingPageFrame>
+  );
+}

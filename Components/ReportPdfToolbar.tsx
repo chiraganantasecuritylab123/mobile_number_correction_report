@@ -5,7 +5,17 @@ import { useCallback, useEffect, useState } from "react";
 
 type PdfPreviewModule = typeof import("react-pdf");
 
-export default function ReportPdfToolbar() {
+export default function ReportPdfToolbar({
+  reportTitle = "Mobile Number Correction Report",
+  reportDescription = "Export uses pdfkit-next with automatic overflow page breaks",
+  language = "en",
+  onToggleLanguage,
+}: {
+  reportTitle?: string;
+  reportDescription?: string;
+  language?: "en" | "hi";
+  onToggleLanguage?: () => void;
+}) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -16,10 +26,8 @@ export default function ReportPdfToolbar() {
   useEffect(() => {
     void import("react-pdf").then(async (module) => {
       const { pdfjs } = module;
-      pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-        "pdfjs-dist/build/pdf.worker.min.mjs",
-        import.meta.url,
-      ).toString();
+      // Must match react-pdf's pdfjs API version (not a newer top-level pdfjs-dist).
+      pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
       setPdfPreview(module);
     });
   }, []);
@@ -107,15 +115,11 @@ export default function ReportPdfToolbar() {
       >
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-[#5d2e17]">
-              Mobile Number Correction Report
-            </p>
-            <p className="text-xs text-[#5d2e17]/70">
-              Export uses pdfkit-next with automatic overflow page breaks
-            </p>
+            <p className="text-sm font-semibold text-[#5d2e17]">{reportTitle}</p>
+            <p className="text-xs text-[#5d2e17]/70">{reportDescription}</p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
             <button
               type="button"
               onClick={() => void handlePreview()}
@@ -142,6 +146,16 @@ export default function ReportPdfToolbar() {
                 <Download size={16} />
               )}
               Download PDF
+            </button>
+
+            <button
+              type="button"
+              onClick={onToggleLanguage}
+              disabled={isDownloading}
+              className="inline-flex items-center gap-2 rounded-md border border-[#b8860b]/40 bg-[#fff8eb] px-3 py-2 text-sm font-semibold text-[#5d2e17] transition hover:bg-[#f6e7c8] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <span className="text-[#b8860b]">🌐</span>
+              {language === "en" ? "हिंदी" : "English"}
             </button>
           </div>
         </div>

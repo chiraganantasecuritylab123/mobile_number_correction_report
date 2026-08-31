@@ -53,7 +53,7 @@ export type FlowAnalysisItem = {
 
 export type LifeAreaEffect = {
   title: string;
-  icon: string | any;
+  icon: string;
   color: string;
   rating: number;
   points: string[];
