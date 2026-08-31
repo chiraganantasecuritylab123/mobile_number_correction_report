@@ -408,7 +408,7 @@ export default function PartnerVsBusinessAlignmentPage() {
                 className="text-center  text-[18px] font-nunito-sans px-18"
                 style={{ color: "#333" }}
             >
-                Compatibility analysis between your business vibration and your partners' personal vibrations.
+                Compatibility analysis between your business vibration and your partners&apos; personal vibrations.
             </p>
 
             <CompatibilityTable />

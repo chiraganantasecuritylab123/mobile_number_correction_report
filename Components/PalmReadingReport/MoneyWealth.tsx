@@ -388,12 +388,12 @@ export default function MoneyWealth({
 
         <footer className="mt-auto flex shrink-0 items-center justify-end gap-2 pt-2 pr-1">
           <Pattern3 size={28} />
-          <p
+          {/* <p
             className="text-[11px] font-bold tracking-[0.14em]"
             style={{ color: COLORS.brown }}
           >
             {pageNumber}
-          </p>
+          </p> */}
           <Pattern3 size={28} className="rotate-180" />
         </footer>
       </div>

@@ -365,7 +365,7 @@ export default function CareerGrowth({
             <CoverLotus size={22} />
           </div>
 
-          <div className="mt-1.5 flex w-full items-center justify-end gap-2 pr-1">
+          {/* <div className="mt-1.5 flex w-full items-center justify-end gap-2 pr-1">
             <Pattern3 size={28} />
             <p
               className="text-[11px] font-bold tracking-[0.14em]"
@@ -374,7 +374,7 @@ export default function CareerGrowth({
               {pageNumber}
             </p>
             <Pattern3 size={28} className="rotate-180" />
-          </div>
+          </div> */}
         </footer>
       </div>
     </PalmReadingReportPageShell>

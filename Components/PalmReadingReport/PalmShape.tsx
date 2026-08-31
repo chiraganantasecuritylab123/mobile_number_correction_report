@@ -309,7 +309,7 @@ export default function PalmShape({ pageNumber = "03" }: { pageNumber?: string }
             </p>
             <CoverLotus size={22} />
           </div>
-
+{/* 
           <div className="mt-1.5 flex w-full items-center justify-end gap-2 pr-1">
             <Pattern3 size={28} />
             <p
@@ -319,7 +319,7 @@ export default function PalmShape({ pageNumber = "03" }: { pageNumber?: string }
               {pageNumber}
             </p>
             <Pattern3 size={28} className="rotate-180" />
-          </div>
+          </div> */}
         </footer>
       </div>
     </PalmReadingReportPageShell>

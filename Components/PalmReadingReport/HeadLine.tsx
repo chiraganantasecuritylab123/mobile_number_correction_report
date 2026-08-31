@@ -99,12 +99,12 @@ function PalmReadingPageFrame({
       <div className="relative z-10 h-full">{children}</div>
       <div className="absolute bottom-[16px] right-[36px] z-20 flex items-center gap-1.5 font-cinzel">
         <Pattern3 size={36} />
-        <span
+        {/* <span
           className="text-[11px] font-bold tracking-[0.16em]"
           style={{ color: COLORS.maroon }}
         >
           {pageNumber}
-        </span>
+        </span> */}
         <Pattern3 size={36} className="rotate-180" />
       </div>
     </article>
