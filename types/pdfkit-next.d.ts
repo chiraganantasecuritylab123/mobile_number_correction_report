@@ -1,4 +1,4 @@
 declare module "pdfkit-next" {
-  import PDFDocument = require("pdfkit");
-  export = PDFDocument;
+  import PDFDocument from "pdfkit";
+  export default PDFDocument;
 }

@@ -27,12 +27,21 @@ function Pattern3({ className, size = 28 }: { className?: string; size?: number 
   );
 }
 
+type CoreInteractionIconProps = {
+  size?: number;
+  strokeWidth?: number;
+  style?: React.CSSProperties;
+  className?: string;
+};
+
+type CoreInteractionIcon = React.ComponentType<CoreInteractionIconProps>;
+
 export type CoreNumberInteraction = {
   number: number;
   label: string;
   planet: string;
   description: string;
-  icon: LucideIcon;
+  icon: CoreInteractionIcon;
 };
 
 export type MobileNumberTotalAnalysisProps = {
@@ -414,9 +423,9 @@ function ScrollOrnament({ className, style }: { className?: string; style?: Reac
 }
 
 function CoreInteractionCard({ data }: { data: CoreNumberInteraction }) {
-  let DisplayIcon = data.icon;
+  let DisplayIcon: CoreInteractionIcon = data.icon;
   if (data.label.toUpperCase().includes("CONDUCTOR") || data.planet.toUpperCase().includes("KETU")) {
-    DisplayIcon = MeditationIcon as any;
+    DisplayIcon = MeditationIcon;
   }
 
   return (

@@ -3,8 +3,8 @@ import { cinzel, geistMono, geistSans, nunitoSans } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mobile Number Correction Report",
-  description: "Premium Mobile Number Vibration Analysis & Correction Report by Astro Aarambh",
+  title: "Astro Aarambh Reports",
+  description: "Mobile number correction and signature analysis reports by Astro Aarambh",
 };
 
 export default function RootLayout({
@@ -15,9 +15,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} ${nunitoSans.variable} h-full antialiased`}
     >
-      <body className="font-cinzel min-h-full flex flex-col">{children}</body>
+      <body suppressHydrationWarning className="font-cinzel min-h-full flex flex-col">
+        {children}
+      </body>
     </html>
   );
 }
