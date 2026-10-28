@@ -17,12 +17,17 @@ export default function ReportHomeClient({
   children,
   reportTitle = "Rinn Mukti Report",
   reportDescription = "Karmic debt and financial blockage analysis report",
+  reportTitleHi,
+  reportDescriptionHi,
 }: {
   children: ReactNode;
   reportTitle?: string;
   reportDescription?: string;
+  reportTitleHi?: string;
+  reportDescriptionHi?: string;
 }) {
   const [language, setLanguage] = useState<"en" | "hi">("en");
+  const isHi = language === "hi";
 
   // Properly clone children and pass language prop
   const childrenWithProps = Children.map(children, (child) => {
@@ -35,8 +40,8 @@ export default function ReportHomeClient({
   return (
     <>
       <ReportPdfToolbar
-        reportTitle={reportTitle}
-        reportDescription={reportDescription}
+        reportTitle={isHi && reportTitleHi ? reportTitleHi : reportTitle}
+        reportDescription={isHi && reportDescriptionHi ? reportDescriptionHi : reportDescription}
         language={language}
         onToggleLanguage={() => setLanguage((current) => (current === "en" ? "hi" : "en"))}
       />

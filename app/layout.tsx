@@ -15,9 +15,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} ${nunitoSans.variable} h-full antialiased`}
     >
-      <body className="font-cinzel min-h-full flex flex-col">{children}</body>
+      <body suppressHydrationWarning className="font-cinzel min-h-full flex flex-col">
+        {children}
+      </body>
     </html>
   );
 }
