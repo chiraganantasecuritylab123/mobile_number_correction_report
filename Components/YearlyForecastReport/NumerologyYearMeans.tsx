@@ -22,7 +22,6 @@ const COLORS = {
   body: "#2A2420",
 } as const;
 
-const MOUNTAIN = "/assets/yearly-forecast-report/mountain-sunrise.png";
 
 export type NumerologyYearMeansProps = {
   language?: "en" | "hi";
@@ -339,7 +338,8 @@ export default function NumerologyYearMeans({
     <ReportPageShell
       pageNumber={pageNumber}
       pageLabel="yearly-forecast-numerology-means"
-      padding="18px 32px 10px"
+      padding="18px 32px 118px"
+      backgroundImage="/assets/yearly-forecast-report/page-border.jpg"
     >
       <div className="relative z-10 flex h-full min-h-0 flex-col">
         <header className="relative flex shrink-0 flex-col items-center">
@@ -425,16 +425,6 @@ export default function NumerologyYearMeans({
             ))}
           </div>
         </OrnateBox>
-
-        <div className="relative z-10 -mx-3 mt-auto shrink-0 pt-1">
-          <Image
-            src={MOUNTAIN}
-            alt=""
-            width={1024}
-            height={245}
-            className="h-[148px] w-full object-cover object-bottom mix-blend-multiply"
-          />
-        </div>
       </div>
     </ReportPageShell>
   );

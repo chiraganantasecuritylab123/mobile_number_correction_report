@@ -24,7 +24,6 @@ const COLORS = {
   rule: "rgba(176, 132, 52, 0.45)",
 } as const;
 
-const MOUNTAIN = "/assets/yearly-forecast-report/mountain-sunrise.png";
 const GLOBE = "/assets/yearly-forecast-report/OIG3.VuEKIqKZp3h4x4R-removebg-preview.png";
 
 export type LuckyElementsProps = {
@@ -431,7 +430,8 @@ export default function LuckyElements({
     <ReportPageShell
       pageNumber={pageNumber}
       pageLabel="yearly-forecast-lucky-elements"
-      padding="14px 28px 6px"
+      padding="14px 28px 118px"
+      backgroundImage="/assets/yearly-forecast-report/page-border.jpg"
     >
       <div className="relative z-10 flex h-full min-h-0 flex-col">
         <header className="flex shrink-0 flex-col items-center">
@@ -574,16 +574,6 @@ export default function LuckyElements({
             </div>
           ))}
         </OrnateBox>
-
-        <div className="relative z-10 -mx-3 mt-auto shrink-0 pt-1">
-          <Image
-            src={MOUNTAIN}
-            alt=""
-            width={1024}
-            height={245}
-            className="h-[136px] w-full object-cover object-bottom mix-blend-multiply"
-          />
-        </div>
       </div>
     </ReportPageShell>
   );

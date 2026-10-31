@@ -347,7 +347,8 @@ export default function SadeSatiEclipses({
     <ReportPageShell
       pageNumber={pageNumber}
       pageLabel="yearly-forecast-sadesati"
-      padding="22px 34px 12px"
+      padding="22px 34px 118px"
+      backgroundImage="/assets/yearly-forecast-report/page-border.jpg"
     >
       <div className="relative z-10 flex h-full min-h-0 flex-col">
         {/* Sade Sati section */}
@@ -408,17 +409,6 @@ export default function SadeSatiEclipses({
         >
           {t.footnote}
         </p>
-
-        <div className="mt-auto -mx-[34px] -mb-[12px] w-[calc(100%+68px)] shrink-0 overflow-hidden">
-          <Image
-            src={ASSETS.mountain}
-            alt=""
-            width={794}
-            height={140}
-            className="h-[112px] w-full object-cover object-center"
-            priority
-          />
-        </div>
       </div>
     </ReportPageShell>
   );

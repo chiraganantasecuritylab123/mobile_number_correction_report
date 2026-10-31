@@ -27,7 +27,6 @@ const COLORS = {
   red: "#C04545",
 } as const;
 
-const MOUNTAIN = "/assets/yearly-forecast-report/mountain-sunrise.png";
 const COUPLE = "/assets/yearly-forecast-report/love-couple.jpg";
 const REMEDY_ART = "/assets/yearly-forecast-report/love-remedy.jpg";
 const PRAYER_ICON = "/assets/yearly-forecast-report/prayer-hands-icon.jpg";
@@ -207,19 +206,6 @@ function FrameCorner({ className }: { className?: string }) {
   );
 }
 
-function PageFrame() {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-30">
-      <div className="absolute inset-[1px]" style={{ border: `1.25px solid ${COLORS.gold}` }} />
-      <div className="absolute inset-[5px]" style={{ border: "0.7px solid rgba(198,163,90,0.55)" }} />
-      <FrameCorner className="absolute left-[-2px] top-[-2px] h-[54px] w-[54px]" />
-      <FrameCorner className="absolute right-[-2px] top-[-2px] h-[54px] w-[54px] -scale-x-100" />
-      <FrameCorner className="absolute bottom-[-2px] left-[-2px] h-[54px] w-[54px] -scale-y-100" />
-      <FrameCorner className="absolute bottom-[-2px] right-[-2px] h-[54px] w-[54px] -scale-x-100 -scale-y-100" />
-    </div>
-  );
-}
-
 function TitlePlaque({ title, isHi }: { title: string; isHi: boolean }) {
   return (
     <div
@@ -381,9 +367,8 @@ export default function LifeAreasLove({
   const chartType = isHi ? "text-[11px] leading-[1.22]" : "text-[11.5px] leading-[1.22]";
 
   return (
-    <ReportPageShell pageNumber={pageNumber} pageLabel="yearly-forecast-life-love" padding="12px 16px 8px">
+    <ReportPageShell pageNumber={pageNumber} pageLabel="yearly-forecast-life-love" padding="12px 16px 118px" backgroundImage="/assets/yearly-forecast-report/page-border.jpg">
       <div className="relative z-10 flex h-full min-h-0 flex-col px-3 pt-2">
-        <PageFrame />
 
         <header className="relative z-10 mt-2 shrink-0">
           <TitlePlaque title={t.title} isHi={isHi} />
@@ -570,17 +555,6 @@ export default function LifeAreasLove({
             </ul>
           </div>
         </section>
-
-        <div className="relative z-10 -mx-1 mt-1 shrink-0">
-          <Image
-            src={MOUNTAIN}
-            alt=""
-            width={1024}
-            height={245}
-            className="h-auto w-full"
-            style={{ width: "100%", height: "auto", mixBlendMode: "multiply" }}
-          />
-        </div>
       </div>
     </ReportPageShell>
   );

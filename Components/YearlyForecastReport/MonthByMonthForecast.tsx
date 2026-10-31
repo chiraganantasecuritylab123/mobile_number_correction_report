@@ -24,7 +24,6 @@ const COLORS = {
   rule: "rgba(176, 132, 52, 0.4)",
 } as const;
 
-const MOUNTAIN = "/assets/yearly-forecast-report/mountain-sunrise.png";
 const MONTH_ART = {
   jan: "/assets/yearly-forecast-report/Golden_Moonlit_Mountain_Lake_Emblem-removebg-preview.png",
   feb: "/assets/yearly-forecast-report/make_proepr_round_shap_image_png_image_generate_please_gener-removebg-preview.png",
@@ -2026,18 +2025,6 @@ function MonthMedallion({
   );
 }
 
-function MountainRange() {
-  return (
-    <Image
-      src={MOUNTAIN}
-      alt=""
-      width={1024}
-      height={245}
-      className="h-[112px] w-full object-cover object-bottom mix-blend-multiply"
-    />
-  );
-}
-
 export default function MonthByMonthForecast({
   language = "en",
   pageNumber = "10",
@@ -2053,7 +2040,8 @@ export default function MonthByMonthForecast({
     <ReportPageShell
       pageNumber={pageNumber}
       pageLabel={`yearly-forecast-month-${pair}`}
-      padding="14px 28px 6px"
+      padding="14px 28px 118px"
+      backgroundImage="/assets/yearly-forecast-report/page-border.jpg"
     >
       <div className="relative z-10 flex h-full min-h-0 flex-col">
         <header className="flex shrink-0 flex-col items-center">
@@ -2143,10 +2131,6 @@ export default function MonthByMonthForecast({
             </div>
           </OrnateBox>
         ))}
-
-        <div className="relative z-10 -mx-3 mt-auto shrink-0 pt-1">
-          <MountainRange />
-        </div>
       </div>
     </ReportPageShell>
   );

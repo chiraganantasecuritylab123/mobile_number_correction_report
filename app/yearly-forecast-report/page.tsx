@@ -15,6 +15,15 @@ import LifeAreasMoney from "@/Components/YearlyForecastReport/LifeAreasMoney";
 import LifeAreasMoneyCont from "@/Components/YearlyForecastReport/LifeAreasMoneyCont";
 import LifeAreasLove from "@/Components/YearlyForecastReport/LifeAreasLove";
 import LifeAreasLoveCont from "@/Components/YearlyForecastReport/LifeAreasLoveCont";
+import LifeAreasFamily from "@/Components/YearlyForecastReport/LifeAreasFamily";
+import LifeAreasFamilyCont from "@/Components/YearlyForecastReport/LifeAreasFamilyCont";
+import LifeAreasHealth from "@/Components/YearlyForecastReport/LifeAreasHealth";
+import LifeAreasHealthCont from "@/Components/YearlyForecastReport/LifeAreasHealthCont";
+import LifeAreasProperty from "@/Components/YearlyForecastReport/LifeAreasProperty";
+import LifeAreasPropertyCont from "@/Components/YearlyForecastReport/LifeAreasPropertyCont";
+import LifeAreasTravel from "@/Components/YearlyForecastReport/LifeAreasTravel";
+import LifeAreasTravelCont from "@/Components/YearlyForecastReport/LifeAreasTravelCont";
+import MuhuratGuide from "@/Components/YearlyForecastReport/MuhuratGuide";
 
 export default function YearlyForecastReportPage() {
   return (
@@ -45,6 +54,15 @@ export default function YearlyForecastReportPage() {
       <LifeAreasMoneyCont pageNumber="19" />
       <LifeAreasLove pageNumber="20" />
       <LifeAreasLoveCont pageNumber="21" />
+      <LifeAreasFamily pageNumber="22" />
+      <LifeAreasFamilyCont pageNumber="23" />
+      <LifeAreasHealth pageNumber="24" />
+      <LifeAreasHealthCont pageNumber="25" />
+      <LifeAreasProperty pageNumber="26" />
+      <LifeAreasPropertyCont pageNumber="27" />
+      <LifeAreasTravel pageNumber="28" />
+      <LifeAreasTravelCont pageNumber="29" />
+      <MuhuratGuide pageNumber="30" />
     </ReportHomeClient>
   );
 }
