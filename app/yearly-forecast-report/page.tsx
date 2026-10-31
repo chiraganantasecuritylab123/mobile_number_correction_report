@@ -9,6 +9,12 @@ import NumerologyOfYear from "@/Components/YearlyForecastReport/NumerologyOfYear
 import NumerologyYearMeans from "@/Components/YearlyForecastReport/NumerologyYearMeans";
 import LuckyElements from "@/Components/YearlyForecastReport/LuckyElements";
 import MonthByMonthForecast from "@/Components/YearlyForecastReport/MonthByMonthForecast";
+import LifeAreasDetail from "@/Components/YearlyForecastReport/LifeAreasDetail";
+import LifeAreasCareer from "@/Components/YearlyForecastReport/LifeAreasCareer";
+import LifeAreasMoney from "@/Components/YearlyForecastReport/LifeAreasMoney";
+import LifeAreasMoneyCont from "@/Components/YearlyForecastReport/LifeAreasMoneyCont";
+import LifeAreasLove from "@/Components/YearlyForecastReport/LifeAreasLove";
+import LifeAreasLoveCont from "@/Components/YearlyForecastReport/LifeAreasLoveCont";
 
 export default function YearlyForecastReportPage() {
   return (
@@ -33,6 +39,12 @@ export default function YearlyForecastReportPage() {
       <MonthByMonthForecast pageNumber="13" pair="jul-aug" />
       <MonthByMonthForecast pageNumber="14" pair="sep-oct" />
       <MonthByMonthForecast pageNumber="15" pair="nov-dec" />
+      <LifeAreasDetail pageNumber="16" />
+      <LifeAreasCareer pageNumber="17" />
+      <LifeAreasMoney pageNumber="18" />
+      <LifeAreasMoneyCont pageNumber="19" />
+      <LifeAreasLove pageNumber="20" />
+      <LifeAreasLoveCont pageNumber="21" />
     </ReportHomeClient>
   );
 }
