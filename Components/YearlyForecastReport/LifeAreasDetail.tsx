@@ -26,7 +26,6 @@ const COLORS = {
   ink: "#2C3A66",
 } as const;
 
-const MOUNTAIN = "/assets/yearly-forecast-report/mountain-sunrise.png";
 
 export type LifeAreasDetailProps = {
   language?: "en" | "hi";
@@ -409,19 +408,6 @@ function TransitMark({ icon }: { icon: TransitIcon }) {
   return <JupiterGlyph />;
 }
 
-function PageFrame() {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-30">
-      <div className="absolute inset-[1px]" style={{ border: `1.25px solid ${COLORS.gold}` }} />
-      <div className="absolute inset-[5px]" style={{ border: "0.7px solid rgba(198,163,90,0.55)" }} />
-      <FrameCorner className="absolute left-[-2px] top-[-2px] h-[54px] w-[54px]" />
-      <FrameCorner className="absolute right-[-2px] top-[-2px] h-[54px] w-[54px] -scale-x-100" />
-      <FrameCorner className="absolute bottom-[-2px] left-[-2px] h-[54px] w-[54px] -scale-y-100" />
-      <FrameCorner className="absolute bottom-[-2px] right-[-2px] h-[54px] w-[54px] -scale-x-100 -scale-y-100" />
-    </div>
-  );
-}
-
 export default function LifeAreasDetail({
   language = "en",
   pageNumber = "16",
@@ -435,11 +421,10 @@ export default function LifeAreasDetail({
     <ReportPageShell
       pageNumber={pageNumber}
       pageLabel="yearly-forecast-life-areas"
-      padding="12px 16px 8px"
+      padding="12px 16px 118px"
+      backgroundImage="/assets/yearly-forecast-report/page-border.jpg"
     >
       <div className="relative z-10 flex h-full min-h-0 flex-col px-3 pt-5">
-        <PageFrame />
-
         <header className="relative z-10 mx-auto mt-1.5 w-[86%] shrink-0">
           <TitlePlaque title={t.title} isHi={isHi} />
         </header>
@@ -551,17 +536,6 @@ export default function LifeAreasDetail({
             ))}
           </div>
         </section>
-
-        <div className="relative z-10 -mx-1 mt-auto shrink-0 pt-1">
-          <Image
-            src={MOUNTAIN}
-            alt=""
-            width={1200}
-            height={280}
-            className="h-[102px] w-full object-cover object-bottom"
-            style={{ mixBlendMode: "multiply" }}
-          />
-        </div>
       </div>
     </ReportPageShell>
   );

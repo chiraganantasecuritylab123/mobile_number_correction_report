@@ -26,9 +26,8 @@ const COLORS = {
   red: "#C04545",
 } as const;
 
-const MOUNTAIN = "/assets/yearly-forecast-report/mountain-sunrise.png";
 const COUPLE = "/assets/yearly-forecast-report/love-couple.jpg";
-const SHIVA = "/assets/yearly-forecast-report/love-shiva-parvati.jpg";
+const SHIVA = "/assets/yearly-forecast-report/love-shiva-panel.jpg";
 const PRAYER_ICON = "/assets/yearly-forecast-report/prayer-hands-icon.jpg";
 
 export type LifeAreasLoveContProps = {
@@ -139,19 +138,6 @@ function FrameCorner({ className }: { className?: string }) {
       <circle cx="9" cy="9" r="2.15" fill={COLORS.gold} />
       <path d="M8 50v8M50 8h8" stroke={COLORS.gold} strokeWidth="0.85" strokeLinecap="round" />
     </svg>
-  );
-}
-
-function PageFrame() {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-30">
-      <div className="absolute inset-[1px]" style={{ border: `1.25px solid ${COLORS.gold}` }} />
-      <div className="absolute inset-[5px]" style={{ border: "0.7px solid rgba(198,163,90,0.55)" }} />
-      <FrameCorner className="absolute left-[-2px] top-[-2px] h-[54px] w-[54px]" />
-      <FrameCorner className="absolute right-[-2px] top-[-2px] h-[54px] w-[54px] -scale-x-100" />
-      <FrameCorner className="absolute bottom-[-2px] left-[-2px] h-[54px] w-[54px] -scale-y-100" />
-      <FrameCorner className="absolute bottom-[-2px] right-[-2px] h-[54px] w-[54px] -scale-x-100 -scale-y-100" />
-    </div>
   );
 }
 
@@ -267,10 +253,8 @@ export default function LifeAreasLoveCont({
   void forecastYear;
 
   return (
-    <ReportPageShell pageNumber={pageNumber} pageLabel="yearly-forecast-life-love-cont" padding="12px 16px 8px">
+    <ReportPageShell pageNumber={pageNumber} pageLabel="yearly-forecast-life-love-cont" padding="12px 16px 118px" backgroundImage="/assets/yearly-forecast-report/page-border.jpg">
       <div className="relative z-10 flex h-full min-h-0 flex-col px-3 pt-2">
-        <PageFrame />
-
         <header className="relative z-10 mt-2 shrink-0">
           <TitlePlaque title={t.title} isHi={isHi} />
         </header>
@@ -284,18 +268,10 @@ export default function LifeAreasLoveCont({
           {t.subtitleRest}
         </p>
 
-        <section className="relative z-10 mt-1.5 shrink-0 overflow-hidden rounded-[3px]" style={{ border: `1.15px solid ${COLORS.gold}` }}>
-          <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[34%]">
-            <Image src={COUPLE} alt="" fill sizes="280px" className="object-cover" style={{ objectPosition: "62% 42%" }} />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(90deg, rgba(255,248,236,1) 0%, rgba(255,248,236,0.35) 22%, rgba(255,248,236,0) 48%)",
-              }}
-            />
-          </div>
+        <section className="relative z-10 mt-1.5 grid shrink-0 grid-cols-[minmax(0,1fr)_272px] overflow-hidden rounded-[3px]" style={{ border: `1.15px solid ${COLORS.gold}` }}>
+          <div className="min-w-0">
           <div
-            className="relative z-10 flex h-[34px] w-[68%] items-center gap-2 px-3"
+            className="relative z-10 flex h-[34px] items-center gap-2 px-3"
             style={{
               background: `linear-gradient(180deg, #8C2A38 0%, ${COLORS.banner} 58%, #641520 100%)`,
               boxShadow: "inset 0 1px 0 rgba(255,220,170,0.28)",
@@ -309,7 +285,7 @@ export default function LifeAreasLoveCont({
               {t.banner}
             </h3>
           </div>
-          <div className="relative z-10 flex items-start gap-2.5 px-3 py-2 pr-[34%]">
+          <div className="relative z-10 flex items-start gap-2.5 px-3 py-2">
             <NumberDiamond />
             <div className="min-w-0 pt-0.5">
               <h3
@@ -325,6 +301,14 @@ export default function LifeAreasLoveCont({
                 {t.numbers}
               </p>
             </div>
+          </div>
+          </div>
+          <div className="relative min-h-[174px]">
+            <Image src={COUPLE} alt="" fill sizes="320px" className="object-cover" style={{ objectPosition: "center 50%" }} />
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 w-8"
+              style={{ background: "linear-gradient(90deg, rgba(255,248,236,0.95) 0%, rgba(255,248,236,0) 100%)" }}
+            />
           </div>
         </section>
 
@@ -385,19 +369,10 @@ export default function LifeAreasLoveCont({
         </div>
 
         <section
-          className="relative z-10 mt-1.5 shrink-0 overflow-hidden rounded-[3px]"
+          className="relative z-10 mt-1.5 grid shrink-0 grid-cols-[minmax(0,1fr)_250px] overflow-hidden rounded-[3px]"
           style={{ border: `1.15px solid ${COLORS.gold}`, background: "rgba(255,248,236,0.55)" }}
         >
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-[34%]">
-            <Image src={SHIVA} alt="" fill sizes="280px" className="object-cover" style={{ objectPosition: "78% center" }} />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(90deg, rgba(255,248,236,1) 0%, rgba(255,248,236,0.55) 28%, rgba(255,248,236,0) 58%)",
-              }}
-            />
-          </div>
-          <div className="relative z-10 py-1.5 pl-3 pr-[36%]">
+          <div className="relative z-10 min-w-0 py-1.5 pl-3 pr-2">
             <div className="flex items-center gap-2">
               <span
                 className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-[#F8F1E3]"
@@ -414,18 +389,14 @@ export default function LifeAreasLoveCont({
             </div>
             <BulletList items={t.remedy} isHi={isHi} />
           </div>
+          <div className="relative min-h-[156px]">
+            <Image src={SHIVA} alt="" width={180} height={100} sizes="320px" className="object-cover ml-auto" style={{ objectPosition: "center center" }} />
+            <div
+              className="pointer-events-none absolute inset-y-0 left-15 w-5"
+              style={{ background: "linear-gradient(90deg, rgba(248,237,212,0.9) 0%, rgba(248,237,212,0) 100%)" }}
+            />
+          </div>
         </section>
-
-        <div className="relative z-10 -mx-1 mt-1 shrink-0">
-          <Image
-            src={MOUNTAIN}
-            alt=""
-            width={1024}
-            height={245}
-            className="h-[72px] w-full object-cover object-center"
-            style={{ mixBlendMode: "multiply" }}
-          />
-        </div>
       </div>
     </ReportPageShell>
   );

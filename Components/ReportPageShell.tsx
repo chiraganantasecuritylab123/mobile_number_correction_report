@@ -26,6 +26,8 @@ type ReportPageShellProps = {
   pageNumber?: string;
   /** Stable identifier used in PDF debug logs */
   pageLabel?: string;
+  /** Full-page parchment frame. Falls back to the shared cover background. */
+  backgroundImage?: string;
 };
 
 export default function ReportPageShell({
@@ -36,6 +38,7 @@ export default function ReportPageShell({
   style,
   pageNumber = "01",
   pageLabel,
+  backgroundImage,
 }: ReportPageShellProps) {
   const resolvedLabel = pageLabel ?? `page-${pageNumber}`;
 
@@ -44,12 +47,20 @@ export default function ReportPageShell({
       data-report-page
       data-page-label={resolvedLabel}
       data-report-page-number={pageNumber}
-      className="relative mx-auto overflow-hidden shadow-xl bg-[url('/assets/cover-bg.png')] bg-cover bg-center bg-no-repeat font-cinzel"
+      className={`relative mx-auto overflow-hidden shadow-xl bg-center bg-no-repeat font-cinzel ${backgroundImage ? "" : "bg-[url('/assets/cover-bg.png')] bg-cover"}`}
       style={{
         width,
         minHeight: height,
         height,
         color: REPORT_COLORS.brown,
+        ...(backgroundImage
+          ? {
+              backgroundImage: `url("${backgroundImage}")`,
+              backgroundSize: "100% 100%",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }
+          : {}),
         ...style,
       }}
     >

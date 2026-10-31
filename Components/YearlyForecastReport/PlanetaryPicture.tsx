@@ -285,18 +285,6 @@ function LotusMark() {
   );
 }
 
-function MountainRange() {
-  return (
-    <Image
-      src={ASSETS.mountain}
-      alt=""
-      width={1024}
-      height={245}
-      className="h-[132px] w-full object-cover object-bottom mix-blend-multiply"
-    />
-  );
-}
-
 function PeriodIcon({ name }: { name: string }) {
   if (name === "mars-sun") return <SunMark />;
   if (name === "mars-moon") return <MoonMark />;
@@ -317,7 +305,8 @@ export default function PlanetaryPicture({
     <ReportPageShell
       pageNumber={pageNumber}
       pageLabel="yearly-forecast-planetary"
-      padding="18px 34px 14px"
+      padding="18px 34px 118px"
+      backgroundImage="/assets/yearly-forecast-report/page-border.jpg"
     >
       <div className="relative z-10 flex h-full min-h-0 flex-col">
         <CornerMoon />
@@ -473,10 +462,6 @@ export default function PlanetaryPicture({
             )}
           </p>
         </OrnateBox>
-
-        <div className="relative z-10 -mx-2 mt-auto shrink-0">
-          <MountainRange />
-        </div>
       </div>
     </ReportPageShell>
   );
